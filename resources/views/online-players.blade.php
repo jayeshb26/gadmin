@@ -45,6 +45,7 @@
                     <th>Name</th>
                     <th>Username</th>
                     <th>Login Status</th>
+                    <th>Created At</th>
                 </tr>
             </thead>
             <tbody>
@@ -53,6 +54,7 @@
                         <td>{{ $player['Name'] }}</td>
                         <td>{{ $player['UserName'] }}</td>
                         <td>{{ $player['LoginStatus'] }}</td>
+                        <td>{{ $player['createdAt'] }}</td>
                     </tr>
                 @endforeach
             </tbody>

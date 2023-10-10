@@ -43,12 +43,12 @@ Route::group(['middleware' => 'CheckAuth'], function () {
     Route::post('/point_request_store', 'AdminController@point_request_store');
 
     Route::get('/Franchise/add_super_distributor', 'AdminController@add_super_distributor');
-    Route::get('/Franchise/add_agent', 'AdminController@add_super_distributor');
+    // Route::get('/Franchise/add_agent', 'AdminController@add_super_distributor');
     Route::get('/Franchise/add_distributor', 'AdminController@add_distributor');
     Route::get('/Franchise/add_retailer', 'AdminController@add_retailer');
     Route::get('/Franchise/add_player', 'AdminController@add_player');
 
-    Route::get('/agents/add_agent', 'AdminController@add_super_distributor');
+    // Route::get('/agents/add_agent', 'AdminController@add_super_distributor');
     Route::get('/agents/add_super_distributor', 'AdminController@add_super_distributor');
     Route::get('/agents/add_distributor', 'AdminController@add_distributor');
     Route::get('/agents/add_retailer', 'AdminController@add_retailer');
@@ -103,10 +103,10 @@ Route::group(['middleware' => 'CheckAuth'], function () {
     Route::post('/get_data', 'AdminController@get_data');
     Route::post('/get_distributer', 'AdminController@get_distributer');
 
-    Route::get('/PointFile', 'DashboardController@point_file');
-    Route::get('/verify_pointFile', 'DashboardController@verify_pointFile');
-    Route::get('/in_point', 'DashboardController@points_in');
-    Route::get('/points_out', 'DashboardController@points_out');
+    // Route::get('/PointFile', 'DashboardController@point_file');
+    // Route::get('/verify_pointFile', 'DashboardController@verify_pointFile');
+    // Route::get('/in_point', 'DashboardController@points_in');
+    // Route::get('/points_out', 'DashboardController@points_out');
 
     Route::get('/detail/{id}', 'AdminController@detail');
 

@@ -43,98 +43,92 @@
                 @php
                     $isFranchise = Session::get('is_f') == 'true';
                 @endphp
-                <div class="nav-item" id="usersNavItem">
-                    <a href="#" class="nav-link" id="usersToggle">
-                        <i class="link-icon fas fa-users"></i>
-                        <span class="link-title dropdown-toggle">Users Management</span>
-                    </a>
-                    <div class="custom-submenu" id="usersMenu">
-                        <a href="{{ url('/' . ($isFranchise ? 'Franchise' : 'agents') . '/add_' . ($isFranchise ? 'super_distributor' : 'agent')) }}"
-                            class="nav-link">
-                            <span class="link-title">Add Super Distributor</span>
+                @if (in_array(Session::get('role'), ['Admin', 'subadmin']))
+                    <div class="nav-item" id="usersNavItem">
+                        <a href="#" class="nav-link" id="usersToggle">
+                            <i class="link-icon fas fa-users"></i>
+                            <span class="link-title dropdown-toggle">Users Management</span>
                         </a>
-                        <a href="{{ url('/' . ($isFranchise ? 'Franchise' : 'agents') . '/add_' . ($isFranchise ? 'distributor' : 'agent')) }}"
-                            class="nav-link">
-                            <span class="link-title">Add Distributor</span>
-                        </a>
-                        <a href="{{ url('/' . ($isFranchise ? 'Franchise' : 'agents') . '/add_' . ($isFranchise ? 'retailer' : 'agent')) }}"
+                        <div class="custom-submenu" id="usersMenu">
+                            <a href="{{ url('/' . ($isFranchise ? 'Franchise' : 'agents') . '/add_' . ($isFranchise ? 'super_distributor' : 'agent')) }}"
+                                class="nav-link">
+                                <span class="link-title">Add Super Distributor</span>
+                            </a>
+                            <a href="{{ url('/' . ($isFranchise ? 'Franchise' : 'agents') . '/add_' . ($isFranchise ? 'distributor' : 'agent')) }}"
+                                class="nav-link">
+                                <span class="link-title">Add Distributor</span>
+                            </a>
+                            {{--  <a href="{{ url('/' . ($isFranchise ? 'Franchise' : 'agents') . '/add_' . ($isFranchise ? 'retailer' : 'agent')) }}"
                             class="nav-link">
                             <span class="link-title">Add Retailer</span>
-                        </a>
-                        <a href="{{ url('/' . ($isFranchise ? 'Franchise' : 'agents') . '/add_' . ($isFranchise ? 'agent' : 'agent')) }}"
+                        </a>  --}}
+                            {{--  <a href="{{ url('/' . ($isFranchise ? 'Franchise' : 'agents') . '/add_' . ($isFranchise ? 'agent' : 'agent')) }}"
                             class="nav-link">
                             <span class="link-title">Add Agent</span>
-                        </a>
-                        <a href="{{ url('/' . ($isFranchise ? 'Franchise' : 'agents') . '/add_' . ($isFranchise ? 'player' : 'agent')) }}"
-                            class="nav-link">
-                            <span class="link-title">Add Player</span>
-                        </a>
-                        <a href="{{ url('/users' . ($isFranchise ? '/Franchise' : '')) }}" class="nav-link">
-                            <span class="link-title">View Users</span>
-                        </a>
-                        <a href="{{ url('/roles') }}" class="nav-link">
+                        </a>  --}}
+                            <a href="{{ url('/' . ($isFranchise ? 'Franchise' : 'agents') . '/add_' . ($isFranchise ? 'player' : 'agent')) }}"
+                                class="nav-link">
+                                <span class="link-title">Add Player</span>
+                            </a>
+                            <a href="{{ url('/users' . ($isFranchise ? '/Franchise' : '')) }}" class="nav-link">
+                                <span class="link-title">View Users</span>
+                            </a>
+                            {{--  <a href="{{ url('/roles') }}" class="nav-link">
                             <span class="link-title">View Roles</span>
-                        </a>
+                        </a>  --}}
+                        </div>
                     </div>
-                </div>
-                <li class="nav-item {{ active_class([$isFranchise ? 'Franchise/' : 'agents/']) }}">
+                @endif
+                {{--  <li class="nav-item {{ active_class([$isFranchise ? 'Franchise/' : 'agents/']) }}">
                     <a href="{{ url('/' . ($isFranchise ? 'Franchise' : 'agents') . '/add_' . ($isFranchise ? 'super_distributor' : 'agent')) }}"
                         class="nav-link">
                         <i class="link-icon" data-feather="user-plus"></i>
                         <span class="link-title">Add Users</span>
                     </a>
-                </li>
+                </li>  --}}
                 {{--            Dropdown --}}
-                <div class="nav-item" id="anotherDropdown">
-                    <a href="#" class="nav-link dropdown-toggle" id="superToggle">
-                        <i class="link-icon fas fa-users"></i>
-                        <span class="link-title ">Super Distributor</span>
-                    </a>
-                    <div class="custom-submenu" id="superMenu">
-                        <a href="{{ url('/agents/add_super_distributor') }}" class="nav-link">
-                            <i class="link-icon fas fa-bar-chart"></i>
-                            <span span class="link-title">Add Super Distributor</span>
+                @if (in_array(Session::get('role'), ['Admin']))
+                    <div class="nav-item" id="anotherDropdown">
+                        <a href="#" class="nav-link dropdown-toggle" id="superToggle">
+                            <i class="link-icon fas fa-users"></i>
+                            <span class="link-title ">Super Distributor</span>
                         </a>
-                        <a href="{{ url('/getdata/super-distributor') }}" class="nav-link">
-                            <i class="link-icon fas fa-bar-chart"></i>
-                            <span class="link-title">View Super Distributor</span>
-                        </a>
+                        <div class="custom-submenu" id="superMenu">
+                            <a href="{{ url('/' . ($isFranchise ? 'Franchise' : 'agents') . '/add_' . ($isFranchise ? 'add_super_distributor' : 'agent')) }}"
+                                class="nav-link">
+                                <i class="link-icon fas fa-bar-chart"></i>
+                                <span span class="link-title">Add Super Distributor</span>
+                            </a>
+                            <a href="{{ url('/getdata/super-distributor') }}" class="nav-link">
+                                <i class="link-icon fas fa-bar-chart"></i>
+                                <span class="link-title">View Super Distributor</span>
+                            </a>
+                        </div>
                     </div>
-                </div>
-                <div class="nav-item" id="anotherDropdown">
-                    <a href="#" class="nav-link dropdown-toggle">
-                        <i class="link-icon fas fa-box"></i>
-                        <span class="link-title">Distributor</span>
-                    </a>
-                    <div class="custom-submenu">
-                        <a href="{{ url('/agents/add_distributor') }}" class="nav-link">
+                @endif
+                @if (in_array(Session::get('role'), ['Admin', 'super_distributor']))
+                    <div class="nav-item" id="anotherDropdown">
+                        <a href="#" class="nav-link dropdown-toggle">
                             <i class="link-icon fas fa-box"></i>
-                            <span class="link-title">Add Distributor</span>
+                            <span class="link-title">Distributor</span>
                         </a>
-                        <a href="{{ url('/getdata/distributor') }}" class="nav-link">
-                            <i class="link-icon fas fa-box"></i>
-                            <span class="link-title">View Distributor</span>
-                        </a>
+                        <div class="custom-submenu">
+                            <a href="{{ url('/agents/add_distributor') }}" class="nav-link">
+                                <i class="link-icon fas fa-box"></i>
+                                <span class="link-title">Add Distributor</span>
+                            </a>
+                            <a href="{{ url('/getdata/distributor') }}" class="nav-link">
+                                <i class="link-icon fas fa-box"></i>
+                                <span class="link-title">View Distributor</span>
+                            </a>
+                        </div>
                     </div>
-                </div>
-
-                <div class="nav-item" id="anotherDropdown">
-                    <a href="#" class="nav-link dropdown-toggle">
+                @endif
+                <div class="nav-item">
+                    <a href="{{ url('/agents/add_player') }}" class="nav-link">
                         <i class="link-icon fas fa-user-circle"></i>
-                        <span class="link-title">Retailer</span>
+                        <span class="link-title">Player</span>
                     </a>
-                    <div class="custom-submenu">
-                        <a href="{{ url('/agents/add_retailer') }}" class="nav-link">
-                            <i class="link-icon" data-feather="users"></i>
-                            <span class="link-title">Add Retailer</span>
-                        </a>
-                        <a href="{{ url('/getdata/retailer') }}"
-                            class="nav-link {{ active_class(['View Retailer']) }}">
-                            <i class="link-icon" data-feather="users"></i>
-                            <span class="link-title">View Retailer</span>
-                        </a>
-
-                    </div>
                 </div>
 
 
@@ -212,7 +206,7 @@
                                     class="nav-link">
                         @endif
                         <i class="link-icon fa fa-pie-chart"></i>
-                        <span class="link-title">Turnover Franchise Report</span>
+                        <span class="link-title">Turnover Report</span>
                         </a>
                     </li>
                 @else
@@ -225,7 +219,7 @@
                                     class="nav-link">
                         @endif
                         <i class="link-icon fa fa-pie-chart"></i>
-                        <span class="link-title">Turnover Agent Report</span>
+                        <span class="link-title">Turnover Report</span>
                         </a>
                     </li>
                 @endif
@@ -245,30 +239,30 @@
                     <small><span class="link-title">Point Request Transaction Report</span></small>
                 </a>
             </li>
-            <li class="nav-item {{ active_class(['PointFile']) }}">
+            {{--  <li class="nav-item {{ active_class(['PointFile']) }}">
                 <a href="{{ url('/PointFile') }}" class="nav-link">
                     <i class="link-icon fa fa-money"></i>
                     <span class="link-title">Point File</span>
                 </a>
-            </li>
-            <li class="nav-item {{ active_class(['verify_pointFile']) }}">
+            </li>  --}}
+            {{--  <li class="nav-item {{ active_class(['verify_pointFile']) }}">
                 <a href="{{ url('/verify_pointFile') }}" class="nav-link">
                     <i class="link-icon fa fa-money"></i>
                     <span class="link-title">Approve Request Point File</span>
                 </a>
-            </li>
-            <li class="nav-item {{ active_class(['in_point']) }}">
+            </li>  --}}
+            {{--  <li class="nav-item {{ active_class(['in_point']) }}">
                 <a href="{{ url('/in_point') }}" class="nav-link">
                     <i class="link-icon fa fa-money"></i>
                     <span class="link-title">In Points</span>
                 </a>
-            </li>
-            <li class="nav-item {{ active_class(['points_out']) }}">
+            </li>  --}}
+            {{--  <li class="nav-item {{ active_class(['points_out']) }}">
                 <a href="{{ url('/points_out') }}" class="nav-link">
                     <i class="link-icon fa fa-money"></i>
                     <span class="link-title">Out Points</span>
                 </a>
-            </li>
+            </li>  --}}
             @if (Session::get('role') == 'Admin')
                 <li class="nav-item {{ active_class(['winningPercent']) }}">
                     <a href="{{ url('/winningPercent') }}" class="nav-link">

@@ -342,10 +342,15 @@ class AdminController extends Controller
     {
         $onlinePlayers = User::where('isLogin', true)->where('role', 'player')->get();
         $onlinePlayers = $onlinePlayers->map(function ($player) {
+            $createdAt = $player->createdAt instanceof \MongoDB\BSON\UTCDateTime
+                ? $player->createdAt->toDateTime()->format('Y-m-d')
+                : null;
+
             return [
                 'Name' => $player->name,
                 'UserName' => $player->userName,
                 'LoginStatus' => $player->isLogin ? 'Online' : 'Offline',
+                'createdAt' => $createdAt, // Properly formatted date or null
             ];
         });
 
@@ -1440,7 +1445,7 @@ class AdminController extends Controller
                                 </tr>
                                 <tr>
                                     <td><a href='transfercredit/" . $value['_id'] . "' class='btn btn-outline-success title='Transfer Credit'>Add Points</a></td>
-                                    <td><a href='adjustcredit/" . $value['_id'] . "' class='btn btn-outline-warning' title='Adjust Credit'>Subtract Points</a></td>
+                                    <td><a href='adjustcredit/" . $value['_id'] . "' class='btn btn-outline-warning' title='Adjust Credit'>Minus Points</a></td>
                                 </tr>
                             </table>";
                 }
@@ -1852,10 +1857,10 @@ class AdminController extends Controller
     {
         return view('admin.create');
     }
-    public function add_agent()
-    {
-        return view('admin.create');
-    }
+    // public function add_agent()
+    // {
+    //     return view('admin.create');
+    // }
 
     public function add_player()
     {
