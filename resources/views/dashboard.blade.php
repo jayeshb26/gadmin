@@ -7,7 +7,7 @@
 @section('content')
     <div class="d-flex justify-content-between align-items-center flex-wrap grid-margin">
         <div>
-            <h4 class="mb-3 mb-md-0 text-white">Welcome to Dashboard</h4>
+            <h4 class="mb-3 mb-md-0 text-black">Welcome to Dashboard</h4>
         </div>
         <div class="d-flex align-items-center flex-wrap text-nowrap">
         </div>
@@ -322,7 +322,7 @@
 
 @push('plugin-scripts')
     <script src="{{ asset('assets/plugins/chartjs/Chart.min.js') }}"></script>
-{{--     <script src="{{ asset('assets/js/chartjs.js') }}"></script>--}}
+    {{--     <script src="{{ asset('assets/js/chartjs.js') }}"></script> --}}
     <script src="{{ asset('assets/plugins/jquery.flot/jquery.flot.js') }}"></script>
     <script src="{{ asset('assets/plugins/jquery.flot/jquery.flot.resize.js') }}"></script>
     <script src="{{ asset('assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}"></script>
