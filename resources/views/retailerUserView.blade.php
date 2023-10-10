@@ -49,7 +49,7 @@
                                     <th>Refferal</th>
                                     <th>Password</th>
                                     @if (Session::get('role') == 'Admin')
-                                        <th>TransactionPin</th>
+                                        <th>Settings</th>
                                     @endif
                                     <th>Credit</th>
                                     <th>Action</th>
@@ -78,7 +78,9 @@
                                         <td>{{ $value->refer->userName ?? '--' }}</td>
                                         <td>{{ $value['password'] }}</td>
                                         @if (Session::get('role') == 'Admin')
-                                            <td>{{ $value['transactionPin'] }}</td>
+                                            {{--  <td>{{ $value['transactionPin'] }}</td>  --}}<td class="align-center">
+                                                <div class="btn btn-warning fa fa-gear "></div>
+                                            </td>
                                         @endif
                                         <td>{{ number_format($value['creditPoint'], 2) }}</td>
                                         <td>
