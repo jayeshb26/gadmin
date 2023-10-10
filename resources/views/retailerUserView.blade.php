@@ -83,7 +83,7 @@
                                         <td>{{ number_format($value['creditPoint'], 2) }}</td>
                                         <td>
                                             <div class="btn-group btn-group-sm">
-                                                <a href="{{ url('admin/' . $value['_id'] . '/edit') }}" type="button"
+                                                <a href="{{ url('superAdmin/' . $value['_id'] . '/edit') }}" type="button"
                                                     class="btn btn-sm btn-outline-info" title="Edit user"><i
                                                         class="mdi mdi-pencil-box" style="font-size:20px;"></i></a>
                                                 <a href="{{ url('transfercredit/' . $value['_id']) }}"
