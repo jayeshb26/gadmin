@@ -93,14 +93,14 @@
                                                     </option>
                                                     <option value="5"
                                                         {{ $edata['role'] == 'distributor' ? 'selected' : '' }}>
-                                                        f_distributor</option>
+                                                        distributor</option>
                                                     <option value="6"
                                                         {{ $edata['role'] == 'retailer' ? 'selected' : '' }}>
-                                                        f_retailer
+                                                        retailer
                                                     </option>
                                                     <option value="7"
                                                         {{ $edata['role'] == 'player' ? 'selected' : '' }}>
-                                                        f_player
+                                                        player
                                                     </option>
                                                 @else
                                                     <option value="1"

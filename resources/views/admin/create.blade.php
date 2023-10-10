@@ -136,7 +136,7 @@
                                     {{-- <option value="5">f_distributor</option> --}}
                                 @elseif(Request::segment(2) == 'add_player')
                                     <input type="hidden" name="role" value="7" id="role">
-                                    {{-- <option value="7">f_player</option> --}}
+                                    {{-- <option value="7">player</option> --}}
                                 @endif
                             @else
                                 @if (Request::segment(2) == 'add_agent')

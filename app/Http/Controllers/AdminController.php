@@ -63,7 +63,7 @@ class AdminController extends Controller
             } elseif (Session::get('role') == "agent") {
                 $user = User::where('referralId', new \MongoDB\BSON\ObjectID(Session::get('id')))->where('role', 'super_distributor')->where('is_franchise', false)->orderBy('createdAt', 'DESC')->get();
             } elseif (Session::get('role') == "super_distributor") {
-                $user = User::where('referralId', new \MongoDB\BSON\ObjectID(Session::get('id')))->where('role', 'player')->where('is_franchise', false)->orderBy('createdAt', 'DESC')->get();
+                $user = User::where('referralId', new \MongoDB\BSON\ObjectID(Session::get('id')))->where('role', 'distributor')->where('is_franchise', false)->orderBy('createdAt', 'DESC')->get();
             } elseif (Session::get('role') == "distributor") {
                 $user = User::where('referralId', new \MongoDB\BSON\ObjectID(Session::get('id')))->where('role', 'player')->where('is_franchise', false)->orderBy('createdAt', 'DESC')->get();
             }
