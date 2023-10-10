@@ -24,6 +24,7 @@ class TnOverController extends Controller
         $TotalCommission = 0;
         $today = date_create(date("Y-m-d"));
         $users = User::where('role', '=', 'retailer')->get();
+        $players = User::where('role', '=', 'players')->get();
 
         $fm = date('m', strtotime($_GET['from']));
         $fd = date('j', strtotime($_GET['from']));
