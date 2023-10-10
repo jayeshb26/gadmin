@@ -94,7 +94,7 @@
                             <span class="link-title ">Super Distributor</span>
                         </a>
                         <div class="custom-submenu" id="superMenu">
-                            <a href="{{ url('/' . ($isFranchise ? 'Franchise' : 'agents') . '/add_' . ($isFranchise ? 'add_super_distributor' : 'agent')) }}"
+                            <a href="{{ url('/' . ($isFranchise ? 'Franchise' : 'agents') . '/add_' . ($isFranchise ? 'super_distributor' : 'agent')) }}"
                                 class="nav-link">
                                 <i class="link-icon fas fa-bar-chart"></i>
                                 <span span class="link-title">Add Super Distributor</span>
