@@ -160,7 +160,7 @@ Route::group(['middleware' => 'CheckAuth'], function () {
     Route::get('/role/super-distributor/{id}', 'RoleController@showSuperDistributorDetails')->name('super_distributor.details');
 
     Route::get('/getdata', 'RoleController@usersRoles');
-    Route::get('/getdata/retailer', 'RoleController@getRetailerData')->name('getdata.retailer');
+    Route::get('/getdata/player', 'RoleController@getPlayerData')->name('getdata.playerData');
     Route::get('/getdata/distributor', 'RoleController@getDistributorData')->name('getdata.distributor');
     Route::get('/getdata/super-distributor', 'RoleController@getSuperDistributorData')->name('getdata.super_distributor');
 
