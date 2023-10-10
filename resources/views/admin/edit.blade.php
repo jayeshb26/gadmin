@@ -34,8 +34,8 @@
                             $role = 'distributer';
                         } elseif (request()->segment(1) == 'super') {
                             $role = 'superDistributer';
-                        } elseif (request()->segment(1) == 'admin') {
-                            $role = 'admin';
+                        } elseif (request()->segment(1) == 'superAdmin') {
+                            $role = 'superAdmin';
                         }
                     @endphp
                     <form method="post" action="{{ url($role . '/' . $edata['_id']) }}">
@@ -81,7 +81,11 @@
                                     <div class="form-group mb-2">
                                         <select class="form-control" name="role" id="role">
                                             <option selected disabled>Select Role</option>
-                                            @if (Session::get('role') == 'Admin' || Session::get('role') == 'agent' || Session::get('role') == 'super_distributor' || Session::get('role') == 'distributor' || Session::get('role') == 'retailer')
+                                            @if (Session::get('role') == 'Admin' ||
+                                                    Session::get('role') == 'agent' ||
+                                                    Session::get('role') == 'super_distributor' ||
+                                                    Session::get('role') == 'distributor' ||
+                                                    Session::get('role') == 'retailer')
                                                 @if ($edata['is_franchise'] == 1)
                                                     <option value="3"
                                                         {{ $edata['role'] == 'super_distributor' ? 'selected' : '' }}>
@@ -104,14 +108,12 @@
                                                         Agent
                                                     </option>
                                                     <option value="3"
-                                                        {{ $edata['role'] == 'super_distributor' ? 'selected' : '' }}>super_distributor
+                                                        {{ $edata['role'] == 'super_distributor' ? 'selected' : '' }}>
+                                                        super_distributor
                                                     </option>
                                                     <option value="5"
                                                         {{ $edata['role'] == 'distributor' ? 'selected' : '' }}>
                                                         distributor</option>
-                                                    <option value="6"
-                                                        {{ $edata['role'] == 'retailer' ? 'selected' : '' }}>retailer
-                                                    </option>
                                                     <option value="7"
                                                         {{ $edata['role'] == 'player' ? 'selected' : '' }}>
                                                         player
@@ -211,31 +213,6 @@
                                         @enderror
                                     </div>
                                 </div>
-                            @elseif($edata['role'] == 'retailer')
-                                <div class="form-group d-flex" id="referral2">
-                                    <label class="col-sm-2 offset-lg-1 text-right control-label mt-2"
-                                        id="s1">Substitute</label>
-                                    <div class="col-sm-6" id="s2">
-                                        <div class="form-group mb-2">
-                                            <select class="form-control superDistributerId" name="superDistributerId"
-                                                id="superDistributerId">
-                                                <option selected disabled>Select Super Distributor</option>
-                                                @foreach ($udata as $value)
-                                                    @if ($edata['referralId'] == $value['_id'])
-                                                        <option value="{{ $edata['referralId'] }}"
-                                                            {{ $edata['referralId'] == $value['_id'] ? 'selected' : '' }}>
-                                                            {{ $value['userName'] . ' ' . $value['name'] }}</option>
-                                                    @endif
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        @error('superDistributer')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                </div>
                             @elseif($edata['role'] == 'player')
                                 <div class="form-group d-flex" id="referral2">
                                     <label class="col-sm-2 offset-lg-1 text-right control-label mt-2"
@@ -263,7 +240,11 @@
                                 </div>
                             @endif
                         @else
-                            @if ($edata['role'] == 'agent' || $edata['role'] == 'super_distributor' || $edata['role'] == 'distributor' || $edata['role'] == 'retailer' || $edata['role'] == 'player')
+                            @if (
+                                $edata['role'] == 'agent' ||
+                                    $edata['role'] == 'super_distributor' ||
+                                    $edata['role'] == 'distributor' ||
+                                    $edata['role'] == 'player')
                                 <input type='hidden' class='form-control ui-autocomplete-input'
                                     id='exampleInputUsername1' value='{{ $edata['referralId'] }}' name='referralId'
                                     autocomplete='off' placeholder='Enter Firm Name'>

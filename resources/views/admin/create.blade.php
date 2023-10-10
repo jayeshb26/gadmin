@@ -77,7 +77,6 @@
                             'add_agent' => 'Add Agent',
                             'add_super_distributor' => 'Add Super Distributor',
                             'add_distributor' => 'Add Distributor',
-                            'add_retailer' => 'Add Retailer',
                             'add_player' => 'Add Player',
                         ];
                     @endphp
@@ -85,7 +84,7 @@
                     <h6>{{ $headerText[Request::segment(2)] ?? '' }}</h6>
                 </div>
                 <div class="card-body">
-                    <form method="post" action="{{ url('/admin') }}">
+                    <form method="post" action="{{ url('/superAdmin') }}">
                         @csrf
                         @if (Session::has('msg'))
                             <div class="alert alert-danger" role="alert">{{ Session::get('msg') }}
@@ -127,18 +126,14 @@
                         @if (Session::get('role') == 'Admin' ||
                                 Session::get('role') == 'agent' ||
                                 Session::get('role') == 'super_distributor' ||
-                                Session::get('role') == 'distributor' ||
-                                Session::get('role') == 'retailer')
-                            @if (Request::segment(1) == 'Franchise')
+                                Session::get('role') == 'distributor')
+                            @if (Request::segment(1) == 'admin')
                                 @if (Request::segment(2) == 'add_super_distributor')
                                     <input type="hidden" name="role" value="3" id="role">
                                     {{-- <option value="3">f_super_distributor</option> --}}
                                 @elseif(Request::segment(2) == 'add_distributor')
                                     <input type="hidden" name="role" value="5" id="role">
                                     {{-- <option value="5">f_distributor</option> --}}
-                                @elseif(Request::segment(2) == 'add_retailer')
-                                    <input type="hidden" name="role" value="6" id="role">
-                                    {{-- <option value="6">f_retailer</option> --}}
                                 @elseif(Request::segment(2) == 'add_player')
                                     <input type="hidden" name="role" value="7" id="role">
                                     {{-- <option value="7">f_player</option> --}}
@@ -153,9 +148,6 @@
                                 @elseif(Request::segment(2) == 'add_distributor')
                                     <input type="hidden" name="role" value="5" id="role">
                                     {{-- <option value="5">distributor</option> --}}
-                                @elseif(Request::segment(2) == 'add_retailer')
-                                    <input type="hidden" name="role" value="6" id="role">
-                                    {{-- <option value="6">retailer</option> --}}
                                 @elseif(Request::segment(2) == 'add_player')
                                     <input type="hidden" name="role" value="7" id="role">
                                     {{-- <option value="7">player</option> --}}
@@ -166,12 +158,10 @@
                         @if (Session::get('role') == 'agent' ||
                                 Session::get('role') == 'super_distributor' ||
                                 Session::get('role') == 'Admin' ||
-                                Session::get('role') == 'distributor' ||
-                                Session::get('role') == 'retailer')
+                                Session::get('role') == 'distributor')
                             @if (Request::segment(2) == 'add_distributor' ||
-                                    Request::segment(2) == 'add_retailer' ||
                                     Request::segment(2) == 'add_player' ||
-                                    (Request::segment(2) == 'add_super_distributor' && Request::segment(1) != 'Franchise'))
+                                    (Request::segment(2) == 'add_super_distributor' && Request::segment(1) != 'admin'))
                                 <div class="form-group d-flex" id="referral2">
                                     <label class="col-sm-2 offset-lg-1 text-right control-label mt-2"
                                         id="s1">Parent</label>
@@ -249,7 +239,7 @@
                             </div>
                         @endif
                         <input type="hidden" name="is_franchise" id="is_franchise"
-                            value="{{ Request::segment(1) == 'Franchise' ? 'true' : 'false' }}" />
+                            value="{{ Request::segment(1) == 'admin' ? 'true' : 'false' }}" />
                         <div class="form-group d-flex" id="perissions">
                             {{-- <label class="col-sm-2 offset-lg-1 text-right control-label mt-2">Page Permission</label> --}}
                             <div class="col-sm-3">
@@ -411,26 +401,6 @@
                         $('#superDistributerId').html(res);
                     }
                 });
-            } else if (parseInt(Role) == 6) {
-                $('#s1').show();
-                $('#comPoint').show();
-                $('#s2').show();
-                $('#s1').closest('.form-group').css('margin-bottom', '11px');
-                uri = "{{ url('/get_data') }}";
-                var token = $('input[name="_token"]').val();
-                $.ajax({
-                    url: uri,
-                    type: 'POST',
-                    data: {
-                        role: Role,
-                        is_f: is_f,
-                        _token: token
-                    },
-                    success: function(res) {
-                        $('#referral').addClass('form-group');
-                        $('#superDistributerId').html(res);
-                    }
-                });
             } else if (parseInt(Role) == 7) {
                 $('#s1').show();
                 $('#comPoint').hide();
@@ -447,7 +417,6 @@
                         _token: token
                     },
                     success: function(res) {
-                        $("#retailer").attr("checked", "checked");
                         // $('.superDistributerId').html(res);
                         $('#referral').addClass('form-group');
                         $('#superDistributerId').html(res);

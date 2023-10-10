@@ -45,8 +45,6 @@ class AdminController extends Controller
             } elseif (Session::get('role') == "super_distributor") {
                 $user = User::where('referralId', new \MongoDB\BSON\ObjectID(Session::get('id')))->where('role', 'distributor')->where('is_franchise', false)->orderBy('createdAt', 'DESC')->get();
             } elseif (Session::get('role') == "distributor") {
-                $user = User::where('referralId', new \MongoDB\BSON\ObjectID(Session::get('id')))->where('role', 'retailer')->where('is_franchise', false)->orderBy('createdAt', 'DESC')->get();
-            } elseif (Session::get('role') == "retailer") {
                 $user = User::where('referralId', new \MongoDB\BSON\ObjectID(Session::get('id')))->where('role', 'player')->where('is_franchise', false)->orderBy('createdAt', 'DESC')->get();
             }
 
@@ -61,20 +59,18 @@ class AdminController extends Controller
         // $this->middleware('admin');
         if (Session::get('is_f') == "true") {
             if (Session::get('role') == "Admin" || Session::get('role') == "subadmin") {
-                $user = User::where('userName', '!=', "superadminA")->where('userName', '!=', "superadminF")->where('role', '!=', "Admin")->where('role', '!=', "subadmin")->orderBy('createdAt', 'DESC')->where('role', '!=', "Admin")->where('is_franchise', true)->get();
-                $user_role = User::where('is_franchise', true)->pluck('role')->toArray();
+                $user = User::where('userName', '!=', "superadminA")->where('userName', '!=', "superadminF")->where('role', '!=', "Admin")->where('role', '!=', "subadmin")->orderBy('createdAt', 'DESC')->where('is_franchise', false)->get();
+            } elseif (Session::get('role') == "agent") {
+                $user = User::where('referralId', new \MongoDB\BSON\ObjectID(Session::get('id')))->where('role', 'super_distributor')->where('is_franchise', false)->orderBy('createdAt', 'DESC')->get();
             } elseif (Session::get('role') == "super_distributor") {
-                $user = User::where('referralId', new \MongoDB\BSON\ObjectID(Session::get('id')))->where('role', 'distributor')->where('is_franchise', true)->orderBy('createdAt', 'DESC')->get();
-                $user_role = User::where('is_franchise', true)->where('role', '!=', "Admin")->pluck('role')->toArray();
+                $user = User::where('referralId', new \MongoDB\BSON\ObjectID(Session::get('id')))->where('role', 'distributor')->where('is_franchise', false)->orderBy('createdAt', 'DESC')->get();
             } elseif (Session::get('role') == "distributor") {
-                $user = User::where('referralId', new \MongoDB\BSON\ObjectID(Session::get('id')))->where('role', 'retailer')->where('is_franchise', true)->orderBy('createdAt', 'DESC')->get();
-                $user_role = User::where('is_franchise', true)->where('role', '!=', "Admin")->pluck('role')->toArray();
-            } elseif (Session::get('role') == "retailer") {
-                $user = User::where('referralId', new \MongoDB\BSON\ObjectID(Session::get('id')))->where('role', 'player')->where('is_franchise', true)->orderBy('createdAt', 'DESC')->get();
-                $user_role = User::where('is_franchise', true)->where('role', '!=', "Admin")->pluck('role')->toArray();
+                $user = User::where('referralId', new \MongoDB\BSON\ObjectID(Session::get('id')))->where('role', 'player')->where('is_franchise', false)->orderBy('createdAt', 'DESC')->get();
             }
+
             $user_role = User::where('is_franchise', true)->pluck('role')->toArray();
             $user_role = array_unique($user_role);
+            // dd($user_role);
             return view('admin.view', ['data' => $user, 'role' => $user_role]);
         }
 
@@ -235,7 +231,7 @@ class AdminController extends Controller
         $user->save();
 
         if (Session::get('is_f') == "true") {
-            return redirect('/users/Franchise');
+            return redirect('/users/admin');
         } else {
             return redirect('/users');
         }
@@ -407,13 +403,6 @@ class AdminController extends Controller
                     $referral = $request->superDistributerId;
                 }
                 $role = "distributor";
-            } elseif ($request->role == 6) {
-                if (isset($request->referralId)) {
-                    $referral = $request->referralId;
-                } else {
-                    $referral = $request->superDistributerId;
-                }
-                $role = "retailer";
             } elseif ($request->role == 7) {
                 if (isset($request->referralId)) {
                     $referral = $request->referralId;
@@ -426,9 +415,6 @@ class AdminController extends Controller
             if ($request->role == "Admin") {
                 $referral = Session::get('id');
                 $role = "Admin";
-            } elseif ($request->role == "agent") {
-                $referral = Session::get('id');
-                $role = "agent";
             } elseif ($request->role == "super_distributor") {
                 if (isset($request->referralId)) {
                     $referral = $request->referralId;
@@ -443,13 +429,6 @@ class AdminController extends Controller
                     $referral = $request->superDistributerId;
                 }
                 $role = "distributor";
-            } elseif ($request->role == "retailer") {
-                if (isset($request->referralId)) {
-                    $referral = $request->referralId;
-                } else {
-                    $referral = $request->superDistributerId;
-                }
-                $role = "retailer";
             } elseif ($request->role == "player") {
                 if (isset($request->referralId)) {
                     $referral = $request->referralId;
@@ -493,7 +472,7 @@ class AdminController extends Controller
             // die();
             $user->save();
             if (Session::get('is_f') == "true") {
-                return redirect('/users/Franchise');
+                return redirect('/users/admin');
             } else {
                 return redirect('/users');
             }
@@ -827,40 +806,20 @@ class AdminController extends Controller
                     $output = "<option value='" . Session::get('id') . "'>" . Session::get('username') . " " . Session::get('name') . "</option>";
                     echo $output;
                 }
-            } elseif ($id == 6) {
-                if (Session::get('role') == "Admin") {
-                    $user = User::where('role', 'distributor')->where('is_franchise', true)->get()->toArray();
-                    if ($user != "") {
-                        foreach ($user as $value) {
-                            $data[] = $value;
-                        }
-                        // echo "<pre>";
-                        // print_r($data);
-                        // die();
-                        echo "<option selected disabled>Select distributor</option>";
-                        foreach ($data as $value) {
-                            echo "<option value='" . $value['_id'] . "'>" . $value['userName'] . " " . $value['name'] . "</option>";
-                        }
-                    }
-                } elseif (Session::get('role') == "agent" || Session::get('role') == "super_distributor" || Session::get('role') == "distributor") {
-                    echo "<option selected disabled>Select Substitute</option>";
-                    $output = "<option value='" . Session::get('id') . "'>" . Session::get('username') . " " . Session::get('name') . "</option>";
-                    echo $output;
-                }
             } elseif ($id == 7) {
                 if (Session::get('role') == "Admin") {
-                    $user = User::where('role', 'retailer')->where('is_franchise', true)->get();
+                    $user = User::where('role', 'distributor')->where('is_franchise', true)->get();
                     if ($user != "") {
                         foreach ($user as $value) {
                             $data[] = $value;
                         }
-                        echo "<option selected disabled>Select retailer</option>";
+                        echo "<option selected disabled>Select Distributor</option>";
                         foreach ($data as $value) {
                             $id = $value['_id'];
                             echo "<option value='" . $value['_id'] . "'>" . $value['userName'] . " " . $value['name'] . "</option>";
                         }
                     }
-                } elseif (Session::get('role') == "agent" || Session::get('role') == "super_distributor" || Session::get('role') == "distributor" || Session::get('role') == "retailer") {
+                } elseif (Session::get('role') == "super_distributor" || Session::get('role') == "distributor") {
 
                     echo "<option selected disabled>Select Substitute</option>";
                     $output = "<option value='" . Session::get('id') . "'>" . Session::get('username') . " " . Session::get('name') . "</option>";
@@ -936,18 +895,18 @@ class AdminController extends Controller
                 }
             } elseif ($id == 7) {
                 if (Session::get('role') == "Admin" || Session::get('role') == "distributor" || Session::get('role') == "agent" || Session::get('role') == "super_distributor") {
-                    $user = User::where('role', 'retailer')->where('is_franchise', false)->get();
+                    $user = User::where('role', 'distributor')->where('is_franchise', false)->get();
                     if ($user != "") {
                         foreach ($user as $value) {
                             $data[] = $value;
                         }
-                        echo "<option selected disabled>Select retailer</option>";
+                        echo "<option selected disabled>Select distributor</option>";
                         foreach ($data as $value) {
                             $id = $value['_id'];
                             echo "<option value='" . $value['_id'] . "'>" . $value['userName'] . " " . $value['name'] . "</option>";
                         }
                     }
-                } elseif (Session::get('role') == "retailer") {
+                } elseif (Session::get('role') == "distributor") {
 
                     echo "<option selected disabled>Select Substitute</option>";
                     $output = "<option value='" . Session::get('id') . "'>" . Session::get('username') . " " . Session::get('name') . "</option>";

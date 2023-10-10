@@ -28,31 +28,31 @@ Route::group(['middleware' => 'CheckAuth'], function () {
     Route::get('/logout', 'Auth\LoginController@logout');
     Route::get('/dashboard', 'DashboardController@index');
 
-    Route::get('/admin/Franchise', 'AdminController@franchise');
+    Route::get('/superuser/Franchise', 'AdminController@franchise');
 
     Route::get('/gamedraw/{id}', 'GameController@index');
     Route::get('/gameProfit', 'GameController@gameProfit');
 
     Route::post('/checkUserName', 'AdminController@CheckUserName');
     Route::resources([
-        'admin' => 'AdminController',
+        'superAdmin' => 'AdminController',
         'subAdmin' => 'subAdminController'
     ]);
 
     // Route::get('/point_requests_create', 'AdminController@point_requests_create');
     // Route::post('/point_request_store', 'AdminController@point_request_store');
 
-    Route::get('/Franchise/add_super_distributor', 'AdminController@add_super_distributor');
+    Route::get('/admin/add_super_distributor', 'AdminController@add_super_distributor');
     // Route::get('/Franchise/add_agent', 'AdminController@add_super_distributor');
-    Route::get('/Franchise/add_distributor', 'AdminController@add_distributor');
-    Route::get('/Franchise/add_retailer', 'AdminController@add_retailer');
-    Route::get('/Franchise/add_player', 'AdminController@add_player');
+    Route::get('/admin/add_distributor', 'AdminController@add_distributor');
+    // Route::get('/Franchise/add_retailer', 'AdminController@add_retailer');
+    Route::get('/admin/add_player', 'AdminController@add_player');
 
     // Route::get('/agents/add_agent', 'AdminController@add_super_distributor');
-    Route::get('/agents/add_super_distributor', 'AdminController@add_super_distributor');
-    Route::get('/agents/add_distributor', 'AdminController@add_distributor');
-    Route::get('/agents/add_retailer', 'AdminController@add_retailer');
-    Route::get('/agents/add_player', 'AdminController@add_player');
+    Route::get('/users/add_super_distributor', 'AdminController@add_super_distributor');
+    Route::get('/users/add_distributor', 'AdminController@add_distributor');
+    // Route::get('/agents/add_retailer', 'AdminController@add_retailer');
+    Route::get('users/add_player', 'AdminController@add_player');
 
     // Route::get('/point_request/{id}/{point}', 'AdminController@point_request_confirm');
 
@@ -60,7 +60,7 @@ Route::group(['middleware' => 'CheckAuth'], function () {
     Route::get('/admin/delete/{id}', 'AdminController@destroy');
     Route::get('/complaintAll/{id}', 'AdminController@complaintAll');
     Route::get('/users', 'AdminController@index');
-    Route::get('/users/Franchise', 'AdminController@user_Franchise');
+    Route::get('/users/admin', 'AdminController@user_Franchise');
     Route::get('/notification', 'AdminController@alert');
 
     Route::get('/do_generate_points', 'AdminController@do_generate_points');
@@ -118,7 +118,6 @@ Route::group(['middleware' => 'CheckAuth'], function () {
     Route::put('retailer/{id}', 'AdminController@update');
 
     Route::get('/distributer', 'DistributerController@index');
-    Route::get('/retailer', 'ReatilerController@index');
 
     Route::get('player/detail/{id}', 'CommanController@playerHistory');
 

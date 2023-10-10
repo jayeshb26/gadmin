@@ -49,7 +49,7 @@
                                     <th>Refferal</th>
                                     <th>Password</th>
                                     @if (Session::get('role') == 'Admin')
-                                        <th>TransactionPin</th>
+                                        <th>Minus Setting</th>
                                     @endif
                                     <th>Credit</th>
                                     <th>Action</th>
@@ -73,17 +73,19 @@
                                                         class="mdi mdi-eye"></i></a>
                                             @endif
                                         </td>
-                                        <td>{{ Request::segment(2) == 'Franchise' ? 'f_' . $value['role'] : $value['role'] }}
+                                        <td>{{ Request::segment(2) == 'admin' ? 'f_' . $value['role'] : $value['role'] }}
                                         </td>
                                         <td>{{ $value->refer->userName ?? '--' }}</td>
                                         <td>{{ $value['password'] }}</td>
                                         @if (Session::get('role') == 'Admin')
-                                            <td>{{ $value['transactionPin'] }}</td>
+                                            {{--  <td>{{ $value['transactionPin'] }}</td>  --}} <td>
+                                                <div class=" btn btn-warning fa fa-gear"> </div>
+                                            </td>
                                         @endif
                                         <td>{{ number_format($value['creditPoint'], 2) }}</td>
                                         <td>
                                             <div class="btn-group btn-group-sm">
-                                                <a href="{{ url('admin/' . $value['_id'] . '/edit') }}" type="button"
+                                                <a href="{{ url('superAdmin/' . $value['_id'] . '/edit') }}" type="button"
                                                     class="btn btn-sm btn-outline-info" title="Edit user"><i
                                                         class="mdi mdi-pencil-box" style="font-size:20px;"></i></a>
                                                 <a href="{{ url('transfercredit/' . $value['_id']) }}"
