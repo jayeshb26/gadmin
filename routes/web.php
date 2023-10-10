@@ -142,8 +142,8 @@ Route::group(['middleware' => 'CheckAuth'], function () {
     Route::post('/chpin', 'AdminController@chpin');
 
     Route::get('transfercredit/{id}', 'AdminController@transfercredit');
-    Route::get('point_request', 'AdminController@point_request');
-    Route::get('point_request/{id}/{points}', 'AdminController@point_request_id');
+    // Route::get('point_request', 'AdminController@point_request');
+    // Route::get('point_request/{id}/{points}', 'AdminController@point_request_id');
     Route::post('transfercredits/{id}', 'AdminController@transfercredits');
     Route::get('adjustcredit/{id}', 'AdminController@adjustcredit');
     Route::post('adjustcredit/{id}', 'AdminController@adjustcrEdits');

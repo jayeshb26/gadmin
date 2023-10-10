@@ -167,12 +167,12 @@
                     <span class="link-title">Transfer Point</span>
                 </a>
             </li>
-            <li class="nav-item {{ active_class(['point_request']) }}">
+            {{--  <li class="nav-item {{ active_class(['point_request']) }}">
                 <a href="{{ url('/point_request') }}" class="nav-link">
                     <i class="link-icon fa fa-exchange"></i>
                     <span class="link-title">Point Request</span>
                 </a>
-            </li>
+            </li>  --}}
 
             <li class="nav-item {{ active_class(['changepin']) }}">
                 <a href="{{ url('/changepin') }}" class="nav-link">
