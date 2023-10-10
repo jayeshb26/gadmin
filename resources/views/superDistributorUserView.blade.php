@@ -73,7 +73,7 @@
                                                         class="mdi mdi-eye"></i></a>
                                             @endif
                                         </td>
-                                        <td>{{ Request::segment(2) == 'Franchise' ? 'f_' . $value['role'] : $value['role'] }}
+                                        <td>{{ Request::segment(2) == 'admin' ? '' . $value['role'] : $value['role'] }}
                                         </td>
                                         <td>{{ $value->refer->userName ?? '--' }}</td>
                                         <td>{{ $value['password'] }}</td>
@@ -126,7 +126,7 @@
                                                             style="font-size:20px;"></i></a>
                                                 @endif
                                             </div>
-                                            {{-- href="{{ url('users/delete/'.$value['_id'])}}" --}}
+                                            {{--  href="{{ url('users/delete/' . $value['_id']) }}"  --}}
                                         </td>
                                         <td>{{ date('d-m-Y h:i:s A', strtotime($value['updatedAt'])) }}</td>
                                         <td>{{ date('d-m-Y h:i:s A', strtotime($value['createdAt'])) }}</td>

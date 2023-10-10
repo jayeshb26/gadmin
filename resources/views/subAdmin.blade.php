@@ -66,8 +66,7 @@
                                     <tr role="row" class="odd content">
                                         <td class=""><?php echo $SR_No++; ?></td>
                                         <td>{{ $value['userName'] }}</td>
-                                        <td>{{ Request::segment(2) == 'Franchise' ? 'f_' . $value['role'] : $value['role'] }}
-                                        </td>
+                                        <td>{{ Request::segment(2) == 'admin' ? $value['role'] : '' }}</td>
                                         <td>{{ $value->refer->userName }}</td>
                                         <td>{{ $value['name'] }}</td>
                                         <td>{{ moneyFormatIndia($value['creditPoint']) }}</td>
@@ -88,7 +87,7 @@
                                                     <a href="{{ url('banuser/' . $value['_id'] . '/' . $value['isActive']) }}"
                                                         class="btn btn-outline-success" title="Ban User"><i
                                                             class="mdi mdi-close-box" style="font-size:20px;"></i></a>
-                                                @elseif($value['isActive']==0)
+                                                @elseif($value['isActive'] == 0)
                                                     <a href="{{ url('banuser/' . $value['_id'] . '/0') }}"
                                                         class="btn btn-outline-danger" title="UnBan User"><i
                                                             class="mdi mdi-checkbox-marked" style="font-size:20px;"></i></a>

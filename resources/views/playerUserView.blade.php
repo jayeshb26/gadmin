@@ -73,7 +73,7 @@
                                                         class="mdi mdi-eye"></i></a>
                                             @endif
                                         </td>
-                                        <td>{{ Request::segment(2) == 'admin' ? 'f_' . $value['role'] : $value['role'] }}
+                                        <td>{{ Request::segment(2) == 'admin' ? '' . $value['role'] : $value['role'] }}
                                         </td>
                                         <td>{{ $value->refer->userName ?? '--' }}</td>
                                         <td>{{ $value['password'] }}</td>

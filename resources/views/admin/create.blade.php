@@ -124,16 +124,15 @@
                         </div>
 
                         @if (Session::get('role') == 'Admin' ||
-                                Session::get('role') == 'agent' ||
                                 Session::get('role') == 'super_distributor' ||
                                 Session::get('role') == 'distributor')
                             @if (Request::segment(1) == 'admin')
                                 @if (Request::segment(2) == 'add_super_distributor')
                                     <input type="hidden" name="role" value="3" id="role">
-                                    {{-- <option value="3">f_super_distributor</option> --}}
+                                    {{-- <option value="3">super_distributor</option> --}}
                                 @elseif(Request::segment(2) == 'add_distributor')
                                     <input type="hidden" name="role" value="5" id="role">
-                                    {{-- <option value="5">f_distributor</option> --}}
+                                    {{-- <option value="5">distributor</option> --}}
                                 @elseif(Request::segment(2) == 'add_player')
                                     <input type="hidden" name="role" value="7" id="role">
                                     {{-- <option value="7">player</option> --}}
