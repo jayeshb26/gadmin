@@ -1,0 +1,320 @@
+<nav class="sidebar">
+
+    <div class="sidebar-header">
+        <a href="{{ url('/dashboard') }}" class="sidebar-brand" style="font-size:20px">
+            Gold<span>Star</span>
+        </a>
+        <div class="text-black sidebar-toggler not-active" style="color: #000000">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+    <div class="sidebar-body">
+        <ul class="nav navbar-non-responsive">
+            <li class="nav-item nav-category"></li>
+            <li class="nav-item {{ active_class(['dashboard']) }}">
+                <a href="{{ url('/dashboard') }}" class="nav-link">
+                    <i class="link-icon" data-feather="box"></i>
+                    <span class="link-title">Dashboard</span>
+                </a>
+            </li>
+            @if (Session::get('role') == 'Admin')
+                <li class="nav-item {{ active_class(['generatePointList']) }}">
+                    <a href="{{ url('/generatePointList') }}" class="nav-link">
+                        <i class="link-icon" data-feather="box"></i>
+                        <span class="link-title">Generate Points</span>
+                    </a>
+                </li>
+            @endif
+
+            <li class="nav-item nav-category">Management</li>
+
+
+            @if (in_array(Session::get('role'), [
+                    'Admin',
+                    'subadmin',
+                    'agent',
+                    'super_distributor',
+                    'distributor',
+                    'retailer',
+                    'subadmin',
+                ]))
+                @php
+                    $isFranchise = Session::get('is_f') == 'true';
+                @endphp
+                <div class="nav-item" id="usersNavItem">
+                    <a href="#" class="nav-link" id="usersToggle">
+                        <i class="link-icon fas fa-users"></i>
+                        <span class="link-title dropdown-toggle">Users Management</span>
+                    </a>
+                    <div class="custom-submenu" id="usersMenu">
+                        <a href="{{ url('/' . ($isFranchise ? 'Franchise' : 'agents') . '/add_' . ($isFranchise ? 'super_distributor' : 'agent')) }}"
+                            class="nav-link">
+                            <span class="link-title">Add Super Distributor</span>
+                        </a>
+                        <a href="{{ url('/' . ($isFranchise ? 'Franchise' : 'agents') . '/add_' . ($isFranchise ? 'distributor' : 'agent')) }}"
+                            class="nav-link">
+                            <span class="link-title">Add Distributor</span>
+                        </a>
+                        <a href="{{ url('/' . ($isFranchise ? 'Franchise' : 'agents') . '/add_' . ($isFranchise ? 'retailer' : 'agent')) }}"
+                            class="nav-link">
+                            <span class="link-title">Add Retailer</span>
+                        </a>
+                        <a href="{{ url('/' . ($isFranchise ? 'Franchise' : 'agents') . '/add_' . ($isFranchise ? 'agent' : 'agent')) }}"
+                            class="nav-link">
+                            <span class="link-title">Add Agent</span>
+                        </a>
+                        <a href="{{ url('/' . ($isFranchise ? 'Franchise' : 'agents') . '/add_' . ($isFranchise ? 'player' : 'agent')) }}"
+                            class="nav-link">
+                            <span class="link-title">Add Player</span>
+                        </a>
+                        <a href="{{ url('/users' . ($isFranchise ? '/Franchise' : '')) }}" class="nav-link">
+                            <span class="link-title">View Users</span>
+                        </a>
+                        <a href="{{ url('/roles') }}" class="nav-link">
+                            <span class="link-title">View Roles</span>
+                        </a>
+                    </div>
+                </div>
+                <li class="nav-item {{ active_class([$isFranchise ? 'Franchise/' : 'agents/']) }}">
+                    <a href="{{ url('/' . ($isFranchise ? 'Franchise' : 'agents') . '/add_' . ($isFranchise ? 'super_distributor' : 'agent')) }}"
+                        class="nav-link">
+                        <i class="link-icon" data-feather="user-plus"></i>
+                        <span class="link-title">Add Users</span>
+                    </a>
+                </li>
+                {{--            Dropdown --}}
+                <div class="nav-item" id="anotherDropdown">
+                    <a href="#" class="nav-link dropdown-toggle" id="superToggle">
+                        <i class="link-icon fas fa-users"></i>
+                        <span class="link-title ">Super Distributor</span>
+                    </a>
+                    <div class="custom-submenu" id="superMenu">
+                        <a href="{{ url('/agents/add_super_distributor') }}" class="nav-link">
+                            <i class="link-icon fas fa-bar-chart"></i>
+                            <span span class="link-title">Add Super Distributor</span>
+                        </a>
+                        <a href="{{ url('/getdata/super-distributor') }}" class="nav-link">
+                            <i class="link-icon fas fa-bar-chart"></i>
+                            <span class="link-title">View Super Distributor</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="nav-item" id="anotherDropdown">
+                    <a href="#" class="nav-link dropdown-toggle">
+                        <i class="link-icon fas fa-box"></i>
+                        <span class="link-title">Distributor</span>
+                    </a>
+                    <div class="custom-submenu">
+                        <a href="{{ url('/agents/add_distributor') }}" class="nav-link">
+                            <i class="link-icon fas fa-box"></i>
+                            <span class="link-title">Add Distributor</span>
+                        </a>
+                        <a href="{{ url('/getdata/distributor') }}" class="nav-link">
+                            <i class="link-icon fas fa-box"></i>
+                            <span class="link-title">View Distributor</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="nav-item" id="anotherDropdown">
+                    <a href="#" class="nav-link dropdown-toggle">
+                        <i class="link-icon fas fa-user-circle"></i>
+                        <span class="link-title">Retailer</span>
+                    </a>
+                    <div class="custom-submenu">
+                        <a href="{{ url('/agents/add_retailer') }}" class="nav-link">
+                            <i class="link-icon" data-feather="users"></i>
+                            <span class="link-title">Add Retailer</span>
+                        </a>
+                        <a href="{{ url('/getdata/retailer') }}"
+                            class="nav-link {{ active_class(['View Retailer']) }}">
+                            <i class="link-icon" data-feather="users"></i>
+                            <span class="link-title">View Retailer</span>
+                        </a>
+
+                    </div>
+                </div>
+
+
+                {{--                <li class="nav-item {{ active_class(['users' . ($isFranchise ? '/Franchise' : '')]) }}"> --}}
+                {{--                    <a href="{{ url('/users' . ($isFranchise ? '/Franchise' : '')) }}" class="nav-link"> --}}
+                {{--                        <i class="link-icon" data-feather="user"></i> --}}
+                {{--                        <span class="link-title">View Users</span> --}}
+                {{--                    </a> --}}
+                {{--                </li> --}}
+            @endif
+
+            @if (Session::get('role') == 'Admin')
+                <li class="nav-item {{ active_class(['subAdmin/*']) }}">
+                    <a href="{{ url('/subAdmin') }}" class="nav-link">
+                        <i class="link-icon" data-feather="user"></i>
+                        <span class="link-title">View Sub Admin List</span>
+                    </a>
+                </li>
+            @endif
+            <li class="nav-item {{ active_class(['changepin']) }}">
+                <a href="{{ url('/online-players') }}" class="nav-link">
+                    <i class="link-icon fa fa-user-times"></i>
+                    <span class="link-title">Online Player</span>
+                </a>
+            </li>
+            <li class="nav-item {{ active_class(['changepin']) }}">
+                <a href="{{ url('/profile') }}" class="nav-link">
+                    <i class="link-icon fa fa-eye"></i>
+                    <span class="link-title">Profile View</span>
+                </a>
+            </li>
+
+            <li class="nav-item {{ active_class(['transfer']) }}">
+                <a href="{{ url('/transfer') }}" class="nav-link">
+                    <i class="link-icon fa fa-exchange"></i>
+                    <span class="link-title">Transfer Point</span>
+                </a>
+            </li>
+            <li class="nav-item {{ active_class(['point_request']) }}">
+                <a href="{{ url('/point_request') }}" class="nav-link">
+                    <i class="link-icon fa fa-exchange"></i>
+                    <span class="link-title">Point Request</span>
+                </a>
+            </li>
+
+            <li class="nav-item {{ active_class(['changepin']) }}">
+                <a href="{{ url('/changepin') }}" class="nav-link">
+                    <i class="link-icon fa fa-key"></i>
+                    <span class="link-title">Change Transaction Pin</span>
+                </a>
+            </li>
+
+
+            <li class="nav-item nav-category">Reports</li>
+            <li class="nav-item {{ active_class(['history']) }}">
+                <a href="{{ url('/history') }}" class="nav-link">
+                    <i class="link-icon fa fa-history"></i>
+                    <span class="link-title">Players History</span>
+                </a>
+            </li>
+            @if (in_array(Session::get('role'), ['Admin', 'agent', 'super_distributor', 'distributor', 'retailer']))
+                <li class="nav-item {{ active_class(['gamedraw']) }}">
+                    <a href="{{ url('/gamedraw/1') }}" class="nav-link">
+                        <i class="link-icon fa fa-history"></i>
+                        <span class="link-title">Game Draw</span>
+                    </a>
+                </li>
+                @if ($isFranchise)
+                    <li class="nav-item ">
+                        @if (Session::get('role') == 'Admin')
+                            <a href="{{ url('/Tnover?role=franchise&type=7&from=' . date('Y-m-d') . '&to=' . date('Y-m-d')) }}"
+                                class="nav-link">
+                            @else
+                                <a href="{{ url('/Tnover?role=' . Session::get('role') . '&type=7&from=' . date('Y-m-d') . '&to=' . date('Y-m-d')) }}"
+                                    class="nav-link">
+                        @endif
+                        <i class="link-icon fa fa-pie-chart"></i>
+                        <span class="link-title">Turnover Franchise Report</span>
+                        </a>
+                    </li>
+                @else
+                    <li class="nav-item ">
+                        @if (Session::get('role') == 'Admin')
+                            <a href="{{ url('/Tnover?role=agent&type=7&from=' . date('Y-m-d') . '&to=' . date('Y-m-d')) }}"
+                                class="nav-link">
+                            @else
+                                <a href="{{ url('/Tnover?role=' . Session::get('role') . '&type=7&from=' . date('Y-m-d') . '&to=' . date('Y-m-d')) }}"
+                                    class="nav-link">
+                        @endif
+                        <i class="link-icon fa fa-pie-chart"></i>
+                        <span class="link-title">Turnover Agent Report</span>
+                        </a>
+                    </li>
+                @endif
+                @if (Session::get('role') == 'Admin')
+                    <li class="nav-item {{ active_class(['gameProfit']) }}">
+                        <a href="{{ url('/gameProfit?type=7&from=' . date('Y-m-d') . '&to=' . date('Y-m-d')) }}"
+                            class="nav-link">
+                            <i class="link-icon fa fa-history"></i>
+                            <span class="link-title">Game Profit</span>
+                        </a>
+                    </li>
+                @endif
+            @endif
+            <li class="nav-item {{ active_class(['transactions']) }}">
+                <a href="{{ url('/transactions') }}" class="nav-link">
+                    <i class="link-icon fa fa-money"></i>
+                    <small><span class="link-title">Point Request Transaction Report</span></small>
+                </a>
+            </li>
+            <li class="nav-item {{ active_class(['PointFile']) }}">
+                <a href="{{ url('/PointFile') }}" class="nav-link">
+                    <i class="link-icon fa fa-money"></i>
+                    <span class="link-title">Point File</span>
+                </a>
+            </li>
+            <li class="nav-item {{ active_class(['verify_pointFile']) }}">
+                <a href="{{ url('/verify_pointFile') }}" class="nav-link">
+                    <i class="link-icon fa fa-money"></i>
+                    <span class="link-title">Approve Request Point File</span>
+                </a>
+            </li>
+            <li class="nav-item {{ active_class(['in_point']) }}">
+                <a href="{{ url('/in_point') }}" class="nav-link">
+                    <i class="link-icon fa fa-money"></i>
+                    <span class="link-title">In Points</span>
+                </a>
+            </li>
+            <li class="nav-item {{ active_class(['points_out']) }}">
+                <a href="{{ url('/points_out') }}" class="nav-link">
+                    <i class="link-icon fa fa-money"></i>
+                    <span class="link-title">Out Points</span>
+                </a>
+            </li>
+            @if (Session::get('role') == 'Admin')
+                <li class="nav-item {{ active_class(['winningPercent']) }}">
+                    <a href="{{ url('/winningPercent') }}" class="nav-link">
+                        <i class="link-icon fa fa-trophy"></i>
+                        <span class="link-title">Winning %</span>
+                    </a>
+                </li>
+                <li class="nav-item {{ active_class(['adminPercent']) }}">
+                    <a href="{{ url('/adminPercent') }}" class="nav-link">
+                        <i class="link-icon fa fa-money"></i>
+                        <span class="link-title">Admin Balance</span>
+                    </a>
+                </li>
+                @if (array_key_exists('winbyadmin', Session::get('permissions')))
+                    <li class="nav-item {{ active_class(['announcement']) }}">
+                        <a href="{{ url('/announcement') }}" class="nav-link">
+                            <i class="link-icon fa fa-stop"></i>
+                            <span class="link-title">Announcement</span>
+                        </a>
+                    </li>
+                @endif
+            @endif
+            <li class="nav-item">
+                <a href="{{ url('/logout') }}" class="nav-link">
+                    <i class="link-icon fa fa-sign-out"></i>
+                    <span class="link-title">Logout</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
+{{--  <script type="text/javascript">
+    $('.sidebar-body', '.superDis').perfectScrollbar();
+</script>  --}}
+<script>
+    // JavaScript to toggle the visibility of the dropdown menu
+    var dropdownToggles = document.querySelectorAll('.dropdown-toggle');
+
+    dropdownToggles.forEach(function(toggle) {
+        toggle.addEventListener('click', function() {
+            var submenu = toggle.nextElementSibling; // Assuming the submenu is the next sibling element
+            if (submenu.style.display === 'block') {
+                submenu.style.display = 'none';
+            } else {
+                submenu.style.display = 'block';
+            }
+        });
+    });
+</script>
