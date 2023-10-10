@@ -63,12 +63,12 @@ class AdminController extends Controller
             } elseif (Session::get('role') == "agent") {
                 $user = User::where('referralId', new \MongoDB\BSON\ObjectID(Session::get('id')))->where('role', 'super_distributor')->where('is_franchise', false)->orderBy('createdAt', 'DESC')->get();
             } elseif (Session::get('role') == "super_distributor") {
-                $user = User::where('referralId', new \MongoDB\BSON\ObjectID(Session::get('id')))->where('role', 'distributor')->where('is_franchise', false)->orderBy('createdAt', 'DESC')->get();
+                $user = User::where('referralId', new \MongoDB\BSON\ObjectID(Session::get('id')))->where('role', 'player')->where('is_franchise', false)->orderBy('createdAt', 'DESC')->get();
             } elseif (Session::get('role') == "distributor") {
                 $user = User::where('referralId', new \MongoDB\BSON\ObjectID(Session::get('id')))->where('role', 'player')->where('is_franchise', false)->orderBy('createdAt', 'DESC')->get();
             }
 
-            $user_role = User::where('is_franchise', true)->pluck('role')->toArray();
+            $user_role = User::where('is_franchise', true)->pluck('role', 'player')->toArray();
             $user_role = array_unique($user_role);
             // dd($user_role);
             return view('admin.view', ['data' => $user, 'role' => $user_role]);
@@ -139,14 +139,7 @@ class AdminController extends Controller
         $role = "";
 
 
-        if ($request->role == 1) {
-            $referral = new \MongoDB\BSON\ObjectID(Session::get('id'));
-            $role = "agent";
-            $request->validate([
-                'commissionPercentage' => 'required|numeric|between:0,100',
-                'transactionPin' => 'required',
-            ]);
-        } elseif ($request->role == 3) {
+        if ($request->role == 3) {
             if (isset($request->superDistributerId)) {
                 $referral = new \MongoDB\BSON\ObjectID($request->superDistributerId);
                 $request->validate([
