@@ -39,8 +39,8 @@ Route::group(['middleware' => 'CheckAuth'], function () {
         'subAdmin' => 'subAdminController'
     ]);
 
-    Route::get('/point_requests_create', 'AdminController@point_requests_create');
-    Route::post('/point_request_store', 'AdminController@point_request_store');
+    // Route::get('/point_requests_create', 'AdminController@point_requests_create');
+    // Route::post('/point_request_store', 'AdminController@point_request_store');
 
     Route::get('/Franchise/add_super_distributor', 'AdminController@add_super_distributor');
     // Route::get('/Franchise/add_agent', 'AdminController@add_super_distributor');
@@ -130,7 +130,7 @@ Route::group(['middleware' => 'CheckAuth'], function () {
 
     Route::get('/Tnover', 'TnOverController@index');
     Route::get('/Tnover/detail/{id}', 'TnOverController@detail');
-    Route::get('/transactions', 'CommanController@transactions');
+    // Route::get('/transactions', 'CommanController@transactions');
     Route::post('/transaction', 'CommanController@transaction');
 
     Route::get('/cmbreport', 'CommanController@cmbreport');
