@@ -233,12 +233,12 @@
                     </li>
                 @endif
             @endif
-            <li class="nav-item {{ active_class(['transactions']) }}">
+            {{--  <li class="nav-item {{ active_class(['transactions']) }}">
                 <a href="{{ url('/transactions') }}" class="nav-link">
                     <i class="link-icon fa fa-money"></i>
                     <small><span class="link-title">Point Request Transaction Report</span></small>
                 </a>
-            </li>
+            </li>  --}}
             {{--  <li class="nav-item {{ active_class(['PointFile']) }}">
                 <a href="{{ url('/PointFile') }}" class="nav-link">
                     <i class="link-icon fa fa-money"></i>
