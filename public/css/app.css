@@ -23405,7 +23405,7 @@ address p {
 .login-bg {
     position: relative;
     min-height: 100vh;
-    background-image: url("img/bg_main.jpg");
+    background-image: url("http://143.244.140.74/goldstar/public/img/bg_main.jpg");
     background-size: cover;
     background-position: center;
     width: 100%;
