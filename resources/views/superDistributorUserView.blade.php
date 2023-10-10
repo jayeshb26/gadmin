@@ -81,7 +81,9 @@
                                         @if (Session::get('role') == 'Admin')
                                             {{--  <td>{{ $value['transactionPin'] }}</td>  --}}
                                             <td>
-                                                <div class="btn btn-warning fa fa-gear "></div>
+                                                <div class="btn btn-danger fa fa-gear">
+                                                    <span style="font-family: initial;">Minus Settings</span>
+                                                </div>
                                             </td>
                                         @endif
                                         <td>

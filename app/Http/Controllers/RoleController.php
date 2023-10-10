@@ -35,7 +35,7 @@ class RoleController extends Controller
 
 
         // Pass the data to the retailer view and display it.
-        return view('retailerUserView', ['data' => $retailerData]);
+        return view('playerUserView', ['data' => $retailerData]);
     }
 
     public function getDistributorData()

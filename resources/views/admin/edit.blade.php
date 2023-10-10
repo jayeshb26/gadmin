@@ -74,39 +74,27 @@
                                 @enderror
                             </div>
                         </div>
-                        @if (Session::get('role') == 'Admin')
+                        {{--  @if (Session::get('role') == 'Admin')
                             <div class="form-group d-flex">
                                 <label class="col-sm-2 offset-lg-1 text-right control-label mt-2">Role Management</label>
                                 <div class="col-sm-6">
                                     <div class="form-group mb-2">
                                         <select class="form-control" name="role" id="role">
                                             <option selected disabled>Select Role</option>
-                                            @if (Session::get('role') == 'Admin' ||
-                                                    Session::get('role') == 'agent' ||
-                                                    Session::get('role') == 'super_distributor' ||
-                                                    Session::get('role') == 'distributor' ||
-                                                    Session::get('role') == 'retailer')
+                                            @if (Session::get('role') == 'Admin' || Session::get('role') == 'agent' || Session::get('role') == 'super_distributor' || Session::get('role') == 'distributor')
                                                 @if ($edata['is_franchise'] == 1)
                                                     <option value="3"
                                                         {{ $edata['role'] == 'super_distributor' ? 'selected' : '' }}>
-                                                        f_super_distributor
+                                                        super_distributor
                                                     </option>
                                                     <option value="5"
                                                         {{ $edata['role'] == 'distributor' ? 'selected' : '' }}>
                                                         distributor</option>
-                                                    <option value="6"
-                                                        {{ $edata['role'] == 'retailer' ? 'selected' : '' }}>
-                                                        retailer
-                                                    </option>
                                                     <option value="7"
                                                         {{ $edata['role'] == 'player' ? 'selected' : '' }}>
                                                         player
                                                     </option>
                                                 @else
-                                                    <option value="1"
-                                                        {{ $edata['role'] == 'agent' ? 'selected' : '' }}>
-                                                        Agent
-                                                    </option>
                                                     <option value="3"
                                                         {{ $edata['role'] == 'super_distributor' ? 'selected' : '' }}>
                                                         super_distributor
@@ -129,7 +117,7 @@
                                     @enderror
                                 </div>
                             </div>
-                        @endif
+                        @endif  --}}
 
                         @if (Session::get('role') == 'Admin')
                             @if ($edata['role'] == 'Admin' || Session::get('role') == 'agent')
@@ -164,7 +152,7 @@
                                 <input type='hidden' class='form-control ui-autocomplete-input' id='exampleInputUsername1'
                                     value='{{ $edata['referralId'] }}' name='referralId' autocomplete='off'
                                     placeholder='Enter Firm Name'>
-                                <div class="form-group d-flex" id="referral2">
+                                {{--  <div class="form-group d-flex" id="referral2">
                                     <label class="col-sm-2 offset-lg-1 text-right control-label mt-2"
                                         id="s1">Substitute</label>
                                     <div class="col-sm-6" id="s2">
@@ -187,9 +175,9 @@
                                             </span>
                                         @enderror
                                     </div>
-                                </div>
+                                </div>  --}}
                             @elseif($edata['role'] == 'distributor')
-                                <div class="form-group d-flex" id="referral2">
+                                {{--  <div class="form-group d-flex" id="referral2">
                                     <label class="col-sm-2 offset-lg-1 text-right control-label mt-2"
                                         id="s1">Substitute</label>
                                     <div class="col-sm-6" id="s2">
@@ -212,9 +200,9 @@
                                             </span>
                                         @enderror
                                     </div>
-                                </div>
+                                </div>  --}}
                             @elseif($edata['role'] == 'player')
-                                <div class="form-group d-flex" id="referral2">
+                                {{--  <div class="form-group d-flex" id="referral2">
                                     <label class="col-sm-2 offset-lg-1 text-right control-label mt-2"
                                         id="s1">Substitute</label>
                                     <div class="col-sm-6" id="s2">
@@ -237,20 +225,16 @@
                                             </span>
                                         @enderror
                                     </div>
-                                </div>
+                                </div>  --}}
                             @endif
                         @else
-                            @if (
-                                $edata['role'] == 'agent' ||
-                                    $edata['role'] == 'super_distributor' ||
-                                    $edata['role'] == 'distributor' ||
-                                    $edata['role'] == 'player')
-                                <input type='hidden' class='form-control ui-autocomplete-input'
-                                    id='exampleInputUsername1' value='{{ $edata['referralId'] }}' name='referralId'
-                                    autocomplete='off' placeholder='Enter Firm Name'>
-                                <input type='hidden' class='form-control ui-autocomplete-input'
-                                    id='exampleInputUsername1' value='{{ $edata['role'] }}' name='role'
-                                    autocomplete='off' placeholder='Enter Firm Name'>
+                            @if ($edata['role'] == 'super_distributor' || $edata['role'] == 'distributor' || $edata['role'] == 'player')
+                                <input type='hidden' class='form-control ui-autocomplete-input' id='exampleInputUsername1'
+                                    value='{{ $edata['referralId'] }}' name='referralId' autocomplete='off'
+                                    placeholder='Enter Firm Name'>
+                                <input type='hidden' class='form-control ui-autocomplete-input' id='exampleInputUsername1'
+                                    value='{{ $edata['role'] }}' name='role' autocomplete='off'
+                                    placeholder='Enter Firm Name'>
                             @endif
                         @endif
 
@@ -278,8 +262,8 @@
                             <div class="col-sm-6">
                                 <input type="number"
                                     class="form-control ui-autocomplete-input @error('transactionPin') is-invalid @enderror"
-                                    id="exampleInputUsername1" value="{{ $edata['transactionPin'] }}"
-                                    name="transactionPin" autocomplete="off" placeholder="Enter Transaction Pin">
+                                    id="exampleInputUsername1" value="{{ $edata['transactionPin'] }}" name="transactionPin"
+                                    autocomplete="off" placeholder="Enter Transaction Pin">
                                 @error('transactionPin')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
