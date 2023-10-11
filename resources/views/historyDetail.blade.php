@@ -153,7 +153,7 @@
                 </tr>
             </tbody>
         </table>
-        @if ($data['game'] != 'spinToWin')
+        @if ($data['game'] != 'funtarget')
             <div id="Roulette_Wrap">
                 @foreach ($data['position'] as $key => $pos)
                     @foreach ($pos as $k => $v)

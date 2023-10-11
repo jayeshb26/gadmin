@@ -30,15 +30,22 @@
                                 <div class="form-group row">
                                     <div class="col-sm-1 text-center mt-2">Game</div>
                                     <div class="col-sm-4">
-                                        <select class="form-control" name="game" id="gameSelect">
+                                        <select class="form-control" name="game">
                                             <option selected disabled>Select Game</option>
                                             <option value="1"
                                                 {{ isset($_GET['game']) ? ($_GET['game'] == 1 ? 'selected' : '') : '' }}>
-                                                FunRoulette
+                                                RouletteTimer60
+                                            </option>
+                                            <option value="2"
+                                                {{ isset($_GET['game']) ? ($_GET['game'] == 2 ? 'selected' : '') : '' }}>
+                                                funtarget</option>
+                                            <option value="3"
+                                                {{ isset($_GET['game']) ? ($_GET['game'] == 3 ? 'selected' : '') : '' }}>
+                                                Roulette
                                             </option>
                                             <option value="4"
                                                 {{ isset($_GET['game']) ? ($_GET['game'] == 4 ? 'selected' : '') : '' }}>
-                                                FunTarget
+                                                Spin To Win
                                             </option>
                                         </select>
                                     </div>
@@ -119,9 +126,8 @@
                                         <td>{{ moneyFormatIndia($value['won']) }}</td>
                                         <td>{{ moneyFormatIndia($value['startPoint'] - $value['bet'] + $value['won']) }}
                                         </td>
-                                        <td>{{ date('d-m-Y h:i:s A', strtotime($value['createdAt'])) }}</td>
-                                        <td><span id="game"> </span></td>
-                                        {{--  <td>{{ ucfirst($value['game']) }}</td>  --}}
+                                        <td>{{ $createdAt ?? '' }}</td>
+                                        <td>{{ ucfirst($value['game']) }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -219,22 +225,6 @@
 @endpush
 @push('custom-scripts')
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <script>
-        var gameSelect = document.getElementById('gameSelect');
-        var gameTd = document.getElementById('game');
-
-        // Set an initial default value
-        gameTd.textContent = 'FunRoulette';
-
-        gameSelect.addEventListener('change', function() {
-            if (gameSelect.value === '1') {
-                gameTd.textContent = 'FunRoulette';
-            } else {
-                // Handle other cases or provide a default value
-                gameTd.textContent = 'FunTarget';
-            }
-        });
-    </script>
 
     <script type="text/javascript">
         $('.delete-all').on('click', function(event) {

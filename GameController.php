@@ -16,11 +16,10 @@ class GameController extends Controller
     public function index($id)
     {
         // rouletteMini
-        // funroulette
+        // funRoulette
         // roulette
-        // funtarget
+        // funTarget
         // tripleChance
-
         if ($id == 1) {
             $bets = Winresults::where('gameName', "funroulette")->orderBy('createdAt', 'DESC')->paginate(10);
             $game = "FunRoulette";
@@ -41,7 +40,7 @@ class GameController extends Controller
         $EndPoint = 0;
         $TotalCommission = 0;
         $today = date_create(date("Y-m-d"));
-        $users = User::where('role', '=', 'distributor')->get();
+        $users = User::where('role', '=', 'retailer')->get();
 
         $fm = date('m', strtotime($_GET['from']));
         $fd = date('j', strtotime($_GET['from']));
@@ -57,8 +56,8 @@ class GameController extends Controller
                 $admin = User::where('_id', new \MongoDB\BSON\ObjectID(Session::get('id')))->get();
                 if (count($agent) == 0) {
                     $game = array();
-                    $game['funroulette'] = 0;
-                    $game['funtarget'] = 0;
+                    $game['FunTarget'] = 0;
+                    $game['FunRoulette'] = 0;
                     return view('gameProfit', ['data' => $admin,  'total' => $game]);
                 } else {
                     foreach ($agent as $super) {
@@ -68,8 +67,8 @@ class GameController extends Controller
                     if (count($super_distributor) == 0) {
 
                         $game = array();
-                        $game['funroulette'] = 0;
-                        $game['funtarget'] = 0;
+                        $game['FunRoulette'] = 0;
+                        $game['FunTarget'] = 0;
                         return view('gameProfit', ['data' => $admin,  'total' => $game]);
                     } else {
                         foreach ($super_distributor as $pre_user) {
@@ -79,8 +78,8 @@ class GameController extends Controller
                         if (count($distributor) == 0) {
 
                             $game = array();
-                            $game['funroulette'] = 0;
-                            $game['funtarget'] = 0;
+                            $game['FunRoulette'] = 0;
+                            $game['FunTarget'] = 0;
                             return view('gameProfit', ['data' => $admin,  'total' => $game]);
                         } else {
                             foreach ($distributor as $exe_user) {
@@ -90,9 +89,10 @@ class GameController extends Controller
                             if (count($retailer) == 0) {
 
                                 $game = array();
-                                $game['funroulette'] = 0;
                                 $game['funtarget'] = 0;
-
+                                $game['rouletteTimer60'] = 0;
+                                $game['roulette'] = 0;
+                                $game['spinToWin'] = 0;
                                 return view('gameProfit', ['data' => $admin,  'total' => $game]);
                             } else {
                                 foreach ($retailer as $cal_user) {
@@ -105,9 +105,10 @@ class GameController extends Controller
                                 if (count($players) == 0) {
 
                                     $game = array();
-                                    $game['funroulette'] = 0;
                                     $game['funtarget'] = 0;
-
+                                    $game['rouletteTimer60'] = 0;
+                                    $game['roulette'] = 0;
+                                    $game['spinToWin'] = 0;
                                     return view('gameProfit', ['data' => $admin,  'total' => $game]);
                                 } else {
                                     if ($type == 1 || $type == 2 || $type == 3 || $type == 4 || $type == 5 || $type == 8) {
@@ -136,9 +137,10 @@ class GameController extends Controller
                                     // die;
                                     $game = array();
 
-                                    $game['funroulette'] = 0;
                                     $game['funtarget'] = 0;
-
+                                    $game['rouletteTimer60'] = 0;
+                                    $game['roulette'] = 0;
+                                    $game['spinToWin'] = 0;
 
                                     // echo "<pre>";
                                     // print_r($game);
@@ -183,9 +185,10 @@ class GameController extends Controller
                 $admin = User::where('_id', new \MongoDB\BSON\ObjectID(Session::get('id')))->get();
                 if (count($super_distributor) == 0) {
                     $game = array();
-                    $game['funroulette'] = 0;
                     $game['funtarget'] = 0;
-
+                    $game['rouletteTimer60'] = 0;
+                    $game['roulette'] = 0;
+                    $game['spinToWin'] = 0;
                     return view('gameProfit', ['data' => $admin,  'total' => $game]);
                 } else {
                     foreach ($super_distributor as $pre_user) {
@@ -195,9 +198,10 @@ class GameController extends Controller
                     if (count($distributor) == 0) {
 
                         $game = array();
-                        $game['funroulette'] = 0;
                         $game['funtarget'] = 0;
-
+                        $game['rouletteTimer60'] = 0;
+                        $game['roulette'] = 0;
+                        $game['spinToWin'] = 0;
                         return view('gameProfit', ['data' => $admin,  'total' => $game]);
                     } else {
                         foreach ($distributor as $exe_user) {
@@ -207,9 +211,10 @@ class GameController extends Controller
                         if (count($retailer) == 0) {
 
                             $game = array();
-                            $game['funroulette'] = 0;
                             $game['funtarget'] = 0;
-
+                            $game['rouletteTimer60'] = 0;
+                            $game['roulette'] = 0;
+                            $game['spinToWin'] = 0;
                             return view('gameProfit', ['data' => $admin,  'total' => $game]);
                         } else {
                             foreach ($retailer as $cal_user) {
@@ -222,9 +227,10 @@ class GameController extends Controller
                             if (count($players) == 0) {
 
                                 $game = array();
-                                $game['funroulette'] = 0;
                                 $game['funtarget'] = 0;
-
+                                $game['rouletteTimer60'] = 0;
+                                $game['roulette'] = 0;
+                                $game['spinToWin'] = 0;
                                 return view('gameProfit', ['data' => $admin,  'total' => $game]);
                             } else {
                                 if ($type == 1 || $type == 2 || $type == 3 || $type == 4 || $type == 5 || $type == 8) {
@@ -252,9 +258,10 @@ class GameController extends Controller
                                 // die;
                                 $game = array();
 
-                                $game['funroulette'] = 0;
                                 $game['funtarget'] = 0;
-
+                                $game['rouletteTimer60'] = 0;
+                                $game['roulette'] = 0;
+                                $game['spinToWin'] = 0;
 
                                 // echo "<pre>";
                                 // print_r($game);

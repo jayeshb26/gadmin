@@ -519,7 +519,7 @@ class AdminController extends Controller
     {
         $this->middleware('admin');
         $request->validate([
-            'RouletteTimer40' => 'required|not_in:0|numeric|between:0,200',
+            'funtarget' => 'required|not_in:0|numeric|between:0,200',
             'RouletteTimer60' => 'required|not_in:0|numeric|between:0,200',
 
         ]);
@@ -529,7 +529,7 @@ class AdminController extends Controller
         }
 
         $user = Winnings::find('602e55e9a494988def7acc25');
-        $user->rouletteTimer40 = $request->RouletteTimer40;
+        $user->funtarget = $request->funtarget;
         $user->rouletteTimer60 = $request->RouletteTimer60;
         $user->roulette = $request->Roulette;
         $user->spinToWin = $request->spinToWin;

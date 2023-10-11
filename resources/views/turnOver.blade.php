@@ -244,10 +244,9 @@
                                                     <td>{{ moneyFormatIndia(0) }}</td>
                                                 @endif
                                             @elseif(
-                                                $play['role'] == 'agent' ||
-                                                    $play['role'] == 'premium' ||
-                                                    $play['role'] == 'executive' ||
-                                                    $play['role'] == 'classic' ||
+                                                $play['role'] == 'super_distributor' ||
+                                                    $play['role'] == 'super_distributor' ||
+                                                    $play['role'] == 'distributor' ||
                                                     $play['role'] == 'player')
                                                 @if ($play['role'] == 'player')
                                                     <td><a href="{{ url('player/detail/' . $play['_id']) }}">{{ $play['userName'] }}

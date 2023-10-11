@@ -90,11 +90,11 @@
                     <div class="breadcrumb bg-light" id="live2">
                         <div class="col-sm-3 text-center">
                             Total Profit FunTarget<br>
-                            <span>{{ moneyFormatIndia($total['rouletteTimer40']) ? moneyFormatIndia($total['rouletteTimer40']) : moneyFormatIndia(0) }}</span>
+                            <span>{{ moneyFormatIndia($total['funroulette']) ? moneyFormatIndia($total['funroulette']) : moneyFormatIndia(0) }}</span>
                         </div>
                         <div class="col-sm-3 text-center">
                             Total Profit FunRoulette<br>
-                            <span>{{ moneyFormatIndia($total['rouletteTimer60']) ? moneyFormatIndia($total['rouletteTimer60']) : moneyFormatIndia(0) }}</span>
+                            <span>{{ moneyFormatIndia($total['funtarget']) ? moneyFormatIndia($total['funtarget']) : moneyFormatIndia(0) }}</span>
                         </div>
                     </div>
                 </div>
@@ -153,11 +153,10 @@
     <script src="{{ asset('assets/js/data-table.js') }}"></script>
     <script type="text/javascript">
         $("#datePickerExample").datepicker({
-            format: 'dd-mm-yyyy'
-        }); {
-            format: 'dd-mm-yyyy'
-        }
-        format: 'dd/mm/yyyy'
+            format: 'dd-mm-yyyy' {
+                format: 'dd-mm-yyyy'
+            }
+            format: 'dd/mm/yyyy'
         });
         $(document).ready(function() {
             startTime();

@@ -89,12 +89,12 @@ class DashboardController extends Controller
                 $chart_f = implode(', ', array_values($chart_f));
             }
             $chart_w = array(
-                Bets::where('game', 'rouletteTimer40')->sum('won'),
+                Bets::where('game', 'funtarget')->sum('won'),
                 Bets::where('game', 'rouletteTimer60')->sum('won'),
                 Bets::where('game', 'roulette')->sum('won'),
             );
             $chart_p = array(
-                Bets::where('game', 'rouletteTimer40')->sum('bet'),
+                Bets::where('game', 'funtarget')->sum('bet'),
                 Bets::where('game', 'rouletteTimer60')->sum('bet'),
                 Bets::where('game', 'roulette')->sum('bet'),
             );

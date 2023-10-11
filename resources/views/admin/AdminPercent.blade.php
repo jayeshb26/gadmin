@@ -125,14 +125,14 @@
                 };
                 socket.emit("joinAdmin", user);
                 socket.on("resAdmin", (res) => {
-                    // console.log(res.data.rouletteTimer40.adminBalance);
+                    // console.log(res.data.funtarget.adminBalance);
                     // console.log(res.data.rouletteTimer60.adminBalance);
                     console.log(res);
-                    $("#series1").val((res.data.rouletteTimer40.adminBalance).toFixed(2));
+                    $("#series1").val((res.data.funtarget.adminBalance).toFixed(2));
                     $("#series3").val((res.data.rouletteTimer60.adminBalance).toFixed(2));
                     $("#series5").val(res.data.roulette.adminBalance.toFixed(2));
                     $("#series6").val(res.data.spinToWin.adminBalance.toFixed(2));
-                    $("#total").val((res.data.rouletteTimer40.adminBalance + res.data
+                    $("#total").val((res.data.funtarget.adminBalance + res.data
                         .rouletteTimer60.adminBalance + res.data.roulette.adminBalance + res
                         .data.spinToWin.adminBalance).toFixed(2));
 
@@ -147,7 +147,7 @@
                     var s5 = $("#s5").val();
                     var s6 = $("#s6").val();
                     const data = {
-                        rouletteTimer40: (s1 == 0) ? Math.round(parseInt($("#series1").val())) :
+                        funtarget: (s1 == 0) ? Math.round(parseInt($("#series1").val())) :
                             parseInt(s1),
                         rouletteTimer60: (s3 == 0) ? Math.round(parseInt($("#series3").val())) :
                             parseInt(s3),
@@ -169,16 +169,16 @@
                     $("#s6").val(0);
                     socket.emit("joinAdmin", user);
                     socket.on("resAdmin", (res) => {
-                        // console.log(res.data.rouletteTimer40.adminBalance);
+                        // console.log(res.data.funtarget.adminBalance);
                         // console.log(res.data.rouletteTimer60.adminBalance);
                         console.log(res);
-                        $("#series1").val((res.data.rouletteTimer40.adminBalance).toFixed(
+                        $("#series1").val((res.data.funtarget.adminBalance).toFixed(
                             2));
                         $("#series3").val((res.data.rouletteTimer60.adminBalance).toFixed(
                             2));
                         $("#series5").val(res.data.roulette.adminBalance.toFixed(2));
                         $("#series6").val(res.data.spinToWin.adminBalance.toFixed(2));
-                        $("#total").val((res.data.rouletteTimer40.adminBalance + res.data
+                        $("#total").val((res.data.funtarget.adminBalance + res.data
                                 .rouletteTimer60.adminBalance + res.data.roulette
                                 .adminBalance + res.data.spinToWin.adminBalance)
                             .toFixed(2));

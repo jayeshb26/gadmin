@@ -480,14 +480,14 @@ if (card >= 0 && card <= 36 || card==00) { console.log($('#SelectedCard').val())
             socket.on('connect', function() {
                 const user = {
                     adminId: "61d7bcd1153a05cf20cfc6f2",
-                    gameName: "rouletteTimer40",
+                    gameName: "funtarget",
                 };
 
                 socket.emit('joinAdmin', user);
 
                 var cardNumber = 0;
                 var y = 1;
-                var gameName = "rouletteTimer40";
+                var gameName = "funtarget";
 
                 function removeAlert() {
                     setInterval(function() {
@@ -518,7 +518,7 @@ if (card >= 0 && card <= 36 || card==00) { console.log($('#SelectedCard').val())
 
                 socket.on('resAdmin', (res) => {
                     console.log(res);
-                    if (res.gameName == "rouletteTimer40") {
+                    if (res.gameName == "funtarget") {
                         console.log(res);
                         if (res.time >= 0) {
                             var seconds = parseInt(Math.abs(res.time) - 95);
@@ -565,7 +565,7 @@ if (card >= 0 && card <= 36 || card==00) { console.log($('#SelectedCard').val())
 
                 socket.on('resAdminBetData', (res) => {
                     console.log(res.data);
-                    if (res.gameName == "rouletteTimer40") {
+                    if (res.gameName == "funtarget") {
                         // Handle 'resAdminBetData' event as needed
                     }
                 });

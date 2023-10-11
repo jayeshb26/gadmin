@@ -65,23 +65,15 @@
                                     @php $no = 1; @endphp
                                     @foreach ($data as $key => $bets)
                                         <tr>
-                                            <td>{{ $no++ }}</td>
-                                            <td id="game">{{ $bets['gameName'] }}</td>
-                                            <td>
-                                                @if ($game == 'Andar Bahar')
-                                                    {{-- Display the appropriate content based on the condition --}}
-                                                    @if ($bets['gameName'] == 'RouletteTimer60')
-                                                        FunRoulette
-                                                    @elseif ($bets['gameName'] == 'RouletteTimer40')
-                                                        FunTarget
-                                                    @else
-                                                        Select a game
-                                                    @endif
-                                                @else
-                                                    Select a game
-                                                @endif
-                                            </td>
-                                            <td>{{ date('d-m-Y h:i:s A', strtotime($bets['createdAt'])) }}</td>
+                                            <td><?= $data->firstItem() + $key ?></td>
+                                            <td>{{ $bets['gameName'] }}</td>
+                                            @if ($game == 'Andar Bahar')
+                                                <td><img src="{{ asset('assets/images/card/' . $bets['result'] . '.png') }}"
+                                                        style="border-radius: 0px; width: 5%;"></td>
+                                            @else
+                                                <td>{{ $bets['result'] }}</td>
+                                            @endif
+                                            <td>{{ date('d-m-Y h:i:s A', strtotime(date($bets['createdAt']))) }}</td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -188,21 +180,5 @@
                 }
             })
         });
-    </script>
-
-    <script>
-        // Function to rename elements
-        function renameElement(oldId, newName) {
-            var element = document.getElementById('game');
-            if (element) {
-                element.textContent = newName;
-            }
-        }
-
-        // Rename RouletteTimer60 to FunRoulette
-        renameElement('RouletteTimer60', 'FunRoulette');
-
-        // Rename RouletteTimer40 to FunTarget
-        renameElement('RouletteTimer40', 'FunTarget');
     </script>
 @endpush

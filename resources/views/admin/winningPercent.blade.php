@@ -37,10 +37,10 @@
                                 Percentage</label>
                             <div class="col-sm-6">
                                 <input type="number"
-                                    class="form-control ui-autocomplete-input @error('RouletteTimer40') is-invalid @enderror"
-                                    id="exampleInputUsername1" value="{{ $data['rouletteTimer40'] }}" name="RouletteTimer40"
-                                    autocomplete="off" placeholder="Enter RouletteTimer40 Winning Percentage">
-                                @error('RouletteTimer40')
+                                    class="form-control ui-autocomplete-input @error('funtarget') is-invalid @enderror"
+                                    id="exampleInputUsername1" value="{{ $data['funtarget'] }}" name="funtarget"
+                                    autocomplete="off" placeholder="Enter funtarget Winning Percentage">
+                                @error('funtarget')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
