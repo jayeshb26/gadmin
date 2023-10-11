@@ -31,20 +31,12 @@
             <li class="nav-item nav-category">Management</li>
 
 
-            @if (in_array(Session::get('role'), [
-                    'Admin',
-                    'subadmin',
-                    'agent',
-                    'super_distributor',
-                    'distributor',
-                    'retailer',
-                    'subadmin',
-                ]))
+            @if (in_array(Session::get('role'), ['Admin', 'subadmin', 'agent', 'super_distributor', 'distributor', 'subadmin']))
                 @php
                     $isFranchise = Session::get('is_f') == 'true';
                 @endphp
                 @if (in_array(Session::get('role'), ['Admin', 'subadmin']))
-                    <div class="nav-item" id="usersNavItem">
+                    {{--    <div class="nav-item" id="usersNavItem">
                         <a href="#" class="nav-link" id="usersToggle">
                             <i class="link-icon fas fa-users"></i>
                             <span class="link-title dropdown-toggle">Users Management</span>
@@ -62,22 +54,22 @@
                             class="nav-link">
                             <span class="link-title">Add Retailer</span>
                         </a>  --}}
-                            {{--  <a href="{{ url('/' . ($isFranchise ? 'Franchise' : 'users') . '/add_' . ($isFranchise ? 'agent' : 'agent')) }}"
+                    {{--  <a href="{{ url('/' . ($isFranchise ? 'Franchise' : 'users') . '/add_' . ($isFranchise ? 'agent' : 'agent')) }}"
                             class="nav-link">
                             <span class="link-title">Add Agent</span>
                         </a>  --}}
-                            <a href="{{ url('/' . ($isFranchise ? 'admin' : 'users') . '/add_' . 'player') }}"
+                    {{--  <a href="{{ url('/' . ($isFranchise ? 'admin' : 'users') . '/add_' . 'player') }}"
                                 class="nav-link">
                                 <span class="link-title">Add Player</span>
                             </a>
                             <a href="{{ url('/users' . ($isFranchise ? '/admin' : '')) }}" class="nav-link">
                                 <span class="link-title">View Users</span>
-                            </a>
-                            {{--  <a href="{{ url('/roles') }}" class="nav-link">
+                            </a>  --}}
+                    {{--  <a href="{{ url('/roles') }}" class="nav-link">
                             <span class="link-title">View Roles</span>
                         </a>  --}}
-                        </div>
-                    </div>
+                    {{--  </div>
+    </div>  --}}
                 @endif
                 {{--  <li class="nav-item {{ active_class([$isFranchise ? 'Franchise/' : 'users/']) }}">
                     <a href="{{ url('/' . ($isFranchise ? 'Franchise' : 'users') . '/add_' . ($isFranchise ? 'super_distributor' : 'agent')) }}"
@@ -143,7 +135,6 @@
                     </div>
                 </div>
             @endif
-
             @if (Session::get('role') == 'Admin')
                 <li class="nav-item {{ active_class(['subAdmin/*']) }}">
                     <a href="{{ url('/subAdmin') }}" class="nav-link">
@@ -290,6 +281,13 @@
                 @endif
             @endif
             <li class="nav-item">
+                <a class="nav-link" href="{{ url('/chpass') }}">
+                    <i class="link-icon fa fa-key mr-1"></i>
+                    <span class="link-title">Change Password</span>
+                </a>
+                <a class="nav-link " href="{{ url('/blockedPlayers') }}">
+                    <i class="link-icon fa fa-users mr-1"></i><span class="link-title">Blocked Players</span>
+                </a>
                 <a href="{{ url('/logout') }}" class="nav-link">
                     <i class="link-icon fa fa-sign-out"></i>
                     <span class="link-title">Logout</span>
@@ -316,3 +314,4 @@
         });
     });
 </script>
+

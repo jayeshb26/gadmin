@@ -105,7 +105,7 @@ class CommanController extends Controller
 
     public function history()
     {
-        $users = User::where('role', 'retailer')->select('userName')->where('is_franchise', (Session::get('is_f') == "true") ? true : false)->get();
+        $users = User::where('role', 'admin')->select('userName')->where('is_franchise', (Session::get('is_f') == "true") ? true : false)->get();
 
         if (isset($_GET['from']) && isset($_GET['from']) && $_GET['from'] != '' && $_GET['to'] != '') {
             $from = $_GET['from'];
@@ -132,7 +132,7 @@ class CommanController extends Controller
                 }
                 if (isset($_GET['game'])) {
                     if ($_GET['game'] == 1) {
-                        $playPoints = Bets::whereIn('playerId', $pla)->orderBy('createdAt', 'DESC')->where('game', 'rouletteTimer60')
+                        $playPoints = Bets::whereIn('playerId', $pla)->orderBy('createdAt', 'DESC')->where('game', 'FunRoulette')
                             ->whereBetween(
                                 'createdAt',
                                 array(
@@ -141,27 +141,7 @@ class CommanController extends Controller
                                 )
                             )->paginate(10);
                     } elseif ($_GET['game'] == 2) {
-                        $playPoints = Bets::whereIn('playerId', $pla)->orderBy('createdAt', 'DESC')->where('game', 'rouletteTimer40')
-                            ->whereBetween(
-                                'createdAt',
-                                array(
-                                    Carbon::create($fY, $fm, $fd, 00, 00, 00),
-                                    Carbon::create($tY, $tm, $td, 23, 59, 59),
-                                )
-                            )->paginate(10);
-                    } elseif ($_GET['game'] == 3) {
-                        $playPoints = Bets::whereIn('playerId', $pla)->orderBy('createdAt', 'DESC')->where('game', 'roulette')
-                            ->whereBetween(
-                                'createdAt',
-                                array(
-                                    Carbon::create($fY, $fm, $fd, 00, 00, 00),
-                                    Carbon::create($tY, $tm, $td, 23, 59, 59),
-                                )
-                            )->paginate(10);
-                    } elseif ($_GET['game'] == 4) {
-                        $playPoints = Bets::whereIn('playerId', $pla)
-                            ->orderBy('createdAt', 'DESC')
-                            ->where('game', 'spinToWin')
+                        $playPoints = Bets::whereIn('playerId', $pla)->orderBy('createdAt', 'DESC')->where('game', 'FunTarget')
                             ->whereBetween(
                                 'createdAt',
                                 array(

@@ -9,16 +9,16 @@
                     <i class="fa fa-money mr-3"></i>Balance : {{ number_format(Session::get('creditPoint')) }}
                 </a>
             </li>
-            <li class="nav-item dropdown nav-notifications">
+            {{--  <li class="nav-item dropdown nav-notifications">
                 <a class="nav-link dropdown-toggle m-2" href="{{ url('/blockedPlayers') }}" id="notificationDropdown">
                     <i class="fa fa-users mr-1"></i>Blocked Players
                 </a>
-            </li>
-            <li class="nav-item dropdown nav-notifications">
+            </li>  --}}
+            {{--  <li class="nav-item dropdown nav-notifications">
                 <a class="nav-link dropdown-toggle m-2" href="{{ url('/chpass') }}" id="notificationDropdown">
                     <i class="fa fa-key mr-1"></i>Change Password
                 </a>
-            </li>
+            </li>  --}}
             <li class="nav-item dropdown nav-profile">
                 <a class="nav-link dropdown-toggle" href="#" id="profileDropdown" role="button"
                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -49,3 +49,4 @@
         </ul>
     </div>
 </nav>
+

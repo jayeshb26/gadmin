@@ -156,11 +156,11 @@
             @else
                 <div class="col-lg-3 col-md-4 col-sm-4 grid-margin stretch-card">
                     <div class="card bg-success">
-                        <a href="{{ url('/users/Franchise') }}">
+                        <a href="{{ url('/users/admin') }}">
                             <div class="card-body">
                                 <div class=" row">
                                     <div class="col-md-8">
-                                        <h6 class="text-white mb-2">Franchise Users</h6>
+                                        <h6 class="text-white mb-2">Users</h6>
                                         <div>
                                             <h3 class="text-white">{{ $data['superDistributer'] }}</h3>
                                         </div>
@@ -175,7 +175,7 @@
                 </div>
                 <div class="col-lg-3 col-md-4 col-sm-4 grid-margin stretch-card">
                     <div class="card bg-success">
-                        <a href="{{ url('/users/Franchise') }}">
+                        <a href="{{ url('/getdata/player') }}">
                             <div class="card-body">
                                 <div class=" row">
                                     <div class="col-md-8">
@@ -261,22 +261,6 @@
                 </a>
             </div>
         </div>
-        <div class="col-md-3 grid-margin stretch-card">
-            <div class="card bg-danger">
-                <a href="{{ url('/transactions') }}">
-                    <div class="card-body">
-                        <div class=" row">
-                            <div class="col-md-8">
-                                <h6 class="text-white mb-2">Transaction Report</h6>
-                            </div>
-                            <div class="col-md-4 mt-1">
-                                <h1 class="text-white text-right mr-3"><i class="fa fa-bar-chart"></i></h1>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-        </div>
     </div>
 
     <div class="row">
@@ -285,7 +269,7 @@
                 <div class="col-md-6 col-lg-4 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
-                            <h6 class="card-title">Franchises</h6>
+                            <h6 class="card-title">users</h6>
                             <canvas id="chartjsDoughnut"
                                 style="display: block; box-sizing: border-box; height: 150px; width: 100%;" width="100%"
                                 height="150"></canvas>
@@ -296,7 +280,7 @@
                 <div class="col-md-6 col-lg-4 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
-                            <h6 class="card-title">Agents</h6>
+                            <h6 class="card-title"></h6>
                             <canvas id="chartjsDoughnut1"
                                 style="display: block; box-sizing: border-box; height: 150px; width: 100%;" width="100%"
                                 height="150"></canvas>
@@ -337,7 +321,7 @@
         new Chart($("#chartjsDoughnut"), {
             type: "doughnut",
             data: {
-                labels: ["super_distributors", "distributors", "retailers", "Players"],
+                labels: ["super_distributors", "distributors", "users", "Players"],
                 datasets: [{
                     label: "Population (millions)",
                     backgroundColor: ["#7ee5e5", "#f77eb9", "#4d8af0", "#ffc107"],
@@ -348,7 +332,7 @@
         new Chart($("#chartjsDoughnut1"), {
             type: "doughnut",
             data: {
-                labels: ["Agents", "super_distributors", "distributors", "retailers", "Players"],
+                labels: ["Agents", "super_distributors", "distributors", "Users", "Players"],
                 datasets: [{
                     label: "Population (millions)",
                     backgroundColor: ["#7ee5e5", "#f77eb9", "#4d8af0", "#ffc107"],
