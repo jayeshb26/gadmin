@@ -117,11 +117,11 @@
     </script>
     <script>
         $(function() {
-            const socket = io.connect("ws://13.126.182.204:5000");
+            const socket = io.connect("ws://143.244.140.74:6000");
             socket.on("connect", function() {
                 console.log(socket.id);
                 const user = {
-                    adminId: "603388bb7d20e50a81217277",
+                    adminId: "61d7bcd1153a05cf20cfc6f2",
                 };
                 socket.emit("joinAdmin", user);
                 socket.on("resAdmin", (res) => {
@@ -129,8 +129,8 @@
                     // console.log(res.data.rouletteTimer60.adminBalance);
                     console.log(res);
                     $("#series1").val((res.data.funtarget.adminBalance).toFixed(2));
-                    $("#series3").val((res.data.rouletteTimer60.adminBalance).toFixed(2));
-                    $("#series5").val(res.data.roulette.adminBalance.toFixed(2));
+                    $("#series3").val((res.data.funroulette.adminBalance).toFixed(2));
+                    $("#series5").val(res.data.rouletteTimer60.adminBalance.toFixed(2));
                     $("#series6").val(res.data.spinToWin.adminBalance.toFixed(2));
                     $("#total").val((res.data.funtarget.adminBalance + res.data
                         .rouletteTimer60.adminBalance + res.data.roulette.adminBalance + res
