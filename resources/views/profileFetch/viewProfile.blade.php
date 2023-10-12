@@ -615,7 +615,7 @@
 
                 var userName = $('#search').val();
 
-                // Send an AJAX request to fetch user data from /fetch
+                // Send an AJAX request to fetch user data from /fetch newdata
                 $.ajax({
                     url: 'fetch/' + userName, // Use the correct endpoint
                     type: 'GET',
