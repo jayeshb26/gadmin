@@ -12,7 +12,6 @@
             padding: 0 !important;
             border-top: 0 !important;
         }
-
     </style>
 @endsection
 
@@ -20,37 +19,41 @@
     <div class="row">
         <div class="col-md-12 grid-margin stretch-card">
             <div class="card">
-                <div class="card-header d-flex justify-content-between">
-                    <h5 class="col-sm-2 card-title" style="text-transform: none !important;">Roulette</h5>
-                    
-                    <button type='button' id="reset" class="btn btn-primary"><span aria-hidden='true'>Reset Balance</span></button>
+                <div class="card-header d-flex justify-content-between" style="background: green">
+                    <h5 class=" text-white text-align-center" style="text-transform: none !important; text-align:center">
+                        FunRoulette</h5>
+
+                    <button type='button' id="reset" class="btn text-white btn-outline-light"
+                        style="background: #1B0905"><span aria-hidden='true'>Reset
+                            Balance</span></button>
                 </div>
-                <div class="card-body">
+                <div class="card-body"
+                    style="background: linear-gradient(to right, #bc883d, #f5e47b, #bc883d); color:black">
                     <div
                         class="view view-cascade gradient-card-header blue-gradient narrower py-2 mx-4 mb-3 text-center justify-content-between align-items-center">
                         <div class="row">
-                            <div class="col-lg-8 col-md-12 p-0">
+                            <div class="col-lg-9 col-md-10 p-5" style="background-color: #1B0905" id="table">
                                 <div class="box">
-                                    <div class="table-responsive">
+                                    <div class="table-responsive table-borderless ">
                                         @php
                                             $no = 0;
                                             $no1 = 0;
                                             $no2 = 0;
-                                            $red = [0,3, 1, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36];
+                                            $red = [0, 3, 1, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36];
                                             $black = [2, 4, 6, 8, 10, 11, 13, 15, 17, 20, 22, 24, 26, 28, 29, 31, 33, 35];
                                         @endphp
                                         <div class="" style="height: 500px;">
-                                            <table class="table-bordered table_td">
+                                            <table class="table-responsive table_td">
                                                 <tbody class="chat-list">
                                                     <tr>
                                                         <td class="text-center">
-                                                            <table style="border:2px solid #4f7dda;"
+                                                            <table style="border:2px solid #ffffff;"
                                                                 class="text-center table">
-                                                                <tbody style="border:2px solid #4f7dda;">
+                                                                <tbody style="border:2px solid #ffffff;">
 
                                                                     @for ($i = 1; $i <= 4; $i++)
                                                                         <tr class="text-center"
-                                                                            style="border:2px solid #4f7dda;">
+                                                                            style="border:2px solid #FFFFFF;">
                                                                             @for ($j = 1; $j <= 10 && $no < 37; $j++)
                                                                                 @php
                                                                                     // echo $no;
@@ -63,19 +66,20 @@
                                                                                 @endphp
                                                                                 @if (in_array($no, $red))
                                                                                     @if ($no === 0)
-                                                                                        <td class="No" style="padding:0rem 0rem;color:green;line-height:1.2rem;cursor: pointer;vertical-align: unset;text-align: center"
+                                                                                        <td class="No"
+                                                                                            style="padding:0rem 0rem;color:green;line-height:1.2rem;cursor: pointer;vertical-align: unset;text-align: center"
                                                                                             id="{{ $no }}">
                                                                                             <table style="padding:0;">
                                                                                                 <tr>
-                                                                                                    <td
+                                                                                                    <td class="No"
                                                                                                         style="text-align: center">
                                                                                                         <span
-                                                                                                            style="font-size:20px;padding-bottom: 1rem;">{{ $no }}</span>
+                                                                                                            style="font-size:20px;padding-bottom: 1rem; color:#fff">{{ $no }}</span>
                                                                                                     </td>
                                                                                                 </tr>
                                                                                                 <tr>
                                                                                                     <td><span
-                                                                                                            style="font-size:15px;border:1px solid #fff;padding:1px 5px;color:#000;background-color:#3cff00;"
+                                                                                                            style="font-size:15px;border:1px solid #fff;padding:1px 5px;color:#000;background-color:#3cff00; color:#fff"
                                                                                                             id='spot{{ $no }}'>0</span>
                                                                                                     </td>
                                                                                                 </tr>
@@ -83,7 +87,7 @@
                                                                                         </td>
                                                                                     @else
                                                                                         <td class="No"
-                                                                                            style="padding:0rem 0rem !important;color:red; line-height:1.2rem;cursor: pointer;vertical-align: unset;text-align: center"
+                                                                                            style="padding:0rem 0rem !important;color:red; line-height:1.2rem;cursor: pointer;vertical-align: unset;text-align: center; color:#fff"
                                                                                             id="{{ $no }}">
                                                                                             <table style="padding:0;">
                                                                                                 <tr>
@@ -95,7 +99,7 @@
                                                                                                 </tr>
                                                                                                 <tr>
                                                                                                     <td><span
-                                                                                                            style="font-size:15px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#ff0000;"
+                                                                                                            style="font-size:15px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#ff0000; color:#fff"
                                                                                                             id='spot{{ $no }}'>0</span>
                                                                                                     </td>
                                                                                                 </tr>
@@ -104,14 +108,14 @@
                                                                                     @endif
                                                                                 @else
                                                                                     <td class="No"
-                                                                                        style="padding:0rem 0rem !important;line-height:1.2rem;cursor: pointer;vertical-align: unset;text-align: center"
+                                                                                        style="padding:0rem 0rem !important;line-height:1.2rem;cursor: pointer;vertical-align: unset;text-align: center color:#fff"
                                                                                         id="{{ $no }}">
                                                                                         <table style="padding:0;">
                                                                                             <tr>
                                                                                                 <td
                                                                                                     style="text-align: center">
                                                                                                     <span
-                                                                                                        style="font-size:20px;padding-bottom: 1rem;">{{ $no }}</span>
+                                                                                                        style="font-size:20px;padding-bottom: 1rem; color:#fff">{{ $no }}</span>
                                                                                                 </td>
                                                                                             </tr>
                                                                                             <tr>
@@ -139,7 +143,7 @@
                                                                                         <tr>
                                                                                             <td style="text-align: center">
                                                                                                 <span
-                                                                                                    style="font-size:20px;padding-bottom: 1rem;">00</span>
+                                                                                                    style="font-size:20px;padding-bottom: 1rem; color:#fff">00</span>
                                                                                             </td>
                                                                                         </tr>
                                                                                         <tr>
@@ -170,7 +174,7 @@
                                 <p>Total Expected Collection: <span id="TCollection">0</span>
                                 </p>
                                 <p>Total Expected Payment<span id="if_selected"></span>: <span id="totalPayment"></span></p>
-                                <form action="{{ route('lucky16config') }}"></form>
+                                <form action=""></form>
                                 <p>
                                     <select name="boosterId" id="boosterId" class="browser-default custom-select"
                                         style="width:100%">
@@ -185,13 +189,15 @@
                                 </p>
                                 <div class="mt-2 mb-3 d-flex">
                                     <input type="number" class="form-control mr-2" name="SelectedCard" id="SelectedCard"
-                                        style="width:100px" readonly/>
+                                        style="width:100px" readonly />
                                     <input type="hidden" class="form-control mr-2" name="SelectedCardNumber"
                                         id="SelectedCardNumber" style="width:100px" readonly />
                                     <a class="btn btn-success" id="btnSave" name="btnSave">SAVE</a>
                                 </div>
-                                <div class="alert alert-success alert-dismissible fade" role="alert" id="alertId"></div>
-                                <div class="alert alert-danger alert-dismissible fade" role="alert" id="alertIdR"></div>
+                                <div class="alert alert-success alert-dismissible fade" role="alert" id="alertId">
+                                </div>
+                                <div class="alert alert-danger alert-dismissible fade" role="alert" id="alertIdR">
+                                </div>
                                 <span id="idRes">Daily Collection & Results</span>
                                 <table class="table table-bordered">
                                     <tr>
@@ -201,31 +207,33 @@
                                     </tr>
                                     <tr>
                                         <td>TOTAL COLLECTION: </td>
-                                        <td align="right">{{ moneyFormatIndia($daily['totalbetamount']) }}
+                                        {{--  <td align="right">{{ moneyFormatIndia($daily['totalbetamount']) }}  --}}
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>TOTAL PAYMENT :</td>
-                                        <td align="right">{{ moneyFormatIndia($daily['totalwonamount']) }}
+                                        {{--  <td align="right">{{ moneyFormatIndia($daily['totalwonamount']) }}  --}}
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>BALANCE :</td>
-                                        <td align="right">{{ moneyFormatIndia($daily['totalbetamount']-$daily['totalwonamount']) }}
+                                        <td align="right">
+                                            {{--  {{ moneyFormatIndia($daily['totalbetamount'] - $daily['totalwonamount']) }}  --}}
                                         </td>
                                     </tr>
                                 </table>
-                                <table class="tlb table table-bordered"  id="resTab">
-                                    <tr id="lastbet">   
-                                        @for($i = 5; $i < 10; $i++)
-                                            <td class="r_color_2" style="font-size:17px;" id="r{{ $i }}"></td>
+                                <table class="tlb table table-bordered" id="resTab">
+                                    <tr id="lastbet">
+                                        @for ($i = 5; $i < 10; $i++)
+                                            <td class="r_color_2" style="font-size:17px;" id="r{{ $i }}">
+                                            </td>
                                         @endfor
                                     </tr>
-                            </table>
+                                </table>
                             </div>
                         </div>
-                        
-                        
+
+
                     </div>
                 </div>
             </div>
@@ -279,7 +287,7 @@
         $(document).keydown(function(event) {
             if (event.keyCode == 123) { // Prevent F12
                 return false;
-            } else if (event.ctrlKey && event.shiftKey && event.keyCode == 73) { // Prevent Ctrl+Shift+I        
+            } else if (event.ctrlKey && event.shiftKey && event.keyCode == 73) { // Prevent Ctrl+Shift+I
                 return false;
             } else if (event.ctrlKey && event.shiftKey && event.keyCode == 67) { // Prevent Ctrl+Shift+C
                 return false;
@@ -293,6 +301,9 @@
     <script language="JavaScript">
         document.addEventListener('contextmenu', event => event.preventDefault());
     </script> --}}
+
+
+
     <script>
         var result = '';
         var gameid = '';
@@ -326,19 +337,30 @@
             "CK": 12,
         };
         $(function() {
+            $('.No').on('click', function() {
+                result = this.id;
+                console.log('hello i am clicked');
+                for (var i = 0; i < 37; i++) {
+                    $('#' + i).css('background-color', '#00000000');
+                    $('#00').css('background-color', '#00000000');
+                }
+                if (this.id == 00) {
+                    $('#' + this.id).css('background-color', 'green');
+                } else {
+                    $('#' + this.id).css('background-color', 'red');
+                }
+                // console.log(result);
+                var boosterIds = $('#boosterId').val();
+                $('#SelectedCard').val(result);
+                $('#totalPayment').html($('#spot' + this.id).html() * 36);
+                $('#boosterId').val($('#boosterId').val());
+            });
             var URL;
-            URL = "ws://";
-            URL += "{{ $response['SOCKET_URL']['host'] }}";
-            URL += ":";
-            URL += "{{ $response['SOCKET_URL']['port'] }}";
+            URL = "ws://localhost:5000";
             // console.log(URL);
             const socket = io.connect(URL);
             socket.on("connect", () => {
                 console.log(socket.connected); // true
-            });
-            socket.emit("req", {
-                "en": "ADMIN_ROULETTE_GAME_INFO",
-                "data": {}
             });
 
             function pad(s) {
@@ -353,26 +375,11 @@
                 if (response.data.game_state == "game_timer_start") {
                     $('#win').removeClass('spot' + response.data.win_card);
                     $('#win').html('');
-                    $('.No').on('click', function() {
-                        result = this.id;
-                        for (var i = 0; i < 37; i++) {
-                            $('#' + i).css('background-color', '#FFF');
-                            $('#00').css('background-color', '#fff');
-                        }
-                        if (this.id == 00) {
-                            $('#' + this.id).css('background-color', '#FFA07A');
-                        } else {
-                            $('#' + this.id).css('background-color', '#FFA07A');
-                        }
-                        // console.log(result);
-                        var boosterIds = $('#boosterId').val();
-                        $('#SelectedCard').val(result);
-                        $('#totalPayment').html($('#spot' + this.id).html() * 36 );
-                        $('#boosterId').val($('#boosterId').val());
-                    });
+
                     $('#boosterId').on('change', function() {
                         var j = $('#SelectedCard').val();
-                        $('#totalPayment').html($('#spot' + j).html() * 36 * (this.value==0?1:this.value));
+                        $('#totalPayment').html($('#spot' + j).html() * 36 * (this.value == 0 ? 1 :
+                            this.value));
                     });
                     if (response.data.timer) {
                         card.forEach(function(item) {
@@ -386,12 +393,12 @@
                             document.getElementById('countdown').innerHTML = time;
                             if (time <= 0) {
                                 clearInterval(counter);
-                                document.getElementById('countdown').innerHTML = "00";
+                                document.getElementById('countdown').innerHTML = "12";
                                 for (var i = 0; i <= 36; i++) {
                                     $('#spot' + i).removeClass('spot' + i);
-                                    
-                                    $('#' + i).css('background-color', '#FFF');
-                                    $('#00').css('background-color', '#FFF');
+
+                                    $('#' + i).css('background-color', '#0000000000');
+                                    $('#00').css('background-color', '#00000000');
                                     $('#spot' + i).html(00);
                                     $('#spot00').html(00);
                                 }
@@ -412,9 +419,9 @@
                     $('#tDayCollection').html(response.data.total_bet_amount.toFixed(2));
 
                     var html = '';
-                    var total =0;
+                    var total = 0;
                     $.each(response.data.total_bet_on_cards, function(key, value) {
-                        total =total+value;
+                        total = total + value;
                         $('#spot' + key).css('min-width', '25px');
                         $('#spot' + key).css('padding', '3px');
                         $('#spot' + key).html(value.toFixed(2));
@@ -484,66 +491,67 @@
                         booster = "N";
                     }
                     $("#r" + i).html(myarr[0] + ' | ' + booster);
-                    
+
                 }
 
-                
+
             });
         });
+
         function removeAlert() {
-                    setInterval(function() {
-                        $('#alertId').removeClass('show');
-                        $('#alertIdR').removeClass('show');
-                    }, 5000);
-                }
-                $('#btnSave').on('click', function() {
-                    var card = $('#SelectedCard').val();
-                    if (card >= 0 && card <= 36 || card == 00) {
-                        console.log($('#SelectedCard').val());
-                        console.log($('#boosterId').val());
-                        $.ajax({
-                            type: "POST",
-                            url: "lucky16config",
-                            data: {
-                                card: $('#SelectedCard').val(),
-                                boosterId: $('#boosterId').val(),
-                                gametype: 'roulette',
-                                _token: $('input[name="_token"]').val()
-                            },
-                            success: function(result) {
-                                $('#SelectedCard').val('');
-                                $('#SelectedCardNumber').val('');
-                                $('#alertId').addClass('show');
-                                $('#alertId').html("Success");
-                                removeAlert();
-                                $('#setNo').val('');
-                                $('input[type="radio"]').prop("checked", false);
-                                $('#boosterId').val(0);
-                            },
-                            error: function(result) {
-                                $('#alertIdR').addClass('show');
-                                $('#alertIdR').html(result.responseJSON.errors.card[0]);
-                                removeAlert();
-                            }
-                        });
+            setInterval(function() {
+                $('#alertId').removeClass('show');
+                $('#alertIdR').removeClass('show');
+            }, 5000);
+        }
+        $('#btnSave').on('click', function() {
+            var card = $('#SelectedCard').val();
+            if (card >= 0 && card <= 36 || card == 00) {
+                console.log($('#SelectedCard').val());
+                console.log($('#boosterId').val());
+                $.ajax({
+                    type: "POST",
+                    url: "lucky16config",
+                    data: {
+                        card: $('#SelectedCard').val(),
+                        boosterId: $('#boosterId').val(),
+                        gametype: 'roulette',
+                        _token: $('input[name="_token"]').val()
+                    },
+                    success: function(result) {
+                        $('#SelectedCard').val('');
+                        $('#SelectedCardNumber').val('');
+                        $('#alertId').addClass('show');
+                        $('#alertId').html("Success");
+                        removeAlert();
+                        $('#setNo').val('');
+                        $('input[type="radio"]').prop("checked", false);
+                        $('#boosterId').val(0);
+                    },
+                    error: function(result) {
+                        $('#alertIdR').addClass('show');
+                        $('#alertIdR').html(result.responseJSON.errors.card[0]);
+                        removeAlert();
                     }
                 });
-                $('#reset').on('click', function() {
-                    $.ajax({
-                        type: "POST",
-                        url:  "game_configs",
-                        data: {
-                            gamename: "roulette",
-                            _token: $('input[name="_token"]').val()
-                        },
-                        success: function(result) {
-                            // console.log("vijay");
-                            window.location.reload();
-                        },
-                        error: function(result) {
-                            console.log(result);
-                        }
-                    });
-                });
+            }
+        });
+        $('#reset').on('click', function() {
+            $.ajax({
+                type: "POST",
+                url: "game_configs",
+                data: {
+                    gamename: "roulette",
+                    _token: $('input[name="_token"]').val()
+                },
+                success: function(result) {
+                    // console.log("vijay");
+                    window.location.reload();
+                },
+                error: function(result) {
+                    console.log(result);
+                }
+            });
+        });
     </script>
 @endpush

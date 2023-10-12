@@ -168,13 +168,17 @@ Route::group(['middleware' => 'CheckAuth'], function () {
 
 
     //    Roulette result route
-    Route::get('liveResult/LiveResultRouletteMini', 'AdminController@LiveResultRouletteMini')->name('LiveResultRouletteMini');
-    Route::get('liveResult/LiveResultRouletteMini', 'AdminController@LiveResultRouletteMini')->name('LiveResultRouletteMini');
-    Route::get('liveResult/LiveResultRoulette00', 'AdminController@LiveResultRoulette00')->name('LiveResultRoulette00');
+    Route::get('liveResult/liveResultFunRoulette', 'AdminController@liveResultFunRoulette')->name('liveResultFunRoulette');
+    Route::get('liveResult/liveResultFunTarget', 'AdminController@liveResultFunTarget')->name('liveResultFunTarget');
+    // Route::get('liveResult/resultFunTarget', 'AdminController@resultFunTarget')->name('resultFunTarget');
 
     Route::get('/profile', [AdminController::class, 'profileFetch']);
     Route::get('/searchUsers', [AdminController::class, 'searchUsers']);
     Route::get('/fetch/{id}', [AdminController::class, 'fetchDataById']);
 
     Route::get('/online-players', [AdminController::class, 'getOnlinePlayers'])->name('getOnlinePlayers');
+
+    //Live Result
+    // Route::get('/liveResultFunRoulette', [AdminController::class, 'liveResultFunRoulette'])->name('FunRoulette');
+    // Route::get('/liveResultFunTarget', [AdminController::class, 'liveResultFunRoulette'])->name('FunTarget');
 });

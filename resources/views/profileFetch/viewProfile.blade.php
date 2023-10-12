@@ -294,12 +294,11 @@
 @extends('layout.master')
 
 @section('content')
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.2.3/css/buttons.dataTables.min.css">
+    <link href="{{ asset('assets/plugins/datatables-net/dataTables.bootstrap4.css') }}" rel="stylesheet" />
 
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
-
-        * {
+        {{--  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');  --}} * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -468,6 +467,7 @@
         }
     </style>
 
+
     <div class="container">
         <div class="main-body">
             <!-- Breadcrumb -->
@@ -512,12 +512,14 @@
                                     <h5>User Name:&nbsp; <span id="username"></span></h5>
                                     <span>Name:&nbsp; <span id="name"></span> </span><br>
                                     <span>Role:&nbsp; <span id="role"></span> </span><br>
-                                    <span>Referral:&nbsp; <span id="referral-username"></span> </span>
+                                    <span>Parent :&nbsp; <span id="referral-username"></span> </span>
                                 </div>
+
+
                             </div>
                             <hr>
                             <div class="row">
-                                <div class="col-sm-6">
+                                <div class="col-sm-6 ">
                                     <h5>Credit Point: <span id="credit-point-value">N/A</span></h5>
                                 </div>
                                 <div class="col-sm-6">
@@ -533,9 +535,8 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-sm-6">
-                                    <h5> Credit Point</h5>
-                                    <button class="btn btn-primary add-point-button" id="">Add
+                                <div class="col-sm-5">
+                                    <button class="btn btn-primary sm-5 add-point-button" id="">Add
                                         Point</button>
                                     <button class="btn btn-danger minus-point-button">Minus Point</button>
                                 </div>
@@ -550,7 +551,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h5>Recent Transaction</h5>
-                        <table id="bets-table" class="table table-borderless table-responsive">
+                        <table id="bets-table" class="table table-borderless table-responsive-md">
                             <thead>
                                 <tr>
                                     <th>Username</th>
@@ -583,8 +584,12 @@
 @push('custom-scripts')
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js">
-    </script>
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.3.1/js/dataTables.buttons.min.js"></script>
+    <script src="{{ asset('assets/plugins/datatables-net/jquery.dataTables.js') }}"></script>
+    <script src="{{ asset('assets/plugins/datatables-net-bs4/dataTables.bootstrap4.js') }}"></script>
+    <script src="{{ asset('assets/plugins/bootstrap-datepicker/bootstrap-datepicker.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/datatables-net/jquery.dataTables.js') }}"></script>
+    <script src="{{ asset('assets/plugins/datatables-net-bs4/dataTables.bootstrap4.js') }}"></script>
     <script>
         $(document).ready(function() {
 
@@ -595,7 +600,7 @@
             var betsTable = $('#bets-table').DataTable({
                 "paging": true, // Enable pagination
                 "ordering": true, // Enable sorting
-                "info": true // Show table information
+                //"info": true // Show table information
             });
 
             // Function to fetch user suggestions

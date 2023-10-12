@@ -49,7 +49,7 @@
                                                                 <tbody>
                                                                     @for ($i = 1; $i <= 4; $i++)
                                                                         <tr>
-                                                                            @for ($j = 1; $j <= 10 && $no < 37; $j++)
+                                                                            @for ($j = 1; $j <= 10 && $no < 38; $j++)
                                                                                 @php
                                                                                     $bull = false;
                                                                                     $length = 2;
@@ -59,6 +59,13 @@
                                                                                         <td class="No text-center"
                                                                                             id="{{ $no }}">
                                                                                             <table>
+                                                                                                <tr>
+                                                                                                    <td
+                                                                                                        style="text-align: center">
+                                                                                                        <span
+                                                                                                            style="font-size: 20px; padding-bottom: 1rem;">{{ $no }}</span>
+                                                                                                    </td>
+                                                                                                </tr>
                                                                                                 <tr>
                                                                                                     <td
                                                                                                         style="text-align: center">
@@ -118,7 +125,7 @@
                                                                                     </td>
                                                                                 @endif
                                                                                 @php
-                                                                                    if ($no <= 36) {
+                                                                                    if ($no <= 37) {
                                                                                         $no++;
                                                                                     }
                                                                                 @endphp
@@ -172,18 +179,18 @@
                                     </tr>
                                     <tr>
                                         <td>TOTAL COLLECTION: </td>
-                                        <td align="right">{{ moneyFormatIndia($daily['totalbetamount']) }}
+                                        {{--  <td align="right">{{ moneyFormatIndia($daily['totalbetamount']) }}  --}}
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>TOTAL PAYMENT :</td>
-                                        <td align="right">{{ moneyFormatIndia($daily['totalwonamount']) }}
+                                        {{--  <td align="right">{{ moneyFormatIndia($daily['totalwonamount']) }}  --}}
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>BALANCE :</td>
                                         <td align="right">
-                                            {{ moneyFormatIndia($daily['totalbetamount'] - $daily['totalwonamount']) }}
+                                            {{--  {{ moneyFormatIndia($daily['totalbetamount'] - $daily['totalwonamount']) }}  --}}
                                         </td>
                                     </tr>
                                 </table>

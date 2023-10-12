@@ -3860,6 +3860,12 @@ pre code {
     color: #212529;
 }
 
+#table {
+    width: 100%;
+    margin-bottom: 1rem;
+    color: #ffffff;
+}
+
 .table th,
 .table td {
     padding: 0.875rem 0.9375rem;

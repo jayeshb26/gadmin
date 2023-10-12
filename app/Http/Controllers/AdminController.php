@@ -929,6 +929,7 @@ class AdminController extends Controller
         }
     }
 
+
     public function detail($id)
     {
         $user = User::where('_id', new \MongoDB\BSON\ObjectID($id))->first();
@@ -1516,29 +1517,42 @@ class AdminController extends Controller
             return redirect('/complaint');
         }
     }
-    public function LiveResultRouletteMini()
+    public function liveResultFunRoulette()
     {
-        //        $webUrl = 'http://13.233.70.146:3000';
-        $webUrl = 'http://localhost:5000';
-        //        $response = Http::get($webUrl . '/chooseServer?det=android');
-        //        dd($response->json());
-        $lastWinCards = AndarBaharPlayings::select('last_win_cards')->first();
-        $daily['totalbetamount']  = BetList::where('game_type', 'roulette_zero_3d')->where('createdAt', '>=', Carbon::today())->sum('total_bet_amount');
-        $daily['totalwonamount']  = BetList::where('game_type', 'roulette_zero_3d')->where('createdAt', '>=', Carbon::today())->sum('total_win_amount');
-        return view('liveResult.LiveResultRouletteMini', ['response' => $webUrl, 'lastCard' => $lastWinCards, 'daily' => $daily]);
-    }
-
-    public function LiveResultRoulette00() // ADMIN_ROULETTE_ZERO_GAME_INFO
-    {
-        //        $webUrl = 'http://13.233.70.146:3000';
-        $webUrl = 'http://localhost:5000';
+        // dd('hello');
+        $webUrl = 'http://13.233.70.146:3000';
+        // $webUrl = 'http://localhost:5000';
         $response = Http::get($webUrl . '/chooseServer?det=android');
-        $lastWinCards = RouletteZeroPlayings::select('last_win_cards')->first();
-        $daily['totalbetamount']  = BetList::where('game_type', 'roulette_zero')->where('createdAt', '>=', Carbon::today())->sum('total_bet_amount');
-        $daily['totalwonamount']  = BetList::where('game_type', 'roulette_zero')->where('createdAt', '>=', Carbon::today())->sum('total_win_amount');
-        return view('liveResult.LiveResultRoulette00', ['response' => $response->json(), 'lastCard' => $lastWinCards, 'daily' => $daily]);
+        //        dd($response->json());/
+        // $lastWinCards = AndarBaharPlayings::select('last_win_cards')->first();
+        // $daily['totalbetamount']  = BetList::where('game_type', 'roulette_zero_3d')->where('createdAt', '>=', Carbon::today())->sum('total_bet_amount');
+        // $daily['totalwonamount']  = BetList::where('game_type', 'roulette_zero_3d')->where('createdAt', '>=', Carbon::today())->sum('total_win_amount');
+        return view('liveResult.LiveResultRoulette'); // , ['response' => $webUrl, 'lastCard' => $lastWinCards, 'daily' => $daily]
     }
 
+    public function liveResultFunTarget() // ADMIN_ROULETTE_ZERO_GAME_INFO
+    {
+        //     $webUrl = 'http://13.233.70.146:3000';
+        //     dd('hello');
+        //     // $webUrl = 'http://localhost:5000';
+        //     // $response = Http::get($webUrl . '/chooseServer?det=android');
+        //     // $lastWinCards = RouletteZeroPlayings::select('last_win_cards')->first();
+        //     // $daily['totalbetamount']  = BetList::where('game_type', 'roulette_zero')->where('createdAt', '>=', Carbon::today())->sum('total_bet_amount');
+        //     // $daily['totalwonamount']  = BetList::where('game_type', 'roulette_zero')->where('createdAt', '>=', Carbon::today())->sum('total_win_amount');
+        return view('liveResult.LiveResultFunTargate'); //,['response' => $response->json(), 'lastCard' => $lastWinCards, 'daily' => $daily]
+    }
+    // public function resultFunTarget() // ADMIN_ROULETTE_ZERO_GAME_INFO
+    // {
+    //     dd('geklloo');
+    //     // $webUrl = 'http://13.233.70.146:3000';
+    //     // dd('hello');
+    //     // $webUrl = 'http://localhost:5000';
+    //     // $response = Http::get($webUrl . '/chooseServer?det=android');
+    //     // $lastWinCards = RouletteZeroPlayings::select('last_win_cards')->first();
+    //     // $daily['totalbetamount']  = BetList::where('game_type', 'roulette_zero')->where('createdAt', '>=', Carbon::today())->sum('total_bet_amount');
+    //     // $daily['totalwonamount']  = BetList::where('game_type', 'roulette_zero')->where('createdAt', '>=', Carbon::today())->sum('total_win_amount');
+    //     return view('liveResult.LiveResultFunTarget'); //,['response' => $response->json(), 'lastCard' => $lastWinCards, 'daily' => $daily]
+    // }
 
     public function WinByAdminDelete($id)
     {

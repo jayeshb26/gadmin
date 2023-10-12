@@ -271,6 +271,18 @@
                         <span class="link-title">Admin Balance</span>
                     </a>
                 </li>
+                <li class="nav-item {{ active_class(['adminPercent']) }}">
+                    <a href="{{ url('/adminPercent') }}" class="nav-link">
+                        <i class="link-icon fa fa-list"></i>
+                        <span class="link-title">Live Result FunRoulette</span>
+                    </a>
+                </li>
+                <li class="nav-item {{ active_class(['adminPercent']) }}">
+                    <a href="{{ url('/adminPercent') }}" class="nav-link">
+                        <i class="link-icon fa fa-list"></i>
+                        <span class="link-title">Live Result FunTarget</span>
+                    </a>
+                </li>
                 @if (array_key_exists('winbyadmin', Session::get('permissions')))
                     <li class="nav-item {{ active_class(['announcement']) }}">
                         <a href="{{ url('/announcement') }}" class="nav-link">
