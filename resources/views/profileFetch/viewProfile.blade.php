@@ -532,6 +532,14 @@
                                     <h5>Total Won Point: <span id="total-won-points-value">N/A</span></h5>
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <h5> Credit Point</h5>
+                                    <button class="btn btn-primary add-point-button" id="">Add
+                                        Point</button>
+                                    <button class="btn btn-danger minus-point-button">Minus Point</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -579,6 +587,10 @@
     </script>
     <script>
         $(document).ready(function() {
+
+            // Click event handler for "Add Point" button
+            // Click event handler for "Add Point" button
+
             // Initialize DataTables on the bets table
             var betsTable = $('#bets-table').DataTable({
                 "paging": true, // Enable pagination
@@ -615,14 +627,37 @@
 
                 var userName = $('#search').val();
 
-                // Send an AJAX request to fetch user data from /fetch newdata
+                // Send an AJAX request to fetch user data from /fetch
                 $.ajax({
                     url: 'fetch/' + userName, // Use the correct endpoint
                     type: 'GET',
                     dataType: 'json',
                     success: function(response) {
+
+                        $('.add-point-button').on('click', function(event) {
+                            event.preventDefault();
+                            var userId = getProfileIdFromResponse(response);
+                            // Redirect to the "Add Point" page with the user ID
+                            window.location.href = 'transfercredit/' +
+                                userId; // Replace with your actual URL
+                        });
+
+                        // Click event handler for "Minus Point" button
+                        $('.minus-point-button').on('click', function(event) {
+                            event.preventDefault();
+                            var userId = getProfileIdFromResponse(response);
+                            // Redirect to the "Minus Point" page with the user ID
+                            window.location.href = 'adjustcredit/' +
+                                userId; // Replace with your actual URL
+                        });
+
+                        function getProfileIdFromResponse(response) {
+                            var userId = response.userData._id.$oid;
+                            return userId;
+                        }
                         if (response && Object.keys(response.userData).length > 0) {
-                            // Populate HTML elements with user data testinfgit
+                            // Populate HTML elements with user data
+                            $('#id').text(response.userData._id || 'N/A');
                             $('#username').text(response.userData.userName || 'N/A');
                             $('#name').text(response.userData.name || 'N/A');
                             $('#role').text(response.userData.role || 'N/A');
@@ -651,9 +686,9 @@
                                         'N/A', // Use 'N/A' if data is missing
                                         response.userData.playPoint ||
                                         'N/A', // Use 'N/A' if data is missing
-                                        bet.won || 'N/A',
+                                        bet.won,
                                         bet.createDate,
-                                        bet.game = 'FunRoulette' || 'FunTarget',
+                                        bet.game,
                                     ]).draw(false);
                                 }
                             }

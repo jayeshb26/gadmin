@@ -20,6 +20,9 @@ class GameController extends Controller
         // roulette
         // funTarget
         // tripleChance
+        //funtarget
+        //funroulette
+
         if ($id == 1) {
             $bets = Winresults::where('gameName', "funroulette")->orderBy('createdAt', 'DESC')->paginate(10);
             $game = "FunRoulette";

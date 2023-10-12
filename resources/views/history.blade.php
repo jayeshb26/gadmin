@@ -228,7 +228,7 @@
 
     <script type="text/javascript">
         $('.delete-all').on('click', function(event) {
-            // event.preventDefault(); new
+            // event.preventDefault();
             event.preventDefault();
             const url = $(this).attr('href');
             var from = document.forms['myform']['from'].value;

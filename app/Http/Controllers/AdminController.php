@@ -276,7 +276,7 @@ class AdminController extends Controller
         $transactions = [];
         $bets = [];
 
-        $fieldsToFetch = ['userName', 'name', 'role', 'creditPoint', 'referralId', 'startPoint', 'playPoint', 'won', 'endPoint', 'date', 'game', 'lastBetAmount'];
+        $fieldsToFetch = ['_id', 'userName', 'name', 'role', 'creditPoint', 'referralId', 'startPoint', 'playPoint', 'won', 'endPoint', 'date', 'game', 'lastBetAmount'];
 
         foreach ($collections as $collection) {
             $results = DB::connection('mongodb')
@@ -304,11 +304,13 @@ class AdminController extends Controller
             }
         }
 
-        // Fetch all bets for the user from the "bet" table/
+        // Fetch all bets for the user from the "bet" table
         $bets = DB::table('bets')
             ->where('userName', $id)
             ->get();
-
+        $userID = DB::table('users')
+            ->where('i_id', $id)
+            ->get();
         // Sort transactions by date in descending order
         usort($transactions, function ($a, $b) {
             return strtotime($b['date']) - strtotime($a['date']);
@@ -319,6 +321,7 @@ class AdminController extends Controller
         return response()->json([
             'userData' => $userData,
             'bets' => $bets,
+            '_id' => $userID,
         ]);
     }
 
