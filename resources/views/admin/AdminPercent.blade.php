@@ -119,6 +119,7 @@
         $(function() {
             const socket = io.connect("ws://143.244.140.74:6000");
             socket.on("connect", function() {
+                {{--  console.log("hello"d);  --}}
                 console.log(socket.id);
                 const user = {
                     adminId: "61d7bcd1153a05cf20cfc6f2",

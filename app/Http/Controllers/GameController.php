@@ -16,9 +16,9 @@ class GameController extends Controller
     public function index($id)
     {
         // rouletteMini
-        // funRoulette
+        // funroulette
         // roulette
-        // funTarget
+        // funtarget
         // tripleChance
 
         if ($id == 1) {
@@ -57,8 +57,8 @@ class GameController extends Controller
                 $admin = User::where('_id', new \MongoDB\BSON\ObjectID(Session::get('id')))->get();
                 if (count($agent) == 0) {
                     $game = array();
-                    $game['funRoulette'] = 0;
-                    $game['funTarget'] = 0;
+                    $game['funroulette'] = 0;
+                    $game['funtarget'] = 0;
                     return view('gameProfit', ['data' => $admin,  'total' => $game]);
                 } else {
                     foreach ($agent as $super) {
@@ -68,8 +68,8 @@ class GameController extends Controller
                     if (count($super_distributor) == 0) {
 
                         $game = array();
-                        $game['funRoulette'] = 0;
-                        $game['funTarget'] = 0;
+                        $game['funroulette'] = 0;
+                        $game['funtarget'] = 0;
                         return view('gameProfit', ['data' => $admin,  'total' => $game]);
                     } else {
                         foreach ($super_distributor as $pre_user) {
@@ -79,8 +79,8 @@ class GameController extends Controller
                         if (count($distributor) == 0) {
 
                             $game = array();
-                            $game['funRoulette'] = 0;
-                            $game['funTarget'] = 0;
+                            $game['funroulette'] = 0;
+                            $game['funtarget'] = 0;
                             return view('gameProfit', ['data' => $admin,  'total' => $game]);
                         } else {
                             foreach ($distributor as $exe_user) {
@@ -90,8 +90,8 @@ class GameController extends Controller
                             if (count($retailer) == 0) {
 
                                 $game = array();
-                                $game['funRoulette'] = 0;
-                                $game['funTarget'] = 0;
+                                $game['funroulette'] = 0;
+                                $game['funtarget'] = 0;
 
                                 return view('gameProfit', ['data' => $admin,  'total' => $game]);
                             } else {
@@ -105,8 +105,8 @@ class GameController extends Controller
                                 if (count($players) == 0) {
 
                                     $game = array();
-                                    $game['funRoulette'] = 0;
-                                    $game['funTarget'] = 0;
+                                    $game['funroulette'] = 0;
+                                    $game['funtarget'] = 0;
 
                                     return view('gameProfit', ['data' => $admin,  'total' => $game]);
                                 } else {
@@ -136,8 +136,8 @@ class GameController extends Controller
                                     // die;
                                     $game = array();
 
-                                    $game['funRoulette'] = 0;
-                                    $game['funTarget'] = 0;
+                                    $game['funroulette'] = 0;
+                                    $game['funtarget'] = 0;
 
 
                                     // echo "<pre>";
@@ -183,8 +183,8 @@ class GameController extends Controller
                 $admin = User::where('_id', new \MongoDB\BSON\ObjectID(Session::get('id')))->get();
                 if (count($super_distributor) == 0) {
                     $game = array();
-                    $game['funRoulette'] = 0;
-                    $game['funTarget'] = 0;
+                    $game['funroulette'] = 0;
+                    $game['funtarget'] = 0;
 
                     return view('gameProfit', ['data' => $admin,  'total' => $game]);
                 } else {
@@ -195,8 +195,8 @@ class GameController extends Controller
                     if (count($distributor) == 0) {
 
                         $game = array();
-                        $game['funRoulette'] = 0;
-                        $game['funTarget'] = 0;
+                        $game['funroulette'] = 0;
+                        $game['funtarget'] = 0;
 
                         return view('gameProfit', ['data' => $admin,  'total' => $game]);
                     } else {
@@ -207,8 +207,8 @@ class GameController extends Controller
                         if (count($retailer) == 0) {
 
                             $game = array();
-                            $game['funRoulette'] = 0;
-                            $game['funTarget'] = 0;
+                            $game['funroulette'] = 0;
+                            $game['funtarget'] = 0;
 
                             return view('gameProfit', ['data' => $admin,  'total' => $game]);
                         } else {
@@ -222,8 +222,8 @@ class GameController extends Controller
                             if (count($player) == 0) {
 
                                 $game = array();
-                                $game['funRoulette'] = 0;
-                                $game['funTarget'] = 0;
+                                $game['funroulette'] = 0;
+                                $game['funtarget'] = 0;
 
                                 return view('gameProfit', ['data' => $admin,  'total' => $game]);
                             } else {
@@ -252,8 +252,8 @@ class GameController extends Controller
                                 // die;
                                 $game = array();
 
-                                $game['funRoulette'] = 0;
-                                $game['funTarget'] = 0;
+                                $game['funroulette'] = 0;
+                                $game['funtarget'] = 0;
 
 
                                 // echo "<pre>";
