@@ -176,7 +176,7 @@ Route::group(['middleware' => 'CheckAuth'], function () {
     Route::get('/searchUsers', [AdminController::class, 'searchUsers']);
     Route::get('/fetch/{id}', [AdminController::class, 'fetchDataById']);
 
-    Route::get('/online-players', [AdminController::class, 'getOnlinePlayers'])->name('getOnlinePlayers');
+    // Route::get('/online-players', [AdminController::class, 'getOnlinePlayers'])->name('getOnlinePlayers');
 
     //Live Result
     // Route::get('/liveResultFunRoulette', [AdminController::class, 'liveResultFunRoulette'])->name('FunRoulette');

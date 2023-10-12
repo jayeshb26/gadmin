@@ -490,17 +490,20 @@
                                     <div class="search-input">
                                         <a href="" target="_blank" hidden></a>
                                         <input type="text" id="search" placeholder="Type to search..">
+                                        <ul class="list-group list-group-flush">
+                                            <div class="autocom-box"></div>
+                                            <li id="suggestions" style="text-center"></li>
+                                        </ul>
                                     </div>
                                     <button class="btn btn-primary p-button" id="submit-btn">Search</button>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="mt-3">
-                        <ul class="list-group list-group-flush">
-                            <div class="autocom-box"></div>
-                            <li id="suggestions" style="text-center"></li>
-                        </ul>
+                    <div class="ml-2 mt-3">
+                        <button class="btn btn-primary sm-5 add-point-button" id="">Add
+                            Point</button>
+                        <button class="btn btn-danger minus-point-button">Minus Point</button>
                     </div>
                 </div>
                 <div class="col-md-8">
@@ -513,6 +516,7 @@
                                     <span>Name:&nbsp; <span id="name"></span> </span><br>
                                     <span>Role:&nbsp; <span id="role"></span> </span><br>
                                     <span>Parent :&nbsp; <span id="referral-username"></span> </span>
+
                                 </div>
 
 
@@ -535,11 +539,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-sm-5">
-                                    <button class="btn btn-primary sm-5 add-point-button" id="">Add
-                                        Point</button>
-                                    <button class="btn btn-danger minus-point-button">Minus Point</button>
-                                </div>
+
                             </div>
                         </div>
                     </div>

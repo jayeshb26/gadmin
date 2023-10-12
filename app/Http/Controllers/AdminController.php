@@ -337,7 +337,7 @@ class AdminController extends Controller
             $createdAt = $player->createdAt instanceof \MongoDB\BSON\UTCDateTime
                 ? $player->createdAt->toDateTime()->format('Y-m-d')
                 : null;
-
+            // dd($createdAt);
             return [
                 'Name' => $player->name,
                 'UserName' => $player->userName,
@@ -1520,9 +1520,8 @@ class AdminController extends Controller
     public function liveResultFunRoulette()
     {
         // dd('hello');
-        $webUrl = 'http://13.233.70.146:3000';
         // $webUrl = 'http://localhost:5000';
-        $response = Http::get($webUrl . '/chooseServer?det=android');
+        // $response = Http::get($webUrl . '/chooseServer?det=android');
         //        dd($response->json());/
         // $lastWinCards = AndarBaharPlayings::select('last_win_cards')->first();
         // $daily['totalbetamount']  = BetList::where('game_type', 'roulette_zero_3d')->where('createdAt', '>=', Carbon::today())->sum('total_bet_amount');

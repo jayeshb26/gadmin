@@ -144,7 +144,7 @@
                 </li>
             @endif
             <li class="nav-item {{ active_class(['changepin']) }}">
-                <a href="{{ url('/online-players') }}" class="nav-link">
+                <a href="{{ url('/OnPlayers') }}" class="nav-link">
                     <i class="link-icon fa fa-user-times"></i>
                     <span class="link-title">Online Player</span>
                 </a>
@@ -258,6 +258,7 @@
                     <span class="link-title">Out Points</span>
                 </a>
             </li>  --}}
+
             @if (Session::get('role') == 'Admin')
                 <li class="nav-item {{ active_class(['winningPercent']) }}">
                     <a href="{{ url('/winningPercent') }}" class="nav-link">
@@ -271,18 +272,6 @@
                         <span class="link-title">Admin Balance</span>
                     </a>
                 </li>
-                <li class="nav-item {{ active_class(['adminPercent']) }}">
-                    <a href="{{ url('/adminPercent') }}" class="nav-link">
-                        <i class="link-icon fa fa-list"></i>
-                        <span class="link-title">Live Result FunRoulette</span>
-                    </a>
-                </li>
-                <li class="nav-item {{ active_class(['adminPercent']) }}">
-                    <a href="{{ url('/adminPercent') }}" class="nav-link">
-                        <i class="link-icon fa fa-list"></i>
-                        <span class="link-title">Live Result FunTarget</span>
-                    </a>
-                </li>
                 @if (array_key_exists('winbyadmin', Session::get('permissions')))
                     <li class="nav-item {{ active_class(['announcement']) }}">
                         <a href="{{ url('/announcement') }}" class="nav-link">
@@ -292,6 +281,18 @@
                     </li>
                 @endif
             @endif
+            <li class="nav-item {{ active_class(['liveResult/liveResultFunRoulette']) }}">
+                <a href="{{ url('/liveResult/liveResultFunRoulette') }}" class="nav-link">
+                    <i class="link-icon fa fa-list"></i>
+                    <span class="link-title">Live Result FunRoulette</span>
+                </a>
+            </li>
+            <li class="nav-item {{ active_class(['adminPercent']) }}">
+                <a href="{{ url('/liveResult/liveResultFunRoulette') }}" class="nav-link">
+                    <i class="link-icon fa fa-list"></i>
+                    <span class="link-title">Live Result FunTarget</span>
+                </a>
+            </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{ url('/chpass') }}">
                     <i class="link-icon fa fa-key mr-1"></i>

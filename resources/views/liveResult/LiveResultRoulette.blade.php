@@ -22,6 +22,7 @@
                 <div class="card-header d-flex justify-content-between" style="background: green">
                     <h5 class=" text-white text-align-center" style="text-transform: none !important; text-align:center">
                         FunRoulette</h5>
+                    <div id="status">Connecting...</div>
 
                     <button type='button' id="reset" class="btn text-white btn-outline-light"
                         style="background: #1B0905"><span aria-hidden='true'>Reset
@@ -242,7 +243,7 @@
 @endsection
 
 @push('plugin-scripts')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.8/socket.io.js"></script>
+    {{--  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.1/socket.io.js"></script>  --}}
 @endpush
 
 @push('custom-scripts')
@@ -302,6 +303,110 @@
         document.addEventListener('contextmenu', event => event.preventDefault());
     </script> --}}
 
+    <script script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.0/socket.io.js"></script>
+    <script>
+        $(function() {
+            const socket = io.connect(
+                'ws://143.244.140.74:6000'); // Change the port number to a safe one (e.g., 8080)
+
+            console.log(socket);
+
+            socket.on('connect', function() {
+                const user = {
+                    adminId: "603388bb7d20e50a81217277",
+                    gameName: "funroulette",
+                };
+
+
+                socket.emit('joinAdmin', user);
+
+                var cardNumber = 0;
+                var y = 1;
+                var gameName = "funroulette";
+
+                function removeAlert() {
+                    setInterval(function() {
+                        $('#alertId').removeClass('show');
+                    }, 5000);
+                }
+                $('#btnSave').on('click', function() {
+                    var boosterId = $('#boosterId').val();
+                    var card = $('#SelectedCardNumber').val();
+                    cardNumber = parseInt(card);
+                    y = parseInt(boosterId);
+                    if (cardNumber != "" && y != "") {
+                        $('#alertId').addClass('show');
+                        $('#alertId').html("Success");
+                        removeAlert();
+                        console.log({
+                            cardNumber,
+                            y,
+                            gameName
+                        });
+                        socket.emit('winByAdmin', {
+                            cardNumber,
+                            y,
+                            gameName
+                        });
+                    }
+                });
+
+                socket.on('resAdmin', (res) => {
+                    console.log(res);
+                    if (res.gameName == "funroulette") {
+                        console.log(res);
+                        if (res.time >= 0) {
+                            var seconds = parseInt(Math.abs(res.time) - 95);
+                            seconds = Math.abs(seconds);
+                            var countdownTimer = setInterval(function() {
+                                if (seconds <= 0) {
+                                    window.location.reload();
+                                    gameres.forEach(function(item) {
+                                        Object.keys(item).forEach(function(key) {
+                                            $('#c' + key).val(0);
+                                            $('#c' + key).css(
+                                                "background-color",
+                                                "transparent"
+                                            );
+                                        });
+                                    });
+                                    $('input[type="radio"]').prop("checked", false);
+                                    $('#alertId').removeClass('show');
+                                    $('#SelectedCard').val('');
+                                    $('#SelectedCardNumber').val('');
+                                    $('#TCollection').html('');
+                                    $('#totalPayment').html('');
+                                    clearInterval(countdownTimer);
+                                    window.location.reload();
+                                }
+                                document.getElementById('countdown').innerHTML = seconds;
+                                seconds -= 1;
+                            }, 1000);
+                        }
+
+                        var resAdminData = res.data;
+                        for (var key in resAdminData) {
+                            if (resAdminData.hasOwnProperty(key)) {
+                                var id = key;
+                                var value = parseFloat(resAdminData[key]).toFixed(2);
+                                var element = document.getElementById('spot' + id);
+                                if (element) {
+                                    element.innerHTML = value;
+                                }
+                            }
+                        }
+                    }
+                });
+
+                socket.on('resAdminBetData', (res) => {
+                    console.log(res.data);
+                    if (res.gameName == "funroulette") {
+                        // Handle 'resAdminBetData' event as needed
+                    }
+                });
+            });
+        });
+    </script>
 
 
     <script>
@@ -336,166 +441,23 @@
             "DK": 11,
             "CK": 12,
         };
-        $(function() {
-            $('.No').on('click', function() {
-                result = this.id;
-                console.log('hello i am clicked');
-                for (var i = 0; i < 37; i++) {
-                    $('#' + i).css('background-color', '#00000000');
-                    $('#00').css('background-color', '#00000000');
-                }
-                if (this.id == 00) {
-                    $('#' + this.id).css('background-color', 'green');
-                } else {
-                    $('#' + this.id).css('background-color', 'red');
-                }
-                // console.log(result);
-                var boosterIds = $('#boosterId').val();
-                $('#SelectedCard').val(result);
-                $('#totalPayment').html($('#spot' + this.id).html() * 36);
-                $('#boosterId').val($('#boosterId').val());
-            });
-            var URL;
-            URL = "ws://localhost:5000";
-            // console.log(URL);
-            const socket = io.connect(URL);
-            socket.on("connect", () => {
-                console.log(socket.connected); // true
-            });
-
-            function pad(s) {
-                while (s.length < 3)
-                    s = '0' + s;
-                return s;
-            };
-            socket.on('res', function(data) {
-                let response = data;
-                console.log(response);
-                var E = '';
-                if (response.data.game_state == "game_timer_start") {
-                    $('#win').removeClass('spot' + response.data.win_card);
-                    $('#win').html('');
-
-                    $('#boosterId').on('change', function() {
-                        var j = $('#SelectedCard').val();
-                        $('#totalPayment').html($('#spot' + j).html() * 36 * (this.value == 0 ? 1 :
-                            this.value));
-                    });
-                    if (response.data.timer) {
-                        card.forEach(function(item) {
-                            $('#' + item).removeAttr('disabled');
-                        });
-                        var time = response.data.timer ? response.data.timer : 90;
-                        console.log(time);
-
-                        function timerDATA() {
-                            time--;
-                            document.getElementById('countdown').innerHTML = time;
-                            if (time <= 0) {
-                                clearInterval(counter);
-                                document.getElementById('countdown').innerHTML = "12";
-                                for (var i = 0; i <= 36; i++) {
-                                    $('#spot' + i).removeClass('spot' + i);
-
-                                    $('#' + i).css('background-color', '#0000000000');
-                                    $('#00').css('background-color', '#00000000');
-                                    $('#spot' + i).html(00);
-                                    $('#spot00').html(00);
-                                }
-                                $('#spot00').removeClass('spot00');
-                                $('#boosterId').val(0);
-                                $('#spot00').html('');
-                                $('input[type="radio"]').prop("checked", false);
-                                $('#SelectedCard').val('');
-                                $('#SelectedCardNumber').val('');
-
-                                // window.location.reload();
-                            }
-                        }
-                        document.getElementById('GameStatus').innerHTML = response.data.game_state;
-                        var counter = setInterval(timerDATA, 1000);
-                    }
-
-                    $('#tDayCollection').html(response.data.total_bet_amount.toFixed(2));
-
-                    var html = '';
-                    var total = 0;
-                    $.each(response.data.total_bet_on_cards, function(key, value) {
-                        total = total + value;
-                        $('#spot' + key).css('min-width', '25px');
-                        $('#spot' + key).css('padding', '3px');
-                        $('#spot' + key).html(value.toFixed(2));
-                    });
-                    $('#TCollection').html(total.toFixed(2));
-                } else if (response.data.game_state == "finish_state") {
-                    document.getElementById('GameStatus').innerHTML = response.data.game_state;
-                    var time = response.data.timer ? response.data.timer : 5;
-                    console.log(time);
-
-                    function timerDATA() {
-                        time--;
-                        document.getElementById('countdown').innerHTML = time;
-                        if (time <= 0) {
-                            clearInterval(counter);
-                            document.getElementById('countdown').innerHTML = "00";
-                            for (var i = 0; i <= 36; i++) {
-                                $('#spot' + i).removeClass('spot' + i);
-                                $('#spot' + i).html(00);
-                                $('#spot00').html(00);
-                            }
-                            $('No').prop("checked", false);
-                            $('#boosterId').val(0);
-                        }
-                    }
-                    var counter = setInterval(timerDATA, 1000);
-                    card.forEach(function(item) {
-                        $('#' + item).attr('disabled', 'disabled');
-                    });
-
-                    $('#win').addClass('spot' + response.data.win_card);
-                    $('#win').html('win');
-                } else {
-                    document.getElementById('GameStatus').innerHTML = response.data.game_state;
-                    var time = response.data.timer ? response.data.timer : 5;
-                    console.log(time);
-
-                    function timerDATA() {
-                        time--;
-                        document.getElementById('countdown').innerHTML = time;
-                        if (time <= 0) {
-                            clearInterval(counter);
-                            document.getElementById('countdown').innerHTML = "00";
-                            for (var i = 0; i <= 36; i++) {
-                                $('#spot' + i).removeClass('spot' + i);
-                                $('#spot' + i).html(00);
-                                $('#spot00').html(00);
-                            }
-                            $('No').prop("checked", false);
-                            $('#boosterId').val(0);
-                        }
-                    }
-                    var counter = setInterval(timerDATA, 1000);
-                    card.forEach(function(item) {
-                        $('#' + item).attr('disabled', 'disabled');
-                    });
-                }
-                var myarr;
-                for (let i = 5; i < response.data.last_win_cards.length; i++) {
-                    myarr = response.data.last_win_cards[i].split("|");
-                    // var url = '{{ URL::asset('/asset/images/andarbahar/cards') }}/' + myarr[0] + '.png';
-                    // console.log(url);
-                    var booster;
-                    if (myarr[1] != '1') {
-                        booster = myarr[1] + 'X';
-                    } else {
-                        booster = "N";
-                    }
-                    $("#r" + i).html(myarr[0] + ' | ' + booster);
-
-                }
-
-
-            });
+        $('.No').on('click', function() {
+            result = this.id;
+            {{--  console.log('hello i am clicked');  --}}
+            for (var i = 0; i < 37; i++) {
+                $('#' + i).css('background-color', '#00000000');
+                $('#00').css('background-color', '#00000000');
+            }
+            if (this.id == 00) {
+                $('#' + this.id).css('background-color', 'green');
+            } else {
+                $('#' + this.id).css('background-color', 'red');
+            }
+            // console.log(result);
+            var boosterIds = $('#boosterId').val();
+            $('#SelectedCard').val(result);
+            $('#totalPayment').html($('#spot' + this.id).html() * 36);
+            $('#boosterId').val($('#boosterId').val());
         });
 
         function removeAlert() {
@@ -541,7 +503,7 @@
                 type: "POST",
                 url: "game_configs",
                 data: {
-                    gamename: "roulette",
+                    gamename: "funroulette",
                     _token: $('input[name="_token"]').val()
                 },
                 success: function(result) {

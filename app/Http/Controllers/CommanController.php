@@ -22,86 +22,86 @@ class CommanController extends Controller
         $this->middleware('CheckAuth');
     }
 
-    // public function OnPlayers()
-    // {
-    //     if (Session::get('role') == "Admin") {
-    //         if (Session::get('username') == 'superadmin') {
-    //             $users = User::where('role', 'retailer')->get();
-    //         } else {
-    //             $superdistributer = User::where('role', 'agent')->where('referralId', new \MongoDB\BSON\ObjectID(Session::get('id')))->get();
-    //             foreach ($superdistributer as $super) {
-    //                 $dis = User::where('role', 'distributer')->where('referralId', new \MongoDB\BSON\ObjectID($super['_id']))->get();
-    //                 foreach ($dis as $d) {
-    //                     $users = User::where('role', 'retailer')->where('referralId', new \MongoDB\BSON\ObjectID($d['_id']))->get();
-    //                     // echo "<pre>";
-    //                     // print_r($users);die;
-    //                 }
-    //             }
-    //         }
-    //     } elseif (Session::get('role') == "superDistributer") {
-    //         $dis = User::where('role', 'distributer')->where('referralId', new \MongoDB\BSON\ObjectID(Session::get('id')))->get();
-    //         if (count($dis) == 0) {
-    //             $dis_id = [];
-    //         } else {
-    //             foreach ($dis as $d) {
-    //                 $dis_id[] = new \MongoDB\BSON\ObjectID($d['_id']);
-    //             }
-    //         }
+    public function OnPlayers()
+    {
+        if (Session::get('role') == "Admin") {
+            if (Session::get('username') == 'admin') {
+                $users = User::where('role', 'player')->get();
+            } else {
+                $superdistributer = User::where('role', 'super_distributor')->where('referralId', new \MongoDB\BSON\ObjectID(Session::get('id')))->get();
+                foreach ($superdistributer as $super) {
+                    $dis = User::where('role', 'distributer')->where('referralId', new \MongoDB\BSON\ObjectID($super['_id']))->get();
+                    foreach ($dis as $d) {
+                        $users = User::where('role', 'player')->where('referralId', new \MongoDB\BSON\ObjectID($d['_id']))->get();
+                        // echo "<pre>";
+                        // print_r($users);die;
+                    }
+                }
+            }
+        } elseif (Session::get('role') == "super_distributor") {
+            $dis = User::where('role', 'distributor')->where('referralId', new \MongoDB\BSON\ObjectID(Session::get('id')))->get();
+            if (count($dis) == 0) {
+                $dis_id = [];
+            } else {
+                foreach ($dis as $d) {
+                    $dis_id[] = new \MongoDB\BSON\ObjectID($d['_id']);
+                }
+            }
 
-    //         $users = User::where('role', 'retailer')->whereIn('referralId', $dis_id)->get();
-    //         // echo "<pre>";
-    //         // print_r($users->toArray());die;
-    //     } elseif (Session::get('role') == "distributer") {
-    //         $users = User::where('role', 'retailer')->where('referralId', new \MongoDB\BSON\ObjectID(Session::get('id')))->get();
-    //     }
+            $users = User::where('role', 'retailer')->whereIn('referralId', $dis_id)->get();
+            // echo "<pre>";
+            // print_r($users->toArray());die;
+        } elseif (Session::get('role') == "distributer") {
+            $users = User::where('role', 'player')->where('referralId', new \MongoDB\BSON\ObjectID(Session::get('id')))->get();
+        }
 
-    //     // echo "<pre>";
-    //     // print_r($users->toArray());
-    //     // die();
-    //     $totalPlaypoint = 0;
-    //     $totalWinpoint = 0;
-    //     $totalEndpoint = 0;
-    //     $point = array();
-    //     foreach ($users as $key => $value) {
-    //         $to = date('Y-n-j');
-    //         $playPoint = Bets::where('playerId', new \MongoDB\BSON\ObjectID($value['_id']))->where('DrDate', $to)->where('isCancel', false)->get();
-    //         $refer = User::where('_id', new \MongoDB\BSON\ObjectID($value['referralId']))->first();
-    //         // $playPointss = Bets::where('isCancel', true)->sum('betPoint');
-    //         // echo "<pre>";
-    //         // print_r($playPointss);
-    //         // die;
+        // echo "<pre>";
+        // print_r($users->toArray());
+        // die();
+        $totalPlaypoint = 0;
+        $totalWinpoint = 0;
+        $totalEndpoint = 0;
+        $point = array();
+        foreach ($users as $key => $value) {
+            $to = date('Y-n-j');
+            $playPoint = Bets::where('playerId', new \MongoDB\BSON\ObjectID($value['_id']))->where('DrDate', $to)->where('isCancel', false)->get();
+            $refer = User::where('_id', new \MongoDB\BSON\ObjectID($value['referralId']))->first();
+            // $playPointss = Bets::where('isCancel', true)->sum('betPoint');
+            // echo "<pre>";
+            // print_r($playPointss);
+            // die;
 
-    //         if (isset($playPoint)) {
-    //             $startPoint = 0;
-    //             $betPoint = 0;
-    //             $wonPoint = 0;
-    //             $endPoint = 0;
-    //             foreach ($playPoint as $play) {
-    //                 $startPoint += $play['startPoint'];
-    //                 $betPoint += $play['betPoint'];
-    //                 $wonPoint += $play['won'];
-    //                 $endPoint = $betPoint - $wonPoint;
-    //                 $users[$key]['totalbetPoint'] = $betPoint;
-    //                 $users[$key]['totalwonPoint'] = $wonPoint;
-    //                 $users[$key]['totalendPoint'] = $endPoint;
-    //             }
-    //         }
-    //         $users[$key]['refer'] = $refer['userName'];
-    //     }
-    //     foreach ($users as $value) {
-    //         $totalPlaypoint += $value['totalbetPoint'];
-    //         $totalWinpoint += $value['totalwonPoint'];
-    //         $totalEndpoint += $value['totalendPoint'];
-    //         $point['totalPlaypoint'] = $totalPlaypoint;
-    //         $point['totalWinpoint'] = $totalWinpoint;
-    //         $point['totalEndpoint'] = $totalEndpoint;
-    //     }
-    //     // echo "<pre>";
-    //     // print_r($users->toArray());
-    //     // print_r($point);
-    //     // die;
-    //     return view('showOnPlayer', ['data' => $users, 'point' => $point]);
-    // }
+            if (isset($playPoint)) {
+                $startPoint = 0;
+                $betPoint = 0;
+                $wonPoint = 0;
+                $endPoint = 0;
+                foreach ($playPoint as $play) {
+                    $startPoint += $play['startPoint'];
+                    $betPoint += $play['betPoint'];
+                    $wonPoint += $play['won'];
+                    $endPoint = $betPoint - $wonPoint;
+                    $users[$key]['totalbetPoint'] = $betPoint;
+                    $users[$key]['totalwonPoint'] = $wonPoint;
+                    $users[$key]['totalendPoint'] = $endPoint;
+                }
+            }
+            $users[$key]['refer'] = $refer['userName'];
+        }
+        foreach ($users as $value) {
+            $totalPlaypoint += $value['totalbetPoint'];
+            $totalWinpoint += $value['totalwonPoint'];
+            $totalEndpoint += $value['totalendPoint'];
+            $point['totalPlaypoint'] = $totalPlaypoint;
+            $point['totalWinpoint'] = $totalWinpoint;
+            $point['totalEndpoint'] = $totalEndpoint;
+        }
+        // echo "<pre>";
+        // print_r($users->toArray());
+        // print_r($point);
+        // die;
+        return view('showOnPlayer', ['data' => $users, 'point' => $point]);
+    }
 
     public function history()
     {
