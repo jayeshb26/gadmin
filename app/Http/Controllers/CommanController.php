@@ -660,6 +660,7 @@ class CommanController extends Controller
         return view('historyDetail', ['data' => $playPoints]);
     }
 
+
     public function playerHistory($id)
     {
         $users = User::where('role', 'retailer')->select('userName')->get();
