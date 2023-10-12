@@ -308,7 +308,6 @@
                                     </div>
                                 @break
 
-                                {{--  new datawith update  --}}
                                 @case('Basker')
                                     <div style="min-width:25px;"
                                         class="spot{{ $k }}{{ $v[0] }}_{{ $v[1] }}_{{ $v[2] }}_{{ $v[3] }}">
