@@ -307,7 +307,7 @@
     <script>
         $(function() {
             const socket = io.connect(
-                'ws://143.244.140.74:6000'); // Change the port number to a safe one (e.g., 8080)
+                'ws://localhost:6000'); // Change the port number to a safe one (e.g., 8080)
 
             console.log(socket);
 
@@ -473,7 +473,7 @@
                 console.log($('#boosterId').val());
                 $.ajax({
                     type: "POST",
-                    url: "lucky16config",
+                    url: "funroulette",
                     data: {
                         card: $('#SelectedCard').val(),
                         boosterId: $('#boosterId').val(),
