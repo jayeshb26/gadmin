@@ -164,6 +164,10 @@
                                         <a class="aroulet" href="javascript:void(0);"
                                             title="NORMAL BET">{{ $pos['amount'] }}</a>
                                     </div>
+                                    <div style="min-width:25px;" class="spot{{ $k }}{{ $v[0] }}">
+                                        <a class="aroulet" href="javascript:void(0);"
+                                            title="NORMAL BET">{{ $pos['amount'] }}</a>
+                                    </div>
                                 @break
 
                                 @case('1-12')
