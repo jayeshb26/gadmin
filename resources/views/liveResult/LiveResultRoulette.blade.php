@@ -208,18 +208,18 @@
                                     </tr>
                                     <tr>
                                         <td>TOTAL COLLECTION: </td>
-                                        {{--  <td align="right">{{ moneyFormatIndia($daily['totalbetamount']) }}  --}}
+                                        <td align="right">{{ moneyFormatIndia($daily['totalbetamount']) }}
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>TOTAL PAYMENT :</td>
-                                        {{--  <td align="right">{{ moneyFormatIndia($daily['totalwonamount']) }}  --}}
+                                        <td align="right">{{ moneyFormatIndia($daily['totalwonamount']) }}
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>BALANCE :</td>
                                         <td align="right">
-                                            {{--  {{ moneyFormatIndia($daily['totalbetamount'] - $daily['totalwonamount']) }}  --}}
+                                            {{ moneyFormatIndia($daily['totalbetamount'] - $daily['totalwonamount']) }}
                                         </td>
                                     </tr>
                                 </table>
@@ -243,72 +243,14 @@
 @endsection
 
 @push('plugin-scripts')
-    {{--  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.1/socket.io.js"></script>  --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.1/socket.io.js"></script>
 @endpush
 
 @push('custom-scripts')
-    {{-- <script>
-        var vis = (function() {
-            var stateKey, eventKey, keys = {
-                hidden: "visibilitychange",
-                webkitHidden: "webkitvisibilitychange",
-                mozHidden: "mozvisibilitychange",
-                msHidden: "msvisibilitychange"
-            };
-            for (stateKey in keys) {
-                if (stateKey in document) {
-                    eventKey = keys[stateKey];
-                    break;
-                }
-            }
-            return function(c) {
-                if (c) {
-                    document.addEventListener(eventKey, c);
-                    //document.addEventListener("blur", c);
-                    //document.addEventListener("focus", c);
-                }
-                return !document[stateKey];
-            }
-        })();
-        vis(function() {
-            // document.title = vis() ? 'Visible' : 'Not visible';
-            if (vis()) {
-                window.location.reload();
-            }
-            console.log(new Date, 'visible ?', vis());
-        });
-        $(document).bind('keydown', function(e) {
-            if (e.ctrlKey && (e.which == 83)) {
-                e.preventDefault();
-                return false;
-            }
-        });
-    </script>
-    <script>
-        $(document).keydown(function(event) {
-            if (event.keyCode == 123) { // Prevent F12
-                return false;
-            } else if (event.ctrlKey && event.shiftKey && event.keyCode == 73) { // Prevent Ctrl+Shift+I
-                return false;
-            } else if (event.ctrlKey && event.shiftKey && event.keyCode == 67) { // Prevent Ctrl+Shift+C
-                return false;
-            } else if (event.ctrlKey && event.shiftKey && event.keyCode == 74) { // Prevent Ctrl+Shift+J
-                return false;
-            } else if (event.ctrlKey && event.keyCode == 85) { // Prevent Ctrl+U
-                return false;
-            }
-        });
-    </script>
-    <script language="JavaScript">
-        document.addEventListener('contextmenu', event => event.preventDefault());
-    </script> --}}
-
     <script script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.0/socket.io.js"></script>
     <script>
         $(function() {
-            const socket = io.connect(
-                'ws://localhost:6000'); // Change the port number to a safe one (e.g., 8080)
-
+            const socket = io.connect('ws://localhost:9000');
             console.log(socket);
 
             socket.on('connect', function() {
@@ -317,6 +259,24 @@
                     gameName: "funroulette",
                 };
 
+                $('.No').on('click', function() {
+                    result = this.id;
+                    console.log('hello i am clicked');
+                    for (var i = 0; i < 37; i++) {
+                        $('#' + i).css('background-color', '#00000000');
+                        $('#00').css('background-color', '#00000000');
+                    }
+                    if (this.id == 00) {
+                        $('#' + this.id).css('background-color', 'green');
+                    } else {
+                        $('#' + this.id).css('background-color', 'red');
+                    }
+                    var boosterIds = $('#boosterId').val();
+                    $('#SelectedCard').val(result);
+                    $('#totalPayment').html((parseFloat($('#spot' + this.id).html()) * 36).toFixed(
+                        2));
+                    $('#boosterId').val($('#boosterId').val());
+                });
 
                 socket.emit('joinAdmin', user);
 
@@ -329,6 +289,7 @@
                         $('#alertId').removeClass('show');
                     }, 5000);
                 }
+
                 $('#btnSave').on('click', function() {
                     var boosterId = $('#boosterId').val();
                     var card = $('#SelectedCardNumber').val();
@@ -350,11 +311,40 @@
                         });
                     }
                 });
+                // Function to update a single cell with the received data
+                function updateCell(id, value) {
+                    var element = document.getElementById('spot' + id);
+                    if (element) {
+                        element.innerHTML = parseFloat(value).toFixed(2);
+                    }
+                }
+                // Function to initialize the table with the received data
+                function initializeTable(data) {
+                    for (var key in data) {
+                        if (data.hasOwnProperty(key)) {
+                            updateCell(key, data[key]);
+                        }
+                    }
+                }
+                // Fetch initial data
+                socket.emit('getData', user);
+
+                socket.on('initialData', (res) => {
+                    if (res.gameName == "funroulette") {
+                        initializeTable(res.data);
+                    }
+                });
 
                 socket.on('resAdmin', (res) => {
                     console.log(res);
                     if (res.gameName == "funroulette") {
                         console.log(res);
+                        var resAdminData = res.data;
+                        for (var key in resAdminData) {
+                            if (resAdminData.hasOwnProperty(key)) {
+                                updateCell(key, resAdminData[key]);
+                            }
+                        }
                         if (res.time >= 0) {
                             var seconds = parseInt(Math.abs(res.time) - 95);
                             seconds = Math.abs(seconds);
@@ -384,17 +374,25 @@
                             }, 1000);
                         }
 
-                        var resAdminData = res.data;
-                        for (var key in resAdminData) {
-                            if (resAdminData.hasOwnProperty(key)) {
-                                var id = key;
-                                var value = parseFloat(resAdminData[key]).toFixed(2);
-                                var element = document.getElementById('spot' + id);
-                                if (element) {
-                                    element.innerHTML = value;
-                                }
-                            }
-                        }
+                        // Display 'resAdmin' data in the table cells with corresponding 'id' numbers
+                        // Display 'resAdmin' data in the table cells with corresponding 'id' numbers
+                        //                        var resAdminData = res.data;
+
+                        // for (var key in resAdminData) {
+                        //  if (resAdminData.hasOwnProperty(key)) {
+                        //var id = key;
+                        //var value = parseFloat(resAdminData[key]).toFixed(2);
+                        //var element = document.getElementById('spot' + id);
+
+                        //if (element) {
+                        // Update the cell with the received data
+                        //      element.innerHTML = value;
+                        //    }
+                        //  }
+                        //}
+
+                        // Rest of your code for handling 'resAdmin' event
+                        // ...
                     }
                 });
 
@@ -409,7 +407,8 @@
     </script>
 
 
-    <script>
+
+    {{--  <script>
         var result = '';
         var gameid = '';
         var card = ["AH", "AS", "AD", "AC", "KH", "KS", "KD", "KC", "QH", "QS", "QD", "QC", "JH", "JS", "JD", "JC"];
@@ -444,7 +443,7 @@
         $('.No').on('click', function() {
             result = this.id;
             {{--  console.log('hello i am clicked');  --}}
-            for (var i = 0; i < 37; i++) {
+    {{-- for (var i = 0; i < 37; i++) {
                 $('#' + i).css('background-color', '#00000000');
                 $('#00').css('background-color', '#00000000');
             }
@@ -515,5 +514,5 @@
                 }
             });
         });
-    </script>
+    </script>  --}}
 @endpush

@@ -1524,9 +1524,9 @@ class AdminController extends Controller
         // $response = Http::get($webUrl . '/chooseServer?det=android');
         //        dd($response->json());/
         // $lastWinCards = AndarBaharPlayings::select('last_win_cards')->first();
-        // $daily['totalbetamount']  = BetList::where('game_type', 'roulette_zero_3d')->where('createdAt', '>=', Carbon::today())->sum('total_bet_amount');
-        // $daily['totalwonamount']  = BetList::where('game_type', 'roulette_zero_3d')->where('createdAt', '>=', Carbon::today())->sum('total_win_amount');
-        return view('liveResult.LiveResultRoulette'); // , ['response' => $webUrl, 'lastCard' => $lastWinCards, 'daily' => $daily]
+        $daily['totalbetamount']  = BetList::where('game', 'funroulette')->where('createdAt', '>=', Carbon::today())->sum('total_bet_amount');
+        $daily['totalwonamount']  = BetList::where('game', 'funroulette')->where('createdAt', '>=', Carbon::today())->sum('total_win_amount');
+        return view('liveResult.LiveResultRoulette', ['daily' => $daily]); // , ['response' => $webUrl, 'lastCard' => $lastWinCards, 'daily' => $daily]
     }
 
     public function liveResultFunTarget() // ADMIN_ROULETTE_ZERO_GAME_INFO

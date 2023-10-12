@@ -111,7 +111,7 @@
                                     <th>Play Points</th>
                                     <th>Win Points</th>
                                     <th>End Point</th>
-                                    <th>Device</th>
+                                    <th>Status</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -121,7 +121,13 @@
                                 @foreach ($data as $value)
                                     <tr role="row" class="odd">
                                         <td class=""><?= $SR_No++ ?></td>
-                                        <td>{{ $value['userName'] }}</td>
+                                        <td>{{ $value['userName'] }}
+                                            @if ($value['isLogin'] == true)
+                                                <span class="online blink">&#9679;</span>
+                                            @elseif($value['isLogin'] == false)
+                                                <span class="offline">&#9679;</span>
+                                            @endif
+                                        </td>
                                         <td>{{ $value['name'] }}</td>
                                         <td class="sorting_1">
                                             {{ $value['role'] }}

@@ -24,9 +24,9 @@ class CommanController extends Controller
 
     public function OnPlayers()
     {
+        $users = User::where('role', 'player')->get();
         if (Session::get('role') == "Admin") {
             if (Session::get('username') == 'admin') {
-                $users = User::where('role', 'player')->get();
             } else {
                 $superdistributer = User::where('role', 'super_distributor')->where('referralId', new \MongoDB\BSON\ObjectID(Session::get('id')))->get();
                 foreach ($superdistributer as $super) {
