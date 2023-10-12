@@ -304,7 +304,7 @@ class AdminController extends Controller
             }
         }
 
-        // Fetch all bets for the user from the "bet" table
+        // Fetch all bets for the user from the "bet" table/
         $bets = DB::table('bets')
             ->where('userName', $id)
             ->get();
