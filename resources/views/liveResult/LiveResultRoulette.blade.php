@@ -250,15 +250,14 @@
     <script script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.0/socket.io.js"></script>
     <script>
         $(function() {
-            const socket = io.connect('ws://localhost:9000');
-            console.log(socket);
+            const socket = io.connect('ws://143.244.140.74:9000');
+            console.log(socket + "Hello Socket Connected");
 
             socket.on('connect', function() {
                 const user = {
                     adminId: "603388bb7d20e50a81217277",
                     gameName: "funroulette",
                 };
-
                 $('.No').on('click', function() {
                     result = this.id;
                     console.log('hello i am clicked');
@@ -289,7 +288,6 @@
                         $('#alertId').removeClass('show');
                     }, 5000);
                 }
-
                 $('#btnSave').on('click', function() {
                     var boosterId = $('#boosterId').val();
                     var card = $('#SelectedCardNumber').val();
@@ -311,42 +309,13 @@
                         });
                     }
                 });
-                // Function to update a single cell with the received data
-                function updateCell(id, value) {
-                    var element = document.getElementById('spot' + id);
-                    if (element) {
-                        element.innerHTML = parseFloat(value).toFixed(2);
-                    }
-                }
-                // Function to initialize the table with the received data
-                function initializeTable(data) {
-                    for (var key in data) {
-                        if (data.hasOwnProperty(key)) {
-                            updateCell(key, data[key]);
-                        }
-                    }
-                }
-                // Fetch initial data
-                socket.emit('getData', user);
-
-                socket.on('initialData', (res) => {
-                    if (res.gameName == "funroulette") {
-                        initializeTable(res.data);
-                    }
-                });
 
                 socket.on('resAdmin', (res) => {
                     console.log(res);
                     if (res.gameName == "funroulette") {
                         console.log(res);
-                        var resAdminData = res.data;
-                        for (var key in resAdminData) {
-                            if (resAdminData.hasOwnProperty(key)) {
-                                updateCell(key, resAdminData[key]);
-                            }
-                        }
                         if (res.time >= 0) {
-                            var seconds = parseInt(Math.abs(res.time) - 95);
+                            var seconds = parseInt(Math.abs(res.time) - 60);
                             seconds = Math.abs(seconds);
                             var countdownTimer = setInterval(function() {
                                 if (seconds <= 0) {
@@ -371,28 +340,20 @@
                                 }
                                 document.getElementById('countdown').innerHTML = seconds;
                                 seconds -= 1;
-                            }, 1000);
+                            }, 1024);
                         }
 
-                        // Display 'resAdmin' data in the table cells with corresponding 'id' numbers
-                        // Display 'resAdmin' data in the table cells with corresponding 'id' numbers
-                        //                        var resAdminData = res.data;
-
-                        // for (var key in resAdminData) {
-                        //  if (resAdminData.hasOwnProperty(key)) {
-                        //var id = key;
-                        //var value = parseFloat(resAdminData[key]).toFixed(2);
-                        //var element = document.getElementById('spot' + id);
-
-                        //if (element) {
-                        // Update the cell with the received data
-                        //      element.innerHTML = value;
-                        //    }
-                        //  }
-                        //}
-
-                        // Rest of your code for handling 'resAdmin' event
-                        // ...
+                        var resAdminData = res.data.position;
+                        for (var key in resAdminData) {
+                            if (resAdminData.hasOwnProperty(key)) {
+                                var id = key;
+                                var value = parseFloat(resAdminData[key]).toFixed(2);
+                                var element = document.getElementById('spot' + id);
+                                if (element) {
+                                    element.innerHTML = value;
+                                }
+                            }
+                        }
                     }
                 });
 
