@@ -515,7 +515,9 @@ class AdminController extends Controller
     public function winningPercent()
     {
         $this->middleware('admin');
-        $user = Winnings::find('602e55e9a494988def7acc25');
+        $user = Winnings::find('603388bb7d20e50a81217277');
+        // $user = Winnings::where('_id','603388bb7d20e50a81217277');
+
         return view('admin.winningPercent', ['data' => $user]);
     }
 
@@ -523,8 +525,8 @@ class AdminController extends Controller
     {
         $this->middleware('admin');
         $request->validate([
-            'RouletteTimer40' => 'required|not_in:0|numeric|between:0,200',
-            'RouletteTimer60' => 'required|not_in:0|numeric|between:0,200',
+            'funroulette' => 'required|not_in:0|numeric|between:0,200',
+            'funtarget' => 'required|not_in:0|numeric|between:0,200',
 
         ]);
 
@@ -532,11 +534,9 @@ class AdminController extends Controller
             $listArray[$key] = intval(trim($value, '"'));
         }
 
-        $user = Winnings::find('602e55e9a494988def7acc25');
-        $user->rouletteTimer40 = $request->RouletteTimer40;
-        $user->rouletteTimer60 = $request->RouletteTimer60;
-        $user->roulette = $request->Roulette;
-        $user->spinToWin = $request->spinToWin;
+        $user = Winnings::find('603388bb7d20e50a81217277');
+        $user->funroulette = $request->FunRoulette;
+        $user->funtarget = $request->FunTarget;
         if ($request->status == "false") {
             $user->isManual = false;
             $user->listArray = $listArray;
