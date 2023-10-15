@@ -1525,9 +1525,8 @@ class AdminController extends Controller
         // $response = Http::get($webUrl . '/chooseServer?det=android');
         //        dd($response->json());/
         // $lastWinCards = AndarBaharPlayings::select('last_win_cards')->first();
-        $daily['totalbetamount']  = Bets::where('game', 'funroulette')->where('createdAt', '>=', Carbon::today())->sum('total_bet_amount');
-        $daily['totalwonamount']  = Bets::where('game', 'funroulette')->where('createdAt', '>=', Carbon::today())->sum('total_win_amount');
-        return view('liveResult.LiveResultRoulette', ['daily' => $daily]); // , ['response' => $webUrl, 'lastCard' => $lastWinCards, 'daily' => $daily]
+
+        return view('liveResult.LiveResultRoulette'); // , ['response' => $webUrl, 'lastCard' => $lastWinCards, 'daily' => $daily]
     }
 
 

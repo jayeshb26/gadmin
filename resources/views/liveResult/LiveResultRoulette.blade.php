@@ -22,7 +22,6 @@
                 <div class="card-header d-flex justify-content-between" style="background: green">
                     <h5 class=" text-white text-align-center" style="text-transform: none !important; text-align:center">
                         FunRoulette</h5>
-                    <div id="status">Connecting...</div>
 
                     <button type='button' id="reset" class="btn text-white btn-outline-light"
                         style="background: #1B0905"><span aria-hidden='true'>Reset
@@ -35,7 +34,7 @@
                         <div class="row">
                             <div class="col-lg-9 col-md-10 p-5" style="background-color: #1B0905" id="table">
                                 <div class="box">
-                                    <div class="table-responsive table-borderless ">
+                                    {{--  <div class="table-responsive table-borderless ">
                                         @php
                                             $no = 0;
                                             $no1 = 0;
@@ -166,7 +165,858 @@
                                             </table>
                                         </div>
                                         <!-- /.box-body -->
-                                    </div>
+                                    </div>  --}}
+                                    <table style="border:2px solid #ffffff;" class="text-center table">
+                                        <tbody style="border:2px solid #ffffff;">
+
+                                            <tr class="text-center" style="border:2px solid #FFFFFF;">
+                                                <td class="No"
+                                                    style="padding:0rem 0rem;color:green;line-height:1.2rem;cursor: pointer;vertical-align: unset;text-align: center"
+                                                    id="0">
+                                                    <table style="padding:0;">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td class="No" style="text-align: center">
+                                                                    <span
+                                                                        style="font-size:20px;padding-bottom: 1rem; color:#fff">0</span>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><span
+                                                                        style="font-size:15px;border:1px solid #fff;padding:1px 5px;color:#000;background-color:#3cff00; color:#fff"
+                                                                        id="spot0">0</span>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+                                                <td class="No"
+                                                    style="padding:0rem 0rem;color:green;line-height:1.2rem;cursor: pointer;vertical-align: unset;text-align: center"
+                                                    id="00">
+                                                    <table style="padding:0;">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td class="No" style="text-align: center">
+                                                                    <span
+                                                                        style="font-size:20px;padding-bottom: 1rem; color:#fff">0</span>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><span
+                                                                        style="font-size:15px;border:1px solid #fff;padding:1px 5px;color:#000;background-color:#3cff00;"
+                                                                        id='spot37'>0</span>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+
+                                                <td class="No"
+                                                    style="padding:0rem 0rem !important;color:red; line-height:1.2rem;cursor: pointer;vertical-align: unset;text-align: center; color:#fff"
+                                                    id="1">
+                                                    <table style="padding:0;">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td style="text-align: center">
+                                                                    <span
+                                                                        style="font-size:20px;padding-bottom: 1rem;">1</span>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><span
+                                                                        style="font-size:15px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#ff0000; color:#fff"
+                                                                        id="spot1">0</span>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+
+
+                                                <td class="No"
+                                                    style="padding:0rem 0rem !important;line-height:1.2rem;cursor: pointer;vertical-align: unset;text-align: center color:#fff"
+                                                    id="2">
+                                                    <table style="padding:0;">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td style="text-align: center">
+                                                                    <span
+                                                                        style="font-size:20px;padding-bottom: 1rem; color:#fff">2</span>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><span
+                                                                        style="font-size:15px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#000000;"
+                                                                        id="spot2">0</span>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+
+
+                                                <td class="No"
+                                                    style="padding:0rem 0rem !important;color:red; line-height:1.2rem;cursor: pointer;vertical-align: unset;text-align: center; color:#fff"
+                                                    id="3">
+                                                    <table style="padding:0;">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td style="text-align: center">
+                                                                    <span
+                                                                        style="font-size:20px;padding-bottom: 1rem;">3</span>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><span
+                                                                        style="font-size:15px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#ff0000; color:#fff"
+                                                                        id="spot3">0</span>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+
+
+                                                <td class="No"
+                                                    style="padding:0rem 0rem !important;line-height:1.2rem;cursor: pointer;vertical-align: unset;text-align: center color:#fff"
+                                                    id="4">
+                                                    <table style="padding:0;">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td style="text-align: center">
+                                                                    <span
+                                                                        style="font-size:20px;padding-bottom: 1rem; color:#fff">4</span>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><span
+                                                                        style="font-size:15px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#000000;"
+                                                                        id="spot4">0</span>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+
+
+                                                <td class="No"
+                                                    style="padding:0rem 0rem !important;color:red; line-height:1.2rem;cursor: pointer;vertical-align: unset;text-align: center; color:#fff"
+                                                    id="5">
+                                                    <table style="padding:0;">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td style="text-align: center">
+                                                                    <span
+                                                                        style="font-size:20px;padding-bottom: 1rem;">5</span>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><span
+                                                                        style="font-size:15px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#ff0000; color:#fff"
+                                                                        id="spot5">0</span>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+
+
+                                                <td class="No"
+                                                    style="padding:0rem 0rem !important;line-height:1.2rem;cursor: pointer;vertical-align: unset;text-align: center color:#fff"
+                                                    id="6">
+                                                    <table style="padding:0;">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td style="text-align: center">
+                                                                    <span
+                                                                        style="font-size:20px;padding-bottom: 1rem; color:#fff">6</span>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><span
+                                                                        style="font-size:15px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#000000;"
+                                                                        id="spot6">0</span>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+
+
+                                                <td class="No"
+                                                    style="padding:0rem 0rem !important;color:red; line-height:1.2rem;cursor: pointer;vertical-align: unset;text-align: center; color:#fff"
+                                                    id="7">
+                                                    <table style="padding:0;">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td style="text-align: center">
+                                                                    <span
+                                                                        style="font-size:20px;padding-bottom: 1rem;">7</span>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><span
+                                                                        style="font-size:15px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#ff0000; color:#fff"
+                                                                        id="spot7">0</span>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+
+
+                                                <td class="No"
+                                                    style="padding:0rem 0rem !important;line-height:1.2rem;cursor: pointer;vertical-align: unset;text-align: center color:#fff"
+                                                    id="8">
+                                                    <table style="padding:0;">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td style="text-align: center">
+                                                                    <span
+                                                                        style="font-size:20px;padding-bottom: 1rem; color:#fff">8</span>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><span
+                                                                        style="font-size:15px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#000000;"
+                                                                        id="spot8">0</span>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+
+
+
+
+
+                                            </tr>
+
+                                            <tr class="text-center" style="border:2px solid #FFFFFF;">
+                                                <td class="No"
+                                                    style="padding:0rem 0rem !important;color:red; line-height:1.2rem;cursor: pointer;vertical-align: unset;text-align: center; color:#fff"
+                                                    id="9">
+                                                    <table style="padding:0;">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td style="text-align: center">
+                                                                    <span
+                                                                        style="font-size:20px;padding-bottom: 1rem;">9</span>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><span
+                                                                        style="font-size:15px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#ff0000; color:#fff"
+                                                                        id="spot9">0</span>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+                                                <td class="No"
+                                                    style="padding:0rem 0rem !important;line-height:1.2rem;cursor: pointer;vertical-align: unset;text-align: center color:#fff"
+                                                    id="10">
+                                                    <table style="padding:0;">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td style="text-align: center">
+                                                                    <span
+                                                                        style="font-size:20px;padding-bottom: 1rem; color:#fff">10</span>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><span
+                                                                        style="font-size:15px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#000000;"
+                                                                        id="spot10">0</span>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+
+
+                                                <td class="No"
+                                                    style="padding:0rem 0rem !important;line-height:1.2rem;cursor: pointer;vertical-align: unset;text-align: center color:#fff"
+                                                    id="11">
+                                                    <table style="padding:0;">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td style="text-align: center">
+                                                                    <span
+                                                                        style="font-size:20px;padding-bottom: 1rem; color:#fff">11</span>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><span
+                                                                        style="font-size:15px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#000000;"
+                                                                        id="spot11">0</span>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+
+
+                                                <td class="No"
+                                                    style="padding:0rem 0rem !important;color:red; line-height:1.2rem;cursor: pointer;vertical-align: unset;text-align: center; color:#fff"
+                                                    id="12">
+                                                    <table style="padding:0;">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td style="text-align: center">
+                                                                    <span
+                                                                        style="font-size:20px;padding-bottom: 1rem;">12</span>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><span
+                                                                        style="font-size:15px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#ff0000; color:#fff"
+                                                                        id="spot12">0</span>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+
+
+                                                <td class="No"
+                                                    style="padding:0rem 0rem !important;line-height:1.2rem;cursor: pointer;vertical-align: unset;text-align: center color:#fff"
+                                                    id="13">
+                                                    <table style="padding:0;">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td style="text-align: center">
+                                                                    <span
+                                                                        style="font-size:20px;padding-bottom: 1rem; color:#fff">13</span>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><span
+                                                                        style="font-size:15px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#000000;"
+                                                                        id="spot13">0</span>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+
+
+                                                <td class="No"
+                                                    style="padding:0rem 0rem !important;color:red; line-height:1.2rem;cursor: pointer;vertical-align: unset;text-align: center; color:#fff"
+                                                    id="14">
+                                                    <table style="padding:0;">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td style="text-align: center">
+                                                                    <span
+                                                                        style="font-size:20px;padding-bottom: 1rem;">14</span>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><span
+                                                                        style="font-size:15px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#ff0000; color:#fff"
+                                                                        id="spot14">0</span>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+
+
+                                                <td class="No"
+                                                    style="padding:0rem 0rem !important;line-height:1.2rem;cursor: pointer;vertical-align: unset;text-align: center color:#fff"
+                                                    id="15">
+                                                    <table style="padding:0;">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td style="text-align: center">
+                                                                    <span
+                                                                        style="font-size:20px;padding-bottom: 1rem; color:#fff">15</span>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><span
+                                                                        style="font-size:15px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#000000;"
+                                                                        id="spot15">0</span>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+
+
+                                                <td class="No"
+                                                    style="padding:0rem 0rem !important;color:red; line-height:1.2rem;cursor: pointer;vertical-align: unset;text-align: center; color:#fff"
+                                                    id="16">
+                                                    <table style="padding:0;">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td style="text-align: center">
+                                                                    <span
+                                                                        style="font-size:20px;padding-bottom: 1rem;">16</span>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><span
+                                                                        style="font-size:15px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#ff0000; color:#fff"
+                                                                        id="spot16">0</span>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+
+
+                                                <td class="No"
+                                                    style="padding:0rem 0rem !important;line-height:1.2rem;cursor: pointer;vertical-align: unset;text-align: center color:#fff"
+                                                    id="17">
+                                                    <table style="padding:0;">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td style="text-align: center">
+                                                                    <span
+                                                                        style="font-size:20px;padding-bottom: 1rem; color:#fff">17</span>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><span
+                                                                        style="font-size:15px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#000000;"
+                                                                        id="spot17">0</span>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+
+
+                                                <td class="No"
+                                                    style="padding:0rem 0rem !important;color:red; line-height:1.2rem;cursor: pointer;vertical-align: unset;text-align: center; color:#fff"
+                                                    id="18">
+                                                    <table style="padding:0;">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td style="text-align: center">
+                                                                    <span
+                                                                        style="font-size:20px;padding-bottom: 1rem;">18</span>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><span
+                                                                        style="font-size:15px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#ff0000; color:#fff"
+                                                                        id="spot18">0</span>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+
+
+
+
+
+                                            </tr>
+                                            <tr class="text-center" style="border:2px solid #FFFFFF;">
+                                                <td class="No"
+                                                    style="padding:0rem 0rem !important;color:red; line-height:1.2rem;cursor: pointer;vertical-align: unset;text-align: center; color:#fff"
+                                                    id="19">
+                                                    <table style="padding:0;">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td style="text-align: center">
+                                                                    <span
+                                                                        style="font-size:20px;padding-bottom: 1rem;">19</span>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><span
+                                                                        style="font-size:15px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#ff0000; color:#fff"
+                                                                        id="spot19">0</span>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+                                                <td class="No"
+                                                    style="padding:0rem 0rem !important;line-height:1.2rem;cursor: pointer;vertical-align: unset;text-align: center color:#fff"
+                                                    id="20">
+                                                    <table style="padding:0;">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td style="text-align: center">
+                                                                    <span
+                                                                        style="font-size:20px;padding-bottom: 1rem; color:#fff">20</span>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><span
+                                                                        style="font-size:15px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#000000;"
+                                                                        id="spot20">0</span>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+
+
+                                                <td class="No"
+                                                    style="padding:0rem 0rem !important;color:red; line-height:1.2rem;cursor: pointer;vertical-align: unset;text-align: center; color:#fff"
+                                                    id="21">
+                                                    <table style="padding:0;">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td style="text-align: center">
+                                                                    <span
+                                                                        style="font-size:20px;padding-bottom: 1rem;">21</span>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><span
+                                                                        style="font-size:15px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#ff0000; color:#fff"
+                                                                        id="spot21">0</span>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+
+
+                                                <td class="No"
+                                                    style="padding:0rem 0rem !important;line-height:1.2rem;cursor: pointer;vertical-align: unset;text-align: center color:#fff"
+                                                    id="22">
+                                                    <table style="padding:0;">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td style="text-align: center">
+                                                                    <span
+                                                                        style="font-size:20px;padding-bottom: 1rem; color:#fff">22</span>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><span
+                                                                        style="font-size:15px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#000000;"
+                                                                        id="spot22">0</span>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+
+
+                                                <td class="No"
+                                                    style="padding:0rem 0rem !important;color:red; line-height:1.2rem;cursor: pointer;vertical-align: unset;text-align: center; color:#fff"
+                                                    id="23">
+                                                    <table style="padding:0;">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td style="text-align: center">
+                                                                    <span
+                                                                        style="font-size:20px;padding-bottom: 1rem;">23</span>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><span
+                                                                        style="font-size:15px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#ff0000; color:#fff"
+                                                                        id="spot23">0</span>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+
+
+                                                <td class="No"
+                                                    style="padding:0rem 0rem !important;line-height:1.2rem;cursor: pointer;vertical-align: unset;text-align: center color:#fff"
+                                                    id="24">
+                                                    <table style="padding:0;">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td style="text-align: center">
+                                                                    <span
+                                                                        style="font-size:20px;padding-bottom: 1rem; color:#fff">24</span>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><span
+                                                                        style="font-size:15px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#000000;"
+                                                                        id="spot24">0</span>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+
+
+                                                <td class="No"
+                                                    style="padding:0rem 0rem !important;color:red; line-height:1.2rem;cursor: pointer;vertical-align: unset;text-align: center; color:#fff"
+                                                    id="25">
+                                                    <table style="padding:0;">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td style="text-align: center">
+                                                                    <span
+                                                                        style="font-size:20px;padding-bottom: 1rem;">25</span>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><span
+                                                                        style="font-size:15px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#ff0000; color:#fff"
+                                                                        id="spot25">0</span>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+
+
+                                                <td class="No"
+                                                    style="padding:0rem 0rem !important;line-height:1.2rem;cursor: pointer;vertical-align: unset;text-align: center color:#fff"
+                                                    id="26">
+                                                    <table style="padding:0;">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td style="text-align: center">
+                                                                    <span
+                                                                        style="font-size:20px;padding-bottom: 1rem; color:#fff">26</span>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><span
+                                                                        style="font-size:15px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#000000;"
+                                                                        id="spot26">0</span>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+
+
+                                                <td class="No"
+                                                    style="padding:0rem 0rem !important;color:red; line-height:1.2rem;cursor: pointer;vertical-align: unset;text-align: center; color:#fff"
+                                                    id="27">
+                                                    <table style="padding:0;">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td style="text-align: center">
+                                                                    <span
+                                                                        style="font-size:20px;padding-bottom: 1rem;">27</span>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><span
+                                                                        style="font-size:15px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#ff0000; color:#fff"
+                                                                        id="spot27">0</span>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+
+
+                                                <td class="No"
+                                                    style="padding:0rem 0rem !important;line-height:1.2rem;cursor: pointer;vertical-align: unset;text-align: center color:#fff"
+                                                    id="28">
+                                                    <table style="padding:0;">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td style="text-align: center">
+                                                                    <span
+                                                                        style="font-size:20px;padding-bottom: 1rem; color:#fff">28</span>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><span
+                                                                        style="font-size:15px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#000000;"
+                                                                        id="spot28">0</span>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+
+
+
+
+                                            </tr>
+                                            <tr class="text-center" style="border:2px solid #FFFFFF;">
+
+                                                <td class="No"
+                                                    style="padding:0rem 0rem !important;line-height:1.2rem;cursor: pointer;vertical-align: unset;text-align: center color:#fff"
+                                                    id="29">
+                                                    <table style="padding:0;">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td style="text-align: center">
+                                                                    <span
+                                                                        style="font-size:20px;padding-bottom: 1rem; color:#fff">29</span>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><span
+                                                                        style="font-size:15px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#000000;"
+                                                                        id="spot29">0</span>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+                                                <td class="No"
+                                                    style="padding:0rem 0rem !important;color:red; line-height:1.2rem;cursor: pointer;vertical-align: unset;text-align: center; color:#fff"
+                                                    id="30">
+                                                    <table style="padding:0;">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td style="text-align: center">
+                                                                    <span
+                                                                        style="font-size:20px;padding-bottom: 1rem;">30</span>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><span
+                                                                        style="font-size:15px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#ff0000; color:#fff"
+                                                                        id="spot30">0</span>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+
+
+                                                <td class="No"
+                                                    style="padding:0rem 0rem !important;line-height:1.2rem;cursor: pointer;vertical-align: unset;text-align: center color:#fff"
+                                                    id="31">
+                                                    <table style="padding:0;">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td style="text-align: center">
+                                                                    <span
+                                                                        style="font-size:20px;padding-bottom: 1rem; color:#fff">31</span>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><span
+                                                                        style="font-size:15px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#000000;"
+                                                                        id="spot31">0</span>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+
+
+                                                <td class="No"
+                                                    style="padding:0rem 0rem !important;color:red; line-height:1.2rem;cursor: pointer;vertical-align: unset;text-align: center; color:#fff"
+                                                    id="32">
+                                                    <table style="padding:0;">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td style="text-align: center">
+                                                                    <span
+                                                                        style="font-size:20px;padding-bottom: 1rem;">32</span>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><span
+                                                                        style="font-size:15px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#ff0000; color:#fff"
+                                                                        id="spot32">0</span>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+
+
+                                                <td class="No"
+                                                    style="padding:0rem 0rem !important;line-height:1.2rem;cursor: pointer;vertical-align: unset;text-align: center color:#fff"
+                                                    id="33">
+                                                    <table style="padding:0;">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td style="text-align: center">
+                                                                    <span
+                                                                        style="font-size:20px;padding-bottom: 1rem; color:#fff">33</span>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><span
+                                                                        style="font-size:15px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#000000;"
+                                                                        id="spot33">0</span>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+
+
+                                                <td class="No"
+                                                    style="padding:0rem 0rem !important;color:red; line-height:1.2rem;cursor: pointer;vertical-align: unset;text-align: center; color:#fff"
+                                                    id="34">
+                                                    <table style="padding:0;">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td style="text-align: center">
+                                                                    <span
+                                                                        style="font-size:20px;padding-bottom: 1rem;">34</span>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><span
+                                                                        style="font-size:15px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#ff0000; color:#fff"
+                                                                        id="spot34">0</span>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+
+
+                                                <td class="No"
+                                                    style="padding:0rem 0rem !important;line-height:1.2rem;cursor: pointer;vertical-align: unset;text-align: center color:#fff"
+                                                    id="35">
+                                                    <table style="padding:0;">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td style="text-align: center">
+                                                                    <span
+                                                                        style="font-size:20px;padding-bottom: 1rem; color:#fff">35</span>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><span
+                                                                        style="font-size:15px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#000000;"
+                                                                        id="spot35">0</span>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+
+
+                                                <td class="No"
+                                                    style="padding:0rem 0rem !important;color:red; line-height:1.2rem;cursor: pointer;vertical-align: unset;text-align: center; color:#fff"
+                                                    id="36">
+                                                    <table style="padding:0;">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td style="text-align: center">
+                                                                    <span
+                                                                        style="font-size:20px;padding-bottom: 1rem;">36</span>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><span
+                                                                        style="font-size:15px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#ff0000; color:#fff"
+                                                                        id="spot36">0</span>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                             <div class="col-md-3 mt-2">
@@ -174,23 +1024,12 @@
                                 <span id="countdown" style="font-size: 32px">00</span>
                                 <p>Total Expected Collection: <span id="TCollection">0</span>
                                 </p>
-                                <p>Total Expected Payment<span id="if_selected"></span>: <span id="totalPayment"></span></p>
-                                <form action=""></form>
-                                <p>
-                                    <select name="boosterId" id="boosterId" class="browser-default custom-select"
-                                        style="width:100%">
-                                        @for ($i = 1; $i <= 20; $i++)
-                                            @if ($i == 1)
-                                                <option value="0" selected>1</option>
-                                            @else
-                                                <option value="{{ $i }}">{{ $i }}</option>
-                                            @endif
-                                        @endfor
-                                    </select>
+                                <p>Total Expected Payment<span id="if_selected"></span>: <span id="totalPayment"></span>
                                 </p>
+
                                 <div class="mt-2 mb-3 d-flex">
-                                    <input type="number" class="form-control mr-2" name="SelectedCard" id="SelectedCard"
-                                        style="width:100px" readonly />
+                                    <input type="number" class="form-control mr-2" name="SelectedCard"
+                                        id="SelectedCard" style="width:100px" readonly />
                                     <input type="hidden" class="form-control mr-2" name="SelectedCardNumber"
                                         id="SelectedCardNumber" style="width:100px" readonly />
                                     <a class="btn btn-success" id="btnSave" name="btnSave">SAVE</a>
@@ -208,18 +1047,17 @@
                                     </tr>
                                     <tr>
                                         <td>TOTAL COLLECTION: </td>
-                                        <td align="right">{{ moneyFormatIndia($daily['totalbetamount']) }}
+                                        <td align="right"><span id="totalCollection"></span>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>TOTAL PAYMENT :</td>
-                                        <td align="right">{{ moneyFormatIndia($daily['totalwonamount']) }}
+                                        <td align="right"><span id="totalPayPoint"></span>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>BALANCE :</td>
-                                        <td align="right">
-                                            {{ moneyFormatIndia($daily['totalbetamount'] - $daily['totalwonamount']) }}
+                                        <td align="right"><span id="Balance"></span>
                                         </td>
                                     </tr>
                                 </table>
@@ -259,24 +1097,28 @@
                     gameName: "funroulette",
                 };
                 $('.No').on('click', function() {
-                    result = this.id;
-                    console.log('hello i am clicked');
-                    for (var i = 0; i < 37; i++) {
-                        $('#' + i).css('background-color', '#00000000');
-                        $('#00').css('background-color', '#00000000');
-                    }
-                    if (this.id == 00) {
-                        $('#' + this.id).css('background-color', 'green');
-                    } else {
-                        $('#' + this.id).css('background-color', 'red');
-                    }
+                    var result = this.id;
+                    console.log('hello, I am clicked');
+
+                    $('.No').css('background-color', '#00000000'); // Reset all elements
+                    $('#' + this.id).css('background-color',
+                        'green'); // Set the clicked element to green
+
                     var boosterIds = $('#boosterId').val();
                     $('#SelectedCard').val(result);
-                    $('#totalPayment').html((parseFloat($('#spot' + this.id).html()) * 36).toFixed(
-                        2));
-                    $('#boosterId').val($('#boosterId').val());
-                });
 
+                    if (this.id == 00) {
+                        $('#totalPayment').html((parseFloat($('#spot37').html()) * 36).toFixed(
+                            2));
+                    } else {
+
+                        $('#totalPayment').html((parseFloat($('#spot' + this.id).html()) * 36)
+                            .toFixed(
+                                2));
+                    }
+
+                    $('#boosterId').val(boosterIds);
+                });
                 socket.emit('joinAdmin', user);
 
                 var cardNumber = 0;
@@ -321,7 +1163,8 @@
                                 if (seconds <= 0) {
                                     window.location.reload();
                                     gameres.forEach(function(item) {
-                                        Object.keys(item).forEach(function(key) {
+                                        Object.keys(item).forEach(function(
+                                            key) {
                                             $('#c' + key).val(0);
                                             $('#c' + key).css(
                                                 "background-color",
@@ -338,22 +1181,45 @@
                                     clearInterval(countdownTimer);
                                     window.location.reload();
                                 }
-                                document.getElementById('countdown').innerHTML = seconds;
+                                document.getElementById('countdown').innerHTML =
+                                    seconds;
                                 seconds -= 1;
                             }, 1024);
                         }
 
+                        {{--  collection data  --}}
+
+                        let balance = res.data.adminBalance;
+                        let totalCollection = 0;
+                        let totalPayment = 0;
+
+                        for (let i = 0; i < res.dataAdmin.length; i++) {
+                            totalCollection += res.dataAdmin[i].totalCollection;
+                            totalPayment += res.dataAdmin[i].totalPayment;
+                        }
+
+                        let totalBalance = totalCollection - totalPayment;
+
+                        document.getElementById('totalCollection').innerHTML = totalCollection;
+                        document.getElementById('totalPayPoint').innerHTML = totalPayment;
+                        document.getElementById('Balance').innerHTML = balance.toFixed(2);
+                        document.getElementById('tDayCollection').innerHTML = totalBalance;
+
+
                         var resAdminData = res.data.position;
+
                         for (var key in resAdminData) {
                             if (resAdminData.hasOwnProperty(key)) {
                                 var id = key;
                                 var value = parseFloat(resAdminData[key]).toFixed(2);
                                 var element = document.getElementById('spot' + id);
+
                                 if (element) {
-                                    element.innerHTML = value;
+                                    element.textContent = id === '00' ? '37' : value;
                                 }
                             }
                         }
+
                     }
                 });
 
