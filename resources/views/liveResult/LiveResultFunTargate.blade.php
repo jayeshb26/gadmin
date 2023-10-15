@@ -157,6 +157,7 @@
                                                             id="amt9" value="0" readonly />
                                                     </td>
                                                     <td><input type="text" class="form-control" name="0"
+                                                            id="amt"
                                                             style="background-color: transparent; color:white; border-block: none;"
                                                             value="0" id="amt0" readonly />
                                                     </td>
@@ -174,11 +175,10 @@
                                 </p>
                                 <p>Total Expected Payment<span id="if_selected"></span>: <span id="totalPayment"></span>
                                 </p>
-                                <form action=""></form>
                                 <p>
                                     <select name="boosterId" id="boosterId" class="browser-default custom-select"
                                         style="width:100%">
-                                        @for ($i = 1; $i <= 20; $i++)
+                                        @for ($i = 1; $i <= 4; $i++)
                                             @if ($i == 1)
                                                 <option value="0">1</option>
                                             @else
@@ -199,7 +199,7 @@
                                 <div class="alert alert-danger alert-dismissible fade" role="alert" id="alertIdR">
                                 </div>
                                 <span id="idRes">Daily Collection & Results</span>
-                                <table class="table table-bordered text-white">
+                                <table class="table table-bordered table-responsive-md text-white">
                                     <tr>
                                         <td>TOTAL Game Balance: </td>
                                         <td align="right"><span id="tDayCollection"></span>
@@ -207,28 +207,27 @@
                                     </tr>
                                     <tr>
                                         <td>TOTAL COLLECTION: </td>
-                                        {{--  <td align="right">{{ moneyFormatIndia($daily['totalbetamount']) }}  --}}
+                                        <td align="right"><span id="totalCollection"></span>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>TOTAL PAYMENT :</td>
-                                        {{--  <td align="right">{{ moneyFormatIndia($daily['totalwonamount']) }}  --}}
+                                        <td align="right"><span id="totalPayPoint"></span>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>BALANCE :</td>
-                                        <td align="right">
-                                            {{--  {{ moneyFormatIndia($daily['totalbetamount'] - $daily['totalwonamount']) }}  --}}
+                                        <td align="right"><span id="Balance"></span>
                                         </td>
                                     </tr>
                                 </table>
-                                <table class="tlb table table-bordered" id="resTab">
+                                {{--  <table class="tlb table table-bordered" id="resTab">
                                     <tr id="lastbet">
                                         @for ($i = 5; $i < 10; $i++)
                                             <td class="r_color_2" style="font-size:17px;" id="r{{ $i }}"></td>
                                         @endfor
                                     </tr>
-                                </table>
+                                </table>  --}}
                             </div>
                         </div>
                     </div>
@@ -246,20 +245,20 @@
     <script>
         var result = '';
         var gameid = '';
-        var card = ["AH", "AS", "AD", "AC", "KH", "KS", "KD", "KC", "QH", "QS", "QD", "QC", "JH", "JS", "JD", "JC"];
+        var card = ["HJ", "SJ", "DJ", "CJ", "HQ", "SQ", "DQ", "CQ", "HK", "SK", "DK", "CK"];
         var gameres = [{
-            "l-11": 0.0,
+            "1": 0.0,
+            "2": 0.0,
+            "3": 0.0,
+            "4": 0.0,
             "5": 0.0,
-            "l-13": 0.0,
-            "k-11": 0.0,
-            "k-12": 0.0,
-            "k-13": 0.0,
-            "c-11": 0.0,
-            "c-12": 0.0,
-            "c-13": 0.0,
-            "f-11": 0.0,
-            "f-12": 0.0,
-            "f-13": 0.0,
+            "6": 0.0,
+            "7": 0.0,
+            "8": 0.0,
+            "9": 0.0,
+            "10": 0.0,
+            "11": 0.0,
+            "12": 0.0,
         }];
         var cardsNum = {
             "HJ": 1,
@@ -276,170 +275,181 @@
             "CK": 12,
         };
 
+        $('input[type="radio"]').on('click', function() {
+            result = this.id;
+            var key = cardsNum[result];
+            var boosterIds = $('#boosterId').val();
+            $('#SelectedCard').val(result);
+            $('#check_' + result).attr("checked", "checked");
+            $('#SelectedCardNumber').val(key);
+            // $('#TCollection').html($('#c' + key).val());
+            $('#totalPayment').html($('#c' + key).val() * 10 * boosterIds);
+        });
+
         $('#boosterId').on('change', function() {
             var j = $('#SelectedCardNumber').val();
-            $('#totalPayment').html($('#amt' + j).val() * 9 * (this.value == 0 ? 1 : this.value));
+            $('#totalPayment').html($('#c' + j).val() * 10 * this.value);
         });
+
         $(function() {
-            var URL;
-            URL = "ws://localhost:6000";
+            const socket = io.connect('ws://143.244.140.74:9000');
+            console.log(socket + "Hello Socket Connected");
 
-            // console.log(URL);
-            const socket = io.connect(URL);
-            socket.on("connect", () => {
-                console.log(socket.connected); // true
-            });
-            socket.emit("req", {
-                "en": "ADMIN_SINGLE_CHANCE_3D_GAME_INFO",
-                "data": {}
-            });
-            socket.on('res', function(data) {
-                let response = data;
-                console.log(response);
-                if (response.data.game_state == "game_timer_start") {
-                    $('input[type="radio"]').on('click', function() {
-                        result = this.id;
-                        var boosterIds = $('#boosterId').val();
-                        $('#SelectedCard').val(result);
-                        $('#check_' + result).attr("checked", "checked");
-                        $('#SelectedCardNumber').val(this.value);
-                        // $('#TCollection').html($('#c' + key).val());
-                        $('#totalPayment').html($('#amt' + this.value).val() * 9 * (boosterIds ==
-                            0 ? 1 : boosterIds));
-                    });
-                    if (response.data.timer) {
-                        card.forEach(function(item) {
-                            $('#' + item).removeAttr('disabled');
-                        });
-                        var time = response.data.timer ? response.data.timer : 60;
-                        console.log(time);
+            socket.on('connect', function() {
 
-                        function timerDATA() {
-                            time--;
-                            document.getElementById('countdown').innerHTML = time;
-                            if (time <= 0) {
-                                clearInterval(counter);
-                                document.getElementById('countdown').innerHTML = "00";
-                                for (var i = 0; i <= 9; i++) {
-                                    $('#amt' + i).val(0);
-                                    $('#amt' + i).css("background-color", "transparent");
-                                }
-                                $('input[type="radio"]').prop("checked", false);
-                                $('#SelectedCard').val('');
-                                $('#SelectedCardNumber').val('');
-                                card.forEach(function(item) {
-                                    $('#' + item).attr('disabled', 'disabled');
-                                });
-                            }
-                        }
-                        document.getElementById('GameStatus').innerHTML = response.data.game_state;
-                        var counter = setInterval(timerDATA, 1000);
-                    }
-                    $('#tDayCollection').html(response.data.total_bet_amount.toFixed(2));
+                const user = {
+                    adminId: "603388bb7d20e50a81217277",
+                    gameName: "funtarget",
+                };
 
-                    var total = 0;
-                    $.each(response.data.total_bet_on_cards, function(key, value) {
-                        total = total + value;
-                        $('#amt' + key).val(value);
-                        if ($('#amt' + key).val() > 0) {
-                            $('#amt' + key).css("background-color", "#FFA07A");
-                        } else {
-                            $('#amt' + key).css("background-color", "transparent");
-                        }
-                    });
-                    $('#TCollection').html(total.toFixed(2));
-                } else {
-                    document.getElementById('GameStatus').innerHTML = response.data.game_state;
-                    var time = response.data.timer ? response.data.timer : 5;
-                    console.log(time);
+                socket.emit('joinAdmin', user);
 
-                    function timerDATA() {
-                        time--;
-                        document.getElementById('countdown').innerHTML = time;
-                        if (time <= 0) {
-                            clearInterval(counter);
-                            document.getElementById('countdown').innerHTML = "00";
-                            gameres.forEach(function(item) {
-                                Object.keys(item).forEach(function(key, value) {
-                                    $('#' + key).val(0);
-                                    $('#' + key).css("background-color", "transparent");
-                                });
-                            });
-                            $('input[type="radio"]').prop("checked", false);
-                            $('#boosterId').val(0);
-                        }
-                    }
-                    var counter = setInterval(timerDATA, 1000);
-                    card.forEach(function(item) {
-                        $('#' + item).attr('disabled', 'disabled');
-                    });
+                var cardNumber = 0;
+                var y = 1;
+                var gameName = "funtarget";
+
+                function removeAlert() {
+                    setInterval(function() {
+                        $('#alertId').removeClass('show');
+                    }, 5000);
                 }
-                var myarr;
-                for (let i = 5; i < response.data.last_win_cards.length; i++) {
-                    myarr = response.data.last_win_cards[i].split("|");
-                    // var url = '{{ URL::asset('/asset/images/andarbahar/cards') }}/' + myarr[0] + '.png';
-                    // console.log(url);
-                    var booster;
-                    if (myarr[1] != '1') {
-                        booster = myarr[1] + 'X';
-                    } else {
-                        booster = "N";
-                    }
-                    $("#r" + i).html(myarr[0] + ' | ' + booster);
-                }
-            });
-
-            function removeAlert() {
-                setInterval(function() {
-                    $('#alertId').removeClass('show');
-                    $('#alertIdR').removeClass('show');
-                }, 5000);
-            }
-            $('#btnSave').on('click', function() {
-                console.log($('#SelectedCardNumber').val());
-                console.log($('#boosterId').val());
-                $.ajax({
-                    type: "POST",
-                    url: "lucky16config",
-                    data: {
-                        card: $('#SelectedCardNumber').val(),
-                        boosterId: $('#boosterId').val(),
-                        gametype: 'single_chance',
-                        _token: $('input[name="_token"]').val()
-                    },
-                    success: function(result) {
-                        $('#SelectedCard').val('');
-                        $('#SelectedCardNumber').val('');
+                $('#btnSave').on('click', function() {
+                    var boosterId = $('#boosterId').val();
+                    var card = $('#SelectedCardNumber').val();
+                    cardNumber = parseInt(card);
+                    y = parseInt(boosterId);
+                    if (cardNumber != "" && y != "") {
                         $('#alertId').addClass('show');
                         $('#alertId').html("Success");
                         removeAlert();
-                        $('#setNo').val('');
-                        $('input[type="radio"]').prop("checked", false);
-                        $('#boosterId').val(0);
-                    },
-                    error: function(result) {
-                        $('#alertIdR').addClass('show');
-                        $('#alertIdR').html(result.responseJSON.errors.card[0]);
-                        removeAlert();
+                        console.log({
+                            cardNumber,
+                            y,
+                            gameName
+                        });
+                        socket.emit('winByAdmin', {
+                            cardNumber,
+                            y,
+                            gameName
+                        });
                     }
                 });
-            });
-        });
-        $('#reset').on('click', function() {
-            $.ajax({
-                type: "POST",
-                url: "game_configs",
-                data: {
-                    gamename: "FunTargate",
-                    _token: $('input[name="_token"]').val()
-                },
-                success: function(result) {
-                    // console.log("vijay");
-                    window.location.reload();
-                },
-                error: function(result) {
-                    console.log(result);
-                }
+
+
+                socket.on('resAdmin', (res) => {
+                    console.log(res);
+                    if (res.gameName == "funtarget") {
+                        console.log(res)
+                        if (res.time >= 0) {
+                            var seconds = parseInt(Math.abs(res.time) - 60);
+                            seconds = Math.abs(seconds);
+                            var countdownTimer = setInterval(function() {
+                                if (seconds <= 0) {
+                                    window.location.reload();
+                                    gameres.forEach(function(item) {
+                                        Object.keys(item).forEach(function(key) {
+                                            $('#c' + key).val(0);
+                                            $('#c' + key).css(
+                                                "background-color",
+                                                "transparent");
+                                        });
+                                    });
+                                    $('input[type="radio"]').prop("checked", false);
+                                    $('#alertId').removeClass('show');
+                                    $('#SelectedCard').val('');
+                                    $('#SelectedCardNumber').val('');
+                                    $('#TCollection').html('');
+                                    $('#totalPayment').html('');
+                                    clearInterval(countdownTimer);
+                                    window.location.reload();
+                                }
+                                document.getElementById('countdown').innerHTML = seconds;
+                                seconds -= 1;
+                            }, 1089);
+
+                            function checkTime(i) {
+                                if (i < 10) {
+                                    i = "0" + i
+                                }; // add zero in front of numbers < 10
+                                return i;
+                            }
+                        }
+
+                        function checkDate() {
+                            return new Date().toLocaleString("en-US", {
+                                timeZone: "Asia/Calcutta"
+                            }).toString().split(",")[0].replace(/\//g, (x) => "-");
+                        }
+
+                        function dataDate($date) {
+                            return new Date($date).toLocaleString("en-US", {
+                                timeZone: "Asia/Calcutta"
+                            }).toString().split(",")[0].replace(/\//g, (x) => "-");
+                        }
+
+                        //
+                        //console.log(res.dataAdmin)
+
+                        document.getElementById('display').innerHTML = JSON.stringify(res.gameName);
+                        document.getElementById('display2').innerHTML = JSON.stringify(res.data);
+                        for (let d = 0; d < res.dataAdmin.length; d++) {
+                            //console.log(dataDate(res.dataAdmin[d]._id))
+                            // console.log("heelo i am inside For loop");
+                            if (dataDate(res.dataAdmin[d]._id) == checkDate()) {
+                                // checkDate()
+                                $('#tDayCollection').html(res.dataAdmin[d].totalCollection.toFixed(
+                                    2));
+                                $('#tDayPayment').html(res.dataAdmin[d].totalPayment.toFixed(2));
+                                var bal = res.dataAdmin[d].totalCollection - res.dataAdmin[d]
+                                    .totalPayment;
+                                $('#tDayBalance').html(bal.toFixed(2));
+                            }
+                        }
+
+                        for (let i = 0; i < res.numbers.length; i++) {
+                            var url = "http://65.0.108.235/public/img/cards2/" + res.numbers[i] +
+                                '.png';
+                            $("#img" + i).attr("src", url);
+                            var booster;
+                            let total;
+                            if (res.x[i] != '1') {
+                                booster = res.x[i] + 'X';
+                            } else {
+                                booster = "N";
+                            }
+                            $('#booster' + i).html(booster);
+                            $.each(res.data, function(key, value) {
+                                $q = value / 10;
+                                total += $q;
+                                $("#c" + key).val($q.toFixed(2));
+                                if ($('#c' + key).val() > 0) {
+                                    $('#c' + key).css("background-color", "#FFA07A");
+                                } else {
+                                    $('#c' + key).css("background-color", "transparent");
+                                }
+                            });
+                            $('#TCollection').html(Object.values(res.data).reduce((acc, current) =>
+                                acc + current, 0) / 10);
+                        }
+                    }
+                });
+
+                socket.on('resAdminBetData', (res) => {
+                    console.log(res.data);
+                    if (res.gameName == "funtarget") {
+                        $.each(res.data, function(key, value) {
+                            $q = value / 10;
+                            $("#c" + key).val($q.toFixed(2));
+                            if ($('#c' + key).val() > 0) {
+                                $('#c' + key).css("background-color", "#FFA07A");
+                            } else {
+                                $('#c' + key).css("background-color", "transparent");
+                            }
+                        });
+                        $('#TCollection').html(Object.values(res.data).reduce((acc, current) =>
+                            acc + current, 0) / 10);
+                    }
+                });
             });
         });
     </script>

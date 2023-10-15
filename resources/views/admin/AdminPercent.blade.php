@@ -31,7 +31,7 @@
                     <div class="row mb-3">
                         <label class="col-md-1 text-right control-label mt-2"></label>
                         <div class="col-sm-6 col-md-2">
-                            <label class="text-right control-label mb-0">FunTarget</label>
+                            <label class="text-right control-label mb-0">FunRoulette</label>
                             <input type="number" class="form-control ui-autocomplete-input " id="series1" value=""
                                 name="series1" disabled>
                         </div>
@@ -117,25 +117,22 @@
     </script>
     <script>
         $(function() {
-            const socket = io.connect("ws://143.244.140.74:6000");
+            const socket = io.connect("ws://143.244.140.74:9000");
             socket.on("connect", function() {
-                {{--  console.log("hello"d);  --}}
-                console.log(socket.id);
+                console.log("hello");
+                {{--  console.log(socket.id);  --}}
                 const user = {
-                    adminId: "61d7bcd1153a05cf20cfc6f2",
+                    adminId: "603388bb7d20e50a81217277",
                 };
-                socket.emit("joinAdmin", user);
+                socket.emit("joinAdmin1", user);
                 socket.on("resAdmin", (res) => {
-                    // console.log(res.data.funtarget.adminBalance);
+                    //console.log(res.data.funtarget.adminBalance);
                     // console.log(res.data.rouletteTimer60.adminBalance);
                     console.log(res);
                     $("#series1").val((res.data.funtarget.adminBalance).toFixed(2));
                     $("#series3").val((res.data.funroulette.adminBalance).toFixed(2));
-                    $("#series5").val(res.data.rouletteTimer60.adminBalance.toFixed(2));
-                    $("#series6").val(res.data.spinToWin.adminBalance.toFixed(2));
                     $("#total").val((res.data.funtarget.adminBalance + res.data
-                        .rouletteTimer60.adminBalance + res.data.roulette.adminBalance + res
-                        .data.spinToWin.adminBalance).toFixed(2));
+                        .funroulette.adminBalance).toFixed(2));
 
                     var totalAdmin = '{{ $total['EndPoint'] }}';
                     console.log(totalAdmin);
@@ -148,14 +145,10 @@
                     var s5 = $("#s5").val();
                     var s6 = $("#s6").val();
                     const data = {
-                        funtarget: (s1 == 0) ? Math.round(parseInt($("#series1").val())) :
+                        funroulette: (s1 == 0) ? Math.round(parseInt($("#series1").val())) :
                             parseInt(s1),
-                        rouletteTimer60: (s3 == 0) ? Math.round(parseInt($("#series3").val())) :
+                        funtarget: (s3 == 0) ? Math.round(parseInt($("#series3").val())) :
                             parseInt(s3),
-                        roulette: (s5 == 0) ? Math.round(parseInt($("#series5").val())) :
-                            parseInt(s5),
-                        spinToWin: (s6 == 0) ? Math.round(parseInt($("#series6").val())) :
-                            parseInt(s6),
                     };
                     // console.log(data)
                     const changeAdmin = {
@@ -173,15 +166,12 @@
                         // console.log(res.data.funtarget.adminBalance);
                         // console.log(res.data.rouletteTimer60.adminBalance);
                         console.log(res);
-                        $("#series1").val((res.data.funtarget.adminBalance).toFixed(
+                        $("#series1").val((res.data.funroulette.adminBalance).toFixed(
                             2));
-                        $("#series3").val((res.data.rouletteTimer60.adminBalance).toFixed(
-                            2));
-                        $("#series5").val(res.data.roulette.adminBalance.toFixed(2));
-                        $("#series6").val(res.data.spinToWin.adminBalance.toFixed(2));
-                        $("#total").val((res.data.funtarget.adminBalance + res.data
-                                .rouletteTimer60.adminBalance + res.data.roulette
-                                .adminBalance + res.data.spinToWin.adminBalance)
+                        $("#series3").val((res.data.funtarget.adminBalance).toFixed(
+                            2));;
+                        $("#total").val((res.data.funroulette.adminBalance + res.data
+                                .funtarget.adminBalance)
                             .toFixed(2));
                         var totalAdmin = '{{ $total['EndPoint'] }}';
                         $('#totalAdmin').val(totalAdmin);

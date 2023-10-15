@@ -1022,8 +1022,6 @@
                             <div class="col-md-3 mt-2">
                                 <p id="GameStatus" style="font-weight: bold; font-size:25px">Game Timer:</p>
                                 <span id="countdown" style="font-size: 32px">00</span>
-                                <p>Total Expected Collection: <span id="TCollection">0</span>
-                                </p>
                                 <p>Total Expected Payment<span id="if_selected"></span>: <span id="totalPayment"></span>
                                 </p>
 
@@ -1039,7 +1037,7 @@
                                 <div class="alert alert-danger alert-dismissible fade" role="alert" id="alertIdR">
                                 </div>
                                 <span id="idRes">Daily Collection & Results</span>
-                                <table class="table table-bordered">
+                                <table class="table table-bordered table-responsive">
                                     <tr>
                                         <td>TOTAL Game Balance: </td>
                                         <td align="right"><span id="tDayCollection"></span>
@@ -1061,14 +1059,7 @@
                                         </td>
                                     </tr>
                                 </table>
-                                <table class="tlb table table-bordered" id="resTab">
-                                    <tr id="lastbet">
-                                        @for ($i = 5; $i < 10; $i++)
-                                            <td class="r_color_2" style="font-size:17px;" id="r{{ $i }}">
-                                            </td>
-                                        @endfor
-                                    </tr>
-                                </table>
+
                             </div>
                         </div>
 
@@ -1132,7 +1123,7 @@
                 }
                 $('#btnSave').on('click', function() {
                     var boosterId = $('#boosterId').val();
-                    var card = $('#SelectedCardNumber').val();
+                    var card = $('#SelectedCard').val();
                     cardNumber = parseInt(card);
                     y = parseInt(boosterId);
                     if (cardNumber != "" && y != "") {
