@@ -178,7 +178,7 @@ Route::group(['middleware' => 'CheckAuth'], function () {
 
     // Route::get('/online-players', [AdminController::class, 'getOnlinePlayers'])->name('getOnlinePlayers');
 
-    //Live Result
-    // Route::get('/liveResultFunRoulette', [AdminController::class, 'liveResultFunRoulette'])->name('FunRoulette');
-    // Route::get('/liveResultFunTarget', [AdminController::class, 'liveResultFunRoulette'])->name('FunTarget');
+    //lockUsers
+    Route::get('/lockuser', [AdminController::class, 'lockUserIndex'])->name('lockuser');
+    Route::get('updateUserStatus/{id}/{action}', 'AdminController@updateUserStatus')->name('updateUserStatus');
 });

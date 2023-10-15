@@ -115,7 +115,7 @@
     </script>
 
     {{--  this is custom script for the dropdown menu in side bar   --}}
-    <script>
+    {{--  <script>
         document.addEventListener("DOMContentLoaded", function() {
             const usersToggle = document.getElementById("usersToggle");
             const usersMenu = document.getElementById("usersMenu");
@@ -133,7 +133,7 @@
                 }
             });
         });
-    </script>
+    </script>  --}}
 
 
     @stack('custom-scripts')

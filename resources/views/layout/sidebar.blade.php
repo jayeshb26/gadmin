@@ -184,7 +184,16 @@
                     <span class="link-title">Players History</span>
                 </a>
             </li>
-            @if (in_array(Session::get('role'), ['Admin', 'agent', 'super_distributor', 'distributor', 'retailer']))
+            @if (Session::get('role') == 'Admin')
+                <li class="nav-item {{ active_class(['generatePointList']) }}">
+                    <a href="{{ url('/lockuser') }}" class="nav-link">
+                        <i class="link-icon" data-feather="box"></i>
+                        <span class="link-title">Lock User</span>
+                    </a>
+                </li>
+            @endif
+
+            @if (in_array(Session::get('role'), ['Admin', 'super_distributor', 'distributor']))
                 <li class="nav-item {{ active_class(['gamedraw']) }}">
                     <a href="{{ url('/gamedraw/1') }}" class="nav-link">
                         <i class="link-icon fa fa-history"></i>
@@ -287,14 +296,14 @@
                     <span class="link-title">Live Result FunRoulette</span>
                 </a>
             </li>
-            <li class="nav-item {{ active_class(['adminPercent']) }}">
-                <a href="{{ url('/liveResult/liveResultFunRoulette') }}" class="nav-link">
+            <li class="nav-item {{ active_class(['liveResult/liveResultFunTarget']) }}">
+                <a href="{{ url('/liveResult/liveResultFunTarget') }}" class="nav-link">
                     <i class="link-icon fa fa-list"></i>
                     <span class="link-title">Live Result FunTarget</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ url('/chpass') }}">
+                <a class="nav-link {{ active_class(['/chpass']) }}" href="{{ url('/chpass') }}">
                     <i class="link-icon fa fa-key mr-1"></i>
                     <span class="link-title">Change Password</span>
                 </a>

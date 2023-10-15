@@ -16,9 +16,9 @@ class SuperDistributer
      */
     public function handle($request, Closure $next)
     {
-        if(Session::has('username') && Session::get('role')=="superDistributer"){
+        if (Session::has('username') && Session::get('role') == "super_distributor") {
             return $next($request);
-        }else{
+        } else {
             return redirect()->route('login');
         }
     }

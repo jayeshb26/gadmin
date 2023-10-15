@@ -30,13 +30,23 @@
 
                     <div class="col-md-12 row">
                         <div class="col-md-6">
-                            <h6 class="card-title">Active User’s</h6>
+                            <h6 class="card-title">
+                                @if (Session::has('role'))
+                                    @if (Session::get('role') == 'Admin' || Session::get('role') == 'subadmin')
+                                        Active Admin
+                                    @elseif (Session::get('role') == 'super_distributor')
+                                        Active Super Distributor
+                                    @elseif (Session::get('role') == 'distributor')
+                                        Active Distributor
+                                    @elseif (Session::get('role') == 'player')
+                                        Active Player
+                                    @endif
+                                @else
+                                    Active Users
+                                @endif
+                            </h6>
                         </div>
-                        <div class="col-md-6 row text-right">
-                            <select id='filterText' class='col-md-6'>
-                                <option></option>
-                            </select>
-                        </div>
+
                     </div>
                     {{-- <p class="card-description">Read the <a href="https://datatables.net/" target="_blank"> Official DataTables Documentation </a>for a full list of instructions and other options.</p> --}}
                     <div class="table-responsive">
@@ -73,7 +83,7 @@
                                                         class="mdi mdi-eye"></i></a>
                                             @endif
                                         </td>
-                                        <td>{{ Request::segment(2) == 'admin' ? $value['role'] : '' }}</td>
+                                        <td>{{ Request::segment(2) == 'Admin' ? $value['role'] : '' }}</td>
                                         </td>
                                         <td>{{ $value->refer->userName ?? '--' }}</td>
                                         <td>{{ $value['password'] }}</td>
@@ -125,8 +135,8 @@
                                             </div>
                                             {{-- href="{{ url('users/delete/'.$value['_id'])}}" --}}
                                         </td>
-                                        <td>{{ date('d-m-Y h:i:s A', strtotime($value['updatedAt'])) }}</td>
-                                        <td>{{ date('d-m-Y h:i:s A', strtotime($value['createdAt'])) }}</td>
+                                        <td>{{ date('d-m-Y h:i:s A', strtotime($value['updated_at'])) }}</td>
+                                        <td>{{ date('d-m-Y h:i:s A', strtotime($value['created_at'])) }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>

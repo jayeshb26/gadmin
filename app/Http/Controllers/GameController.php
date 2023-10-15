@@ -51,7 +51,7 @@ class GameController extends Controller
 
         if (Session::get('role') == "Admin") {
             if (Session::get('is_f') == "false") {
-                $agent = User::where('role', 'agent')->where('referralId', new \MongoDB\BSON\ObjectID(Session::get('id')))->get();
+                $agent = User::where('role', 'Admin')->where('referralId', new \MongoDB\BSON\ObjectID(Session::get('id')))->get();
                 // echo "<pre>";
                 // print_r($superdistributer->toArray());die;
                 $admin = User::where('_id', new \MongoDB\BSON\ObjectID(Session::get('id')))->get();

@@ -34,19 +34,11 @@
                                             <option selected disabled>Select Game</option>
                                             <option value="1"
                                                 {{ isset($_GET['game']) ? ($_GET['game'] == 1 ? 'selected' : '') : '' }}>
-                                                RouletteTimer60
+                                                FunRoulette
                                             </option>
                                             <option value="2"
                                                 {{ isset($_GET['game']) ? ($_GET['game'] == 2 ? 'selected' : '') : '' }}>
-                                                funtarget</option>
-                                            <option value="3"
-                                                {{ isset($_GET['game']) ? ($_GET['game'] == 3 ? 'selected' : '') : '' }}>
-                                                Roulette
-                                            </option>
-                                            <option value="4"
-                                                {{ isset($_GET['game']) ? ($_GET['game'] == 4 ? 'selected' : '') : '' }}>
-                                                Spin To Win
-                                            </option>
+                                                FunTarget</option>
                                         </select>
                                     </div>
                                 </div>
@@ -126,7 +118,8 @@
                                         <td>{{ moneyFormatIndia($value['won']) }}</td>
                                         <td>{{ moneyFormatIndia($value['startPoint'] - $value['bet'] + $value['won']) }}
                                         </td>
-                                        <td>{{ $createdAt ?? '' }}</td>
+                                        <td><?php echo date('d/m/Y h:i A', strtotime($value['createdAt']->toDateTime()->format('r'))); ?></td>
+
                                         <td>{{ ucfirst($value['game']) }}</td>
                                     </tr>
                                 @endforeach

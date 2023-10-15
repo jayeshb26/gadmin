@@ -104,7 +104,7 @@
                                             @endforeach
                                         </th>
                                         <th>{{ number_format($pa['creditPoint'], 2) }}</th>
-                                        <th>{{ date('F j, Y', strtotime($pa['createdAt'])) }}</th>
+                                        <th>{{ date('F j, Y', strtotime($pa['created_at'])) }}</th>
                                         <th>
                                             @if ($pa['status'] == 'success')
                                                 <span title="Ban User">Transfer <span

@@ -181,7 +181,12 @@
                             @foreach ($data as $value)
                             <tr role="row">
                                 <td class="">{{$SR_No++}}</td>
-                                <td>{{date("d-m-Y h:i:s A",strtotime($value['createdAt']))}}</td>
+                                <td>@if (!empty($value['createdAt']))
+                                                {{ date('Y-m-d H:i:s', $value['createdAt']->toDateTime()->getTimestamp()) }}
+                                            @else
+                                                No Date
+                                            @endif
+                                </td>
                                 <td>{{$value['userName']}}<br>{{$value['ticketId']}}</td>
                                 <td>{{$value['name']}}</td>
                                 <td>{{number_format($value['startPoint'],2)}}</td>
@@ -221,7 +226,11 @@
                                                                     <td><strong>Game</strong></td>
                                                                     <td>Coupon</td>
                                                                     <td><strong>Date</strong></td>
-                                                                    <td><?php echo date("d/m/Y h:i A",strtotime($value['createdAt']));?>
+                                                                    <td>@if (!empty($value['createdAt']))
+                                                {{ date('Y-m-d H:i:s', $value['createdAt']->toDateTime()->getTimestamp()) }}
+                                            @else
+                                                No Date
+                                            @endif
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
@@ -294,7 +303,7 @@
                                                         <pre>".'fvhfbvfhvbfhvbfh';
                                                                         //   $app = array("bana"=>array("1"=>2),"app","gerp");
                                                                         // echo in_array("bana",$app);
-                                                                        
+
                                                                         // die;
                                                                     @endphp
                                                                     <h2>Bet Details</h2>
@@ -303,8 +312,8 @@
                                                                         <tr>
                                                                         <th>Bet Position</th>
                                                                         </tr>
-                                                                        @for($k=1;$k<=10;$k++) 
-                                                                        <tr><td class="text-center">{{chr(64+$k)}} {{$no}}-{{$no+99}}</td></tr>    
+                                                                        @for($k=1;$k<=10;$k++)
+                                                                        <tr><td class="text-center">{{chr(64+$k)}} {{$no}}-{{$no+99}}</td></tr>
                                                                         <tr>
                                                                             <td>
                                                                             <table style="border:2px solid #4f7dda;" class="text-center">
@@ -312,7 +321,7 @@
                                                                                 @for($i=1;$i<=5;$i++)
                                                                                     <tr class="text-center">
                                                                                     @for($j=1000;$j<=1019;$j++)
-                                                                                        @php 
+                                                                                        @php
                                                                                             // echo $no;
                                                                                             $check = substr($no,-2);
                                                                                             // $check1 = substr($no,-1);
@@ -351,7 +360,7 @@
                                                                                                 <td style="padding:0.2rem 0.2rem;line-height: 1rem;vertical-align: unset;"><span style="font-size:14px;">{{$no++}}</span><br>
                                                                                                 <span style="border:1px solid #fff;padding:2px 9px;color:#000;background:#D9DDFF;">00</span></td><!--46A4FF-->
                                                                                             @endif
-                                                                                            
+
                                                                                         @endif
                                                                                     @endfor
                                                                                     </tr>

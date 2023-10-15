@@ -112,14 +112,14 @@
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-4 col-sm-4 grid-margin stretch-card">
-                    <div class="card bg-danger">
-                        <a href="{{ url('/users/Franchise') }}">
+                    <div class="card bg-success">
+                        <a href="{{ url('/getdata/distributor') }}">
                             <div class="card-body">
                                 <div class=" row">
                                     <div class="col-md-8">
-                                        <h6 class="text-white mb-2">New Registered Users</h6>
+                                        <h6 class="text-white mb-2">Distributor</h6>
                                         <div>
-                                            <h3 class="text-white">{{ $data['newReg'] }}</h3>
+                                            <h3 class="text-white">{{ $data['distributor'] }}</h3>
                                         </div>
                                     </div>
                                     <div class="col-md-4 mt-1">
@@ -156,13 +156,13 @@
             @else
                 <div class="col-lg-3 col-md-4 col-sm-4 grid-margin stretch-card">
                     <div class="card bg-success">
-                        <a href="{{ url('/users/admin') }}">
+                        <a href="{{ url('/getdata/super-distributor') }}">
                             <div class="card-body">
                                 <div class=" row">
                                     <div class="col-md-8">
-                                        <h6 class="text-white mb-2">Users</h6>
+                                        <h6 class="text-white mb-2">SuperDistributor</h6>
                                         <div>
-                                            <h3 class="text-white">{{ $data['superDistributer'] }}</h3>
+                                            <h3 class="text-white">{{ $data['SuperDistributor'] }}</h3>
                                         </div>
                                     </div>
                                     <div class="col-md-4 mt-1">
@@ -321,10 +321,10 @@
         new Chart($("#chartjsDoughnut"), {
             type: "doughnut",
             data: {
-                labels: ["super_distributors", "distributors", "users", "Players"],
+                labels: ["super_distributors", "distributors", "Players"],
                 datasets: [{
                     label: "Population (millions)",
-                    backgroundColor: ["#7ee5e5", "#f77eb9", "#4d8af0", "#ffc107"],
+                    backgroundColor: ["#7ee5e5", "#f77eb9", "#ffc107"],
                     data: [{{ $chart_f }}],
                 }, ],
             },
@@ -343,7 +343,7 @@
         new Chart($("#chartjsGroupedBar"), {
             type: "bar",
             data: {
-                labels: ["Game40", "Game60", "Game Manule"],
+                labels: ["FunRoulette", "FunTarget"],
                 datasets: [{
                         label: "Win Points",
                         backgroundColor: "#f77eb9",

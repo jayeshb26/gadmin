@@ -31,25 +31,27 @@ class DashboardController extends Controller
         $chart_p = "";
         if (Session::get('role') == 'Admin') {
             if (Session::get('is_f') == "false") {
-                $dash['users'] = User::where('is_franchise', false)->where('userName', '!=', "superadminA")->where('role', '!=', "subadmin")->where('role', '!=', 'player')->count();
-                $dash['player'] = User::where('is_franchise', false)->where('userName', '!=', "superadminA")->where('role', '!=', "subadmin")->where('role', 'player')->count();
-                $dash['blockplayer'] = User::where('is_franchise', false)->where('userName', '!=', "superadminA")->where('role', '!=', "subadmin")->where('role', 'player')->where('isActive', false)->count();
+                $dash['users'] = User::where('userName', '!=', "Admin")->where('role', '!=', "subadmin")->where('role', '!=', 'player')->count();
+                $dash['distributor'] = User::where('role', 'distributor')->count();
+                $dash['player'] = User::where('userName', '!=', "superadminA")->where('role', '!=', "subadmin")->where('role', 'player')->count();
+                $dash['blockplayer'] = User::where('userName', '!=', "superadminA")->where('role', '!=', "subadmin")->where('role', 'player')->where('isActive', false)->count();
                 $dash['generatedPoint'] = adminGenratedPoint::where('is_f', false)->sum('generateBalance');
 
                 $chart_a = array(
-                    User::where('is_franchise', false)->where('role', 'agent')->count(),
-                    User::where('is_franchise', false)->where('role', 'super_distributor')->count(),
-                    User::where('is_franchise', false)->where('role', 'distributor')->count(),
-                    User::where('is_franchise', false)->where('role', 'retailer')->count(),
-                    User::where('is_franchise', false)->where('role', 'player')->count(),
+                    User::where('role', 'super_distributor')->count(),
+                    User::where('role', 'distributor')->count(),
+                    User::where('role', 'player')->count(),
                 );
                 $chart_a = implode(', ', array_values($chart_a));
             } else {
-                $dash['superDistributer'] = User::where('is_franchise', true)->where('userName', '!=', "superadminF")->where('role', '!=', "subadmin")->where('role', '!=', 'player')->count();
-                $dash['player'] = User::where('is_franchise', true)->where('userName', '!=', "superadminF")->where('role', '!=', "subadmin")->where('role', 'player')->count();
-                $dash['blockplayer'] = User::where('is_franchise', true)->where('userName', '!=', "superadminF")->where('role', '!=', "subadmin")->where('role', 'player')->where('isActive', false)->count();
+                $dash['super_distributor'] = User::where('userName', '!=', "Admin")->where('role', '!=', "subadmin")->where('role', '!=', 'player')->count();
+                $dash['player'] = User::where('userName', '!=', "Admin")->where('role', '!=', "subadmin")->where('role', 'player')->count();
+                $dash['blockplayer'] = User::where('userName', '!=', "Admin")->where('role', '!=', "subadmin")->where('role', 'player')->where('isActive', false)->count();
                 $dash['generatedPoint'] = adminGenratedPoint::where('is_f', true)->sum('generateBalance');
 
+                $dash['distributor'] = User::where('role', 'distributor')->count();
+                $dash['SuperDistributor'] = User::where('role', 'super_distributor')->count();
+                // dd($dash['distributor']);
                 $fm = date('m', strtotime('Yesterday'));
                 $fd = date('d', strtotime('Yesterday'));
                 $fY = date('Y', strtotime('Yesterday'));
@@ -60,7 +62,7 @@ class DashboardController extends Controller
                 $ti = date('i');
                 $ts = date('s');
 
-                $dash['newReg'] = User::where('is_franchise', true)->where('userName', '!=', "superadminF")->where('role', '!=', "subadmin")->where('role', 'player')
+                $dash['newReg'] = User::where('role', 'player')
                     ->whereBetween(
                         'createdAt',
                         array(
@@ -70,39 +72,36 @@ class DashboardController extends Controller
                     )
                     ->count();
 
-                $player_id = User::where('is_franchise', true)->where('userName', '!=', "superadminF")->where('role', '!=', "subadmin")->where('role', 'player')->get()->pluck('_id');
+                $player_id = User::where('userName', '!=', "superadminF")->where('role', '!=', "subadmin")->where('role', 'player')->get()->pluck('_id');
 
                 foreach ($player_id as $key => $value) {
                     $player_id[$key] = new \MongoDB\BSON\ObjectID($value);
                 }
 
+
                 $dash['playPoint'] = Bets::whereIn('playerId', $player_id)->sum('bet');
                 $dash['wonPoint'] = Bets::whereIn('playerId', $player_id)->sum('won');
                 $dash['endPoint'] = $dash['playPoint'] - $dash['wonPoint'];
-
                 $chart_f = array(
-                    User::where('is_franchise', true)->where('role', 'super_distributor')->count(),
-                    User::where('is_franchise', true)->where('role', 'distributor')->count(),
-                    User::where('is_franchise', true)->where('role', 'retailer')->count(),
-                    User::where('is_franchise', true)->where('role', 'player')->count(),
+                    User::where('role', 'super_distributor')->count(),
+                    User::where('role', 'distributor')->count(),
+                    User::where('role', 'player')->count(),
                 );
                 $chart_f = implode(', ', array_values($chart_f));
             }
             $chart_w = array(
+                Bets::where('game', 'funroulette')->sum('won'),
                 Bets::where('game', 'funtarget')->sum('won'),
-                Bets::where('game', 'rouletteTimer60')->sum('won'),
-                Bets::where('game', 'roulette')->sum('won'),
             );
             $chart_p = array(
                 Bets::where('game', 'funtarget')->sum('bet'),
-                Bets::where('game', 'rouletteTimer60')->sum('bet'),
-                Bets::where('game', 'roulette')->sum('bet'),
+                Bets::where('game', 'funroulette')->sum('bet'),
             );
             $chart_w = implode(', ', array_values($chart_w));
             $chart_p = implode(', ', array_values($chart_p));
         } else {
-            $dash['users'] = User::where('is_franchise', false)->where('_id', '!=', new \MongoDB\BSON\ObjectID(Session::get('id')))->where('role', '!=', "subadmin")->where('userName', '!=', "superadminA")->count();
-            $dash['superDistributer'] = User::where('is_franchise', true)->where('userName', '!=', "superadminF")->where('role', '!=', "subadmin")->where('referralId', new \MongoDB\BSON\ObjectID(Session::get('id')))->count();
+            $dash['users'] = User::where('_id', '!=', new \MongoDB\BSON\ObjectID(Session::get('id')))->where('role', '!=', "subadmin")->where('userName', '!=', "superadminA")->count();
+            $dash['super_distributor'] = User::where('userName', '!=', "superadminF")->where('role', '!=', "subadmin")->where('referralId', new \MongoDB\BSON\ObjectID(Session::get('id')))->count();
         }
 
         return view('dashboard', ['data' => $dash, 'chart_f' => $chart_f, 'chart_a' => $chart_a, 'chart_w' => $chart_w, 'chart_p' => $chart_p]);

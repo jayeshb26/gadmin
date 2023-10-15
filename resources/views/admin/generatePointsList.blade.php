@@ -32,8 +32,8 @@
                             <h6 class="card-title">Generate Points</h6>
                         </div>
                         <div class="d-inline-block float-right">
-                            <a href="{{ url('/do_generate_points') }}" class="btn btn-success"><i
-                                    class="fa fa-plus"></i> Generate Points</a>
+                            <a href="{{ url('/do_generate_points') }}" class="btn btn-success"><i class="fa fa-plus"></i>
+                                Generate Points</a>
                         </div>
                         {{-- <div class="col-md-6 row text-right">
                             <select id='filterText' class='col-md-6' onchange='filterText()'>
@@ -64,7 +64,11 @@
                                 @foreach ($data as $value)
                                     <tr role="row" class="odd content">
                                         <td class=""><?= $SR_No++ ?></td>
-                                        <td><?php echo date('d/m/Y h:i A', strtotime($value['createdAt']->toDateTime()->format('r'))); ?></td>
+                                        <td>
+                                            @if (!empty($value['created_at']))
+                                                {{ date('Y-m-d H:i:s', $value['created_at']->toDateTime()->getTimestamp()) }}
+                                            @endif
+                                        </td>
                                         <td>{{ $value['balance'] }}</td>
                                         <td>{{ $value['generateBalance'] }}</td>
                                         <td>{{ $value['generateBalance'] + $value['balance'] }}</td>

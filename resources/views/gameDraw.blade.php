@@ -73,7 +73,7 @@
                                             @else
                                                 <td>{{ $bets['result'] }}</td>
                                             @endif
-                                            <td>{{ date('d-m-Y h:i:s A', strtotime(date($bets['createdAt']))) }}</td>
+                                            <td><?php echo date('d/m/Y h:i A', strtotime($bets['createdAt']->toDateTime()->format('r'))); ?></td>
                                         </tr>
                                     @endforeach
                                 </tbody>

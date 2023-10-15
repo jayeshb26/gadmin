@@ -8,13 +8,6 @@
 @endpush
 
 @section('content')
-    <nav class="page-breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">Tables</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Data Table</li>
-        </ol>
-    </nav>
-
     @if (Session::has('msg'))
         <div class="alert alert-danger" role="alert">
             {{ Session::has('msg') ? Session::get('msg') : '' }}
@@ -30,12 +23,7 @@
 
                     <div class="col-md-12 row">
                         <div class="col-md-6">
-                            <h6 class="card-title">Active User’s</h6>
-                        </div>
-                        <div class="col-md-6 row text-right">
-                            <select id='filterText' class='col-md-6'>
-                                <option></option>
-                            </select>
+                            <h6 class="card-title">Active SuperDistributor</h6>
                         </div>
                     </div>
                     {{-- <p class="card-description">Read the <a href="https://datatables.net/" target="_blank"> Official DataTables Documentation </a>for a full list of instructions and other options.</p> --}}
@@ -79,7 +67,6 @@
                                         <td>{{ $value['password'] }}</td>
                                         <td>{{ number_format($value['creditPoint'], 2) }}</td>
                                         @if (Session::get('role') == 'Admin')
-                                            {{--  <td>{{ $value['transactionPin'] }}</td>  --}}
                                             <td>
                                                 <div class="btn btn-danger fa fa-gear">
                                                     <span style="font-family: initial;">Minus Settings</span>
@@ -128,8 +115,8 @@
                                             </div>
                                             {{--  href="{{ url('users/delete/' . $value['_id']) }}"  --}}
                                         </td>
-                                        <td>{{ date('d-m-Y h:i:s A', strtotime($value['updatedAt'])) }}</td>
-                                        <td>{{ date('d-m-Y h:i:s A', strtotime($value['createdAt'])) }}</td>
+                                        <td>{{ date('d-m-Y h:i:s A', strtotime($value['updated_at'])) }}</td>
+                                        <td>{{ date('d-m-Y h:i:s A', strtotime($value['created_at'])) }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>

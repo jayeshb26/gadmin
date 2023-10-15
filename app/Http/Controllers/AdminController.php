@@ -50,6 +50,7 @@ class AdminController extends Controller
 
             $user_role = User::where('is_franchise', false)->where('role', '!=', "Admin")->pluck('role')->toArray();
             $user_role = array_unique($user_role);
+            // dd($user_role);
             return view('admin.view', ['data' => $user, 'role' => $user_role]);
         }
     }
@@ -60,7 +61,7 @@ class AdminController extends Controller
         if (Session::get('is_f') == "true") {
             if (Session::get('role') == "Admin" || Session::get('role') == "subadmin") {
                 $user = User::where('userName', '!=', "superadminA")->where('userName', '!=', "superadminF")->where('role', '!=', "Admin")->where('role', '!=', "subadmin")->orderBy('createdAt', 'DESC')->where('is_franchise', false)->get();
-            } elseif (Session::get('role') == "agent") {
+            } elseif (Session::get('role') == "Admin") {
                 $user = User::where('referralId', new \MongoDB\BSON\ObjectID(Session::get('id')))->where('role', 'super_distributor')->where('is_franchise', false)->orderBy('createdAt', 'DESC')->get();
             } elseif (Session::get('role') == "super_distributor") {
                 $user = User::where('referralId', new \MongoDB\BSON\ObjectID(Session::get('id')))->where('role', 'distributor')->where('is_franchise', false)->orderBy('createdAt', 'DESC')->get();
@@ -68,7 +69,7 @@ class AdminController extends Controller
                 $user = User::where('referralId', new \MongoDB\BSON\ObjectID(Session::get('id')))->where('role', 'player')->where('is_franchise', false)->orderBy('createdAt', 'DESC')->get();
             }
 
-            $user_role = User::where('is_franchise', true)->pluck('role', 'player')->toArray();
+            $user_role = User::where('is_franchise', true)->pluck('role', 'super_distributor')->toArray();
             $user_role = array_unique($user_role);
             // dd($user_role);
             return view('admin.view', ['data' => $user, 'role' => $user_role]);
@@ -330,24 +331,24 @@ class AdminController extends Controller
 
 
 
-    public function getOnlinePlayers()
-    {
-        $onlinePlayers = User::where('isLogin', true)->where('role', 'player')->get();
-        $onlinePlayers = $onlinePlayers->map(function ($player) {
-            $createdAt = $player->createdAt instanceof \MongoDB\BSON\UTCDateTime
-                ? $player->createdAt->toDateTime()->format('Y-m-d')
-                : null;
-            // dd($createdAt);
-            return [
-                'Name' => $player->name,
-                'UserName' => $player->userName,
-                'LoginStatus' => $player->isLogin ? 'Online' : 'Offline',
-                'createdAt' => $createdAt, // Properly formatted date or null
-            ];
-        });
+    // public function getOnlinePlayers()
+    // {
+    //     $onlinePlayers = User::where('isLogin', true)->where('role', 'player')->get();
+    //     $onlinePlayers = $onlinePlayers->map(function ($player) {
+    //         $createdAt = $player->createdAt instanceof \MongoDB\BSON\UTCDateTime
+    //             ? $player->createdAt->toDateTime()->format('Y-m-d')
+    //             : null;
+    //         // dd($createdAt);
+    //         return [
+    //             'Name' => $player->name,
+    //             'UserName' => $player->userName,
+    //             'LoginStatus' => $player->isLogin ? 'Online' : 'Offline',
+    //             'createdAt' => $createdAt, // Properly formatted date or null
+    //         ];
+    //     });
 
-        return view('online-players', compact('onlinePlayers'));
-    }
+    //     return view('online-players', compact('onlinePlayers'));
+    // }
 
 
 
@@ -970,7 +971,7 @@ class AdminController extends Controller
         }
         if ($user['role'] == "Admin") {
             $refer = User::where('referralId', new \MongoDB\BSON\ObjectID($user['_id']))->where('role', 'agent')->get();
-        } elseif ($user['role'] == "agent") {
+        } elseif ($user['role'] == "admin") {
             $refer = User::where('referralId', new \MongoDB\BSON\ObjectID($user['_id']))->where('role', 'super_distributor')->get();
         } elseif ($user['role'] == "super_distributor") {
             $refer = User::where('referralId', new \MongoDB\BSON\ObjectID($user['_id']))->where('role', 'distributor')->get();
@@ -1524,21 +1525,66 @@ class AdminController extends Controller
         // $response = Http::get($webUrl . '/chooseServer?det=android');
         //        dd($response->json());/
         // $lastWinCards = AndarBaharPlayings::select('last_win_cards')->first();
-        $daily['totalbetamount']  = BetList::where('game', 'funroulette')->where('createdAt', '>=', Carbon::today())->sum('total_bet_amount');
-        $daily['totalwonamount']  = BetList::where('game', 'funroulette')->where('createdAt', '>=', Carbon::today())->sum('total_win_amount');
+        $daily['totalbetamount']  = Bets::where('game', 'funroulette')->where('createdAt', '>=', Carbon::today())->sum('total_bet_amount');
+        $daily['totalwonamount']  = Bets::where('game', 'funroulette')->where('createdAt', '>=', Carbon::today())->sum('total_win_amount');
         return view('liveResult.LiveResultRoulette', ['daily' => $daily]); // , ['response' => $webUrl, 'lastCard' => $lastWinCards, 'daily' => $daily]
     }
 
+
+    public function lockUserIndex()
+    {
+        $users = User::where('role', 'player')->get();
+        return view('lockuser.index', ['users' => $users]);
+    }
+
+
+    public function updateUserStatus($id, $action)
+    {
+        $users = User::find($id);
+
+        if (!$users) {
+            return redirect()->route('lockuser')->with('error', 'User not found.');
+        }
+
+        switch ($action) {
+            case 'lock':
+                $users->isLocked = true;
+                $message = 'User has been locked.';
+                break;
+            case 'unlock':
+                $users->isLocked = false;
+                $message = 'User has been unlocked.';
+                break;
+            case 'reset-login':
+                $users->isLocked = false;
+                $message = 'User login has been reset.';
+                break;
+            default:
+                return redirect()->route('lockuser')->with('error', 'Invalid action.');
+        }
+
+        $users->save();
+
+        return redirect()->route('lockuser')->with('success', $message);
+    }
+
+
+
+
+
+
+
+
     public function liveResultFunTarget() // ADMIN_ROULETTE_ZERO_GAME_INFO
     {
-        //     $webUrl = 'http://13.233.70.146:3000';
-        //     dd('hello');
-        //     // $webUrl = 'http://localhost:5000';
-        //     // $response = Http::get($webUrl . '/chooseServer?det=android');
-        //     // $lastWinCards = RouletteZeroPlayings::select('last_win_cards')->first();
-        //     // $daily['totalbetamount']  = BetList::where('game_type', 'roulette_zero')->where('createdAt', '>=', Carbon::today())->sum('total_bet_amount');
-        //     // $daily['totalwonamount']  = BetList::where('game_type', 'roulette_zero')->where('createdAt', '>=', Carbon::today())->sum('total_win_amount');
-        return view('liveResult.LiveResultFunTargate'); //,['response' => $response->json(), 'lastCard' => $lastWinCards, 'daily' => $daily]
+        // $webUrl = 'http://13.233.70.146:3000';
+        // dd('hello');
+        // $webUrl = 'http://localhost:5000';
+        // $response = Http::get($webUrl . '/chooseServer?det=android');
+        // $lastWinCards = RouletteZeroPlayings::select('last_win_cards')->first();
+        $daily['totalbetamount']  = Bets::where('game', 'funtarget')->where('createdAt', '>=', Carbon::today())->sum('total_bet_amount');
+        $daily['totalwonamount']  = Bets::where('game', 'funtarget')->where('createdAt', '>=', Carbon::today())->sum('total_win_amount');
+        return view('liveResult.LiveResultFunTargate', ['daily' => $daily]); //'response' => $response->json(), 'lastCard' => $lastWinCards,
     }
     // public function resultFunTarget() // ADMIN_ROULETTE_ZERO_GAME_INFO
     // {

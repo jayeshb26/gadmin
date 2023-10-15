@@ -35,11 +35,7 @@ function moneyFormatIndia($number)
 
 function createDateFormat($date)
 {
-    if ($date instanceof DateTime) {
-        return date("d/m/Y h:i:s A", strtotime($date->format('r')));
-    } else {
-        return "Invalid Date";
-    }
+    return date("d/m/Y h:i:s A", strtotime($date->toDateTime()->format('r')));
 }
 
 
