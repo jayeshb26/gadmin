@@ -373,16 +373,15 @@
                             $('#check_' + result).attr("checked", "checked");
                             $('#SelectedCardNumber').val(key);
 
-                            // Update the TCollection and totalPayment values when a card is selected
-                            var totalPaymentValue = (parseInt($('#c' + key).val()) *
-                                10 *
-                                boosterIds).toFixed(2);
-                            var totalPaymentValue = res.dataAdmin[0].totalPayment;
+                            // Calculate the total payment value for the selected card
+                            var totalPaymentValue = (parseFloat($('#c' + key).val()) * 10 *
+                                parseFloat(boosterIds)).toFixed(2);
 
+                            // Update the TCollection and totalPayment values
                             $('#TCollection').html($('#c' + key).val());
-                            $('#totalPayment').html(totalPaymentValue);
+                            $('#totalPayment').html(res.dataAdmin[0]
+                                .totalPayment);
                         });
-
                         $('#boosterId').on('change', function() {
                             var j = $('#SelectedCardNumber').val();
                             $('#totalPayment').html($('#c' + j).val() * 10 * this
