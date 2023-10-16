@@ -166,7 +166,7 @@
                                         </div>
                                         <!-- /.box-body -->
                                     </div>  --}}
-                                    <table style="border:2px solid #ffffff;" class="text-center table">
+                                    <table style="border:2px solid #ffffff;" class="text-center table table-responsive-md">
                                         <tbody style="border:2px solid #ffffff;">
 
                                             <tr class="text-center" style="border:2px solid #FFFFFF;">
@@ -1091,9 +1091,15 @@
                     var result = this.id;
                     console.log('hello, I am clicked');
 
-                    $('.No').css('background-color', '#00000000'); // Reset all elements
-                    $('#' + this.id).css('background-color',
-                        'green'); // Set the clicked element to green
+                    $('.No').css('background-color', '#00000000');
+                    if (this.id == 0 || this.id == 00) {
+                        $('#' + this.id).css('background-color',
+                            'green'); // Set the clicked element to green
+                    } else {
+                        $('#' + this.id).css('background-color',
+                            'red'); // Set the clicked element to green
+
+                    } // Reset all elements
 
                     var boosterIds = $('#boosterId').val();
                     $('#SelectedCard').val(result);
