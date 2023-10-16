@@ -331,25 +331,46 @@
             @php
                 $position = $data['position'];
             @endphp
-
             <table id="user_role_table" class="table-responsive-md table-striped text-center mb-0 table_td">
                 <tbody>
                     <tr>
-                        @for ($i = 1; $i <= 9; $i++)
+                        @for ($i = 1; $i <= 6; $i++)
                             <td>
                                 <div class="form-check-flat form-check-primary">
-                                    <label for="0" style="font-size:75px;">{{ $i }}</label>
+                                    <label for="{{ $i }}"
+                                        style="font-size: 75px;">{{ $i }}</label>
+                                </div>
+                            </td>
+                        @endfor
+                    </tr>
+                    <tr>
+                        @for ($i = 1; $i <= 6; $i++)
+                            <td>
+                                <input type="text"
+                                    class="form-control {{ array_key_exists($i, $position) ? 'panel-primary' : '' }}"
+                                    name="{{ $i }}"
+                                    value="{{ array_key_exists($i, $position) ? $position[$i] : 0 }}" readonly />
+                            </td>
+                        @endfor
+                    </tr>
+                    <tr>
+                        @for ($i = 7; $i <= 9; $i++)
+                            <td>
+                                <div class="form-check-flat form-check-primary">
+                                    <label for="{{ $i }}"
+                                        style="font-size: 75px;">{{ $i }}</label>
                                 </div>
                             </td>
                         @endfor
                         <td>
                             <div class="form-check-flat form-check-primary">
-                                <label for="0" style="font-size:75px;">0</label>
+                                <label for="0" style="font-size: 75px;">0</label>
                             </div>
                         </td>
                     </tr>
+
                     <tr>
-                        @for ($i = 1; $i <= 9; $i++)
+                        @for ($i = 7; $i <= 9; $i++)
                             <td>
                                 <input type="text"
                                     class="form-control {{ array_key_exists($i, $position) ? 'panel-primary' : '' }}"
@@ -366,6 +387,7 @@
                     </tr>
                 </tbody>
             </table>
+
 
         @endif
     </div>

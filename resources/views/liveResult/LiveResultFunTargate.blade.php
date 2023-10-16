@@ -178,11 +178,9 @@
                                 <p>
                                     <select name="boosterId" id="boosterId" class="browser-default custom-select"
                                         style="width:100%">
-                                        @for ($i = 0; $i <= 4; $i++)
+                                        @for ($i = 1; $i <= 4; $i++)
                                             @if ($i == 1)
                                                 <option value="1">1</option>
-                                            @elseif($i == 0)
-                                                <option value="0">0</option>
                                             @else
                                                 <option value="{{ $i }}">{{ $i }}</option>
                                             @endif
@@ -303,16 +301,17 @@
                 $('#btnSave').on('click', function() {
                     var boosterId = $('#boosterId').val();
                     var card = $('#SelectedCard').val();
-                    cardNumber = parseInt(card);
-                    y = parseInt(boosterId);
-                    if (cardNumber !== "" && y !== "") {
+                    var cardNumber = parseFloat(card); // Use parseFloat to handle NaN
+                    var y = parseFloat(boosterId); // Use parseFloat to handle NaN
+
+                    if (!isNaN(y) && !isNaN(cardNumber) && cardNumber !== "") {
                         $('#alertId').addClass('show');
                         $('#alertId').html("Success");
                         removeAlert();
                         console.log({
                             cardNumber,
                             y,
-                            gameName
+                            gameName // Assuming gameName is defined elsewhere
                         });
                         socket.emit('winByAdmin', {
                             cardNumber,
@@ -406,11 +405,14 @@
                         var resAdminData = res.data.position;
 
                         for (let i = 1; i <= 10; i++) {
-                            var value = parseFloat(res.data.position[i]).toFixed(2);
+                            var value = parseFloat(resAdminData[i]).toFixed(
+                                2); // Use resAdminData instead of res.data.position
                             var element = i === 10 ? document.getElementById('amt') : document
                                 .getElementById('amt' + i);
+
                             if (element) {
-                                element.value = value;
+                                element.value = isNaN(value) ? '00' :
+                                    value; // Check if value is NaN and display '0.00'
                             }
                         }
 

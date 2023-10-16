@@ -198,7 +198,7 @@
                                                             <tr>
                                                                 <td class="No" style="text-align: center">
                                                                     <span
-                                                                        style="font-size:20px;padding-bottom: 1rem; color:#fff">0</span>
+                                                                        style="font-size:20px;padding-bottom: 1rem; color:#fff">00</span>
                                                                 </td>
                                                             </tr>
                                                             <tr>
