@@ -17,15 +17,11 @@
                                 <h6 class="card-title text-white mb-2">
                                     @if ($data['role'] == 'Admin')
                                         Admin
-                                    @elseif($data['role']=="agent")
-                                        Agent
-                                    @elseif($data['role']=="super_distributor")
+                                    @elseif($data['role'] == 'super_distributor')
                                         super_distributor
-                                    @elseif($data['role']=="distributor")
+                                    @elseif($data['role'] == 'distributor')
                                         distributor
-                                    @elseif($data['role']=="retailer")
-                                        retailer
-                                    @elseif($data['role']=="player")
+                                    @elseif($data['role'] == 'player')
                                         Player
                                     @endif
                                     Details
@@ -95,14 +91,10 @@
                 <div class="card-body">
                     <h6 class="card-title" style="text-transform: none !important;">
                         @if ($data['role'] == 'Admin')
-                            Agent
-                        @elseif($data['role']=="agent")
                             super_distributor
-                        @elseif($data['role']=="super_distributor")
+                        @elseif($data['role'] == 'super_distributor')
                             distributor
-                        @elseif($data['role']=="distributor")
-                            retailer
-                        @elseif($data['role']=="retailer")
+                        @elseif($data['role'] == 'distributor')
                             Player
                         @endif
                         Details
@@ -164,7 +156,7 @@
                                                         <a href="{{ url('banuser/' . $value['_id'] . '/' . $value['isActive']) }}"
                                                             class="btn btn-outline-success" title="Ban User"><i
                                                                 class="mdi mdi-close-box" style="font-size:20px;"></i></a>
-                                                    @elseif($value['isActive']==0)
+                                                    @elseif($value['isActive'] == 0)
                                                         <a href="{{ url('banuser/' . $value['_id'] . '/0') }}"
                                                             class="btn btn-outline-danger" title="UnBan User"><i
                                                                 class="mdi mdi-checkbox-marked"

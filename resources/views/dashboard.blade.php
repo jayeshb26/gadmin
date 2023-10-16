@@ -23,9 +23,9 @@
                             <div class="col-md-8">
                                 <h6 class="text-black mb-2">Generate Point Balance</h6>
                                 <div>
-                                    <h3 class="text-black text-left">
+                                    <h4 class="text-black text-left">
                                         {{ number_format(Session::get('creditPoint')) }}
-                                    </h3>
+                                    </h4>
                                 </div>
                             </div>
                         </div>

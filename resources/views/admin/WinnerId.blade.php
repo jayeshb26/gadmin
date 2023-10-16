@@ -20,7 +20,7 @@
         <div class="col-md-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-header">
-                    <h6>Retialer By Admin</h6>
+                    <h6>Disrtibutor By Admin</h6>
                 </div>
                 <div class="card-body">
 
