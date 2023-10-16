@@ -178,9 +178,11 @@
                                 <p>
                                     <select name="boosterId" id="boosterId" class="browser-default custom-select"
                                         style="width:100%">
-                                        @for ($i = 1; $i <= 4; $i++)
+                                        @for ($i = 0; $i <= 4; $i++)
                                             @if ($i == 1)
-                                                <option value="0">1</option>
+                                                <option value="1">1</option>
+                                            @elseif($i == 0)
+                                                <option value="0">0</option>
                                             @else
                                                 <option value="{{ $i }}">{{ $i }}</option>
                                             @endif
@@ -275,28 +277,12 @@
             "CK": 12,
         };
 
-        $('input[type="radio"]').on('click', function() {
-            result = this.id;
-            var key = cardsNum[result];
-            var boosterIds = $('#boosterId').val();
-            $('#SelectedCard').val(result);
-            $('#check_' + result).attr("checked", "checked");
-            $('#SelectedCardNumber').val(key);
-            // $('#TCollection').html($('#c' + key).val());
-            $('#totalPayment').html($('#c' + key).val() * 10 * boosterIds);
-        });
-
-        $('#boosterId').on('change', function() {
-            var j = $('#SelectedCardNumber').val();
-            $('#totalPayment').html($('#c' + j).val() * 10 * this.value);
-        });
 
         $(function() {
             const socket = io.connect('ws://143.244.140.74:9000');
             console.log(socket + "Hello Socket Connected");
 
             socket.on('connect', function() {
-
                 const user = {
                     adminId: "603388bb7d20e50a81217277",
                     gameName: "funtarget",
@@ -309,16 +295,17 @@
                 var gameName = "funtarget";
 
                 function removeAlert() {
-                    setInterval(function() {
+                    setTimeout(function() {
                         $('#alertId').removeClass('show');
                     }, 5000);
                 }
+
                 $('#btnSave').on('click', function() {
                     var boosterId = $('#boosterId').val();
-                    var card = $('#SelectedCardNumber').val();
+                    var card = $('#SelectedCard').val();
                     cardNumber = parseInt(card);
                     y = parseInt(boosterId);
-                    if (cardNumber != "" && y != "") {
+                    if (cardNumber !== "" && y !== "") {
                         $('#alertId').addClass('show');
                         $('#alertId').html("Success");
                         removeAlert();
@@ -335,17 +322,18 @@
                     }
                 });
 
-
-                socket.on('resAdmin', (res) => {
+                socket.on('resAdmin', function(res) {
                     console.log(res);
-                    if (res.gameName == "funtarget") {
-                        console.log(res)
+                    if (res.gameName === "funtarget") {
                         if (res.time >= 0) {
-                            var seconds = parseInt(Math.abs(res.time) - 60);
+                            var seconds = Math.abs(res.time) - 60;
                             seconds = Math.abs(seconds);
+
                             var countdownTimer = setInterval(function() {
                                 if (seconds <= 0) {
+                                    clearInterval(countdownTimer);
                                     window.location.reload();
+
                                     gameres.forEach(function(item) {
                                         Object.keys(item).forEach(function(key) {
                                             $('#c' + key).val(0);
@@ -354,26 +342,80 @@
                                                 "transparent");
                                         });
                                     });
+
                                     $('input[type="radio"]').prop("checked", false);
                                     $('#alertId').removeClass('show');
                                     $('#SelectedCard').val('');
                                     $('#SelectedCardNumber').val('');
-                                    $('#TCollection').html('');
-                                    $('#totalPayment').html('');
-                                    clearInterval(countdownTimer);
+                                    $('#TCollection').html(
+                                        ''); // Fix: Clear the HTML content
+                                    $('#totalPayment').html(
+                                        ''); // Fix: Clear the HTML content
                                     window.location.reload();
                                 }
-                                document.getElementById('countdown').innerHTML = seconds;
+                                document.getElementById('countdown').innerHTML = seconds
+                                    .toFixed(0);
                                 seconds -= 1;
                             }, 1089);
 
                             function checkTime(i) {
                                 if (i < 10) {
-                                    i = "0" + i
-                                }; // add zero in front of numbers < 10
+                                    i = "0" + i;
+                                }
                                 return i;
                             }
                         }
+                        $('input[type="radio"]').on('click', function() {
+                            result = this.id;
+                            var key = cardsNum[result];
+                            var boosterIds = $('#boosterId').val();
+                            $('#SelectedCard').val(result);
+                            $('#check_' + result).attr("checked", "checked");
+                            $('#SelectedCardNumber').val(key);
+
+                            // Update the TCollection and totalPayment values when a card is selected
+                            var totalPaymentValue = (parseInt($('#c' + key).val()) *
+                                10 *
+                                boosterIds).toFixed(2);
+                            var totalPaymentValue = res.dataAdmin[0].totalPayment;
+
+                            $('#TCollection').html($('#c' + key).val());
+                            $('#totalPayment').html(totalPaymentValue);
+                        });
+
+                        $('#boosterId').on('change', function() {
+                            var j = $('#SelectedCardNumber').val();
+                            $('#totalPayment').html($('#c' + j).val() * 10 * this
+                                .value);
+                        });
+                        let balance = res.data.adminBalance;
+                        let totalCollection = 0;
+                        let totalPayment = 0;
+
+                        for (let i = 0; i < res.dataAdmin.length; i++) {
+                            totalCollection += res.dataAdmin[i].totalCollection;
+                            totalPayment += res.dataAdmin[i].totalPayment;
+                        }
+
+                        let totalBalance = totalCollection - totalPayment;
+
+                        document.getElementById('totalCollection').innerHTML = totalCollection;
+                        document.getElementById('totalPayPoint').innerHTML = totalPayment;
+                        document.getElementById('Balance').innerHTML = balance.toFixed(2);
+                        document.getElementById('tDayCollection').innerHTML = totalBalance;
+
+                        var resAdminData = res.data.position;
+
+                        for (let i = 1; i <= 10; i++) {
+                            var value = parseFloat(res.data.position[i]).toFixed(2);
+                            var element = i === 10 ? document.getElementById('amt') : document
+                                .getElementById('amt' + i);
+                            if (element) {
+                                element.value = value;
+                            }
+                        }
+
+
 
                         function checkDate() {
                             return new Date().toLocaleString("en-US", {
@@ -387,16 +429,8 @@
                             }).toString().split(",")[0].replace(/\//g, (x) => "-");
                         }
 
-                        //
-                        //console.log(res.dataAdmin)
-
-                        document.getElementById('display').innerHTML = JSON.stringify(res.gameName);
-                        document.getElementById('display2').innerHTML = JSON.stringify(res.data);
                         for (let d = 0; d < res.dataAdmin.length; d++) {
-                            //console.log(dataDate(res.dataAdmin[d]._id))
-                            // console.log("heelo i am inside For loop");
-                            if (dataDate(res.dataAdmin[d]._id) == checkDate()) {
-                                // checkDate()
+                            if (dataDate(res.dataAdmin[d]._id) === checkDate()) {
                                 $('#tDayCollection').html(res.dataAdmin[d].totalCollection.toFixed(
                                     2));
                                 $('#tDayPayment').html(res.dataAdmin[d].totalPayment.toFixed(2));
@@ -404,6 +438,7 @@
                                     .totalPayment;
                                 $('#tDayBalance').html(bal.toFixed(2));
                             }
+
                         }
 
                         for (let i = 0; i < res.numbers.length; i++) {
@@ -412,7 +447,7 @@
                             $("#img" + i).attr("src", url);
                             var booster;
                             let total;
-                            if (res.x[i] != '1') {
+                            if (res.x[i] !== '1') {
                                 booster = res.x[i] + 'X';
                             } else {
                                 booster = "N";
@@ -428,26 +463,39 @@
                                     $('#c' + key).css("background-color", "transparent");
                                 }
                             });
-                            $('#TCollection').html(Object.values(res.data).reduce((acc, current) =>
-                                acc + current, 0) / 10);
+
+
                         }
                     }
                 });
 
-                socket.on('resAdminBetData', (res) => {
+                socket.on('resAdminBetData', function(res) {
                     console.log(res.data);
-                    if (res.gameName == "funtarget") {
+                    if (res.gameName === "funtarget") {
                         $.each(res.data, function(key, value) {
                             $q = value / 10;
                             $("#c" + key).val($q.toFixed(2));
+
                             if ($('#c' + key).val() > 0) {
                                 $('#c' + key).css("background-color", "#FFA07A");
                             } else {
                                 $('#c' + key).css("background-color", "transparent");
                             }
                         });
-                        $('#TCollection').html(Object.values(res.data).reduce((acc, current) =>
-                            acc + current, 0) / 10);
+
+                        // Update the TCollection and totalPayment values
+                        var totalCollectionValue = (Object.values(res.dataAdmin[0].totalCollection)
+                            .reduce((acc,
+                                    current) =>
+                                acc + current, 0) / 10).toFixed(2);
+
+                        var totalPaymentValue = (Object.values(res.dataAdmin[0].totalPayment)
+                            .reduce((acc,
+                                    current) =>
+                                acc + current, 0) * 10).toFixed(2);
+
+                        $('#TCollection').html(totalCollectionValue);
+                        $('#totalPayment').html(totalPaymentValue);
                     }
                 });
             });
