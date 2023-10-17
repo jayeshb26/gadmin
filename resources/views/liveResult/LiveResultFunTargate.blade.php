@@ -473,6 +473,22 @@
                 socket.on('resAdminBetData', function(res) {
                     console.log(res.data);
                     if (res.gameName === "funtarget") {
+
+
+                        var resAdminData = res.data;
+                        for (let i = 1; i <= 10; i++) {
+                            var value = parseFloat(resAdminData[i]).toFixed(
+                                2); // Use resAdminData instead of res.data.position
+                            var element = i === 10 ? document.getElementById('amt') : document
+                                .getElementById('amt' + i);
+
+                            if (element) {
+                                element.value = isNaN(value) ? '00' :
+                                    value; // Check if value is NaN and display '0.00'
+                            }
+                        }
+
+
                         $.each(res.data, function(key, value) {
                             $q = value / 10;
                             $("#c" + key).val($q.toFixed(2));

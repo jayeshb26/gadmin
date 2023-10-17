@@ -1222,7 +1222,7 @@
                 socket.on('resAdminBetData', (res) => {
 
                     if (res.gameName === "funroulette") {
-                        console.log("Hello Iam " + "" + JSON.stringify(res.data));
+                        {{--  console.log("Hello Iam " + "" + JSON.stringify(res.data));  --}}
 
                         var resAdminData = res.data;
                         for (var key in resAdminData) {
