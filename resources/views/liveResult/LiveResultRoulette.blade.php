@@ -1201,10 +1201,30 @@
                         document.getElementById('totalPayPoint').innerHTML = totalPayment;
                         document.getElementById('Balance').innerHTML = balance.toFixed(2);
                         document.getElementById('tDayCollection').innerHTML = totalBalance;
-
-
                         var resAdminData = res.data.position;
 
+                        for (var key in resAdminData) {
+                            if (resAdminData.hasOwnProperty(key)) {
+                                var id = key;
+                                var value = parseFloat(resAdminData[key]).toFixed(2);
+                                var element = document.getElementById('spot' + id);
+
+                                if (element) {
+                                    element.textContent = id === '00' ? '37' : value;
+                                }
+                            }
+                        }
+
+
+                    }
+                });
+
+                socket.on('resAdminBetData', (res) => {
+
+                    if (res.gameName === "funroulette") {
+                        console.log("Hello Iam " + "" + JSON.stringify(res.data));
+
+                        var resAdminData = res.data;
                         for (var key in resAdminData) {
                             if (resAdminData.hasOwnProperty(key)) {
                                 var id = key;
@@ -1220,12 +1240,6 @@
                     }
                 });
 
-                socket.on('resAdminBetData', (res) => {
-                    console.log(res.data);
-                    if (res.gameName == "funroulette") {
-                        // Handle 'resAdminBetData' event as needed
-                    }
-                });
             });
         });
     </script>
