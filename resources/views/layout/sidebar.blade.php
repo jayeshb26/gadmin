@@ -307,9 +307,13 @@
                     <i class="link-icon fa fa-key mr-1"></i>
                     <span class="link-title">Change Password</span>
                 </a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link " href="{{ url('/blockedPlayers') }}">
                     <i class="link-icon fa fa-users mr-1"></i><span class="link-title">Blocked Players</span>
                 </a>
+            </li>
+            <li class="nav-item">
                 <a href="{{ url('/logout') }}" class="nav-link">
                     <i class="link-icon fa fa-sign-out"></i>
                     <span class="link-title">Logout</span>

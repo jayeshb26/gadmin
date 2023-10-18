@@ -215,6 +215,8 @@ class AdminController extends Controller
         $user->password = $password;
         $user->role = $role;
         $user->isActive = true;
+        $user->deviceid = "";
+        $user->isMinus = false;
         $user->creditPoint = 0;
         $user->transactionPin = $transactionPin;
         $user->commissionPercentage = $commissionPercentage;
@@ -224,10 +226,14 @@ class AdminController extends Controller
         $user->referralId = $referral;
         $user->save();
 
-        if (Session::get('is_f') == "true") {
-            return redirect('/users/admin');
+        // dd($user->save());
+
+        if (($role == "super_distributor")) {
+            return redirect('/getdata/super-distributor');
+        } elseif ($role == "distributor") {
+            return redirect('/getdata/distributor');
         } else {
-            return redirect('/users');
+            return redirect('/getdata/player');
         }
     }
 
@@ -1529,6 +1535,34 @@ class AdminController extends Controller
         return view('liveResult.LiveResultRoulette'); // , ['response' => $webUrl, 'lastCard' => $lastWinCards, 'daily' => $daily]
     }
 
+    public function minusUser($id)
+    {
+        $minus = User::find($id);
+        if ($minus) {
+
+            $minus ? true : false;
+            $minus->save();
+            return redirect()->back()->with('success', 'user Minus successfully.');
+        }
+        return redirect()->back()->with('error', 'Device not found.');
+    }
+
+
+    public function resetDevice($id)
+    {
+        $device = User::find($id);
+        //dd($device);
+        if ($device) {
+            $device->deviceid = '';
+
+            $device->save();
+
+            return redirect()->back()->with('success', 'Device reset successfully.');
+        }
+
+        return redirect()->back()->with('error', 'Device not found.');
+    }
+
 
     public function lockUserIndex()
     {
@@ -1553,10 +1587,6 @@ class AdminController extends Controller
             case 'unlock':
                 $users->isLocked = false;
                 $message = 'User has been unlocked.';
-                break;
-            case 'reset-login':
-                $users->isLocked = false;
-                $message = 'User login has been reset.';
                 break;
             default:
                 return redirect()->route('lockuser')->with('error', 'Invalid action.');

@@ -92,6 +92,7 @@
                                                 <div class=" btn btn-warning fa fa-gear"> </div>
                                             </td>
                                         @endif
+
                                         <td>{{ number_format($value['creditPoint'], 2) }}</td>
                                         <td>
                                             <div class="btn-group btn-group-sm">

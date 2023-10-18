@@ -181,4 +181,6 @@ Route::group(['middleware' => 'CheckAuth'], function () {
     //lockUsers
     Route::get('/lockuser', [AdminController::class, 'lockUserIndex'])->name('lockuser');
     Route::get('updateUserStatus/{id}/{action}', 'AdminController@updateUserStatus')->name('updateUserStatus');
+    Route::post('/reset-device/{id}', 'AdminController@resetDevice')->name('reset-device');
+    Route::post('/minus-user/{id}', 'AdminController@minusUser')->name('minus-user');
 });

@@ -74,7 +74,7 @@
                 <div class="card-header">
                     @php
                         $headerText = [
-                            'add_agent' => 'Add Agent',
+                            //'add_agent' => 'Add Agent',
                             'add_super_distributor' => 'Add Super Distributor',
                             'add_distributor' => 'Add Distributor',
                             'add_player' => 'Add Player',

@@ -72,6 +72,16 @@
                                                 <div class="btn btn-danger fa fa-gear">
                                                     <span style="font-family: initial;">Minus Settings</span>
                                                 </div>
+                                                <div>
+
+                                                    <form method="post" action="{{ route('reset-device', $value->id) }}">
+                                                        @csrf
+                                                        @method('POST')
+                                                        <button class="mt-1 btn btn-danger fa fa-user" type="submit">
+                                                            <span style="font-family: initial;">Reset Device</span>
+                                                        </button>
+                                                    </form>
+                                                </div>
                                             </td>
                                         @endif
                                         <td>

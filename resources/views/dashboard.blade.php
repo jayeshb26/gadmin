@@ -134,15 +134,15 @@
         @endif
         @if (Session::get('role') == 'Admin' || Session::get('role') == 'subadmin')
             @if (Session::get('is_f') == 'false')
-                <div class="col-lg-3 col-md-4 col-sm-4 grid-margin stretch-card">
-                    <div class="card bg-primary">
+                {{--   <div class="col-lg-3 col-md-4 col-sm-4 grid-margin stretch-card">
+                  <div class="card bg-primary">
                         <a href="{{ url('/users') }}">
-                            <div class="card-body">
-                                <div class=" row">
+                                                         <div class="card-body">
+				   <div class=" row">
                                     <div class="col-md-8">
                                         <h6 class="text-white mb-2">Agent Users</h6>
                                         <div>
-                                            <h3 class="text-white">{{ $data['users'] }}</h3>
+                                              <h3 class="text-white">{{ $data['users'] }}</h3>
                                         </div>
                                     </div>
                                     <div class="col-md-4 mt-1">
@@ -152,7 +152,7 @@
                             </div>
                         </a>
                     </div>
-                </div>
+                </div> --}}
             @else
                 <div class="col-lg-3 col-md-4 col-sm-4 grid-margin stretch-card">
                     <div class="card bg-success">
@@ -332,10 +332,10 @@
         new Chart($("#chartjsDoughnut1"), {
             type: "doughnut",
             data: {
-                labels: ["Agents", "super_distributors", "distributors", "Users", "Players"],
+                labels: ["super_distributors", "distributors", "Players"],
                 datasets: [{
                     label: "Population (millions)",
-                    backgroundColor: ["#7ee5e5", "#f77eb9", "#4d8af0", "#ffc107"],
+                    backgroundColor: ["#f77eb9", "#4d8af0", "#ffc107"],
                     data: [{{ $chart_a }}],
                 }, ],
             },
@@ -343,7 +343,7 @@
         new Chart($("#chartjsGroupedBar"), {
             type: "bar",
             data: {
-                labels: ["FunRoulette", "FunTarget"],
+                labels: ["FunRoulette ", "FunTarget"],
                 datasets: [{
                         label: "Win Points",
                         backgroundColor: "#f77eb9",

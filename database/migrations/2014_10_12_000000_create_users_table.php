@@ -21,6 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->boolean('isLocked')->default(false);
             $table->boolean('isMinus')->default(false);
+            $table->string('deviceid')->unique();
             $table->rememberToken();
             $table->timestamps();
         });
