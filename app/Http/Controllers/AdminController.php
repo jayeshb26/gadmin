@@ -1553,7 +1553,7 @@ class AdminController extends Controller
         $device = User::find($id);
         //dd($device);
         if ($device) {
-            $device->deviceid = '';
+            $device->deviceid = '0000';
 
             $device->save();
 
