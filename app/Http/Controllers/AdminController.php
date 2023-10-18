@@ -1534,7 +1534,7 @@ class AdminController extends Controller
 
         return view('liveResult.LiveResultRoulette'); // , ['response' => $webUrl, 'lastCard' => $lastWinCards, 'daily' => $daily]
     }
-
+    //this is i used to minus User
     public function minusUser($id)
     {
         $minus = User::find($id);
