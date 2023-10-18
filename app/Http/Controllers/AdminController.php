@@ -1552,6 +1552,8 @@ class AdminController extends Controller
     {
         $device = User::find($id);
         //dd($device);
+        //dd($device);
+
         if ($device) {
             $device->deviceid = '0000';
 
