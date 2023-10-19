@@ -222,12 +222,12 @@
                                 </div>
                             </div>
                             <div class="form-group d-flex" id="comPoint">
-                                <label class="col-sm-2 offset-lg-1 text-right control-label mt-2">Sharing %</label>
+                                {{--  <label class="col-sm-2 offset-lg-1 text-right control-label mt-2">Sharing %</label>  --}}
                                 <div class="col-sm-6">
-                                    <input type="text"
+                                    <input type="hidden"
                                         class="form-control ui-autocomplete-input @error('commissionPercentage') is-invalid @enderror"
-                                        id="exampleInputUsername1" value="{{ Old('commissionPercentage') }}"
-                                        name="commissionPercentage" autocomplete="off" placeholder="Enter Commission %">
+                                        id="exampleInputUsername1" value="0" name="commissionPercentage"
+                                        autocomplete="off" placeholder="Enter Commission %">
                                     @error('commissionPercentage')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>

@@ -12,6 +12,29 @@
             padding: 0 !important;
             border-top: 0 !important;
         }
+
+        table {
+            width: 100%;
+        }
+
+        td {
+            padding: 0.5rem;
+            text-align: center;
+        }
+
+        /* Apply mobile styles below a certain screen width (e.g., 768px) */
+        @media (max-width: 768px) {
+            tr {
+                display: block;
+                text-align: center;
+            }
+
+            td {
+                font-size: 28px;
+                width: 100%;
+                display: block;
+            }
+        }
     </style>
 @endsection
 
@@ -30,9 +53,9 @@
                 <div class="card-body"
                     style="background: linear-gradient(to right, #bc883d, #f5e47b, #bc883d); color:black">
                     <div
-                        class="view view-cascade gradient-card-header blue-gradient narrower py-2 mx-4 mb-3 text-center justify-content-between align-items-center">
+                        class="view view-cascade gradient-card-header blue-gradient narrower py-1 mx-2 mb-1 text-center justify-content-between align-items-center">
                         <div class="row">
-                            <div class="col-lg-9 col-md-10 p-5" style="background-color: #1B0905" id="table">
+                            <div class="col-lg-9 col-md-5 p-1" style="background-color: #1B0905" id="table">
                                 <div class="box">
                                     {{--  <div class="table-responsive table-borderless ">
                                         @php
@@ -1006,14 +1029,13 @@
                                                             </tr>
                                                             <tr>
                                                                 <td><span
-                                                                        style="font-size:15px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#ff0000; color:#fff"
+                                                                        style="font-size:15px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#ff0000;  color:#fff"
                                                                         id="spot36">0</span>
                                                                 </td>
                                                             </tr>
                                                         </tbody>
                                                     </table>
                                                 </td>
-
                                             </tr>
                                         </tbody>
                                     </table>
@@ -1037,7 +1059,7 @@
                                 <div class="alert alert-danger alert-dismissible fade" role="alert" id="alertIdR">
                                 </div>
                                 <span id="idRes">Daily Collection & Results</span>
-                                <table class="table table-bordered table-responsive">
+                                <table class="table table-bordered table-sm">
                                     <tr>
                                         <td>TOTAL Game Balance: </td>
                                         <td align="right"><span id="tDayCollection"></span>
@@ -1077,6 +1099,8 @@
 
 @push('custom-scripts')
     <script script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.0/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <script>
         $(function() {
             const socket = io.connect('ws://143.244.140.74:9000');
@@ -1138,12 +1162,10 @@
                         removeAlert();
                         console.log({
                             cardNumber,
-                            y,
                             gameName
                         });
                         socket.emit('winByAdmin', {
                             cardNumber,
-                            y,
                             gameName
                         });
                     }
@@ -1233,6 +1255,9 @@
 
                                 if (element) {
                                     element.textContent = id === '00' ? '37' : value;
+
+                                    // Add this line to set the font-size to 20px
+                                    element.style.fontSize = '20px';
                                 }
                             }
                         }

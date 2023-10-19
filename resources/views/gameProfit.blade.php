@@ -153,10 +153,12 @@
     <script src="{{ asset('assets/js/data-table.js') }}"></script>
     <script type="text/javascript">
         $("#datePickerExample").datepicker({
-            format: 'dd-mm-yyyy' {
-                format: 'dd-mm-yyyy'
-            }
-            format: 'dd/mm/yyyy'
+            format: 'dd-mm-yyyy'
+        });
+        {
+            format: 'dd-mm-yyyy'
+        }
+        format: 'dd/mm/yyyy'
         });
         $(document).ready(function() {
             startTime();

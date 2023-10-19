@@ -37,10 +37,10 @@
                                 Percentage</label>
                             <div class="col-sm-6">
                                 <input type="number"
-                                    class="form-control ui-autocomplete-input @error('funtarget') is-invalid @enderror"
-                                    id="exampleInputUsername1" value="{{ $data['funroulette'] ?? '' }}" name="funtarget"
-                                    autocomplete="off" placeholder="Enter funtarget Winning Percentage">
-                                @error('funtarget')
+                                    class="form-control ui-autocomplete-input @error('funroulette') is-invalid @enderror"
+                                    id="exampleInputUsername1" value="{{ $data['funroulette'] }}" name="funroulette"
+                                    autocomplete="off" placeholder="Enter FunRoulette Winning Percentage">
+                                @error('funroulette')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -53,8 +53,8 @@
                             <div class="col-sm-6">
                                 <input type="number"
                                     class="form-control ui-autocomplete-input @error('funtarget') is-invalid @enderror"
-                                    id="exampleInputUsername1" value="{{ $data['funtarget'] ?? ' ?>' }}" name="funtarget"
-                                    autocomplete="off" placeholder="Enter funtarget Winning Percentage">
+                                    id="exampleInputUsername1" value="{{ $data['funtarget'] }}" name="funtarget"
+                                    autocomplete="off" placeholder="Enter FunTarget Winning Percentage">
                                 @error('funtarget')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -63,19 +63,20 @@
                             </div>
                         </div>
 
-
                         <div class="form-group d-flex">
                             <label class="col-sm-3 text-right control-label mt-2">Manual</label>
                             <div class="col-sm-6">
                                 <div class="form-check form-check-inline">
                                     <label class="form-check-label">
                                         <input type="radio" class="form-check-input" name="status" value="true"
-                                            {{--  {{ $data['isManual'] == 1 ? 'checked' : '' ?? '' }}>true  --}} </label>
+                                            {{ $data['isManual'] == 1 ? 'checked' : '' }}>true
+                                    </label>
                                 </div>
                                 <div class="form-check form-check-inline">
                                     <label class="form-check-label">
                                         <input type="radio" class="form-check-input" name="status" value="false"
-                                            {{--  {{ $data['isManual'] == 0 ? 'checked' : '' ?? '' }}>False  --}} </label>
+                                            {{ $data['isManual'] == 0 ? 'checked' : '' }}>False
+                                    </label>
                                 </div>
                             </div>
                         </div>
@@ -84,53 +85,48 @@
                                 <label class="col-sm-3 text-right control-label mt-2">0</label>
                                 <div class="col-sm-6">
                                     <input type="number"
-                                        class="form-control ui-autocomplete-input @error('funtarget') is-invalid @enderror"
-                                        id="exampleInputUsername1" value="{{ $data['listArray'][0] ?? '' }}"
-                                        name="listArray[]">
+                                        class="form-control ui-autocomplete-input @error('RouletteTimer60') is-invalid @enderror"
+                                        id="exampleInputUsername1" value="{{ $data['listArray'][0] }}" name="listArray[]">
                                 </div>
                             </div>
                             <div class="form-group d-flex">
                                 <label class="col-sm-3 text-right control-label mt-2">1</label>
                                 <div class="col-sm-6">
                                     <input type="number"
-                                        class="form-control ui-autocomplete-input @error('funtarget') is-invalid @enderror"
-                                        id="exampleInputUsername1" value="{{ $data['listArray'][1] ?? '' }}"
-                                        name="listArray[]">
+                                        class="form-control ui-autocomplete-input @error('RouletteTimer60') is-invalid @enderror"
+                                        id="exampleInputUsername1" value="{{ $data['listArray'][1] }}" name="listArray[]">
                                 </div>
                             </div>
                             <div class="form-group d-flex">
                                 <label class="col-sm-3 text-right control-label mt-2">2</label>
                                 <div class="col-sm-6">
                                     <input type="number"
-                                        class="form-control ui-autocomplete-input @error('funtarget') is-invalid @enderror"
-                                        id="exampleInputUsername1" value="{{ $data['listArray'][2] ?? '' }}"
-                                        name="listArray[]">
+                                        class="form-control ui-autocomplete-input @error('RouletteTimer60') is-invalid @enderror"
+                                        id="exampleInputUsername1" value="{{ $data['listArray'][2] }}" name="listArray[]">
                                 </div>
                             </div>
                             <div class="form-group d-flex">
                                 <label class="col-sm-3 text-right control-label mt-2">3</label>
                                 <div class="col-sm-6">
                                     <input type="number"
-                                        class="form-control ui-autocomplete-input @error('funtarget') is-invalid @enderror"
-                                        id="exampleInputUsername1" value="{{ $data['listArray'][3] ?? '' }}"
-                                        name="listArray[]">
+                                        class="form-control ui-autocomplete-input @error('RouletteTimer60') is-invalid @enderror"
+                                        id="exampleInputUsername1" value="{{ $data['listArray'][3] }}" name="listArray[]">
                                 </div>
                             </div>
                             <div class="form-group d-flex">
                                 <label class="col-sm-3 text-right control-label mt-2">4</label>
                                 <div class="col-sm-6">
                                     <input type="number"
-                                        class="form-control ui-autocomplete-input @error('funtarget') is-invalid @enderror"
-                                        id="exampleInputUsername1" value="{{ $data['listArray'][4] ?? '' }}"
-                                        name="listArray[]">
+                                        class="form-control ui-autocomplete-input @error('RouletteTimer60') is-invalid @enderror"
+                                        id="exampleInputUsername1" value="{{ $data['listArray'][4] }}" name="listArray[]">
                                 </div>
                             </div>
                             <div class="form-group d-flex">
                                 <label class="col-sm-3 text-right control-label mt-2">5</label>
                                 <div class="col-sm-6">
                                     <input type="number"
-                                        class="form-control ui-autocomplete-input @error('funtarget') is-invalid @enderror"
-                                        id="exampleInputUsername1" value="{{ $data['listArray'][5] ?? '' }}"
+                                        class="form-control ui-autocomplete-input @error('RouletteTimer60') is-invalid @enderror"
+                                        id="exampleInputUsername1" value="{{ $data['listArray'][5] }}"
                                         name="listArray[]">
                                 </div>
                             </div>
@@ -160,7 +156,7 @@
 @push('custom-scripts')
     <script type="text/javascript">
         $(document).ready(function() {
-            var isCheck = '{{ $data['isManual'] ?? '' }}';
+            var isCheck = '{{ $data['isManual'] }}';
             console.log(isCheck);
             if (isCheck == 0) {
                 $('#isManual').show();

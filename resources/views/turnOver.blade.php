@@ -110,7 +110,7 @@
                                         <td>Total Margin Point</td>
                                         <td>Total Net Point</td>
                                         @if (Session::get('role') != 'classic')
-                                            <td>Total SuperDistributedProfit</td>
+                                            {{--  <td>Total SuperDistributedProfit</td>  --}}
                                         @endif
                                         @if (isset($total['F']))
                                             <td>F</td>
@@ -196,9 +196,9 @@
                                     @if (Session::get('role') != 'player')
                                         <th>Margin</th>
                                         <th>Net point</th>
-                                        @if (Session::get('role') != 'classic')
+                                        {{--  @if (Session::get('role') != 'classic')
                                             <th>SuperDistributedProfit</th>
-                                        @endif
+                                        @endif  --}}
                                     @endif
                                 </tr>
                             </thead>
@@ -210,7 +210,6 @@
                                     $end = 0;
                                     $marginp = 0;
                                     $netp = 0;
-                                    $yourMargin = 0;
                                     setlocale(LC_MONETARY, 'en_IN');
                                 @endphp
                                 @if (isset($data) && !empty($data))
@@ -224,7 +223,6 @@
                                                     $end += $total['EndPoint'];
                                                     $marginp += 0;
                                                     $netp += 0;
-                                                    $yourMargin += 0;
                                                 @endphp
                                                 <td>
                                                     <a
@@ -237,8 +235,8 @@
                                                 <td>{{ moneyFormatIndia($total['totalPlayPoints']) }}</td>
                                                 <td>{{ moneyFormatIndia($total['TotalWinPoints']) }}</td>
                                                 <td>{{ moneyFormatIndia($total['EndPoint']) }}</td>
-                                                <td>{{ moneyFormatIndia(0) }}</td>
-                                                <td>{{ moneyFormatIndia(0) }}</td>
+                                                <td>{{ moneyFormatIndia($total['NetProfit']) }}</td>
+                                                {{--  <td>{{ moneyFormatIndia(0) }}</td>  --}}
 
                                                 @if (Session::get('role') != 'classic')
                                                     <td>{{ moneyFormatIndia(0) }}</td>
@@ -277,7 +275,7 @@
                                                 <td>{{ moneyFormatIndia($net) }}</td>
 
                                                 @if (Session::get('role') != 'classic')
-                                                    <td>{{ moneyFormatIndia($play['SuperDistributedProfit']) }}</td>
+                                                    {{--  <td>{{ moneyFormatIndia($play['SuperDistributedProfit']) }}</td>  --}}
                                                 @endif
                                                 @php
                                                     $playP += $play['playPoint'];
@@ -285,7 +283,6 @@
                                                     $end += $endPoint;
                                                     $marginp += $margin;
                                                     $netp += $net;
-                                                    $yourMargin += $play['SuperDistributedProfit'];
                                                 @endphp
                                             @endif
                                         </tr>
@@ -303,7 +300,7 @@
                                     <td>{{ moneyFormatIndia($netp) }}</td>
 
                                     @if (Session::get('role') != 'classic')
-                                        <td>{{ moneyFormatIndia($yourMargin) }}</td>
+                                        {{--  <td>{{ moneyFormatIndia($yourMargin) }}</td>  --}}
                                     @endif
                                 </tr>
                             </tfoot>

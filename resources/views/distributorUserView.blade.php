@@ -38,7 +38,6 @@
                                     <th>Password</th>
                                     <th>Credit</th>
                                     @if (Session::get('role') == 'Admin')
-                                        <th>Settings</th>
                                     @endif
                                     <th>Action</th>
                                     <th>Last Login</th>
@@ -68,11 +67,6 @@
                                         <td>{{ number_format($value['creditPoint'], 2) }}</td>
                                         @if (Session::get('role') == 'Admin')
                                             {{--  <td>{{ $value['transactionPin'] }}</td>  --}}
-                                            <td>
-                                                <div class="btn btn-danger fa fa-gear">
-                                                    <span style="font-family: initial;">Minus Settings</span>
-                                                </div>
-                                            </td>
                                         @endif
                                         <td>
                                             <div class="btn-group btn-group-sm">

@@ -272,13 +272,12 @@
                             </div>
                         </div>
                         <div class="form-group d-flex">
-                            <label class="col-sm-2 offset-lg-1 text-right control-label mt-2">Commission %</label>
+                            {{--  <label class="col-sm-2 offset-lg-1 text-right control-label mt-2">Commission %</label>  --}}
                             <div class="col-sm-6">
-                                <input type="text"
+                                <input type="hidden"
                                     class="form-control ui-autocomplete-input @error('commissionPercentage') is-invalid @enderror"
-                                    id="exampleInputUsername1" value="{{ $edata['commissionPercentage'] }}"
-                                    name="commissionPercentage" autocomplete="off"
-                                    placeholder="Enter CommissionPercentage" readonly>
+                                    id="exampleInputUsername1" value="0" name="commissionPercentage"
+                                    autocomplete="off" placeholder="Enter CommissionPercentage" readonly>
                                 @error('commissionPercentage')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -306,7 +305,7 @@
                             <label class="col-sm-2 offset-lg-1 text-right control-label mt-2">Register Date</label>
                             <div class="col-sm-6">
                                 <input type="text" class="form-control ui-autocomplete-input "
-                                    value="{{ date('d-m-Y h:i:s A', strtotime($edata['createdAt'])) }}" readonly
+                                    value="{{ date('d-m-Y h:i:s A', strtotime($edata['created_at'])) }}" readonly
                                     autocomplete="off" placeholder="Enter Password">
                             </div>
                         </div>

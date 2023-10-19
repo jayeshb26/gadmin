@@ -7,7 +7,7 @@
 @endpush
 
 @section('content')
-    <div class="row">
+    {{--  <div class="row">
         <div class="col-12 col-xl-12 stretch-card">
             <div class="row flex-grow">
                 <div class="col-md-3 grid-margin stretch-card">
@@ -83,7 +83,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>  --}}
 
     <div class="row">
         <div class="col-md-12 grid-margin stretch-card">
@@ -108,7 +108,7 @@
                                     <th>Name</th>
                                     <th>Reffer</th>
                                     <th>Revenue</th>
-                                    <th>Type</th>
+                                    {{--  <th>Type</th>  --}}
                                     <th>Credit</th>
                                     <th>Action</th>
                                 </tr>
@@ -119,7 +119,7 @@
                                     <tr role="row" class="odd">
                                         <td class="">{{ $no++ }}</td>
                                         <td>
-                                            @if ($data['role'] == 'retailer')
+                                            @if ($data['role'] == 'distributor')
                                                 <a href="{{ url('player/detail/' . $value['_id']) }}">{{ $value['userName'] }}<i
                                                         class="mdi mdi-eye"></i></a>
                                             @else
@@ -134,16 +134,16 @@
                                             @endif
                                         </td>
                                         <td>0.00</td>
-                                        <td>TN</td>
+                                        {{--  <td>TN</td>  --}}
                                         <td>{{ number_format($value['creditPoint'], 2) }}</td>
                                         <td>
                                             <div class="btn-group">
                                                 <div class="btn-group">
-                                                    <a href="{{ url('admin/' . $value['_id'] . '/edit') }}" type="button"
-                                                        class="btn btn-outline-info" title="Edit user"><i
+                                                    <a href="{{ url('superAdmin/' . $value['_id'] . '/edit') }}"
+                                                        type="button" class="btn btn-outline-info" title="Edit user"><i
                                                             class="mdi mdi-pencil-box" style="font-size:20px;"></i></a>
 
-                                                    @if (Session::get('role') == 'agent' || Session::get('role') == 'super_distributor')
+                                                    @if (Session::get('role') == 'Admin' || Session::get('role') == 'super_distributor')
                                                         <a href="{{ url('transfercredit/' . $value['_id']) }}"
                                                             class="btn btn-outline-success" title="Transfer Credit"><i
                                                                 class="mdi mdi-package-up" style="font-size:20px;"></i></a>
@@ -163,7 +163,7 @@
                                                                 style="font-size:20px;"></i></a>
                                                     @endif
                                                     @if (Session::get('role') == 'Admin')
-                                                        <a href="{{ url('admin/delete/' . $value['_id']) }}"
+                                                        <a href="{{ url('superAdmin/delete/' . $value['_id']) }}"
                                                             class="btn btn-outline-danger delete-confirm" title="delete"><i
                                                                 class="mdi mdi-delete" style="font-size:20px;"></i></a>
                                                     @endif

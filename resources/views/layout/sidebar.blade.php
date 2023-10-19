@@ -184,14 +184,14 @@
                     <span class="link-title">Players History</span>
                 </a>
             </li>
-            @if (Session::get('role') == 'Admin')
+            {{--  @if (Session::get('role') == 'Admin')
                 <li class="nav-item {{ active_class(['generatePointList']) }}">
                     <a href="{{ url('/lockuser') }}" class="nav-link">
                         <i class="link-icon" data-feather="box"></i>
                         <span class="link-title">Lock User</span>
                     </a>
                 </li>
-            @endif
+            @endif  --}}
 
             @if (in_array(Session::get('role'), ['Admin', 'super_distributor', 'distributor']))
                 <li class="nav-item {{ active_class(['gamedraw']) }}">
@@ -281,14 +281,14 @@
                         <span class="link-title">Admin Balance</span>
                     </a>
                 </li>
-                @if (array_key_exists('winbyadmin', Session::get('permissions')))
+                {{--  @if (array_key_exists('winbyadmin', Session::get('permissions')))
                     <li class="nav-item {{ active_class(['announcement']) }}">
                         <a href="{{ url('/announcement') }}" class="nav-link">
                             <i class="link-icon fa fa-stop"></i>
                             <span class="link-title">Announcement</span>
                         </a>
                     </li>
-                @endif
+                @endif  --}}
             @endif
             <li class="nav-item {{ active_class(['liveResult/liveResultFunRoulette']) }}">
                 <a href="{{ url('/liveResult/liveResultFunRoulette') }}" class="nav-link">

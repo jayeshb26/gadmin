@@ -114,9 +114,9 @@ class AdminController extends Controller
         // echo "<pre>";
         // print_r($request->toArray());
         // die;
-        if ($request->commissionPercentage >= 0 && $request->commissionPercentage == "") {
-            $request->commissionPercentage = 0;
-        }
+        // if ($request->commissionPercentage >= 0 && $request->commissionPercentage == "") {
+        //     $request->commissionPercentage = 0;
+        // }
 
         if ($request->password == $request->transactionPin) {
             session()->flash('msg', 'Password and TransactionPin is not same');
@@ -144,7 +144,7 @@ class AdminController extends Controller
             if (isset($request->superDistributerId)) {
                 $referral = new \MongoDB\BSON\ObjectID($request->superDistributerId);
                 $request->validate([
-                    'commissionPercentage' => 'required|numeric|between:0,' . $ref_user->commissionPercentage,
+                    // 'commissionPercentage' => 'required|numeric|between:0,' . $ref_user->commissionPercentage,
                     'transactionPin' => 'required',
                 ]);
             } else {
@@ -159,14 +159,14 @@ class AdminController extends Controller
             $referral = new \MongoDB\BSON\ObjectID($request->superDistributerId);
             $role = "distributor";
             $request->validate([
-                'commissionPercentage' => 'required|numeric|between:0,' . $ref_user->commissionPercentage,
+                // 'commissionPercentage' => 'required|numeric|between:0,' . $ref_user->commissionPercentage,
                 'transactionPin' => 'required',
             ]);
         } elseif ($request->role == 6) {
             $referral = new \MongoDB\BSON\ObjectID($request->superDistributerId);
             $role = "retailer";
             $request->validate([
-                'commissionPercentage' => 'required|numeric|between:0,' . $ref_user->commissionPercentage,
+                // 'commissionPercentage' => 'required|numeric|between:0,' . $ref_user->commissionPercentage,
                 'transactionPin' => 'required',
             ]);
         } elseif ($request->role == 7) {
@@ -205,7 +205,7 @@ class AdminController extends Controller
         // }
         // $userName = $request->username;
         $password = $request->password;
-        $commissionPercentage = floatval(trim($request->commissionPercentage, '"'));
+        // $commissionPercentage = floatval(trim($request->commissionPercentage, '"'));
         $transactionPin = intval(trim($request->transactionPin, '"'));
         // echo "<pre>";
         // print_r($userName);die();
@@ -219,8 +219,8 @@ class AdminController extends Controller
         $user->isMinus = false;
         $user->creditPoint = 0;
         $user->transactionPin = $transactionPin;
-        $user->commissionPercentage = $commissionPercentage;
-        $user->commissionPoint = 0;
+        // $user->commissionPercentage = $commissionPercentage;
+        // $user->commissionPoint = 0;
         $user->is_franchise = ($request->is_franchise == "true") ? true : false;
         $user->isLogin = false;
         $user->referralId = $referral;
@@ -455,7 +455,7 @@ class AdminController extends Controller
             }
 
             $password = $request->password;
-            $commissionPercentage = floatval(trim($request->commissionPercentage, '"'));
+            // $commissionPercentage = floatval(trim($request->commissionPercentage, '"'));
             $transactionPin = intval(trim($request->transactionPin, '"'));
 
             $user = User::find($id);
@@ -467,7 +467,7 @@ class AdminController extends Controller
             $user->isActive = true;
             $user->permissions = $permissions;
             $user->transactionPin = $transactionPin;
-            $user->commissionPercentage = $commissionPercentage;
+            // $user->commissionPercentage = $commissionPercentage;
             $user->isLogin = false;
             $user->referralId = $referral;
             // echo "<pre>";
@@ -517,13 +517,49 @@ class AdminController extends Controller
 
         return redirect()->back();
     }
+    // public function winningPercent()
+    // {
+    //     $this->middleware('superAdmin');
+    //     $user = Winnings::find('603388bb7d20e50a81217277');
+
+    //     return view('admin.winningPercent', ['data' => $user]);
+    // }
+
+    // public function percent(Request $request)
+    // {
+    //     $this->middleware('superAdmin');
+    //     $request->validate([
+    //         'RouletteTimer40' => 'required|not_in:0|numeric|between:0,200',
+    //         'RouletteTimer60' => 'required|not_in:0|numeric|between:0,200',
+
+    //     ]);
+
+    //     foreach ($request->listArray as $key => $value) {
+    //         $listArray[$key] = intval(trim($value, '"'));
+    //     }
+
+    //     $user = Winnings::find('603388bb7d20e50a81217277');
+    //     $user->rouletteTimer40 = $request->RouletteTimer40;
+    //     $user->rouletteTimer60 = $request->RouletteTimer60;
+    //     $user->roulette = $request->Roulette;
+    //     $user->spinToWin = $request->spinToWin;
+    //     if ($request->status == "false") {
+    //         $user->isManual = false;
+    //         $user->listArray = $listArray;
+    //     } else {
+    //         $user->isManual = true;
+    //     }
+    //     $user->save();
+    //     session()->flash('success', 'winning percentage is updated');
+    //     return view('admin.winningPercent', ['data' => $user]);
+    // }
 
     public function winningPercent()
     {
         $this->middleware('admin');
-        $user = Winnings::find('603388bb7d20e50a81217277');
+        $user = Winnings::find('602e55e9a494988def7acc25');
         // $user = Winnings::where('_id','603388bb7d20e50a81217277');
-
+        // dd($user);
         return view('admin.winningPercent', ['data' => $user]);
     }
 
@@ -540,15 +576,16 @@ class AdminController extends Controller
             $listArray[$key] = intval(trim($value, '"'));
         }
 
-        $user = Winnings::find('603388bb7d20e50a81217277');
-        $user->funroulette = $request->FunRoulette;
-        $user->funtarget = $request->FunTarget;
+        $user = Winnings::find('602e55e9a494988def7acc25');
+        $user->funroulette = $request->funroulette;
+        $user->funtarget = $request->funtarget;
         if ($request->status == "false") {
             $user->isManual = false;
             $user->listArray = $listArray;
         } else {
             $user->isManual = true;
         }
+
         $user->save();
         session()->flash('success', 'winning percentage is updated');
         return view('admin.winningPercent', ['data' => $user]);
@@ -931,9 +968,9 @@ class AdminController extends Controller
         // echo "<pre>";
         // print_r($user->toArray());
         // die;
-        if ($user != "") {
-            echo "<p class='form-text text-danger'>Margin cannot exceed (" . $user->commissionPercentage . ")</p>";
-        }
+        // if ($user != "") {
+        //     echo "<p class='form-text text-danger'>Margin cannot exceed (" . $user->commissionPercentage . ")</p>";
+        // }
     }
 
 
@@ -948,8 +985,8 @@ class AdminController extends Controller
         $TotalWinPoint = 0;
         $LastTotalEndPoint = 0;
         $TotalEndPoint = 0;
-        $LastTotalRetailerCommission = 0;
-        $TotalRetailerCommission = 0;
+        // $LastTotalRetailerCommission = 0;
+        // $TotalRetailerCommission = 0;
         $total = [];
 
         $mon = strtotime("last monday");
@@ -976,21 +1013,22 @@ class AdminController extends Controller
             $cfd = date('d', strtotime("-1 day"));
         }
         if ($user['role'] == "Admin") {
-            $refer = User::where('referralId', new \MongoDB\BSON\ObjectID($user['_id']))->where('role', 'agent')->get();
-        } elseif ($user['role'] == "admin") {
+            $refer = User::where('referralId', new \MongoDB\BSON\ObjectID($user['_id']))->where('role', 'super_distributor')->get();
+        } elseif ($user['role'] == "Admin") {
             $refer = User::where('referralId', new \MongoDB\BSON\ObjectID($user['_id']))->where('role', 'super_distributor')->get();
         } elseif ($user['role'] == "super_distributor") {
             $refer = User::where('referralId', new \MongoDB\BSON\ObjectID($user['_id']))->where('role', 'distributor')->get();
         } elseif ($user['role'] == "distributor") {
-            $refer = User::where('referralId', new \MongoDB\BSON\ObjectID($user['_id']))->where('role', 'retailer')->get();
-        } elseif ($user['role'] == "retailer") {
             $refer = User::where('referralId', new \MongoDB\BSON\ObjectID($user['_id']))->where('role', 'player')->get();
         }
+        // } elseif ($user['role'] == "player") {
+        //     $refer = User::where('referralId', new \MongoDB\BSON\ObjectID($user['_id']))->where('role', 'player')->get();
+        // }
         $data = array();
         // dd($data);
-        // foreach ($refer as $value) {
-        //     $data[] = $value;
-        // }
+        foreach ($refer as $value) {
+            $data[] = $value;
+        }
         // echo "<pre>";
         // print_r($total);die;
         return view('admin.detail', ['user' => $data, 'data' => $user]);
@@ -1669,7 +1707,7 @@ class AdminController extends Controller
         foreach ($player as $player_user) {
             $players[] = new \MongoDB\BSON\ObjectID($player_user['_id']);
         }
-        $playPoints = Bets::select('bet', 'won', 'playerCommission', 'retailerCommission', 'distributorCommission', 'super_distributorCommission', 'agentCommission')
+        $playPoints = Bets::select('bet', 'won') //, 'playerCommission', 'retailerCommission', 'distributorCommission', 'super_distributorCommission', 'agentCommission'
             ->whereIn('playerId', $players)
             ->whereBetween(
                 'createdAt',

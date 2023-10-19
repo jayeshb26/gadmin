@@ -37,7 +37,7 @@
                                     <th>Name</th>
                                     <th>Refferal</th>
                                     <th>Credit</th>
-                                    <th>Commission Point</th>
+                                    {{--  <th>Commission Point</th>  --}}
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -56,7 +56,7 @@
                                                 {{ $value['refer'] }}
                                             </td>
                                             <td>{{ number_format($value['creditPoint'], 2) }}</td>
-                                            <td>{{ number_format($value['commissionPoint'], 2) }}</td>
+                                            {{--  <td>{{ number_format($value['commissionPoint'], 2) }}</td>  --}}
                                             <td>
                                                 <div class="btn-group">
                                                     <a href="{{ url('super/edit/' . $value['_id']) }}" type="button"
@@ -72,7 +72,7 @@
                                                         <a href="{{ url('banuser/' . $value['_id'] . '/' . $value['isActive']) }}"
                                                             class="btn btn-outline-success" title="Ban User"><i
                                                                 class="mdi mdi-close-box" style="font-size:20px;"></i></a>
-                                                    @elseif($value['isActive']==0)
+                                                    @elseif($value['isActive'] == 0)
                                                         <a href="{{ url('banuser/' . $value['_id'] . '/0') }}"
                                                             class="btn btn-outline-danger" title="UnBan User"><i
                                                                 class="mdi mdi-checkbox-marked"
