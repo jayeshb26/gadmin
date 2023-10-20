@@ -12,6 +12,7 @@ class TnOverController extends Controller
     public function index()
     {
         // return view('turnOver');
+        //updated on 20
         $type = $_GET['type'];
         $resArray = array();
         $totalStartPoint = 0;
