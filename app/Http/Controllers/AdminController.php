@@ -162,13 +162,6 @@ class AdminController extends Controller
                 // 'commissionPercentage' => 'required|numeric|between:0,' . $ref_user->commissionPercentage,
                 'transactionPin' => 'required',
             ]);
-        } elseif ($request->role == 6) {
-            $referral = new \MongoDB\BSON\ObjectID($request->superDistributerId);
-            $role = "retailer";
-            $request->validate([
-                // 'commissionPercentage' => 'required|numeric|between:0,' . $ref_user->commissionPercentage,
-                'transactionPin' => 'required',
-            ]);
         } elseif ($request->role == 7) {
             $referral = new \MongoDB\BSON\ObjectID($request->superDistributerId);
             $role = "player";
@@ -215,7 +208,7 @@ class AdminController extends Controller
         $user->password = $password;
         $user->role = $role;
         $user->isActive = true;
-        $user->deviceid = "";
+        $user->deviceid = "0000";
         $user->isMinus = false;
         $user->creditPoint = 0;
         $user->transactionPin = $transactionPin;
@@ -388,10 +381,13 @@ class AdminController extends Controller
         // die();
         $referral = "";
         $role = "";
+        dd($request);
         if (Session::get('role') == "Admin") {
+            // dd(Session::get('role') == "Admin");
+
             if ($request->role == 1) {
                 $referral = Session::get('id');
-                $role = "agent";
+                $role = "Admin";
             } elseif ($request->role == 3) {
                 if (isset($request->referralId)) {
                     $referral = $request->referralId;
@@ -442,9 +438,13 @@ class AdminController extends Controller
             }
         }
 
+
         // echo $referral;
         // echo $role;
+        // dd($referral);
+        // dd(User::where('_id', new \MongoDB\BSON\ObjectID())->first());
         $refer = User::where('_id', new \MongoDB\BSON\ObjectID($referral))->first();
+        // dd($referral);
         if ($refer['role'] == Session::get('role') || Session::get('role') == "Admin") {
             $referral = new \MongoDB\BSON\ObjectID($referral);
             $permissions = [];

@@ -201,12 +201,12 @@
                                                             <tr>
                                                                 <td class="No" style="text-align: center">
                                                                     <span
-                                                                        style="font-size:20px;padding-bottom: 1rem; color:#fff">0</span>
+                                                                        style="font-size:15px;padding-bottom: 1rem; color:#fff">0</span>
                                                                 </td>
                                                             </tr>
                                                             <tr>
                                                                 <td><span
-                                                                        style="font-size:15px;border:1px solid #fff;padding:1px 5px;color:#000;background-color:#3cff00; color:#fff"
+                                                                        style="font-size:20px;border:1px solid #fff;padding:1px 5px;color:#000;background-color:#3cff00; color:#fff"
                                                                         id="spot0">0</span>
                                                                 </td>
                                                             </tr>
@@ -221,14 +221,14 @@
                                                             <tr>
                                                                 <td class="No" style="text-align: center">
                                                                     <span
-                                                                        style="font-size:20px;padding-bottom: 1rem; color:#fff">00</span>
+                                                                        style="font-size:15px;padding-bottom: 1rem; color:#fff">00</span>
                                                                 </td>
                                                             </tr>
                                                             <tr>
                                                             </tr>
                                                             <tr>
                                                                 <td><span
-                                                                        style="font-size:15px;border:1px solid #fff;padding:1px 5px;color:#000;background-color:#3cff00;"
+                                                                        style="font-size:20px;border:1px solid #fff;padding:1px 5px;color:#000;background-color:#3cff00;"
                                                                         id='spot37'>0</span>
                                                                 </td>
                                                             </tr>
@@ -244,12 +244,12 @@
                                                             <tr>
                                                                 <td style="text-align: center">
                                                                     <span
-                                                                        style="font-size:20px;padding-bottom: 1rem;">1</span>
+                                                                        style="font-size:15px;padding-bottom: 1rem;">1</span>
                                                                 </td>
                                                             </tr>
                                                             <tr>
                                                                 <td><span
-                                                                        style="font-size:15px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#ff0000; color:#fff"
+                                                                        style="font-size:20px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#ff0000; color:#fff"
                                                                         id="spot1">0</span>
                                                                 </td>
                                                             </tr>
@@ -266,12 +266,12 @@
                                                             <tr>
                                                                 <td style="text-align: center">
                                                                     <span
-                                                                        style="font-size:20px;padding-bottom: 1rem; color:#fff">2</span>
+                                                                        style="font-size:15px;padding-bottom: 1rem; color:#fff">2</span>
                                                                 </td>
                                                             </tr>
                                                             <tr>
                                                                 <td><span
-                                                                        style="font-size:15px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#000000;"
+                                                                        style="font-size:20px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#000000;"
                                                                         id="spot2">0</span>
                                                                 </td>
                                                             </tr>
@@ -288,12 +288,12 @@
                                                             <tr>
                                                                 <td style="text-align: center">
                                                                     <span
-                                                                        style="font-size:20px;padding-bottom: 1rem;">3</span>
+                                                                        style="font-size:15px;padding-bottom: 1rem;">3</span>
                                                                 </td>
                                                             </tr>
                                                             <tr>
                                                                 <td><span
-                                                                        style="font-size:15px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#ff0000; color:#fff"
+                                                                        style="font-size:20px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#ff0000; color:#fff"
                                                                         id="spot3">0</span>
                                                                 </td>
                                                             </tr>
@@ -310,12 +310,12 @@
                                                             <tr>
                                                                 <td style="text-align: center">
                                                                     <span
-                                                                        style="font-size:20px;padding-bottom: 1rem; color:#fff">4</span>
+                                                                        style="font-size:15px;padding-bottom: 1rem; color:#fff">4</span>
                                                                 </td>
                                                             </tr>
                                                             <tr>
                                                                 <td><span
-                                                                        style="font-size:15px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#000000;"
+                                                                        style="font-size:20px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#000000;"
                                                                         id="spot4">0</span>
                                                                 </td>
                                                             </tr>
@@ -332,12 +332,12 @@
                                                             <tr>
                                                                 <td style="text-align: center">
                                                                     <span
-                                                                        style="font-size:20px;padding-bottom: 1rem;">5</span>
+                                                                        style="font-size:15px;padding-bottom: 1rem;">5</span>
                                                                 </td>
                                                             </tr>
                                                             <tr>
                                                                 <td><span
-                                                                        style="font-size:15px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#ff0000; color:#fff"
+                                                                        style="font-size:20px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#ff0000; color:#fff"
                                                                         id="spot5">0</span>
                                                                 </td>
                                                             </tr>
@@ -354,12 +354,12 @@
                                                             <tr>
                                                                 <td style="text-align: center">
                                                                     <span
-                                                                        style="font-size:20px;padding-bottom: 1rem; color:#fff">6</span>
+                                                                        style="font-size:15px;padding-bottom: 1rem; color:#fff">6</span>
                                                                 </td>
                                                             </tr>
                                                             <tr>
                                                                 <td><span
-                                                                        style="font-size:15px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#000000;"
+                                                                        style="font-size:20px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#000000;"
                                                                         id="spot6">0</span>
                                                                 </td>
                                                             </tr>
@@ -376,12 +376,12 @@
                                                             <tr>
                                                                 <td style="text-align: center">
                                                                     <span
-                                                                        style="font-size:20px;padding-bottom: 1rem;">7</span>
+                                                                        style="font-size:15px;padding-bottom: 1rem;">7</span>
                                                                 </td>
                                                             </tr>
                                                             <tr>
                                                                 <td><span
-                                                                        style="font-size:15px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#ff0000; color:#fff"
+                                                                        style="font-size:20px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#ff0000; color:#fff"
                                                                         id="spot7">0</span>
                                                                 </td>
                                                             </tr>
@@ -398,12 +398,12 @@
                                                             <tr>
                                                                 <td style="text-align: center">
                                                                     <span
-                                                                        style="font-size:20px;padding-bottom: 1rem; color:#fff">8</span>
+                                                                        style="font-size:15px;padding-bottom: 1rem; color:#fff">8</span>
                                                                 </td>
                                                             </tr>
                                                             <tr>
                                                                 <td><span
-                                                                        style="font-size:15px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#000000;"
+                                                                        style="font-size:20px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#000000;"
                                                                         id="spot8">0</span>
                                                                 </td>
                                                             </tr>
@@ -426,12 +426,12 @@
                                                             <tr>
                                                                 <td style="text-align: center">
                                                                     <span
-                                                                        style="font-size:20px;padding-bottom: 1rem;">9</span>
+                                                                        style="font-size:15px;padding-bottom: 1rem;">9</span>
                                                                 </td>
                                                             </tr>
                                                             <tr>
                                                                 <td><span
-                                                                        style="font-size:15px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#ff0000; color:#fff"
+                                                                        style="font-size:20px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#ff0000; color:#fff"
                                                                         id="spot9">0</span>
                                                                 </td>
                                                             </tr>
@@ -446,12 +446,12 @@
                                                             <tr>
                                                                 <td style="text-align: center">
                                                                     <span
-                                                                        style="font-size:20px;padding-bottom: 1rem; color:#fff">10</span>
+                                                                        style="font-size:15px;padding-bottom: 1rem; color:#fff">10</span>
                                                                 </td>
                                                             </tr>
                                                             <tr>
                                                                 <td><span
-                                                                        style="font-size:15px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#000000;"
+                                                                        style="font-size:20px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#000000;"
                                                                         id="spot10">0</span>
                                                                 </td>
                                                             </tr>
@@ -468,12 +468,12 @@
                                                             <tr>
                                                                 <td style="text-align: center">
                                                                     <span
-                                                                        style="font-size:20px;padding-bottom: 1rem; color:#fff">11</span>
+                                                                        style="font-size:15px;padding-bottom: 1rem; color:#fff">11</span>
                                                                 </td>
                                                             </tr>
                                                             <tr>
                                                                 <td><span
-                                                                        style="font-size:15px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#000000;"
+                                                                        style="font-size:20px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#000000;"
                                                                         id="spot11">0</span>
                                                                 </td>
                                                             </tr>
@@ -490,12 +490,12 @@
                                                             <tr>
                                                                 <td style="text-align: center">
                                                                     <span
-                                                                        style="font-size:20px;padding-bottom: 1rem;">12</span>
+                                                                        style="font-size:15px;padding-bottom: 1rem;">12</span>
                                                                 </td>
                                                             </tr>
                                                             <tr>
                                                                 <td><span
-                                                                        style="font-size:15px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#ff0000; color:#fff"
+                                                                        style="font-size:20px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#ff0000; color:#fff"
                                                                         id="spot12">0</span>
                                                                 </td>
                                                             </tr>
@@ -512,12 +512,12 @@
                                                             <tr>
                                                                 <td style="text-align: center">
                                                                     <span
-                                                                        style="font-size:20px;padding-bottom: 1rem; color:#fff">13</span>
+                                                                        style="font-size:15px;padding-bottom: 1rem; color:#fff">13</span>
                                                                 </td>
                                                             </tr>
                                                             <tr>
                                                                 <td><span
-                                                                        style="font-size:15px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#000000;"
+                                                                        style="font-size:20px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#000000;"
                                                                         id="spot13">0</span>
                                                                 </td>
                                                             </tr>
@@ -534,12 +534,12 @@
                                                             <tr>
                                                                 <td style="text-align: center">
                                                                     <span
-                                                                        style="font-size:20px;padding-bottom: 1rem;">14</span>
+                                                                        style="font-size:15px;padding-bottom: 1rem;">14</span>
                                                                 </td>
                                                             </tr>
                                                             <tr>
                                                                 <td><span
-                                                                        style="font-size:15px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#ff0000; color:#fff"
+                                                                        style="font-size:20px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#ff0000; color:#fff"
                                                                         id="spot14">0</span>
                                                                 </td>
                                                             </tr>
@@ -556,12 +556,12 @@
                                                             <tr>
                                                                 <td style="text-align: center">
                                                                     <span
-                                                                        style="font-size:20px;padding-bottom: 1rem; color:#fff">15</span>
+                                                                        style="font-size:15px;padding-bottom: 1rem; color:#fff">15</span>
                                                                 </td>
                                                             </tr>
                                                             <tr>
                                                                 <td><span
-                                                                        style="font-size:15px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#000000;"
+                                                                        style="font-size:20px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#000000;"
                                                                         id="spot15">0</span>
                                                                 </td>
                                                             </tr>
@@ -578,12 +578,12 @@
                                                             <tr>
                                                                 <td style="text-align: center">
                                                                     <span
-                                                                        style="font-size:20px;padding-bottom: 1rem;">16</span>
+                                                                        style="font-size:15px;padding-bottom: 1rem;">16</span>
                                                                 </td>
                                                             </tr>
                                                             <tr>
                                                                 <td><span
-                                                                        style="font-size:15px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#ff0000; color:#fff"
+                                                                        style="font-size:20px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#ff0000; color:#fff"
                                                                         id="spot16">0</span>
                                                                 </td>
                                                             </tr>
@@ -600,12 +600,12 @@
                                                             <tr>
                                                                 <td style="text-align: center">
                                                                     <span
-                                                                        style="font-size:20px;padding-bottom: 1rem; color:#fff">17</span>
+                                                                        style="font-size:15px;padding-bottom: 1rem; color:#fff">17</span>
                                                                 </td>
                                                             </tr>
                                                             <tr>
                                                                 <td><span
-                                                                        style="font-size:15px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#000000;"
+                                                                        style="font-size:20px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#000000;"
                                                                         id="spot17">0</span>
                                                                 </td>
                                                             </tr>
@@ -649,12 +649,12 @@
                                                             <tr>
                                                                 <td style="text-align: center">
                                                                     <span
-                                                                        style="font-size:20px;padding-bottom: 1rem;">19</span>
+                                                                        style="font-size:15px;padding-bottom: 1rem;">19</span>
                                                                 </td>
                                                             </tr>
                                                             <tr>
                                                                 <td><span
-                                                                        style="font-size:15px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#ff0000; color:#fff"
+                                                                        style="font-size:20px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#ff0000; color:#fff"
                                                                         id="spot19">0</span>
                                                                 </td>
                                                             </tr>
@@ -669,12 +669,12 @@
                                                             <tr>
                                                                 <td style="text-align: center">
                                                                     <span
-                                                                        style="font-size:20px;padding-bottom: 1rem; color:#fff">20</span>
+                                                                        style="font-size:15px;padding-bottom: 1rem; color:#fff">20</span>
                                                                 </td>
                                                             </tr>
                                                             <tr>
                                                                 <td><span
-                                                                        style="font-size:15px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#000000;"
+                                                                        style="font-size:20px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#000000;"
                                                                         id="spot20">0</span>
                                                                 </td>
                                                             </tr>
@@ -691,12 +691,12 @@
                                                             <tr>
                                                                 <td style="text-align: center">
                                                                     <span
-                                                                        style="font-size:20px;padding-bottom: 1rem;">21</span>
+                                                                        style="font-size:15px;padding-bottom: 1rem;">21</span>
                                                                 </td>
                                                             </tr>
                                                             <tr>
                                                                 <td><span
-                                                                        style="font-size:15px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#ff0000; color:#fff"
+                                                                        style="font-size:20px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#ff0000; color:#fff"
                                                                         id="spot21">0</span>
                                                                 </td>
                                                             </tr>
@@ -713,12 +713,12 @@
                                                             <tr>
                                                                 <td style="text-align: center">
                                                                     <span
-                                                                        style="font-size:20px;padding-bottom: 1rem; color:#fff">22</span>
+                                                                        style="font-size:15px;padding-bottom: 1rem; color:#fff">22</span>
                                                                 </td>
                                                             </tr>
                                                             <tr>
                                                                 <td><span
-                                                                        style="font-size:15px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#000000;"
+                                                                        style="font-size:20px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#000000;"
                                                                         id="spot22">0</span>
                                                                 </td>
                                                             </tr>
@@ -735,12 +735,12 @@
                                                             <tr>
                                                                 <td style="text-align: center">
                                                                     <span
-                                                                        style="font-size:20px;padding-bottom: 1rem;">23</span>
+                                                                        style="font-size:15px;padding-bottom: 1rem;">23</span>
                                                                 </td>
                                                             </tr>
                                                             <tr>
                                                                 <td><span
-                                                                        style="font-size:15px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#ff0000; color:#fff"
+                                                                        style="font-size:20px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#ff0000; color:#fff"
                                                                         id="spot23">0</span>
                                                                 </td>
                                                             </tr>
@@ -757,12 +757,12 @@
                                                             <tr>
                                                                 <td style="text-align: center">
                                                                     <span
-                                                                        style="font-size:20px;padding-bottom: 1rem; color:#fff">24</span>
+                                                                        style="font-size:15px;padding-bottom: 1rem; color:#fff">24</span>
                                                                 </td>
                                                             </tr>
                                                             <tr>
                                                                 <td><span
-                                                                        style="font-size:15px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#000000;"
+                                                                        style="font-size:20px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#000000;"
                                                                         id="spot24">0</span>
                                                                 </td>
                                                             </tr>
@@ -779,12 +779,12 @@
                                                             <tr>
                                                                 <td style="text-align: center">
                                                                     <span
-                                                                        style="font-size:20px;padding-bottom: 1rem;">25</span>
+                                                                        style="font-size:15px;padding-bottom: 1rem;">25</span>
                                                                 </td>
                                                             </tr>
                                                             <tr>
                                                                 <td><span
-                                                                        style="font-size:15px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#ff0000; color:#fff"
+                                                                        style="font-size:20px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#ff0000; color:#fff"
                                                                         id="spot25">0</span>
                                                                 </td>
                                                             </tr>
@@ -801,12 +801,12 @@
                                                             <tr>
                                                                 <td style="text-align: center">
                                                                     <span
-                                                                        style="font-size:20px;padding-bottom: 1rem; color:#fff">26</span>
+                                                                        style="font-size:15px;padding-bottom: 1rem; color:#fff">26</span>
                                                                 </td>
                                                             </tr>
                                                             <tr>
                                                                 <td><span
-                                                                        style="font-size:15px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#000000;"
+                                                                        style="font-size:20px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#000000;"
                                                                         id="spot26">0</span>
                                                                 </td>
                                                             </tr>
@@ -823,12 +823,12 @@
                                                             <tr>
                                                                 <td style="text-align: center">
                                                                     <span
-                                                                        style="font-size:20px;padding-bottom: 1rem;">27</span>
+                                                                        style="font-size:15px;padding-bottom: 1rem;">27</span>
                                                                 </td>
                                                             </tr>
                                                             <tr>
                                                                 <td><span
-                                                                        style="font-size:15px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#ff0000; color:#fff"
+                                                                        style="font-size:20px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#ff0000; color:#fff"
                                                                         id="spot27">0</span>
                                                                 </td>
                                                             </tr>
@@ -845,12 +845,12 @@
                                                             <tr>
                                                                 <td style="text-align: center">
                                                                     <span
-                                                                        style="font-size:20px;padding-bottom: 1rem; color:#fff">28</span>
+                                                                        style="font-size:15px;padding-bottom: 1rem; color:#fff">28</span>
                                                                 </td>
                                                             </tr>
                                                             <tr>
                                                                 <td><span
-                                                                        style="font-size:15px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#000000;"
+                                                                        style="font-size:20px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#000000;"
                                                                         id="spot28">0</span>
                                                                 </td>
                                                             </tr>
@@ -872,12 +872,12 @@
                                                             <tr>
                                                                 <td style="text-align: center">
                                                                     <span
-                                                                        style="font-size:20px;padding-bottom: 1rem; color:#fff">29</span>
+                                                                        style="font-size:15px;padding-bottom: 1rem; color:#fff">29</span>
                                                                 </td>
                                                             </tr>
                                                             <tr>
                                                                 <td><span
-                                                                        style="font-size:15px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#000000;"
+                                                                        style="font-size:20px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#000000;"
                                                                         id="spot29">0</span>
                                                                 </td>
                                                             </tr>
@@ -892,12 +892,12 @@
                                                             <tr>
                                                                 <td style="text-align: center">
                                                                     <span
-                                                                        style="font-size:20px;padding-bottom: 1rem;">30</span>
+                                                                        style="font-size:15px;padding-bottom: 1rem;">30</span>
                                                                 </td>
                                                             </tr>
                                                             <tr>
                                                                 <td><span
-                                                                        style="font-size:15px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#ff0000; color:#fff"
+                                                                        style="font-size:20px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#ff0000; color:#fff"
                                                                         id="spot30">0</span>
                                                                 </td>
                                                             </tr>
@@ -914,12 +914,12 @@
                                                             <tr>
                                                                 <td style="text-align: center">
                                                                     <span
-                                                                        style="font-size:20px;padding-bottom: 1rem; color:#fff">31</span>
+                                                                        style="font-size:15px;padding-bottom: 1rem; color:#fff">31</span>
                                                                 </td>
                                                             </tr>
                                                             <tr>
                                                                 <td><span
-                                                                        style="font-size:15px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#000000;"
+                                                                        style="font-size:20px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#000000;"
                                                                         id="spot31">0</span>
                                                                 </td>
                                                             </tr>
@@ -936,12 +936,12 @@
                                                             <tr>
                                                                 <td style="text-align: center">
                                                                     <span
-                                                                        style="font-size:20px;padding-bottom: 1rem;">32</span>
+                                                                        style="font-size:15px;padding-bottom: 1rem;">32</span>
                                                                 </td>
                                                             </tr>
                                                             <tr>
                                                                 <td><span
-                                                                        style="font-size:15px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#ff0000; color:#fff"
+                                                                        style="font-size:20px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#ff0000; color:#fff"
                                                                         id="spot32">0</span>
                                                                 </td>
                                                             </tr>
@@ -958,12 +958,12 @@
                                                             <tr>
                                                                 <td style="text-align: center">
                                                                     <span
-                                                                        style="font-size:20px;padding-bottom: 1rem; color:#fff">33</span>
+                                                                        style="font-size:15px;padding-bottom: 1rem; color:#fff">33</span>
                                                                 </td>
                                                             </tr>
                                                             <tr>
                                                                 <td><span
-                                                                        style="font-size:15px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#000000;"
+                                                                        style="font-size:20px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#000000;"
                                                                         id="spot33">0</span>
                                                                 </td>
                                                             </tr>
@@ -980,12 +980,12 @@
                                                             <tr>
                                                                 <td style="text-align: center">
                                                                     <span
-                                                                        style="font-size:20px;padding-bottom: 1rem;">34</span>
+                                                                        style="font-size:15px;padding-bottom: 1rem;">34</span>
                                                                 </td>
                                                             </tr>
                                                             <tr>
                                                                 <td><span
-                                                                        style="font-size:15px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#ff0000; color:#fff"
+                                                                        style="font-size:20px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#ff0000; color:#fff"
                                                                         id="spot34">0</span>
                                                                 </td>
                                                             </tr>
@@ -1002,12 +1002,12 @@
                                                             <tr>
                                                                 <td style="text-align: center">
                                                                     <span
-                                                                        style="font-size:20px;padding-bottom: 1rem; color:#fff">35</span>
+                                                                        style="font-size:15px;padding-bottom: 1rem; color:#fff">35</span>
                                                                 </td>
                                                             </tr>
                                                             <tr>
                                                                 <td><span
-                                                                        style="font-size:15px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#000000;"
+                                                                        style="font-size:20px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#000000;"
                                                                         id="spot35">0</span>
                                                                 </td>
                                                             </tr>
@@ -1024,12 +1024,12 @@
                                                             <tr>
                                                                 <td style="text-align: center">
                                                                     <span
-                                                                        style="font-size:20px;padding-bottom: 1rem;">36</span>
+                                                                        style="font-size:15px;padding-bottom: 1rem;">36</span>
                                                                 </td>
                                                             </tr>
                                                             <tr>
                                                                 <td><span
-                                                                        style="font-size:15px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#ff0000;  color:#fff"
+                                                                        style="font-size:20px;border:1px solid #fff;padding:1px 5px;color:rgb(255, 255, 255);background-color:#ff0000;  color:#fff"
                                                                         id="spot36">0</span>
                                                                 </td>
                                                             </tr>
@@ -1257,7 +1257,6 @@
                                     element.textContent = id === '00' ? '37' : value;
 
                                     // Add this line to set the font-size to 20px
-                                    element.style.fontSize = '20px';
                                 }
                             }
                         }
