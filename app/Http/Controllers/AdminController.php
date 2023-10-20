@@ -381,7 +381,7 @@ class AdminController extends Controller
         // die();
         $referral = "";
         $role = "";
-        dd($request);
+        // dd($request);
         if (Session::get('role') == "Admin") {
             // dd(Session::get('role') == "Admin");
 
@@ -474,10 +474,12 @@ class AdminController extends Controller
             // print_r($user->toArray());
             // die();
             $user->save();
-            if (Session::get('is_f') == "true") {
-                return redirect('/users/admin');
+            if ($role == "super_distributor") {
+                return redirect('/getdata/super-distributor');
+            } elseif ($role == "distributor") {
+                return redirect('/getdata/distributor');
             } else {
-                return redirect('/users');
+                return redirect('/getdata/player');
             }
         } else {
             session()->flash('msg', 'You are not Authorized to edit this User.');
