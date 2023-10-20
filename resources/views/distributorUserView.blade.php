@@ -111,7 +111,7 @@
                                             {{-- href="{{ url('users/delete/'.$value['_id'])}}" --}}
                                         </td>
                                         <td>
-                                            @if (!empty($value['updatedAt']))
+                                            @if (!empty($value['updated_at']))
                                                 {{ date('Y-m-d H:i:s', $value['updated_at']->toDateTime()->getTimestamp()) }}
                                             @else
                                                 No Date
