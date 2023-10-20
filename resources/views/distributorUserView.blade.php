@@ -112,7 +112,7 @@
                                         </td>
                                         <td>
                                             @if (!empty($value['updatedAt']))
-                                                {{ date('Y-m-d H:i:s', $value['updatedAt']->toDateTime()->getTimestamp()) }}
+                                                {{ date('Y-m-d H:i:s', $value['updated_at']->toDateTime()->getTimestamp()) }}
                                             @else
                                                 No Date
                                             @endif
