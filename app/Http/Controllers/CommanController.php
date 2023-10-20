@@ -48,7 +48,7 @@ class CommanController extends Controller
                 }
             }
 
-            $users = User::where('role', 'retailer')->whereIn('referralId', $dis_id)->get();
+            $users = User::where('role', 'distributor')->whereIn('referralId', $dis_id)->get();
             // echo "<pre>";
             // print_r($users->toArray());die;
         } elseif (Session::get('role') == "distributer") {

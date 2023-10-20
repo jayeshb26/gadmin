@@ -77,7 +77,7 @@
                     <h5 class="col-sm-8 mt-2">Today's Summary ( {{ date('d-m-Y') }} )</h5>
                     <div id="clock" class="col-sm-4 text-center" style="font-size: 20px;">13:40:09</div>
                 </div>
-                <div class="card-body">
+                {{--  <div class="card-body">
                     <div class="breadcrumb bg-light" id="live2">
                         <div class="col-sm-4 text-center">
                             Total Play Points<br> <span>{{ number_format($point['totalPlaypoint'], 2) }}</span>
@@ -89,7 +89,7 @@
                             End Point <br> <span>{{ number_format($point['totalEndpoint'], 2) }}</span>
                         </div>
                     </div>
-                </div>
+                </div>  --}}
             </div>
         </div>
     </div>
@@ -108,9 +108,9 @@
                                     <th>Name</th>
                                     <th>Substitute</th>
                                     <th>Credit</th>
-                                    <th>Play Points</th>
+                                    {{--  <th>Play Points</th>
                                     <th>Win Points</th>
-                                    <th>End Point</th>
+                                    <th>End Point</th>  --}}
                                     <th>Status</th>
                                 </tr>
                             </thead>
@@ -133,9 +133,9 @@
                                             {{ $value['role'] }}
                                         </td>
                                         <td>{{ number_format($value['creditPoint'], 2) }}</td>
-                                        <td>{{ number_format($value['totalbetPoint'], 2) }}</td>
+                                        {{--  <td>{{ number_format($value['totalbetPoint'], 2) }}</td>
                                         <td>{{ number_format($value['totalwonPoint'], 2) }}</td>
-                                        <td>{{ number_format($value['totalendPoint'], 2) }}</td>
+                                        <td>{{ number_format($value['totalendPoint'], 2) }}</td>  --}}
                                         <td>
                                             @if ($value['isLogin'] == true)
                                                 Online <span class="online blink">&#9679;</span>
