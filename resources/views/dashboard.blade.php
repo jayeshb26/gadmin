@@ -265,8 +265,8 @@
 
     <div class="row">
         @if (Session::get('role') == 'Admin')
-            // Session::get('role') == 'super_distributor' ||
-            //Session::get('role') == 'distributor'
+            {{--  // Session::get('role') == 'super_distributor' ||
+            //Session::get('role') == 'distributor'  --}}
             @if (Session::get('is_f') == 'true')
                 <div class="col-md-6 col-lg-4 grid-margin stretch-card">
                     <div class="card">
