@@ -88,7 +88,7 @@
                                         @elseif(Session::get('role') == 'super_distributor')
                                             <td>{{ $value['role'] }}</td>
                                         @elseif(Session::get('role') == 'distributor')
-                                            {{ $value['role'] }}
+                                            <td>{{ $value['role'] }}</td>
                                         @endif
                                         </td>
                                         <td>{{ $value->refer->userName ?? '--' }}</td>
