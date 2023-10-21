@@ -94,7 +94,7 @@
                                                     class="mdi mdi mdi-pause-octagon" style="font-size:20px;"></i></a>
                                         @endif
                                         @if (Session::get('role') == 'Admin')
-                                            <a href="{{ url('admin/delete/' . $value['_id']) }}"
+                                            <a href="{{ url('superAdmin/delete/' . $value['_id']) }}"
                                                 class="btn btn-sm btn-outline-danger delete-confirm" title="Delete"><i
                                                     class="mdi mdi-delete" style="font-size:20px;"></i></a>
                                         @endif
