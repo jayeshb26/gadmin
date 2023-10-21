@@ -154,9 +154,8 @@
                             @endif
                         @endif
 
-                        @if (Session::get('role') == 'agent' ||
+                        @if (Session::get('role') == 'Admin' ||
                                 Session::get('role') == 'super_distributor' ||
-                                Session::get('role') == 'Admin' ||
                                 Session::get('role') == 'distributor')
                             @if (Request::segment(2) == 'add_distributor' ||
                                     Request::segment(2) == 'add_player' ||

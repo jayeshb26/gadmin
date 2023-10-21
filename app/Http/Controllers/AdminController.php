@@ -60,17 +60,16 @@ class AdminController extends Controller
         // $this->middleware('admin');
         if (Session::get('is_f') == "true") {
             if (Session::get('role') == "Admin" || Session::get('role') == "subadmin") {
-                $user = User::where('userName', '!=', "superadminA")->where('userName', '!=', "superadminF")->where('role', '!=', "Admin")->where('role', '!=', "subadmin")->orderBy('createdAt', 'DESC')->where('is_franchise', false)->get();
-            } elseif (Session::get('role') == "Admin") {
-                $user = User::where('referralId', new \MongoDB\BSON\ObjectID(Session::get('id')))->where('role', 'super_distributor')->where('is_franchise', false)->orderBy('createdAt', 'DESC')->get();
+                $user = User::where('role', '!=', "Admin")->where('role', '!=', "subadmin")->orderBy('created_at', 'DESC')->get();
             } elseif (Session::get('role') == "super_distributor") {
-                $user = User::where('referralId', new \MongoDB\BSON\ObjectID(Session::get('id')))->where('role', 'distributor')->where('is_franchise', false)->orderBy('createdAt', 'DESC')->get();
+                $user = User::where('referralId', new \MongoDB\BSON\ObjectID(Session::get('id')))->where('role', 'distributor')->orderBy('created_at', 'DESC')->get();
             } elseif (Session::get('role') == "distributor") {
-                $user = User::where('referralId', new \MongoDB\BSON\ObjectID(Session::get('id')))->where('role', 'player')->where('is_franchise', false)->orderBy('createdAt', 'DESC')->get();
+                $user = User::where('referralId', new \MongoDB\BSON\ObjectID(Session::get('id')))->where('role', 'player')->orderBy('created_at', 'DESC')->get();
             }
 
-            $user_role = User::where('is_franchise', true)->pluck('role', 'super_distributor')->toArray();
+            $user_role = User::all()->pluck('role')->toArray();
             $user_role = array_unique($user_role);
+            // dd($user_role);
             // dd($user_role);
             return view('admin.view', ['data' => $user, 'role' => $user_role]);
         }
@@ -497,7 +496,7 @@ class AdminController extends Controller
     {
         $user = User::find($id);
 
-        if ($user['role'] == "agent" || $user['role'] == "super_distributor" || $user['role'] == "distributor" || $user['role'] == "retailer") {
+        if ($user['role'] == "Admin" || $user['role'] == "super_distributor" || $user['role'] == "distributor") {
             $refer = User::where('referralId', new \MongoDB\BSON\ObjectID($user['_id']))->first();
             if (empty($refer['_id'])) {
                 $user->delete();
@@ -1016,16 +1015,11 @@ class AdminController extends Controller
         }
         if ($user['role'] == "Admin") {
             $refer = User::where('referralId', new \MongoDB\BSON\ObjectID($user['_id']))->where('role', 'super_distributor')->get();
-        } elseif ($user['role'] == "Admin") {
-            $refer = User::where('referralId', new \MongoDB\BSON\ObjectID($user['_id']))->where('role', 'super_distributor')->get();
         } elseif ($user['role'] == "super_distributor") {
             $refer = User::where('referralId', new \MongoDB\BSON\ObjectID($user['_id']))->where('role', 'distributor')->get();
         } elseif ($user['role'] == "distributor") {
             $refer = User::where('referralId', new \MongoDB\BSON\ObjectID($user['_id']))->where('role', 'player')->get();
         }
-        // } elseif ($user['role'] == "player") {
-        //     $refer = User::where('referralId', new \MongoDB\BSON\ObjectID($user['_id']))->where('role', 'player')->get();
-        // }
         $data = array();
         // dd($data);
         foreach ($refer as $value) {
@@ -1880,15 +1874,13 @@ class AdminController extends Controller
         // $this->middleware('admin');
         if (Session::get('is_f') == "false") {
             if (Session::get('role') == "Admin" || Session::get('role') == "subadmin") {
-                $user = User::where('userName', '!=', "superadminA")->where('userName', '!=', "superadminF")->where('role', '!=', "Admin")->where('role', '!=', "subadmin")->orderBy('createdAt', 'DESC')->where('is_franchise', false)->get();
+                $user = User::where('userName', '!=', "Admin")->where('userName', '!=', "Admin")->where('role', '!=', "Admin")->where('role', '!=', "subadmin")->orderBy('created_at', 'DESC')->where('is_franchise', false)->get();
             } elseif (Session::get('role') == "agent") {
-                $user = User::where('referralId', new \MongoDB\BSON\ObjectID(Session::get('id')))->where('role', 'super_distributor')->where('is_franchise', false)->orderBy('createdAt', 'DESC')->get();
+                $user = User::where('referralId', new \MongoDB\BSON\ObjectID(Session::get('id')))->where('role', 'super_distributor')->orderBy('created_at', 'DESC')->get();
             } elseif (Session::get('role') == "super_distributor") {
-                $user = User::where('referralId', new \MongoDB\BSON\ObjectID(Session::get('id')))->where('role', 'distributor')->where('is_franchise', false)->orderBy('createdAt', 'DESC')->get();
+                $user = User::where('referralId', new \MongoDB\BSON\ObjectID(Session::get('id')))->where('role', 'distributor')->orderBy('created_at', 'DESC')->get();
             } elseif (Session::get('role') == "distributor") {
-                $user = User::where('referralId', new \MongoDB\BSON\ObjectID(Session::get('id')))->where('role', 'retailer')->where('is_franchise', false)->orderBy('createdAt', 'DESC')->get();
-            } elseif (Session::get('role') == "retailer") {
-                $user = User::where('referralId', new \MongoDB\BSON\ObjectID(Session::get('id')))->where('role', 'player')->where('is_franchise', false)->orderBy('createdAt', 'DESC')->get();
+                $user = User::where('referralId', new \MongoDB\BSON\ObjectID(Session::get('id')))->where('role', 'player')->orderBy('created_at', 'DESC')->get();
             }
 
             $user_role = User::where('is_franchise', false)->where('role', '!=', "Admin")->pluck('role')->toArray();

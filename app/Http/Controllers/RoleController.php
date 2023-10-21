@@ -8,26 +8,26 @@ use Illuminate\Http\Request;
 
 class RoleController extends Controller
 {
-    //    public function showRetailerDetails($id)
-    //    {
-    //        // Retrieve retailer details based on $id and pass them to the 'retailer.blade.php' view
-    //        $retailer = Retailer::find($id);
-    //        return view('userView', compact('retailer'));
-    //    }
-    //
-    //    public function showDistributorDetails($id)
-    //    {
-    //        // Retrieve distributor details based on $id and pass them to the 'distributor.blade.php' view
-    //        $distributor = Distributor::find($id);
-    //        return view('distributor', compact('distributor'));
-    //    }
-    //
-    //    public function showSuperDistributorDetails($id)
-    //    {
-    //        // Retrieve super distributor details based on $id and pass them to the 'super_distributor.blade.php' view
-    //        $superDistributor = SuperDistributor::find($id);
-    //        return view('super_distributor', compact('superDistributor'));
-    //    }
+    // public function showRetailerDetails($id)
+    // {
+    //     // Retrieve retailer details based on $id and pass them to the 'retailer.blade.php' view
+    //     $retailer = Retailer::find($id);
+    //     return view('userView', compact('retailer'));
+    // }
+
+    // public function showDistributorDetails($id)
+    // {
+    //     // Retrieve distributor details based on $id and pass them to the 'distributor.blade.php' view
+    //     $distributor = Distributor::find($id);
+    //     return view('distributor', compact('distributor'));
+    // }
+
+    // public function showSuperDistributorDetails($id)
+    // {
+    //     // Retrieve super distributor details based on $id and pass them to the 'super_distributor.blade.php' view
+    //     $superDistributor = SuperDistributor::find($id);
+    //     return view('super_distributor', compact('superDistributor'));
+    // }
     public function getPlayerData()
     {
         // Retrieve retailer data using the User model.

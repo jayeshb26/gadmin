@@ -59,7 +59,7 @@
                                     <th>Refferal</th>
                                     <th>Password</th>
                                     @if (Session::get('role') == 'Admin')
-                                        <th>Minus Setting</th>
+                                        <th>Settings</th>
                                     @endif
                                     <th>Credit</th>
                                     <th>Action</th>
@@ -83,13 +83,32 @@
                                                         class="mdi mdi-eye"></i></a>
                                             @endif
                                         </td>
-                                        <td>{{ Request::segment(2) == 'Admin' ? $value['role'] : '' }}</td>
+                                        @if (Session::get('role') == 'Admin')
+                                            <td>{{ $value['role'] }}</td>
+                                        @elseif(Session::get('role') == 'super_distributor')
+                                            <td>{{ $value['role'] }}</td>
+                                        @elseif(Session::get('role') == 'distributor')
+                                            {{ $value['role'] }}
+                                        @endif
                                         </td>
                                         <td>{{ $value->refer->userName ?? '--' }}</td>
                                         <td>{{ $value['password'] }}</td>
                                         @if (Session::get('role') == 'Admin')
-                                            {{--  <td>{{ $value['transactionPin'] }}</td>  --}} <td>
-                                                <div class=" btn btn-warning fa fa-gear"> </div>
+                                            {{--  <td>{{ $value['transactionPin'] }}</td>  --}}
+                                            <td>
+                                                {{--  <div class="btn btn-danger fa fa-gear">
+                                                    <span style="font-family: initial;">Minus Settings</span>
+                                                </div>  --}}
+                                                <div>
+
+                                                    <form method="post" action="{{ route('reset-device', $value->id) }}">
+                                                        @csrf
+                                                        @method('POST')
+                                                        <button class="mt-1 btn btn-danger fa fa-user" type="submit">
+                                                            <span style="font-family: initial;">Reset Device</span>
+                                                        </button>
+                                                    </form>
+                                                </div>
                                             </td>
                                         @endif
 

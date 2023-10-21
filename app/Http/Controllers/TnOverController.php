@@ -24,7 +24,7 @@ class TnOverController extends Controller
         $SuperDistributedProfit = 0;
         $TotalCommission = 0;
         $today = date_create(date("Y-m-d"));
-        $users = User::where('role', '=', 'retailer')->get();
+        $users = User::where('role', '=', 'distributor')->get();
         $players = User::where('role', '=', 'players')->get();
 
         $fm = date('m', strtotime($_GET['from']));
@@ -34,13 +34,30 @@ class TnOverController extends Controller
         $tY = date('Y', strtotime($_GET['to']));
 
         if (Session::get('role') == "Admin" || Session::get('role') == "subadmin") {
-            if ($_GET['role'] == "franchise") {
-                $premium = User::where('role', 'super_distributor')->where('referralId', new \MongoDB\BSON\ObjectID(Session::get('id')))->get();
-                // echo "<pre>";
-                // print_r($superdistributer->toArray());die;
-                $admin = User::where('_id', new \MongoDB\BSON\ObjectID(Session::get('id')))->get();
 
-                if (count($premium) == 0) {
+            $premium = User::where('role', 'super_distributor')->where('referralId', new \MongoDB\BSON\ObjectID(Session::get('id')))->get();
+            // echo "<pre>";
+            // print_r($superdistributer->toArray());die;
+            $admin = User::where('_id', new \MongoDB\BSON\ObjectID(Session::get('id')))->get();
+
+            if (count($premium) == 0) {
+                $total = [];
+                $total['totalStartPoint'] = $totalStartPoint;
+                $total['totalPlayPoints'] = $totalPlayPoints;
+                $total['TotalWinPoints'] = $TotalWinPoints;
+                $total['EndPoint'] = $EndPoint;
+                $total['Margin'] = $margin;
+                $total['NetProfit'] = $netprofit;
+                $total['SuperDistributedProfit'] = $SuperDistributedProfit;
+                $total['PL'] = count($players);
+                return view('turnOver', ['data' => $admin, 'total' => $total]);
+            } else {
+                $pre = [];
+                foreach ($premium as $pre_user) {
+                    $pre[] = new \MongoDB\BSON\ObjectID($pre_user['_id']);
+                }
+                $executive = User::whereIn('referralId', $pre)->get();
+                if (count($executive) == 0) {
                     $total = [];
                     $total['totalStartPoint'] = $totalStartPoint;
                     $total['totalPlayPoints'] = $totalPlayPoints;
@@ -52,12 +69,17 @@ class TnOverController extends Controller
                     $total['PL'] = count($players);
                     return view('turnOver', ['data' => $admin, 'total' => $total]);
                 } else {
-                    $pre = [];
-                    foreach ($premium as $pre_user) {
-                        $pre[] = new \MongoDB\BSON\ObjectID($pre_user['_id']);
+                    $exe = [];
+                    foreach ($executive as $exe_user) {
+                        $exe[] = new \MongoDB\BSON\ObjectID($exe_user['_id']);
                     }
-                    $executive = User::whereIn('referralId', $pre)->get();
-                    if (count($executive) == 0) {
+
+                    $players = [];
+                    $player = User::whereIn('referralId', $exe)->get();
+                    foreach ($player as $player_user) {
+                        $players[] = new \MongoDB\BSON\ObjectID($player_user['_id']);
+                    }
+                    if (count($players) == 0) {
                         $total = [];
                         $total['totalStartPoint'] = $totalStartPoint;
                         $total['totalPlayPoints'] = $totalPlayPoints;
@@ -69,65 +91,42 @@ class TnOverController extends Controller
                         $total['PL'] = count($players);
                         return view('turnOver', ['data' => $admin, 'total' => $total]);
                     } else {
-                        $exe = [];
-                        foreach ($executive as $exe_user) {
-                            $exe[] = new \MongoDB\BSON\ObjectID($exe_user['_id']);
+                        if ($type == 1 || $type == 2 || $type == 3 || $type == 4 || $type == 5 || $type == 8) {
+                            $td = date('j', strtotime($_GET['to']));
+                            $playPoints = Bets::select('bet', 'won', 'playerCommission', 'classicCommission', 'ExecutiveCommission', 'premiumCommission', 'agentCommission')
+                                ->whereIn('playerId', $players)
+                                ->whereBetween(
+                                    'createdAt',
+                                    array(
+                                        Carbon::create($fY, $fm, $fd, 00, 00, 00),
+                                        Carbon::create($tY, $tm, $td, 23, 59, 59),
+                                    )
+                                )->get();
+                        } elseif ($type == 7 || $type == 6) {
+                            $to = date('n-j-Y', strtotime($_GET['to']));
+                            $playPoints = Bets::select('bet', 'won',  'playerCommission', 'classicCommission', 'ExecutiveCommission', 'premiumCommission', 'agentCommission')->whereIn('playerId', $players)
+                                ->where('DrDate', $to)->get();
                         }
 
-                        $players = [];
-                        $player = User::whereIn('referralId', $exe)->get();
-                        foreach ($player as $player_user) {
-                            $players[] = new \MongoDB\BSON\ObjectID($player_user['_id']);
+                        // echo "<Pre>";
+                        // print_r($playPoints->toArray());
+                        // die;
+                        foreach ($playPoints as $play) {
+                            $totalStartPoint += $play['startPoint'];
+                            $totalPlayPoints += $play['bet'];
+                            $TotalWinPoints += $play['won'];
                         }
-                        if (count($players) == 0) {
-                            $total = [];
-                            $total['totalStartPoint'] = $totalStartPoint;
-                            $total['totalPlayPoints'] = $totalPlayPoints;
-                            $total['TotalWinPoints'] = $TotalWinPoints;
-                            $total['EndPoint'] = $EndPoint;
-                            $total['Margin'] = $margin;
-                            $total['NetProfit'] = $netprofit;
-                            $total['SuperDistributedProfit'] = $SuperDistributedProfit;
-                            $total['PL'] = count($players);
-                            return view('turnOver', ['data' => $admin, 'total' => $total]);
-                        } else {
-                            if ($type == 1 || $type == 2 || $type == 3 || $type == 4 || $type == 5 || $type == 8) {
-                                $td = date('j', strtotime($_GET['to']));
-                                $playPoints = Bets::select('bet', 'won', 'playerCommission', 'classicCommission', 'ExecutiveCommission', 'premiumCommission', 'agentCommission')
-                                    ->whereIn('playerId', $players)
-                                    ->whereBetween(
-                                        'createdAt',
-                                        array(
-                                            Carbon::create($fY, $fm, $fd, 00, 00, 00),
-                                            Carbon::create($tY, $tm, $td, 23, 59, 59),
-                                        )
-                                    )->get();
-                            } elseif ($type == 7 || $type == 6) {
-                                $to = date('n-j-Y', strtotime($_GET['to']));
-                                $playPoints = Bets::select('bet', 'won',  'playerCommission', 'classicCommission', 'ExecutiveCommission', 'premiumCommission', 'agentCommission')->whereIn('playerId', $players)
-                                    ->where('DrDate', $to)->get();
-                            }
-
-                            // echo "<Pre>";
-                            // print_r($playPoints->toArray());
-                            // die;
-                            foreach ($playPoints as $play) {
-                                $totalStartPoint += $play['startPoint'];
-                                $totalPlayPoints += $play['bet'];
-                                $TotalWinPoints += $play['won'];
-                            }
-                            $total = [];
-                            $total['totalStartPoint'] = $totalStartPoint;
-                            $total['totalPlayPoints'] = $totalPlayPoints;
-                            $total['TotalWinPoints'] = $TotalWinPoints;
-                            $total['EndPoint'] = $total['totalPlayPoints'] - $total['TotalWinPoints'];
-                            $total['Margin'] = $margin;
-                            $total['NetProfit'] = $netprofit;
-                            $total['SuperDistributedProfit'] = $SuperDistributedProfit;
-                            $total['F'] = count($premium);
-                            $total['PL'] = count($players);
-                            return view('turnOver', ['data' => $admin, 'total' => $total]);
-                        }
+                        $total = [];
+                        $total['totalStartPoint'] = $totalStartPoint;
+                        $total['totalPlayPoints'] = $totalPlayPoints;
+                        $total['TotalWinPoints'] = $TotalWinPoints;
+                        $total['EndPoint'] = $total['totalPlayPoints'] - $total['TotalWinPoints'];
+                        $total['Margin'] = $margin;
+                        $total['NetProfit'] = $netprofit;
+                        $total['SuperDistributedProfit'] = $SuperDistributedProfit;
+                        $total['F'] = count($premium);
+                        $total['PL'] = count($players);
+                        return view('turnOver', ['data' => $admin, 'total' => $total]);
                     }
                 }
             }
@@ -314,11 +313,7 @@ class TnOverController extends Controller
                     return view('turnOver', ['data' => $data, 'total' => $total]);
                 } else {
                     foreach ($classic as $cal_user) {
-                        $cal[] = new \MongoDB\BSON\ObjectID($cal_user['_id']);
-                    }
-                    $player = User::whereIn('referralId', $cal)->get();
-                    foreach ($player as $player_user) {
-                        $players[] = new \MongoDB\BSON\ObjectID($player_user['_id']);
+                        $players[] = new \MongoDB\BSON\ObjectID($cal_user['_id']);
                     }
                     if (count($players) == 0) {
                         $total = [];
@@ -330,7 +325,6 @@ class TnOverController extends Controller
                         $total['NetProfit'] = $netprofit;
                         $total['SuperDistributedProfit'] = $SuperDistributedProfit;
                         $total['PL'] = count($players);
-
                         $data = [];
                         return view('turnOver', ['data' => $data, 'total' => $total]);
                     } else {
@@ -407,7 +401,6 @@ class TnOverController extends Controller
             // print_r($superDistributer->toArray());
             // die();
             $classic = User::where('referralId', new \MongoDB\BSON\ObjectID(Session::get('id')))->get();
-
             if (count($classic) == 0) {
                 $total = [];
                 $total['totalStartPoint'] = $totalStartPoint;
@@ -422,11 +415,7 @@ class TnOverController extends Controller
                 return view('turnOver', ['data' => $data, 'total' => $total]);
             } else {
                 foreach ($classic as $cal_user) {
-                    $cal[] = new \MongoDB\BSON\ObjectID($cal_user['_id']);
-                }
-                $player = User::whereIn('referralId', $cal)->get();
-                foreach ($player as $player_user) {
-                    $players[] = new \MongoDB\BSON\ObjectID($player_user['_id']);
+                    $players[] = new \MongoDB\BSON\ObjectID($cal_user['_id']);
                 }
                 if (count($players) == 0) {
                     $total = [];
@@ -537,128 +526,127 @@ class TnOverController extends Controller
         $tY = date('Y', strtotime($_GET['to']));
 
         if ($user->role == 'Admin') {
-            if ($_GET['role'] == 'franchise') {
-                $refer = User::where('role', 'super_distributor')->where('referralId', new \MongoDB\BSON\ObjectID($id))->get();
-                if (count($refer) == 0) {
-                    $total = [];
-                    $total['totalStartPoint'] = $totalStartPoint;
-                    $total['totalPlayPoints'] = $totalPlayPoints;
-                    $total['TotalWinPoints'] = $TotalWinPoints;
-                    $total['EndPoint'] = $EndPoint;
-                    $total['Margin'] = $margin;
-                    $total['NetProfit'] = $netprofit;
-                    $total['SuperDistributedProfit'] = $SuperDistributedProfit;
-                    $total['F'] = count($refer);
-                    $total['PL'] = 0;
-                    return view('turnOver', ['data' => $refer, 'total' => $total]);
-                } else {
-                    $commission = [];
-                    foreach ($refer as $pre_user) {
-                        $executive = User::where('referralId', new \MongoDB\BSON\ObjectID($pre_user['_id']))->get();
 
-                        if (count($executive) == 0) {
-                            $total = [];
-                            $total['totalStartPoint'] = $totalStartPoint;
-                            $total['totalPlayPoints'] = $totalPlayPoints;
-                            $total['TotalWinPoints'] = $TotalWinPoints;
-                            $total['EndPoint'] = $EndPoint;
-                            $total['Margin'] = $margin;
-                            $total['NetProfit'] = $netprofit;
-                            $total['SuperDistributedProfit'] = $SuperDistributedProfit;
-                            $total['F'] = count($refer);
-                            $total['PL'] = 0;
-                            // return view('turnOver', ['data' => $refer, 'total' => $total]);
-                        } else {
-                            $exe = [];
-                            foreach ($executive as $exe_user) {
-                                $exe[] = new \MongoDB\BSON\ObjectID($exe_user['_id']);
-                            }
-                            $cal = [];
-                            $retailer = User::whereIn('referralId', $exe)->get();
-                            foreach ($retailer as $re_user) {
-                                $retailers[] = new \MongoDB\BSON\ObjectID($re_user['_id']);
-                            }
-                            // echo "<pre>";
-                            // print_r($retailers);
-                            // die;
-                            // $groups = [];
-                            if ($type == 1 || $type == 2 || $type == 3 || $type == 4 || $type == 5 || $type == 8) {
-                                $td = date('j', strtotime($_GET['to']));
-                                $groups[$pre_user['_id']] = Bets::select('bet', 'won',  'playerCommission', 'classicCommission', 'ExecutiveCommission', 'premiumCommission', 'agentCommission')
-                                    ->whereIn('playerId', $retailers)
-                                    ->whereBetween(
-                                        'createdAt',
-                                        array(
-                                            Carbon::create($fY, $fm, $fd, 00, 00, 00),
-                                            Carbon::create($tY, $tm, $td, 23, 59, 59),
-                                        )
-                                    )->get()->toArray();
-                            } elseif ($type == 7 || $type == 6) {
-                                $to = date('n-j-Y', strtotime($_GET['to']));
-                                $groups[$pre_user['_id']] = Bets::select('bet', 'won',  'playerCommission', 'classicCommission', 'ExecutiveCommission', 'premiumCommission', 'agentCommission')
-                                    ->whereIn('playerId', $retailers)->where('DrDate', $to)->get()->toArray();
-                            }
-                            // echo "<pre>";
-                            // print_r($groups);
-                            // die;
+            $refer = User::where('role', 'super_distributor')->where('referralId', new \MongoDB\BSON\ObjectID($id))->get();
+            if (count($refer) == 0) {
+                $total = [];
+                $total['totalStartPoint'] = $totalStartPoint;
+                $total['totalPlayPoints'] = $totalPlayPoints;
+                $total['TotalWinPoints'] = $TotalWinPoints;
+                $total['EndPoint'] = $EndPoint;
+                $total['Margin'] = $margin;
+                $total['NetProfit'] = $netprofit;
+                $total['SuperDistributedProfit'] = $SuperDistributedProfit;
+                $total['F'] = count($refer);
+                $total['PL'] = 0;
+                return view('turnOver', ['data' => $refer, 'total' => $total]);
+            } else {
+                $commission = [];
+                foreach ($refer as $pre_user) {
+                    $executive = User::where('referralId', new \MongoDB\BSON\ObjectID($pre_user['_id']))->get();
 
-                            foreach ($groups as $key => $get) {
-                                $PlayPoints = 0;
-                                $WinPoints = 0;
-                                $EndPoint = 0;
-                                $commission[$key]['role'] = $pre_user['role'];
-                                foreach ($get as $player) {
-                                    $PlayPoints += $player['bet'];
-                                    $WinPoints += $player['won'];
-                                }
-                                foreach ($refer as $sup) {
-                                    if ($key == $sup['_id']) {
-                                        $commission[$key]['_id'] = $sup['_id'];
-                                        $commission[$key]['userName'] = $sup['userName'];
-                                        $commission[$key]['name'] = $sup['name'];
-                                        $commission[$key]['commission'] = $sup['commissionPercentage'];
-                                    }
-                                }
-                                $commission[$key]['playPoint'] = $PlayPoints;
-                                $commission[$key]['wonPoint'] = $WinPoints;
-                                $commission[$key]['endPoint'] = $PlayPoints - $WinPoints;
-                                $commission[$key]['margin'] =  ($commission[$key]['playPoint'] * $commission[$key]['commission']) / 100;
-                                $commission[$key]['netprofit'] =  $commission[$key]['endPoint'] - $commission[$key]['margin'];
-                                $commission[$key]['SuperDistributedProfit'] =  0;
+                    if (count($executive) == 0) {
+                        $total = [];
+                        $total['totalStartPoint'] = $totalStartPoint;
+                        $total['totalPlayPoints'] = $totalPlayPoints;
+                        $total['TotalWinPoints'] = $TotalWinPoints;
+                        $total['EndPoint'] = $EndPoint;
+                        $total['Margin'] = $margin;
+                        $total['NetProfit'] = $netprofit;
+                        $total['SuperDistributedProfit'] = $SuperDistributedProfit;
+                        $total['F'] = count($refer);
+                        $total['PL'] = 0;
+                        // return view('turnOver', ['data' => $refer, 'total' => $total]);
+                    } else {
+                        $exe = [];
+                        foreach ($executive as $exe_user) {
+                            $exe[] = new \MongoDB\BSON\ObjectID($exe_user['_id']);
+                        }
+                        $cal = [];
+                        $retailer = User::whereIn('referralId', $exe)->get();
+                        foreach ($retailer as $re_user) {
+                            $retailers[] = new \MongoDB\BSON\ObjectID($re_user['_id']);
+                        }
+                        // echo "<pre>";
+                        // print_r($retailers);
+                        // die;
+                        // $groups = [];
+                        if ($type == 1 || $type == 2 || $type == 3 || $type == 4 || $type == 5 || $type == 8) {
+                            $td = date('j', strtotime($_GET['to']));
+                            $groups[$pre_user['_id']] = Bets::select('bet', 'won',  'playerCommission', 'classicCommission', 'ExecutiveCommission', 'premiumCommission', 'agentCommission')
+                                ->whereIn('playerId', $retailers)
+                                ->whereBetween(
+                                    'createdAt',
+                                    array(
+                                        Carbon::create($fY, $fm, $fd, 00, 00, 00),
+                                        Carbon::create($tY, $tm, $td, 23, 59, 59),
+                                    )
+                                )->get()->toArray();
+                        } elseif ($type == 7 || $type == 6) {
+                            $to = date('n-j-Y', strtotime($_GET['to']));
+                            $groups[$pre_user['_id']] = Bets::select('bet', 'won',  'playerCommission', 'classicCommission', 'ExecutiveCommission', 'premiumCommission', 'agentCommission')
+                                ->whereIn('playerId', $retailers)->where('DrDate', $to)->get()->toArray();
+                        }
+                        // echo "<pre>";
+                        // print_r($groups);
+                        // die;
+
+                        foreach ($groups as $key => $get) {
+                            $PlayPoints = 0;
+                            $WinPoints = 0;
+                            $EndPoint = 0;
+                            $commission[$key]['role'] = $pre_user['role'];
+                            foreach ($get as $player) {
+                                $PlayPoints += $player['bet'];
+                                $WinPoints += $player['won'];
                             }
+                            foreach ($refer as $sup) {
+                                if ($key == $sup['_id']) {
+                                    $commission[$key]['_id'] = $sup['_id'];
+                                    $commission[$key]['userName'] = $sup['userName'];
+                                    $commission[$key]['name'] = $sup['name'];
+                                    $commission[$key]['commission'] = $sup['commissionPercentage'];
+                                }
+                            }
+                            $commission[$key]['playPoint'] = $PlayPoints;
+                            $commission[$key]['wonPoint'] = $WinPoints;
+                            $commission[$key]['endPoint'] = $PlayPoints - $WinPoints;
+                            $commission[$key]['margin'] =  ($commission[$key]['playPoint'] * $commission[$key]['commission']) / 100;
+                            $commission[$key]['netprofit'] =  $commission[$key]['endPoint'] - $commission[$key]['margin'];
+                            $commission[$key]['SuperDistributedProfit'] =  0;
                         }
                     }
-                    // echo "<pre>";
-                    // print_r($commission);
-                    // die;
-                    foreach ($commission as $play) {
-                        $totalPlayPoints += $play['playPoint'];
-                        $TotalWinPoints += $play['wonPoint'];
-                        $EndPoint = $totalPlayPoints - $TotalWinPoints;
-                        $margin += $play['margin'];
-                        $netprofit += $play['netprofit'];
-                    }
-                    $total = [];
-                    $total['totalPlayPoints'] = $totalPlayPoints;
-                    $total['TotalWinPoints'] = $TotalWinPoints;
-                    $total['EndPoint'] = $EndPoint;
-                    $total['Margin'] = $margin;
-                    $total['NetProfit'] = $netprofit;
-                    $total['SuperDistributedProfit'] = $SuperDistributedProfit;
-                    $total['F'] = count($refer);
-                    $total['PL'] = count($retailers);
-                    // echo "<pre>";
-                    // print_r($commission);
-                    // die;
-
-                    // echo "<pre>";
-                    // print_r($playPoints->toArray());die();
-                    // return view('turnOver', ['data' => $refer, 'total' => $total]);
-
-
                 }
-                return view('turnOver', ['data' => $commission, 'total' => $total]);
+                // echo "<pre>";
+                // print_r($commission);
+                // die;
+                foreach ($commission as $play) {
+                    $totalPlayPoints += $play['playPoint'];
+                    $TotalWinPoints += $play['wonPoint'];
+                    $EndPoint = $totalPlayPoints - $TotalWinPoints;
+                    $margin += $play['margin'];
+                    $netprofit += $play['netprofit'];
+                }
+                $total = [];
+                $total['totalPlayPoints'] = $totalPlayPoints;
+                $total['TotalWinPoints'] = $TotalWinPoints;
+                $total['EndPoint'] = $EndPoint;
+                $total['Margin'] = $margin;
+                $total['NetProfit'] = $netprofit;
+                $total['SuperDistributedProfit'] = $SuperDistributedProfit;
+                $total['F'] = count($refer);
+                $total['PL'] = count($retailers);
+                // echo "<pre>";
+                // print_r($commission);
+                // die;
+
+                // echo "<pre>";
+                // print_r($playPoints->toArray());die();
+                // return view('turnOver', ['data' => $refer, 'total' => $total]);
+
+
             }
+            return view('turnOver', ['data' => $commission, 'total' => $total]);
         } elseif ($user->role == 'super_distributor') {
             $refer = User::where('role', 'distributor')->where('referralId', new \MongoDB\BSON\ObjectID($id))->get();
 
@@ -677,11 +665,11 @@ class TnOverController extends Controller
                 return view('turnOver', ['data' => $admin, 'total' => $total]);
             } else {
                 $commission = [];
-                $groups = [];
                 $retailers = [];
 
                 foreach ($refer as $cal_user) {
                     $player = User::where('referralId', new \MongoDB\BSON\ObjectID($cal_user['_id']))->get();
+                    $retailers = []; // Reset the retailers array for each distributor.
 
                     foreach ($player as $player_user) {
                         $retailers[] = new \MongoDB\BSON\ObjectID($player_user['_id']);
@@ -692,7 +680,7 @@ class TnOverController extends Controller
                         $groups[$cal_user['_id']] = Bets::select('bet', 'won',  'playerCommission', 'classicCommission', 'ExecutiveCommission', 'premiumCommission', 'agentCommission')
                             ->whereIn('playerId', $retailers)
                             ->whereBetween(
-                                'createdAt',
+                                'created_at',
                                 [
                                     Carbon::create($fY, $fm, $fd, 0, 0, 0),
                                     Carbon::create($tY, $tm, $td, 23, 59, 59),
@@ -709,35 +697,30 @@ class TnOverController extends Controller
                             ->toArray();
                     }
 
-                    foreach ($groups as $key => $get) {
-                        $PlayPoints = 0;
-                        $WinPoints = 0;
-                        $EndPoint = 0;
+                    // Calculate commissions for the distributor
+                    $PlayPoints = 0;
+                    $WinPoints = 0;
 
-                        $commission[$key]['role'] = $cal_user['role'];
-
-                        foreach ($get as $player) {
-                            $PlayPoints += $player['bet'];
-                            $WinPoints += $player['won'];
-                        }
-
-                        foreach ($refer as $sup) {
-                            if ($key == $sup['_id']) {
-                                $commission[$key]['_id'] = $sup['_id'];
-                                $commission[$key]['userName'] = $sup['userName'];
-                                $commission[$key]['name'] = $sup['name'];
-                                $commission[$key]['commission'] = $sup['commissionPercentage'];
-                                $commission[$key]['superCommission'] = $user->commissionPercentage - $sup['commissionPercentage'];
-                            }
-                        }
-
-                        $commission[$key]['playPoint'] = $PlayPoints;
-                        $commission[$key]['wonPoint'] = $WinPoints;
-                        $commission[$key]['endPoint'] = $PlayPoints - $WinPoints;
-                        $commission[$key]['margin'] = ($commission[$key]['playPoint'] * $commission[$key]['commission']) / 100;
-                        $commission[$key]['netprofit'] = $commission[$key]['endPoint'] - $commission[$key]['margin'];
-                        $commission[$key]['SuperDistributedProfit'] = ($commission[$key]['superCommission'] * $commission[$key]['playPoint']) / 100;
+                    foreach ($groups[$cal_user['_id']] as $player) {
+                        $PlayPoints += $player['bet'];
+                        $WinPoints += $player['won'];
                     }
+
+                    // Now, calculate the distributor's commissions
+                    $commission[$cal_user['_id']] = [
+                        'role' => $cal_user['role'],
+                        '_id' => $cal_user['_id'],
+                        'userName' => $cal_user['userName'],
+                        'name' => $cal_user['name'],
+                        'commission' => $cal_user['commissionPercentage'],
+                        'superCommission' => $user->commissionPercentage - $cal_user['commissionPercentage'],
+                        'playPoint' => $PlayPoints,
+                        'wonPoint' => $WinPoints,
+                        'endPoint' => $PlayPoints - $WinPoints,
+                        'margin' => ($PlayPoints * $cal_user['commissionPercentage']) / 100,
+                        'netprofit' => ($PlayPoints - $WinPoints) - (($PlayPoints * $cal_user['commissionPercentage']) / 100),
+                        'SuperDistributedProfit' => (($user->commissionPercentage - $cal_user['commissionPercentage']) * $PlayPoints) / 100,
+                    ];
                 }
 
                 $totalPlayPoints = 0;
@@ -750,7 +733,7 @@ class TnOverController extends Controller
                 foreach ($commission as $play) {
                     $totalPlayPoints += $play['playPoint'];
                     $TotalWinPoints += $play['wonPoint'];
-                    $EndPoint = $totalPlayPoints - $TotalWinPoints;
+                    $EndPoint += $play['endPoint'];
                     $margin += $play['margin'];
                     $netprofit += $play['netprofit'];
                     $SuperDistributedProfit += $play['SuperDistributedProfit'];
@@ -763,9 +746,8 @@ class TnOverController extends Controller
                     'Margin' => $margin,
                     'NetProfit' => $netprofit,
                     'SuperDistributedProfit' => $SuperDistributedProfit,
-                    'PL' => count($retailers),
+                    'PL' => count($retailers), // Count of retailers under the super distributor.
                 ];
-
                 return view('turnOver', ['data' => $commission, 'total' => $total]);
             }
         } elseif ($user->role == 'distributor') {
@@ -788,7 +770,6 @@ class TnOverController extends Controller
             } else {
                 $commission = [];
                 $groups = [];
-
                 foreach ($refer as $player_user) {
                     if ($type == 1 || $type == 2 || $type == 3 || $type == 4 || $type == 5 || $type == 8) {
                         $td = date('j', strtotime($_GET['to']));

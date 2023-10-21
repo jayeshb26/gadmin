@@ -59,7 +59,7 @@ Route::group(['middleware' => 'CheckAuth'], function () {
     // Route::get('/point_request/{id}/{point}', 'AdminController@point_request_confirm');
 
     Route::get('/detail/{id}', 'AdminController@detail');
-    Route::get('/admin/delete/{id}', 'AdminController@destroy');
+    Route::get('/delete/{id}', 'AdminController@destroy');
     Route::get('/complaintAll/{id}', 'AdminController@complaintAll');
     Route::get('/users', 'AdminController@index');
     Route::get('/users/admin', 'AdminController@user_Franchise');
@@ -71,12 +71,12 @@ Route::group(['middleware' => 'CheckAuth'], function () {
 
     Route::get('super/edit/{id}', 'AdminController@edit');
     Route::get('distributer/edit/{id}', 'AdminController@edit');
-    Route::get('super/detail/{id}', 'AdminController@detail');
+    Route::get('superAdmin/detail/{id}', 'AdminController@detail');
     Route::get('/superDistributer', 'SuperDistributerController@index');
     Route::get('/retailer', 'ReatilerController@index');
     Route::get('/detail/{id}', 'AdminController@detail');
 
-    Route::get('admin/delete/{id}', 'AdminController@destroy');
+    Route::get('superAdmin/delete/{id}', 'AdminController@destroy');
     Route::get('/winhistory', 'CommanController@winhistory');
 
     Route::get('/winningPercent', 'AdminController@winningPercent');
@@ -161,7 +161,8 @@ Route::group(['middleware' => 'CheckAuth'], function () {
     Route::get('/role/distributor/{id}', 'RoleController@showDistributorDetails')->name('distributor.details');
     Route::get('/role/super-distributor/{id}', 'RoleController@showSuperDistributorDetails')->name('super_distributor.details');
 
-    Route::get('/getdata', 'RoleController@usersRoles');
+    // Route::get('/roles', 'AdminController@usersRoles');
+    Route::get('/getdata', 'AdminController@usersRoles');
     Route::get('/getdata/player', 'RoleController@getPlayerData')->name('getdata.playerData');
     Route::get('/getdata/distributor', 'RoleController@getDistributorData')->name('getdata.distributor');
     Route::get('/getdata/super-distributor', 'RoleController@getSuperDistributorData')->name('getdata.super_distributor');

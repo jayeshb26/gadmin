@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Session;
 
-class Distributer
+class Distributor
 {
     /**
      * Handle an incoming request.
@@ -16,9 +16,9 @@ class Distributer
      */
     public function handle($request, Closure $next)
     {
-        if(Session::has('username') && Session::get('role')=="distributer"){
+        if (Session::has('username') && Session::get('role') == "distributor") {
             return $next($request);
-        }else{
+        } else {
             return redirect()->route('login');
         }
     }
