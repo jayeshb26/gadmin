@@ -193,6 +193,25 @@
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-4 col-sm-4 grid-margin stretch-card">
+                    <div class="card bg-success">
+                        <a href="{{ url('/OnPlayers') }}">
+                            <div class="card-body">
+                                <div class=" row">
+                                    <div class="col-md-8">
+                                        <h6 class="text-white mb-2">Online Player</h6>
+                                        <div>
+                                            <h3 class="text-white">{{ $data['online'] }}</h3>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 mt-1">
+                                        <h1 class="text-white text-right mr-3"><i class="fa fa-user"></i></h1>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-4 grid-margin stretch-card">
                     <div class="card bg-danger">
                         <a href="{{ url('/blockedPlayers') }}">
                             <div class="card-body">

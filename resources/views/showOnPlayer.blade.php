@@ -121,7 +121,7 @@
                                 @foreach ($data as $value)
                                     <tr role="row" class="odd">
                                         <td class=""><?= $SR_No++ ?></td>
-                                        <td>{{ $value['userNazme'] }}
+                                        <td>{{ $value['userName'] }}
                                             @if ($value['isLogin'] == true)
                                                 <span class="online blink">&#9679;</span>
                                             @elseif($value['isLogin'] == false)

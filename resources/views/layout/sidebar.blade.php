@@ -202,12 +202,12 @@
                     </a>
                 </li>
             @endif
-            {{--  <li class="nav-item {{ active_class(['changepin']) }}">
+            <li class="nav-item {{ active_class(['changepin']) }}">
                 <a href="{{ url('/OnPlayers') }}" class="nav-link">
                     <i class="link-icon fa fa-user-times"></i>
                     <span class="link-title">Online Player</span>
                 </a>
-            </li>  --}}
+            </li>
             <li class="nav-item {{ active_class(['changepin']) }}">
                 <a href="{{ url('/profile') }}" class="nav-link">
                     <i class="link-icon fa fa-eye"></i>

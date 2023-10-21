@@ -36,6 +36,7 @@ class DashboardController extends Controller
                 $dash['player'] = User::where('userName', '!=', "superadminA")->where('role', '!=', "subadmin")->where('role', 'player')->count();
                 $dash['blockplayer'] = User::where('userName', '!=', "superadminA")->where('role', '!=', "subadmin")->where('role', 'player')->where('isActive', false)->count();
                 $dash['generatedPoint'] = adminGenratedPoint::where('is_f', false)->sum('generateBalance');
+                $dash['online'] = User::where('isLogin', 'true')->count();
 
                 $chart_a = array(
                     User::where('role', 'super_distributor')->count(),
@@ -48,6 +49,7 @@ class DashboardController extends Controller
                 $dash['player'] = User::where('userName', '!=', "Admin")->where('role', '!=', "subadmin")->where('role', 'player')->count();
                 $dash['blockplayer'] = User::where('userName', '!=', "Admin")->where('role', '!=', "subadmin")->where('role', 'player')->where('isActive', false)->count();
                 $dash['generatedPoint'] = adminGenratedPoint::where('is_f', true)->sum('generateBalance');
+                $dash['online'] = User::where('isLogin', true)->count();
 
                 $dash['distributor'] = User::where('role', 'distributor')->count();
                 $dash['SuperDistributor'] = User::where('role', 'super_distributor')->count();
@@ -100,7 +102,7 @@ class DashboardController extends Controller
             $chart_w = implode(', ', array_values($chart_w));
             $chart_p = implode(', ', array_values($chart_p));
         } else {
-            $dash['users'] = User::where('_id', '!=', new \MongoDB\BSON\ObjectID(Session::get('id')))->where('role', '!=', "subadmin")->where('userName', '!=', "superadminA")->count();
+            $dash['users'] = User::where('_id', '!=', new \MongoDB\BSON\ObjectID(Session::get('id')))->where('role', '!=', "subadmin")->where('userName', '!=', "Admin")->count();
             $dash['super_distributor'] = User::where('userName', '!=', "superadminF")->where('role', '!=', "subadmin")->where('referralId', new \MongoDB\BSON\ObjectID(Session::get('id')))->count();
         }
 
