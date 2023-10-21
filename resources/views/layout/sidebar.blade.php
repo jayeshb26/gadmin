@@ -235,14 +235,15 @@
                 </a>
             </li>
 
-
-            <li class="nav-item nav-category">Reports</li>
-            <li class="nav-item {{ active_class(['history']) }}">
-                <a href="{{ url('/history') }}" class="nav-link">
-                    <i class="link-icon fa fa-history"></i>
-                    <span class="link-title">Players History</span>
-                </a>
-            </li>
+            @if (Session::get('role') == 'Admin')
+                <li class="nav-item nav-category">Reports</li>
+                <li class="nav-item {{ active_class(['history']) }}">
+                    <a href="{{ url('/history') }}" class="nav-link">
+                        <i class="link-icon fa fa-history"></i>
+                        <span class="link-title">Players History</span>
+                    </a>
+                </li>
+            @endif
             {{--  @if (Session::get('role') == 'Admin')
                 <li class="nav-item {{ active_class(['generatePointList']) }}">
                     <a href="{{ url('/lockuser') }}" class="nav-link">
