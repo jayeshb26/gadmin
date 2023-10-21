@@ -77,23 +77,23 @@
                                                 </tr>
                                                 <tr>
                                                     <td><input type="text" class="form-control"
-                                                            style="background-color: transparent; color:white; border-block: none;"
+                                                            style="background-color: transparent; color:white; border-block: none; font-size: 20px"
                                                             name="1" value="0" id="amt1" readonly />
                                                     </td>
                                                     <td><input type="text" class="form-control" name="2"
-                                                            style="background-color: transparent; color:white; border-block: none;"
+                                                            style="background-color: transparent; color:white; border-block: none; font-size: 20px"
                                                             value="0" id="amt2" readonly />
                                                     </td>
                                                     <td><input type="text" class="form-control" name="3"
-                                                            style="background-color: transparent; color:white; border-block: none;"
+                                                            style="background-color: transparent; color:white; border-block: none; font-size: 20px"
                                                             value="0" id="amt3" readonly />
                                                     </td>
                                                     <td><input type="text" class="form-control" name="4"
-                                                            style="background-color: transparent; color:white; border-block: none;"
+                                                            style="background-color: transparent; color:white; border-block: none; font-size: 20px"
                                                             value="0" id="amt4" readonly />
                                                     </td>
                                                     <td><input type="text" class="form-control" name="5"
-                                                            style="background-color: transparent; color:white; border-block: none;"
+                                                            style="background-color: transparent; color:white; border-block: none; font-size: 20px"
                                                             id="amt5" value="0" readonly />
                                                     </td>
                                                 </tr>
@@ -141,24 +141,24 @@
                                                 </tr>
                                                 <tr>
                                                     <td><input type="text" class="form-control" name="6"
-                                                            style="background-color: transparent; color:white; border-block: none;"
+                                                            style="background-color: transparent; color:white; border-block: none; font-size: 20px"
                                                             id="amt6" value="0" readonly />
                                                     </td>
                                                     <td><input type="text" class="form-control" name="7"
-                                                            style="background-color: transparent; color:white; border-block: none;"
+                                                            style="background-color: transparent; color:white; border-block: none; font-size: 20px"
                                                             id="amt7" value="0" readonly />
                                                     </td>
                                                     <td><input type="text" class="form-control" name="8"
-                                                            style="background-color: transparent; color:white; border-block: none;"
+                                                            style="background-color: transparent; color:white; border-block: none; font-size: 20px"
                                                             id="amt8" value="0" readonly />
                                                     </td>
                                                     <td><input type="text" class="form-control" name="9"
-                                                            style="background-color: transparent; color:white; border-block: none;"
+                                                            style="background-color: transparent; color:white; border-block: none; font-size: 20px"
                                                             id="amt9" value="0" readonly />
                                                     </td>
                                                     <td><input type="text" class="form-control" name="0"
                                                             id="amt"
-                                                            style="background-color: transparent; color:white; border-block: none;"
+                                                            style="background-color: transparent; color:white; border-block: none; font-size: 20px"
                                                             value="0" id="amt0" readonly />
                                                     </td>
                                                 </tr>
