@@ -5,8 +5,15 @@
     <div class="navbar-content">
         <ul class="navbar-nav">
             <li class="nav-item dropdown nav-notifications">
-                <a class="nav-link dropdown-toggle m-2" href="#" id="notificationDropdown">
-                    <i class="fa fa-money mr-3"></i>Balance : {{ number_format(Session::get('creditPoint')) }}
+                <label class="m-2" style="color: white" id="hidden_balance_lbl">Balance: xxxxx</label>
+                <a class="nav-link dropdown-toggle m-2" href="javascript:void(0);" id="hidden_balance_a">
+                    <i class="fa fa-eye-slash mr-1" style="margin-left: -13px;"></i>
+                </a>
+
+                <label class="m-2" style="color: white" id="shown_balance_lbl">Balance:
+                    {{ moneyFormatIndia(Session::get('creditPoint')) }}</label>
+                <a class="nav-link dropdown-toggle m-2" href="javascript:void(0);" id="shown_balance_a">
+                    <i class="fa fa-eye mr-1" style="margin-left: -13px;"></i>
                 </a>
             </li>
             {{--  <li class="nav-item dropdown nav-notifications">
@@ -49,4 +56,3 @@
         </ul>
     </div>
 </nav>
-
