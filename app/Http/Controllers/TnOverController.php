@@ -33,7 +33,7 @@ class TnOverController extends Controller
         $tm = date('m', strtotime($_GET['to']));
         $tY = date('Y', strtotime($_GET['to']));
 
-        if (Session::get('role') == "Admin") {
+        if (Session::get('role') == "Admin" || Session::get('role') == "subadmin") {
 
             $premium = User::where('role', 'super_distributor')->where('referralId', new \MongoDB\BSON\ObjectID(Session::get('id')))->get();
             // echo "<pre>";
@@ -766,7 +766,7 @@ class TnOverController extends Controller
                     'PL' => count($refer),
                 ];
 
-                return view('turnOver', ['data' => $refer, 'total' => $total]);
+                return view('turnOver', ['data' => $admin, 'total' => $total]);
             } else {
                 $commission = [];
                 $groups = [];
