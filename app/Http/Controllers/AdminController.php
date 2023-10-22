@@ -1409,8 +1409,8 @@ class AdminController extends Controller
                 $player = User::orderBy('userName', 'ASC')
                     ->where('is_franchise', (Session::get('is_f') == "true") ? true : false)
                     ->where('referralId', new \MongoDB\BSON\ObjectID($u['_id']))->where('role', 'player')->get()->toArray();
+                $user = array_merge($user, $player);
             }
-            $user = array_merge($user, $player);
         } elseif (Session::get('role') == "retailer") {
             $user = User::orderBy('userName', 'ASC')
                 ->where('is_franchise', (Session::get('is_f') == "true") ? true : false)
