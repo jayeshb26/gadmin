@@ -167,7 +167,7 @@
                                 <i class="link-icon fas fa-user"></i>
                                 <span class="link-title">Add Player</span>
                             </a>
-                            <a href="{{ url('/users/admin') }}" class="nav-link">
+                            <a href="{{ url('/getdata/player') }}" class="nav-link">
                                 <i class="link-icon fas fa-user"></i>
                                 <span class="link-title">View Player</span>
                             </a>

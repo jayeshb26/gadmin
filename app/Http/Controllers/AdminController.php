@@ -221,14 +221,14 @@ class AdminController extends Controller
 
         // dd($user->save());
 
-        if (($role == "super_distributor")) {
-            return redirect('/getdata/super-distributor');
-        } elseif ($role == "distributor") {
-            return redirect('/getdata/distributor');
-        } elseif ($role == "player") {
-            return redirect('/getdata/player');
-        } else {
+        if ((Session::get('role') == "super_distributor")) {
             return redirect('/users/admin');
+        } elseif (Session::get('role') == "distributor") {
+            return redirect('/users/admin');
+        } elseif (Session::get('role') == "player") {
+            return redirect('/users/admin');
+        } else {
+            return redirect('/users');
         }
     }
 
@@ -1361,8 +1361,8 @@ class AdminController extends Controller
         if (Session::get('role') == "Admin" || Session::get('role') == "subadmin") {
             $user = User::orderBy('userName', 'ASC')
                 ->where('is_franchise', (Session::get('is_f') == "true") ? true : false)
-                ->where('userName', "!=", "superadminA")
-                ->where('userName', '!=', "superadminF")->get();
+                ->where('userName', "!=", "admin")
+                ->where('userName', '!=', "admin")->get();
         } elseif (Session::get('role') == "agent") {
             $user = User::orderBy('userName', 'ASC')
                 ->where('is_franchise', (Session::get('is_f') == "true") ? true : false)
@@ -1398,8 +1398,8 @@ class AdminController extends Controller
                         ->where('is_franchise', (Session::get('is_f') == "true") ? true : false)
                         ->where('referralId', new \MongoDB\BSON\ObjectID($c['_id']))->where('role', 'player')->get()->toArray();
                 }
-                $retailer = array_merge($retailer, $player);
             }
+            $retailer = array_merge($retailer, $player);
             $user = array_merge($user, $retailer);
         } elseif (Session::get('role') == "distributor") {
             $user = User::orderBy('userName', 'ASC')
