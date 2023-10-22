@@ -49,6 +49,7 @@ class DashboardController extends Controller
                 $dash['player'] = User::where('userName', '!=', "Admin")->where('role', '!=', "subadmin")->where('role', 'player')->count();
                 $dash['blockplayer'] = User::where('userName', '!=', "Admin")->where('role', '!=', "subadmin")->where('role', 'player')->where('isActive', false)->count();
                 $dash['generatedPoint'] = adminGenratedPoint::where('is_f', true)->sum('generateBalance');
+                $dash['online'] = User::where('isLogin', true)->count();
 
                 $dash['distributor'] = User::where('role', 'distributor')->count();
                 $dash['SuperDistributor'] = User::where('role', 'super_distributor')->count();
