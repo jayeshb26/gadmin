@@ -265,22 +265,24 @@
                 </a>
             </div>
         </div>
-        <div class="col-md-3 grid-margin stretch-card">
-            <div class="card bg-warning">
-                <a href="{{ url('/history') }}">
-                    <div class="card-body">
-                        <div class=" row">
-                            <div class="col-md-8">
-                                <h6 class="text-white mb-2">Player History</h6>
-                            </div>
-                            <div class="col-md-4 mt-1">
-                                <h1 class="text-white text-right mr-3"><i class="fa fa-dashboard"></i></h2>
+        @if (!(Session::get('role') == 'distributor' || Session::get('role') == 'super_distributor'))
+            <div class="col-md-3 grid-margin stretch-card">
+                <div class="card bg-warning">
+                    <a href="{{ url('/history') }}">
+                        <div class="card-body">
+                            <div class=" row">
+                                <div class="col-md-8">
+                                    <h6 class="text-white mb-2">Player History</h6>
+                                </div>
+                                <div class="col-md-4 mt-1">
+                                    <h1 class="text-white text-right mr-3"><i class="fa fa-dashboard"></i></h2>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </a>
+                    </a>
+                </div>
             </div>
-        </div>
+        @endif
     </div>
 
     <div class="row">
