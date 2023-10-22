@@ -105,14 +105,14 @@ class DashboardController extends Controller
         } elseif (Session::get('role') == 'subadmin') {
             $dash['users'] = User::where('_id', '!=', new \MongoDB\BSON\ObjectID(Session::get('id')))->where('role', '!=', "subadmin")->where('userName', '!=', "Admin")->count();
             $dash['SuperDistributor'] = User::where('userName', '!=', "superadminF")->where('role', '!=', "subadmin")->where('referralId', new \MongoDB\BSON\ObjectID(Session::get('id')))->count();
-            $dash['online'] = User::where('isLogin', 'true')->count();
+            $dash['online'] = User::where('isLogin', true)->count();
             $dash['users'] = User::where('_id', '!=', new \MongoDB\BSON\ObjectID(Session::get('id')))->where('role', '!=', "subadmin")->where('userName', '!=', "Admin")->count();
-            $dash['SuperDistributor'] = User::where('userName', '!=', "superadminF")->where('role', '!=', "subadmin")->where('referralId', new \MongoDB\BSON\ObjectID(Session::get('id')))->count();
-            $dash['super_distributor'] = User::where('userName', '!=', "Admin")->where('role', '!=', "subadmin")->where('role', '!=', 'player')->count();
+            $dash['SuperDistributor'] = User::where('userName', '!=', "Admin")->where('role', '!=', "subadmin")->where('referralId', new \MongoDB\BSON\ObjectID(Session::get('id')))->count();
             $dash['player'] = User::where('userName', '!=', "Admin")->where('role', 'player')->count();
             $dash['blockplayer'] = User::where('userName', '!=', "Admin")->where('role', '!=', "subadmin")->where('role', 'player')->where('isActive', false)->count();
             $dash['generatedPoint'] = adminGenratedPoint::where('is_f', true)->sum('generateBalance');
-            $dash['online'] = User::where('isLogin', true)->count();
+
+            // dd($dash['online']);
         } else {
 
             $dash['distributor'] = User::where('role', 'distributor')->count();
