@@ -213,7 +213,7 @@ class AdminController extends Controller
         $user->transactionPin = $transactionPin;
         // $user->commissionPercentage = $commissionPercentage;
         // $user->commissionPoint = 0;
-        $user->is_franchise =  'true';
+        $user->is_franchise =  true;
         // $user->is_franchise = ($request->is_franchise == "true") ? true : false;
         $user->isLogin = false;
         $user->referralId = $referral;
