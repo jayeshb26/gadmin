@@ -96,7 +96,7 @@ class TnOverController extends Controller
                             $playPoints = Bets::select('bet', 'won', 'playerCommission', 'classicCommission', 'ExecutiveCommission', 'premiumCommission', 'agentCommission')
                                 ->whereIn('playerId', $players)
                                 ->whereBetween(
-                                    'createdAt',
+                                    'created_at',
                                     array(
                                         Carbon::create($fY, $fm, $fd, 00, 00, 00),
                                         Carbon::create($tY, $tm, $td, 23, 59, 59),
@@ -117,15 +117,14 @@ class TnOverController extends Controller
                             $TotalWinPoints += $play['won'];
                         }
                         $total = [];
-                        $total['totalStartPoint'] = $totalStartPoint;
                         $total['totalPlayPoints'] = $totalPlayPoints;
                         $total['TotalWinPoints'] = $TotalWinPoints;
-                        $total['EndPoint'] = $total['totalPlayPoints'] - $total['TotalWinPoints'];
+                        $total['EndPoint'] = $EndPoint;
                         $total['Margin'] = $margin;
                         $total['NetProfit'] = $netprofit;
                         $total['SuperDistributedProfit'] = $SuperDistributedProfit;
-                        $total['F'] = count($premium);
                         $total['PL'] = count($players);
+                        // dd($total);
                         return view('turnOver', ['data' => $admin, 'total' => $total]);
                     }
                 }
@@ -213,7 +212,7 @@ class TnOverController extends Controller
                                 $groups[$agent['_id']] = Bets::select('bet', 'won',  'playerCommission', 'classicCommission', 'ExecutiveCommission', 'premiumCommission', 'agentCommission')
                                     ->whereIn('playerId', $players)
                                     ->whereBetween(
-                                        'createdAt',
+                                        'created_at',
                                         array(
                                             Carbon::create($fY, $fm, $fd, 00, 00, 00),
                                             Carbon::create($tY, $tm, $td, 23, 59, 59),
@@ -336,7 +335,7 @@ class TnOverController extends Controller
                             $groups[$premium['_id']] = Bets::select('bet', 'won',  'playerCommission', 'classicCommission', 'ExecutiveCommission', 'premiumCommission', 'agentCommission')
                                 ->whereIn('playerId', $players)
                                 ->whereBetween(
-                                    'createdAt',
+                                    'created_at',
                                     array(
                                         Carbon::create($fY, $fm, $fd, 00, 00, 00),
                                         Carbon::create($tY, $tm, $td, 23, 59, 59),
@@ -438,7 +437,7 @@ class TnOverController extends Controller
                         $groups[$executive['_id']] = Bets::select('bet', 'won',  'playerCommission', 'classicCommission', 'ExecutiveCommission', 'premiumCommission', 'agentCommission')
                             ->whereIn('playerId', $players)
                             ->whereBetween(
-                                'createdAt',
+                                'created_at',
                                 array(
                                     Carbon::create($fY, $fm, $fd, 00, 00, 00),
                                     Carbon::create($tY, $tm, $td, 23, 59, 59),
@@ -576,7 +575,7 @@ class TnOverController extends Controller
                             $groups[$pre_user['_id']] = Bets::select('bet', 'won',  'playerCommission', 'classicCommission', 'ExecutiveCommission', 'premiumCommission', 'agentCommission')
                                 ->whereIn('playerId', $retailers)
                                 ->whereBetween(
-                                    'createdAt',
+                                    'created_at',
                                     array(
                                         Carbon::create($fY, $fm, $fd, 00, 00, 00),
                                         Carbon::create($tY, $tm, $td, 23, 59, 59),
@@ -776,7 +775,7 @@ class TnOverController extends Controller
                         $groups[$player_user['_id']] = Bets::select('bet', 'won', 'playerCommission', 'classicCommission', 'ExecutiveCommission', 'premiumCommission', 'agentCommission')
                             ->where('playerId', new \MongoDB\BSON\ObjectID($player_user['_id']))
                             ->whereBetween(
-                                'createdAt',
+                                'created_at',
                                 [
                                     Carbon::create($fY, $fm, $fd, 0, 0, 0),
                                     Carbon::create($tY, $tm, $td, 23, 59, 59),
