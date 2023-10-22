@@ -202,7 +202,7 @@
                                 <div class="alert alert-danger alert-dismissible fade" role="alert" id="alertIdR">
                                 </div>
                                 <span id="idRes">Daily Collection & Results</span>
-                                <table class="table table-bordered table-responsive-md text-white">
+                                <table class="table table-bordered  text-white">
                                     <tr>
                                         <td>TOTAL Game Balance: </td>
                                         <td align="right"><span id="tDayCollection"></span>
