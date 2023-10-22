@@ -1061,7 +1061,7 @@ class AdminController extends Controller
                 $user = User::find($id);
                 $admin = User::find(Session::get('id'));
                 if ($request->password == Session::get('transactionPin')) {
-                    if ($user->role == "agent" || $user->role == "super_distributor" || $user->role == "distributor" || $user->role == "retailer" || $user->role == "player" || $user->role == "subadmin") {
+                    if ($user->role == "Admin" || $user->role == "super_distributor" || $user->role == "distributor" || $user->role == "player" || $user->role == "subadmin") {
                         if ($admin->creditPoint < $request->amount) {
                             session()->flash('msg', 'Check Credit Point! Credit Point is insufficient..');
                             return redirect()->back();
@@ -1112,7 +1112,7 @@ class AdminController extends Controller
                 session()->flash('msg', 'Please Add Credit Point And Credit Point should not be 0');
                 return redirect()->back();
             }
-        } elseif (Session::get('role') == "agent" || Session::get('role') == "super_distributor" || Session::get('role') == "subadmin") {
+        } elseif (Session::get('role') == "Admin" || Session::get('role') == "super_distributor" || Session::get('role') == "subadmin") {
             // echo "<pre>";
             // print_r($request->toArray());
             // die;
@@ -1232,7 +1232,7 @@ class AdminController extends Controller
                 session()->flash('msg', 'Please Add Credit Point And Credit Point should not be 0');
                 return redirect()->back();
             }
-        } elseif (Session::get('role') == "retailer") {
+        } elseif (Session::get('role') == "distributor") {
             if ($request->amount >= 0) {
                 $user = User::find($id);
                 $refer = User::find(Session::get('id'));
