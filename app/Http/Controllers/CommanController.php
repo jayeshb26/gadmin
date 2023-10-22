@@ -25,7 +25,8 @@ class CommanController extends Controller
     public function OnPlayers()
     {
         if (Session::get('role') == "Admin") {
-            if (Session::get('role') == 'Admin' || Session::get('role') == 'subadmin') {
+            if (Session::get('role') == 'subadmin') {
+
                 $users = User::where('role', 'player')->get();
             } else {
                 $superdistributer = User::where('role', 'super_distributor')->where('referralId', new \MongoDB\BSON\ObjectID(Session::get('id')))->get();
@@ -63,7 +64,6 @@ class CommanController extends Controller
         $totalWinpoint = 0;
         $totalEndpoint = 0;
         $point = array();
-        $users = User::where('role', 'player')->get();
         foreach ($users as $key => $value) {
             $to = date('Y-n-j');
             $playPoint = Bets::where('playerId', new \MongoDB\BSON\ObjectID($value['_id']))->where('DrDate', $to)->where('isCancel', false)->get();
