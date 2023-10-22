@@ -24,7 +24,7 @@ class CommanController extends Controller
 
     public function OnPlayers()
     {
-        if (Session::get('role') == "Admin") {
+        if (Session::get('role') == "Admin" || Session::get('role') == "subadmin") {
             if (
                 Session::get('role') == 'subadmin' ||
                 Session::get('role') == 'Admin'
