@@ -71,7 +71,7 @@
                                         <td>{{ $value['name'] }}</td>
                                         <td>{{ moneyFormatIndia($value['creditPoint']) }}</td>
 
-                                        <td>{{ date('d-m-Y h:i:s A', strtotime($value['createdAt'])) }}</td>
+                                        <td>{{ date('d-m-Y h:i:s A', strtotime($value['created_at'])) }}</td>
                                         <td>
                                             <div class="btn-group">
                                                 <a href="{{ url('subAdmin/' . $value['_id'] . '/edit') }}" type="button"

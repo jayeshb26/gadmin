@@ -148,7 +148,7 @@
                                 <i class="link-icon fas fa-box"></i>
                                 <span class="link-title">Add Distributor</span>
                             </a>
-                            <a href="{{ url('/getdata/distributor') }}" class="nav-link">
+                            <a href="{{ url('/users/admin') }}" class="nav-link">
                                 <i class="link-icon fas fa-box"></i>
                                 <span class="link-title">View Distributor</span>
                             </a>

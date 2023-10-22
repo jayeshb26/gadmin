@@ -225,7 +225,7 @@ class AdminController extends Controller
         } elseif ($role == "distributor") {
             return redirect('/getdata/distributor');
         } else {
-            return redirect('/getdata/player');
+            return redirect('/users/admin');
         }
     }
 
@@ -477,8 +477,12 @@ class AdminController extends Controller
                 return redirect('/getdata/super-distributor');
             } elseif ($role == "distributor") {
                 return redirect('/getdata/distributor');
-            } else {
+            } elseif (Session::get('role' == 'distributor')) {
+                return redirect('/users/admin');
+            } elseif (Session::get('role' == 'player')) {
                 return redirect('/getdata/player');
+            } else {
+                return redirect('/users');
             }
         } else {
             session()->flash('msg', 'You are not Authorized to edit this User.');

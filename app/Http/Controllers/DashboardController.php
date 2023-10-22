@@ -53,6 +53,7 @@ class DashboardController extends Controller
 
                 $dash['distributor'] = User::where('role', 'distributor')->count();
                 $dash['SuperDistributor'] = User::where('role', 'super_distributor')->count();
+
                 // dd($dash['distributor']);
                 $fm = date('m', strtotime('Yesterday'));
                 $fd = date('d', strtotime('Yesterday'));
@@ -101,9 +102,22 @@ class DashboardController extends Controller
             );
             $chart_w = implode(', ', array_values($chart_w));
             $chart_p = implode(', ', array_values($chart_p));
-        } else {
+        } elseif (Session::get('role') == 'subadmin') {
             $dash['users'] = User::where('_id', '!=', new \MongoDB\BSON\ObjectID(Session::get('id')))->where('role', '!=', "subadmin")->where('userName', '!=', "Admin")->count();
-            $dash['super_distributor'] = User::where('userName', '!=', "superadminF")->where('role', '!=', "subadmin")->where('referralId', new \MongoDB\BSON\ObjectID(Session::get('id')))->count();
+            $dash['SuperDistributor'] = User::where('userName', '!=', "superadminF")->where('role', '!=', "subadmin")->where('referralId', new \MongoDB\BSON\ObjectID(Session::get('id')))->count();
+            $dash['online'] = User::where('isLogin', 'true')->count();
+            $dash['users'] = User::where('_id', '!=', new \MongoDB\BSON\ObjectID(Session::get('id')))->where('role', '!=', "subadmin")->where('userName', '!=', "Admin")->count();
+            $dash['SuperDistributor'] = User::where('userName', '!=', "superadminF")->where('role', '!=', "subadmin")->where('referralId', new \MongoDB\BSON\ObjectID(Session::get('id')))->count();
+            $dash['super_distributor'] = User::where('userName', '!=', "Admin")->where('role', '!=', "subadmin")->where('role', '!=', 'player')->count();
+            $dash['player'] = User::where('userName', '!=', "Admin")->where('role', 'player')->count();
+            $dash['blockplayer'] = User::where('userName', '!=', "Admin")->where('role', '!=', "subadmin")->where('role', 'player')->where('isActive', false)->count();
+            $dash['generatedPoint'] = adminGenratedPoint::where('is_f', true)->sum('generateBalance');
+            $dash['online'] = User::where('isLogin', true)->count();
+        } else {
+
+            $dash['distributor'] = User::where('role', 'distributor')->count();
+            $dash['SuperDistributor'] = User::where('role', 'super_distributor')->count();
+            $dash['online'] = User::where('isLogin', 'true')->count();
         }
 
         return view('dashboard', ['data' => $dash, 'chart_f' => $chart_f, 'chart_a' => $chart_a, 'chart_w' => $chart_w, 'chart_p' => $chart_p]);
