@@ -225,6 +225,8 @@ class AdminController extends Controller
             return redirect('/getdata/super-distributor');
         } elseif ($role == "distributor") {
             return redirect('/getdata/distributor');
+        } elseif ($role == "player") {
+            return redirect('/getdata/player');
         } else {
             return redirect('/users/admin');
         }
