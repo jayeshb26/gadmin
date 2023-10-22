@@ -662,7 +662,7 @@ class TnOverController extends Controller
                     'PL' => 0,
                 ];
 
-                return view('turnOver', ['data' => $admin, 'total' => $total]);
+                return view('turnOver', ['data' => $refer, 'total' => $total]);
             } else {
                 $commission = [];
                 $retailers = [];
@@ -766,7 +766,7 @@ class TnOverController extends Controller
                     'PL' => count($refer),
                 ];
 
-                return view('turnOver', ['data' => $admin, 'total' => $total]);
+                return view('turnOver', ['data' => $refer, 'total' => $total]);
             } else {
                 $commission = [];
                 $groups = [];
