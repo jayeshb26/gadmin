@@ -106,7 +106,15 @@ class DashboardController extends Controller
             $dash['SuperDistributor'] = User::where('role', 'super_distributor')->count();
             $dash['player'] = User::where('userName', '!=', "superadminA")->where('role', '!=', "subadmin")->where('role', 'player')->count();
             $dash['blockplayer'] = User::where('userName', '!=', "superadminA")->where('role', '!=', "subadmin")->where('role', 'player')->where('isActive', false)->count();
-            $dash['online'] = User::where('isLogin', true)->count();
+            // $dash['online'] = User::where('isLogin', true)->count();
+            $referralID = new \MongoDB\BSON\ObjectID(Session::get('id'));
+
+            $onlinePlayerCount = User::where('referralId', $referralID)
+                ->where('role', 'player')
+                ->where('isLogin', true)
+                ->count();
+
+            $dash['online'] = $onlinePlayerCount;
         }
 
         return view('dashboard', ['data' => $dash, 'chart_f' => $chart_f, 'chart_a' => $chart_a, 'chart_w' => $chart_w, 'chart_p' => $chart_p]);
