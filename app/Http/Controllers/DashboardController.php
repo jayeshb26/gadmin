@@ -117,7 +117,7 @@ class DashboardController extends Controller
 
             $dash['distributor'] = User::where('role', 'distributor')->count();
             $dash['SuperDistributor'] = User::where('role', 'super_distributor')->count();
-            $dash['online'] = User::where('isLogin', 'true')->count();
+            $dash['online'] = User::where('isLogin', 'true')->count(); // this is updated
         }
 
         return view('dashboard', ['data' => $dash, 'chart_f' => $chart_f, 'chart_a' => $chart_a, 'chart_w' => $chart_w, 'chart_p' => $chart_p]);
