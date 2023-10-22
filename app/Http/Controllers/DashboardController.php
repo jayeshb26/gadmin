@@ -80,7 +80,6 @@ class DashboardController extends Controller
                     $player_id[$key] = new \MongoDB\BSON\ObjectID($value);
                 }
 
-
                 $dash['playPoint'] = Bets::whereIn('playerId', $player_id)->sum('bet');
                 $dash['wonPoint'] = Bets::whereIn('playerId', $player_id)->sum('won');
                 $dash['endPoint'] = $dash['playPoint'] - $dash['wonPoint'];
