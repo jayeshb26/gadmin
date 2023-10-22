@@ -10,6 +10,11 @@
 @endsection
 
 @section('content')
+    <style>
+        body {
+            line-height: 1.0;
+        }
+    </style>
     <div class="row">
         <div class="col-md-12 grid-margin stretch-card">
             <div class="card">
@@ -29,17 +34,17 @@
                                     <div class="box-header">
                                     </div>
                                     <div id="table" class="table-editable table-responsive"
-                                        style="background: #1B0905; border-radius: 25px">
+                                        style="background: #1B0905; border-radius: 25px;">
                                         <table id="user_role_table"
                                             class="table-responsive-md table-striped text-black text-center mb-0 table_td">
                                             <tbody>
                                                 <tr style="border-radius: 15px; background-color: transparent">
                                                     <td>
                                                         <div class=" form-check-flat form-check-primary"
-                                                            style="background: linear-gradient(to right, #bc883d, #f5e47b, #bc883d); border-radius: 22px">
+                                                            style="background: linear-gradient(to right, #bc883d, #f5e47b, #bc883d); border-radius: 22px; size: 10vw;">
                                                             <input type="radio" class="form-check-input" id="1"
                                                                 value="1" class="cards" name="cards">
-                                                            <label for="1" style="font-size:75px;">1</label>
+                                                            <label for="1" style="font-size:45px;">1</label>
                                                         </div>
                                                     </td>
                                                     <td>
@@ -47,7 +52,7 @@
                                                             style="background: linear-gradient(to right, #bc883d, #f5e47b, #bc883d); border-radius: 22px">
                                                             <input type="radio" class="form-check-input" id="2"
                                                                 value="2" class="cards" name="cards">
-                                                            <label for="2" style="font-size:75px;">2</label>
+                                                            <label for="2" style="font-size:45px;">2</label>
                                                         </div>
                                                     </td>
                                                     <td>
@@ -55,7 +60,7 @@
                                                             style="background: linear-gradient(to right, #bc883d, #f5e47b, #bc883d); border-radius: 22px">
                                                             <input type="radio" class="form-check-input" id="3"
                                                                 value="3" class="cards" name="cards">
-                                                            <label for="3" style="font-size:75px;">3</label>
+                                                            <label for="3" style="font-size:45px;">3</label>
                                                         </div>
                                                     </td>
                                                     <td>
@@ -63,7 +68,7 @@
                                                             style="background: linear-gradient(to right, #bc883d, #f5e47b, #bc883d); border-radius: 22px">
                                                             <input type="radio" class="form-check-input" id="4"
                                                                 value="4" class="cards" name="cards">
-                                                            <label for="4" style="font-size:75px;">4</label>
+                                                            <label for="4" style="font-size:45px;">4</label>
                                                         </div>
                                                     </td>
                                                     <td>
@@ -71,7 +76,7 @@
                                                             style="background: linear-gradient(to right, #bc883d, #f5e47b, #bc883d); border-radius: 22px">
                                                             <input type="radio" class="form-check-input" id="5"
                                                                 value="5" class="cards" name="cards">
-                                                            <label for="5" style="font-size:75px;">5</label>
+                                                            <label for="5" style="font-size:45px;">5</label>
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -103,7 +108,7 @@
                                                             style="background: linear-gradient(to right, #bc883d, #f5e47b, #bc883d); border-radius: 22px">
                                                             <input type="radio" class="form-check-input" id="6"
                                                                 value="6" class="cards" name="cards">
-                                                            <label for="6" style="font-size:75px;">6</label>
+                                                            <label for="6" style="font-size:45px;">6</label>
                                                         </div>
                                                     </td>
                                                     <td>
@@ -111,7 +116,7 @@
                                                             style="background: linear-gradient(to right, #bc883d, #f5e47b, #bc883d); border-radius: 22px">
                                                             <input type="radio" class="form-check-input" id="7"
                                                                 value="7" class="cards" name="cards">
-                                                            <label for="7" style="font-size:75px;">7</label>
+                                                            <label for="7" style="font-size:45px;">7</label>
                                                         </div>
                                                     </td>
                                                     <td>
@@ -119,7 +124,7 @@
                                                             style="background: linear-gradient(to right, #bc883d, #f5e47b, #bc883d); border-radius: 22px">
                                                             <input type="radio" class="form-check-input" id="8"
                                                                 value="8" class="cards" name="cards">
-                                                            <label for="8" style="font-size:75px;">8</label>
+                                                            <label for="8" style="font-size:45px;">8</label>
                                                         </div>
                                                     </td>
                                                     <td>
@@ -127,7 +132,7 @@
                                                             style="background: linear-gradient(to right, #bc883d, #f5e47b, #bc883d); border-radius: 22px">
                                                             <input type="radio" class="form-check-input" id="9"
                                                                 value="9" class="cards" name="cards">
-                                                            <label for="9" style="font-size:75px;">9</label>
+                                                            <label for="9" style="font-size:45px;">9</label>
                                                         </div>
                                                     </td>
                                                     <td>
@@ -135,7 +140,7 @@
                                                             style="background: linear-gradient(to right, #bc883d, #f5e47b, #bc883d); border-radius: 22px">
                                                             <input type="radio" class="form-check-input" id="0"
                                                                 value="0" class="cards" name="cards">
-                                                            <label for="0" style="font-size:75px;">0</label>
+                                                            <label for="0" style="font-size:45px;">0</label>
                                                         </div>
                                                     </td>
                                                 </tr>
