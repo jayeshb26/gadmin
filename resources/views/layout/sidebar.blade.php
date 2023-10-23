@@ -368,7 +368,7 @@
                     </li>
                 @endif  --}}
             @endif
-            @if (Session::get('role') == 'Admin')
+            @if (Session::get('role') == 'Admin' || Session::get('role') == 'subadmin')
                 <li class="nav-item {{ active_class(['liveResult/liveResultFunRoulette']) }}">
                     <a href="{{ url('/liveResult/liveResultFunRoulette') }}" class="nav-link">
                         <i class="link-icon fa fa-list"></i>
