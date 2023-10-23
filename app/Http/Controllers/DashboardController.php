@@ -29,7 +29,10 @@ class DashboardController extends Controller
         $chart_a = "";
         $chart_w = "";
         $chart_p = "";
-        if (Session::get('role') == 'Admin') {
+        if (
+            Session::get('role') == 'Admin' ||
+            Session::get('role') == 'subadmin'
+        ) {
             if (Session::get('is_f') == "false") {
                 $dash['users'] = User::where('userName', '!=', "Admin")->where('role', '!=', "subadmin")->where('role', '!=', 'player')->count();
                 $dash['distributor'] = User::where('role', 'distributor')->count();
