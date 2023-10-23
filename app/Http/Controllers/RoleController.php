@@ -4,7 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Middleware\Retailer;
 use App\User;
+use Illuminate\Contracts\Session\Session as IlluminateSession; // Alias Illuminate\Contracts\Session\Session as IlluminateSession
+use Session; // Assuming you want to use the Session facade
+
 use Illuminate\Http\Request;
+
 
 class RoleController extends Controller
 {
@@ -32,7 +36,6 @@ class RoleController extends Controller
     {
         // Retrieve retailer data using the User model.
         $retailerData = User::where('role', 'player')->get();
-
         // Pass the data to the retailer view and display it.
         return view('playerUserView', ['data' => $retailerData]);
     }

@@ -93,7 +93,7 @@
                                         </td>
                                         <td>{{ $value->refer->userName ?? '--' }}</td>
                                         <td>{{ $value['password'] }}</td>
-                                        @if (Session::get('role') == 'Admin')
+                                        @if (Session::get('role') == 'Admin' || Request::is('/users/admin'))
                                             {{--  <td>{{ $value['transactionPin'] }}</td>  --}}
                                             <td>
                                                 {{--  <div class="btn btn-danger fa fa-gear">

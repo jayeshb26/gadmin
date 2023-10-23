@@ -225,6 +225,14 @@ class AdminController extends Controller
             return redirect('/users/admin');
         } elseif (Session::get('role') == "distributor") {
             return redirect('/users/admin');
+        } elseif (Session::get('role') == "Admin") {
+            if ($role == 'super_distributor') {
+                return redirect('/getdata/super-distributor');
+            } elseif ($role == 'distributor') {
+                return redirect('/getdata/distributor');
+            } else {
+                return redirect('/getdata/player');
+            }
         } elseif (Session::get('role') == "player") {
             return redirect('/users/admin');
         } else {
@@ -461,7 +469,7 @@ class AdminController extends Controller
             $transactionPin = intval(trim($request->transactionPin, '"'));
 
             $user = User::find($id);
-            // $user = new User();
+            $user = new User();
             $user->name = $request->name;
             $user->password = $password;
             $user->firmName = $request->firmName;
@@ -476,16 +484,20 @@ class AdminController extends Controller
             // print_r($user->toArray());
             // die();
             $user->save();
-            if ($role == "super_distributor") {
-                return redirect('/getdata/super-distributor');
-            } elseif ($role == "distributor") {
-                return redirect('/getdata/distributor');
-            } elseif (Session::get('role' == 'distributor')) {
-                return redirect('/users/admin');
-            } elseif (Session::get('role' == 'player')) {
-                return redirect('/getdata/player');
+            if (Session::get('role') == 'Admin') {
+                if ($role == "super_distributor") {
+                    return redirect('/users/admin');
+                } elseif ($role == "distributor") {
+                    return redirect('/users/admin');
+                } elseif ($role == 'player') {
+                    return redirect('/users/admin');
+                } else {
+                    return redirect('/users/admin');
+                }
+            } elseif (Session::get('role') == 'player') {
+                // return redirect('/users/admin');
             } else {
-                return redirect('/users');
+                return redirect('/users/admin');
             }
         } else {
             session()->flash('msg', 'You are not Authorized to edit this User.');

@@ -63,6 +63,7 @@ class LoginController extends Controller
 
             if ($user) {
                 $users = User::where('userName', $userName)->first();
+
                 // echo "<pre>";
                 // print_r($users->toArray());
                 // die();
