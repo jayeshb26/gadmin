@@ -112,47 +112,47 @@
             if (num == 0) return "zero";
             else return convert_millions(num);
         }
-        $(document).ready(function() {
-            // Hide the initial elements
-            $('#shown_balance_a').hide();
-            $('#shown_balance_lbl').hide();
+        //$(document).ready(function() {
+        // Hide the initial elements
+        //   $('#shown_balance_a').hide();
+        //  $('#shown_balance_lbl').hide();
 
-            // Handle click on hidden_balance_a
-            $('#hidden_balance_a').on('click', function() {
-                $('#hidden_balance_a').hide();
-                $('#hidden_balance_lbl').hide();
-                $('#shown_balance_a').show();
-                $('#shown_balance_lbl').show();
+        // Handle click on hidden_balance_a
+        //   $('#hidden_balance_a').on('click', function() {
+        //      $('#hidden_balance_a').hide();
+        //      $('#hidden_balance_lbl').hide();
+        //    $('#shown_balance_a').show();
+        //$('#shown_balance_lbl').show();
 
-                // Retrieve user ID from the session
-                const userId = '{{ Session::get('id') }}';
+        // Retrieve user ID from the session
+        //   const userId = '{{ Session::get('id') }}';
 
-                // Fetch and display data from the URL with the user ID in the path
-                const url = `http://127.0.0.1:8000/getUpdatedCreditPoint/${userId}`;
+        // Fetch and display data from the URL with the user ID in the path
+        //   const url = `http://127.0.0.1:8000/getUpdatedCreditPoint/${userId}`;
 
-                $.ajax({
-                    url: url,
-                    type: 'GET',
-                    dataType: 'json',
-                    success: function(data) {
-                        // Update the HTML element with the fetched data
-                        $('#shown_balance_lbl').text('Balance: ' + data.users[0]);
-                    },
-                    error: function() {
-                        // Handle errors
-                        console.log('Error fetching data.');
-                    }
-                });
-            });
+        //  $.ajax({
+        //    url: url,
+        //     type: 'GET',
+        //     dataType: 'json',
+        //   success: function(data) {
+        // Update the HTML element with the fetched data
+        //         $('#shown_balance_lbl').text('Balance: ' + data.users[0]);
+        // },
+        // error: function() {
+        // Handle errors
+        ///     console.log('Error fetching data.');
+        ///}
+        /// });
+        ///});
 
-            // Handle click on shown_balance_a (if needed)
-            $('#shown_balance_a').on('click', function() {
-                $('#shown_balance_a').hide();
-                $('#shown_balance_lbl').hide();
-                $('#hidden_balance_a').show();
-                $('#hidden_balance_lbl').show();
-            });
-        });
+        // Handle click on shown_balance_a (if needed)
+        ///    $('#shown_balance_a').on('click', function() {
+        //  $('#shown_balance_a').hide();
+        //     $('#shown_balance_lbl').hide();
+        //  $('#hidden_balance_a').show();
+        // $('#hidden_balance_lbl').show();
+        // });
+        // });
     </script>
 
     {{--  this is custom script for the dropdown menu in side bar   --}}
