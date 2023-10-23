@@ -208,19 +208,22 @@
                     <span class="link-title">Online Player</span>
                 </a>
             </li>
-            <li class="nav-item {{ active_class(['changepin']) }}">
-                <a href="{{ url('/profile') }}" class="nav-link">
-                    <i class="link-icon fa fa-eye"></i>
-                    <span class="link-title">Profile View</span>
-                </a>
-            </li>
-
-            <li class="nav-item {{ active_class(['transfer']) }}">
-                <a href="{{ url('/transfer') }}" class="nav-link">
-                    <i class="link-icon fa fa-exchange"></i>
-                    <span class="link-title">Transfer Point</span>
-                </a>
-            </li>
+            @if (Session::get('role') != 'subadmin')
+                <li class="nav-item {{ active_class(['changepin']) }}">
+                    <a href="{{ url('/profile') }}" class="nav-link">
+                        <i class="link-icon fa fa-eye"></i>
+                        <span class="link-title">Profile View</span>
+                    </a>
+                </li>
+            @endif
+            @if (Session::get('role') != 'subadmin')
+                <li class="nav-item {{ active_class(['transfer']) }}">
+                    <a href="{{ url('/transfer') }}" class="nav-link">
+                        <i class="link-icon fa fa-exchange"></i>
+                        <span class="link-title">Transfer Point</span>
+                    </a>
+                </li>
+            @endif
             {{--  <li class="nav-item {{ active_class(['point_request']) }}">
                 <a href="{{ url('/point_request') }}" class="nav-link">
                     <i class="link-icon fa fa-exchange"></i>
@@ -235,7 +238,7 @@
                 </a>
             </li>
 
-            @if (Session::get('role') == 'Admin')
+            @if (Session::get('role') == 'Admin' || Session::get('role') == 'subadmin')
                 <li class="nav-item nav-category">Reports</li>
                 <li class="nav-item {{ active_class(['history']) }}">
                     <a href="{{ url('/history') }}" class="nav-link">

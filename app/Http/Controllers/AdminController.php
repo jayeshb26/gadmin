@@ -1061,14 +1061,15 @@ class AdminController extends Controller
                 $user = User::find($id);
                 $admin = User::find(Session::get('id'));
                 if ($request->password == Session::get('transactionPin')) {
-                    if ($user->role == "Admin" || $user->role == "super_distributor" || $user->role == "distributor" || $user->role == "player" || $user->role == "subadmin") {
+                    if ($user->role == "Admin" || $user->role == "super_distributor" || $user->role == "distributor" || $user->role == "player") {
                         if ($admin->creditPoint < $request->amount) {
                             session()->flash('msg', 'Check Credit Point! Credit Point is insufficient..');
                             return redirect()->back();
                         }
-                        $checkPayment = Payments::where('fromId', Session::get('id'))->where('status', 'pending')->orderBy('createdAt', 'DESC')->get();
+                        $checkPayment = Payments::where('fromId', Session::get('id'))->where('status', 'pending')->orderBy('created_at', 'DESC')->get();
                         if (count($checkPayment) == 0) {
                             $paycheck = Session::get('creditPoint');
+                            // dd($paycheck);
                         } else {
                             foreach ($checkPayment as $check) {
                                 $paycheck = Session::get('creditPoint') - $check['creditPoint'];
@@ -1112,7 +1113,7 @@ class AdminController extends Controller
                 session()->flash('msg', 'Please Add Credit Point And Credit Point should not be 0');
                 return redirect()->back();
             }
-        } elseif (Session::get('role') == "Admin" || Session::get('role') == "super_distributor" || Session::get('role') == "subadmin") {
+        } elseif (Session::get('role') == "Admin" || Session::get('role') == "super_distributor") {
             // echo "<pre>";
             // print_r($request->toArray());
             // die;

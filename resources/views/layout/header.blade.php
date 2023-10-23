@@ -12,6 +12,8 @@
 
                 <label class="m-2" style="color: white" id="shown_balance_lbl">Balance:
                     {{ moneyFormatIndia(Session::get('creditPoint')) }}</label>
+                {{--  @dd(moneyFormatIndia(Session::get('creditPoint')));  --}}
+
                 <a class="nav-link dropdown-toggle m-2" href="javascript:void(0);" id="shown_balance_a">
                     <i class="fa fa-eye mr-1" style="margin-left: -13px;"></i>
                 </a>

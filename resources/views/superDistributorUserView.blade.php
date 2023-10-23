@@ -39,7 +39,9 @@
                                     <th>Credit</th>
                                     @if (Session::get('role') == 'Admin')
                                     @endif
-                                    <th>Action</th>
+                                    @if (Session::get('role') != 'subadmin')
+                                        <th>Action</th>
+                                    @endif
                                     <th>Last Login</th>
                                     <th>Create_Date</th>
                                 </tr>
@@ -53,11 +55,21 @@
                                         <td class=""><?php echo $SR_No++; ?></td>
                                         <td>
                                             @if ($value['role'] == 'player')
-                                                <a href="{{ url('player/detail/' . $value['_id']) }}">{{ $value['userName'] }}<i
-                                                        class="mdi mdi-eye"></i></a>
+                                                @if (Session::get('role') != 'subadmin')
+                                                    <a href="{{ url('player/detail/' . $value['_id']) }}">
+                                                @endif
+                                                {{ $value['userName'] }}
+                                                @if (Session::get('role') != 'subadmin')
+                                                    <i class="mdi mdi-eye"></i></a>
+                                                @endif
                                             @else
-                                                <a href="{{ url('detail/' . $value['_id']) }}">{{ $value['userName'] }}<i
-                                                        class="mdi mdi-eye"></i></a>
+                                                @if (Session::get('role') != 'subadmin')
+                                                    <a href="{{ url('detail/' . $value['_id']) }}">
+                                                @endif
+                                                {{ $value['userName'] }}
+                                                @if (Session::get('role') != 'subadmin')
+                                                    <i class="mdi mdi-eye"></i></a>
+                                                @endif
                                             @endif
                                         </td>
                                         <td>{{ Request::segment(2) == 'admin' ? '' . $value['role'] : $value['role'] }}
@@ -65,48 +77,53 @@
                                         <td>{{ $value->refer->userName ?? '--' }}</td>
                                         <td>{{ $value['password'] }}</td>
                                         <td>{{ number_format($value['creditPoint'], 2) }}</td>
-                                        <td>
-                                            <div class="btn-group btn-group-sm">
-                                                <a href="{{ url('superAdmin/' . $value['_id'] . '/edit') }}" type="button"
-                                                    class="btn btn-sm btn-outline-info" title="Edit user"><i
-                                                        class="mdi mdi-pencil-box" style="font-size:20px;"></i></a>
-                                                <a href="{{ url('transfercredit/' . $value['_id']) }}"
-                                                    class="btn btn-sm btn-outline-success" title="Transfer Credit"><i
-                                                        class="mdi mdi-package-up" style="font-size:20px;"></i></a>
-                                                <a href="{{ url('adjustcredit/' . $value['_id']) }}"
-                                                    class="btn btn-sm btn-outline-warning" title="Adjust Credit"><i
-                                                        class="mdi mdi-package-down" style="font-size:20px;"></i></a>
-                                            </div>
-                                            <div></div>
-                                            <div class="btn-group btn-group-sm">
-                                                @if ($value['isActive'] == 1)
-                                                    <a href="{{ url('banuser/' . $value['_id'] . '/' . $value['isActive']) }}"
-                                                        class="btn btn-sm btn-outline-success" title="Block User"><i
-                                                            class="mdi mdi-close-box" style="font-size:20px;"></i></a>
-                                                @elseif($value['isActive'] == 0)
-                                                    <a href="{{ url('banuser/' . $value['_id'] . '/0') }}"
-                                                        class="btn btn-sm btn-outline-danger" title="Unblock User"><i
-                                                            class="mdi mdi-checkbox-marked" style="font-size:20px;"></i></a>
-                                                @endif
-                                                @if ($value['isActive'] == 1)
-                                                    <a href="{{ url('blockUser/' . $value['_id'] . '/' . $value['isActive']) }}"
-                                                        class="btn btn-sm btn-outline-success" title="Deactive User"><i
-                                                            class="mdi mdi-close-octagon" style="font-size:20px;"></i></a>
-                                                @elseif($value['isActive'] == 0)
-                                                    <a href="{{ url('blockUser/' . $value['_id'] . '/0') }}"
-                                                        class="btn btn-sm btn-outline-danger" title="Active User"><i
-                                                            class="mdi mdi mdi-pause-octagon"
+                                        @if (Session::get('role') != 'subadmin')
+                                            <td>
+                                                <div class="btn-group btn-group-sm">
+                                                    <a href="{{ url('superAdmin/' . $value['_id'] . '/edit') }}"
+                                                        type="button" class="btn btn-sm btn-outline-info"
+                                                        title="Edit user"><i class="mdi mdi-pencil-box"
                                                             style="font-size:20px;"></i></a>
-                                                @endif
-                                                @if (Session::get('role') == 'Admin')
-                                                    <a href="{{ url('superAdmin/delete/' . $value['_id']) }}"
-                                                        class="btn btn-sm btn-outline-danger delete-confirm"
-                                                        title="Delete"><i class="mdi mdi-delete"
-                                                            style="font-size:20px;"></i></a>
-                                                @endif
-                                            </div>
-                                            {{--  href="{{ url('users/delete/' . $value['_id']) }}"  --}}
-                                        </td>
+                                                    <a href="{{ url('transfercredit/' . $value['_id']) }}"
+                                                        class="btn btn-sm btn-outline-success" title="Transfer Credit"><i
+                                                            class="mdi mdi-package-up" style="font-size:20px;"></i></a>
+                                                    <a href="{{ url('adjustcredit/' . $value['_id']) }}"
+                                                        class="btn btn-sm btn-outline-warning" title="Adjust Credit"><i
+                                                            class="mdi mdi-package-down" style="font-size:20px;"></i></a>
+                                                </div>
+                                                <div></div>
+                                                <div class="btn-group btn-group-sm">
+                                                    @if ($value['isActive'] == 1)
+                                                        <a href="{{ url('banuser/' . $value['_id'] . '/' . $value['isActive']) }}"
+                                                            class="btn btn-sm btn-outline-success" title="Block User"><i
+                                                                class="mdi mdi-close-box" style="font-size:20px;"></i></a>
+                                                    @elseif($value['isActive'] == 0)
+                                                        <a href="{{ url('banuser/' . $value['_id'] . '/0') }}"
+                                                            class="btn btn-sm btn-outline-danger" title="Unblock User"><i
+                                                                class="mdi mdi-checkbox-marked"
+                                                                style="font-size:20px;"></i></a>
+                                                    @endif
+                                                    @if ($value['isActive'] == 1)
+                                                        <a href="{{ url('blockUser/' . $value['_id'] . '/' . $value['isActive']) }}"
+                                                            class="btn btn-sm btn-outline-success" title="Deactive User"><i
+                                                                class="mdi mdi-close-octagon"
+                                                                style="font-size:20px;"></i></a>
+                                                    @elseif($value['isActive'] == 0)
+                                                        <a href="{{ url('blockUser/' . $value['_id'] . '/0') }}"
+                                                            class="btn btn-sm btn-outline-danger" title="Active User"><i
+                                                                class="mdi mdi mdi-pause-octagon"
+                                                                style="font-size:20px;"></i></a>
+                                                    @endif
+                                                    @if (Session::get('role') == 'Admin')
+                                                        <a href="{{ url('superAdmin/delete/' . $value['_id']) }}"
+                                                            class="btn btn-sm btn-outline-danger delete-confirm"
+                                                            title="Delete"><i class="mdi mdi-delete"
+                                                                style="font-size:20px;"></i></a>
+                                                    @endif
+                                                </div>
+                                                {{--  href="{{ url('users/delete/' . $value['_id']) }}"  --}}
+                                            </td>
+                                        @endif
                                         <td>{{ date('d-m-Y h:i:s A', strtotime($value['updated_at'])) }}</td>
                                         <td>{{ date('d-m-Y h:i:s A', strtotime($value['created_at'])) }}</td>
                                     </tr>
