@@ -61,6 +61,24 @@
                                                             <label for="3" style="font-size:25px;">3</label>
                                                         </div>
                                                     </td>
+
+                                                </tr>
+                                                <tr>
+                                                    <td><input type="text" class="form-control"
+                                                            style="background-color: transparent; color:white; border-block: none; position: relative; font-size: 18px"
+                                                            name="1" value="0" id="amt1" readonly />
+                                                    </td>
+                                                    <td><input type="text" class="form-control" name="2"
+                                                            style="background-color: transparent; color:white; border-block: none; position: relative; font-size: 18px"
+                                                            value="0" id="amt2" readonly />
+                                                    </td>
+                                                    <td><input type="text" class="form-control" name="3"
+                                                            style="background-color: transparent; color:white; border-block: none; position: relative; font-size: 18px"
+                                                            value="0" id="amt3" readonly />
+                                                    </td>
+                                                </tr>
+                                                <tr style="border-radius: 15px; background-color: transparent">
+
                                                     <td>
                                                         <div class=" form-check-flat form-check-primary btn-group-justified btn-lg"
                                                             style="background: linear-gradient(to right, #bc883d, #f5e47b, #bc883d); border-radius: 5px">
@@ -77,30 +95,6 @@
                                                             <label for="5" style="font-size:25px;">5</label>
                                                         </div>
                                                     </td>
-                                                </tr>
-                                                <tr>
-                                                    <td><input type="text" class="form-control"
-                                                            style="background-color: transparent; color:white; border-block: none; position: relative; font-size: 18px"
-                                                            name="1" value="0" id="amt1" readonly />
-                                                    </td>
-                                                    <td><input type="text" class="form-control" name="2"
-                                                            style="background-color: transparent; color:white; border-block: none; position: relative; font-size: 18px"
-                                                            value="0" id="amt2" readonly />
-                                                    </td>
-                                                    <td><input type="text" class="form-control" name="3"
-                                                            style="background-color: transparent; color:white; border-block: none; position: relative; font-size: 18px"
-                                                            value="0" id="amt3" readonly />
-                                                    </td>
-                                                    <td><input type="text" class="form-control" name="4"
-                                                            style="background-color: transparent; color:white; border-block: none; position: relative; font-size: 18px"
-                                                            value="0" id="amt4" readonly />
-                                                    </td>
-                                                    <td><input type="text" class="form-control" name="5"
-                                                            style="background-color: transparent; color:white; border-block: none; position: relative; font-size: 18px"
-                                                            id="amt5" value="0" readonly />
-                                                    </td>
-                                                </tr>
-                                                <tr style="background-color: transparent">
                                                     <td>
                                                         <div class=" form-check-flat form-check-primary btn-group-justified btn-lg"
                                                             style="background: linear-gradient(to right, #bc883d, #f5e47b, #bc883d); border-radius: 5px">
@@ -109,6 +103,23 @@
                                                             <label for="6" style="font-size:25px;">6</label>
                                                         </div>
                                                     </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><input type="text" class="form-control" name="4"
+                                                            style="background-color: transparent; color:white; border-block: none; position: relative; font-size: 18px"
+                                                            value="0" id="amt4" readonly />
+                                                    </td>
+                                                    <td><input type="text" class="form-control" name="5"
+                                                            style="background-color: transparent; color:white; border-block: none; position: relative; font-size: 18px"
+                                                            id="amt5" value="0" readonly />
+                                                    </td>
+                                                    <td><input type="text" class="form-control" name="6"
+                                                            style="background-color: transparent; color:white; border-block: none; position: relative; font-size: 18px"
+                                                            id="amt6" value="0" readonly />
+                                                    </td>
+                                                </tr>
+                                                <tr style="background-color: transparent">
+
                                                     <td>
                                                         <div class="form-check-flat form-check-primary btn-group-justified btn-lg"
                                                             style="background: linear-gradient(to right, #bc883d, #f5e47b, #bc883d); border-radius: 5px">
@@ -133,20 +144,10 @@
                                                             <label for="9" style="font-size:25px;">9</label>
                                                         </div>
                                                     </td>
-                                                    <td>
-                                                        <div class=" form-check-flat form-check-primary btn-group-justified btn-lg"
-                                                            style="background: linear-gradient(to right, #bc883d, #f5e47b, #bc883d); border-radius: 5px">
-                                                            <input type="radio" class="form-check-input" id="0"
-                                                                value="0" class="cards" name="cards">
-                                                            <label for="0" style="font-size:25px;">0</label>
-                                                        </div>
-                                                    </td>
+
                                                 </tr>
                                                 <tr>
-                                                    <td><input type="text" class="form-control" name="6"
-                                                            style="background-color: transparent; color:white; border-block: none; position: relative; font-size: 18px"
-                                                            id="amt6" value="0" readonly />
-                                                    </td>
+
                                                     <td><input type="text" class="form-control" name="7"
                                                             style="background-color: transparent; color:white; border-block: none; position: relative; font-size: 18px"
                                                             id="amt7" value="0" readonly />
@@ -159,6 +160,19 @@
                                                             style="background-color: transparent; color:white; border-block: none; position: relative; font-size: 18px"
                                                             id="amt9" value="0" readonly />
                                                     </td>
+
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <div class=" form-check-flat form-check-primary btn-group-justified btn-lg"
+                                                            style="background: linear-gradient(to right, #bc883d, #f5e47b, #bc883d); border-radius: 5px">
+                                                            <input type="radio" class="form-check-input" id="0"
+                                                                value="0" class="cards" name="cards">
+                                                            <label for="0" style="font-size:25px;">0</label>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
                                                     <td><input type="text" class="form-control" name="0"
                                                             id="amt"
                                                             style="background-color: transparent; color:white; border-block: none; position: relative; font-size: 18px"
@@ -166,6 +180,7 @@
                                                     </td>
                                                 </tr>
                                             </tbody>
+
                                         </table>
                                         <!-- /.box-body -->
                                     </div>
@@ -281,7 +296,7 @@
 
         $(function() {
             const socket = io.connect('ws://143.244.140.74:9000');
-            console.log(socket + "Hello Socket Connected");
+            {{--  console.log(socket + "Hello Socket Connected");  --}}
 
             socket.on('connect', function() {
                 const user = {
@@ -325,7 +340,7 @@
                 });
 
                 socket.on('resAdmin', function(res) {
-                    console.log(res);
+                    {{--  console.log(res);  --}}
                     if (res.gameName === "funtarget") {
                         if (res.time >= 0) {
                             var seconds = Math.abs(res.time) - 60;
