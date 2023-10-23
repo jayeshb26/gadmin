@@ -274,7 +274,6 @@
                 Session::get('role') == 'super_distributor' ||
                 Session::get('role') == 'subadmin'
             ))
-            )
             <div class="col-md-3 grid-margin stretch-card">
                 <div class="card bg-warning">
                     <a href="{{ url('/history') }}">
