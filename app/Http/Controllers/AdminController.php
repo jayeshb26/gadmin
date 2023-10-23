@@ -228,7 +228,7 @@ class AdminController extends Controller
         } elseif (Session::get('role') == "player") {
             return redirect('/users/admin');
         } else {
-            return redirect('/users');
+            return redirect('/users/admin');
         }
     }
 
