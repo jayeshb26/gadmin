@@ -136,6 +136,20 @@
                         </div>
                     </div>
                 @endif
+                @if (in_array(Session::get('role'), ['subadmin']))
+                    <div class="nav-item" id="anotherDropdown">
+                        <a href="#" class="nav-link dropdown-toggle">
+                            <i class="link-icon fas fa-user"></i>
+                            <span class="link-title">Player</span>
+                        </a>
+                        <div class="custom-submenu">
+                            <a href="{{ url('/getdata/player') }}" class="nav-link">
+                                <i class="link-icon fas fa-user"></i>
+                                <span class="link-title">View Player</span>
+                            </a>
+                        </div>
+                    </div>
+                @endif
                 @if (in_array(Session::get('role'), ['super_distributor']))
                     <div class="nav-item" id="anotherDropdown">
                         <a href="#" class="nav-link dropdown-toggle">
@@ -202,14 +216,14 @@
                     </a>
                 </li>
             @endif
-            <li class="nav-item {{ active_class(['changepin']) }}">
+            <li class="nav-item {{ active_class(['OnPlayers']) }}">
                 <a href="{{ url('/OnPlayers') }}" class="nav-link">
                     <i class="link-icon fa fa-user-times"></i>
                     <span class="link-title">Online Player</span>
                 </a>
             </li>
             @if (Session::get('role') != 'subadmin')
-                <li class="nav-item {{ active_class(['changepin']) }}">
+                <li class="nav-item {{ active_class(['profile']) }}">
                     <a href="{{ url('/profile') }}" class="nav-link">
                         <i class="link-icon fa fa-eye"></i>
                         <span class="link-title">Profile View</span>
@@ -230,13 +244,14 @@
                     <span class="link-title">Point Request</span>
                 </a>
             </li>  --}}
-
-            <li class="nav-item {{ active_class(['changepin']) }}">
-                <a href="{{ url('/changepin') }}" class="nav-link">
-                    <i class="link-icon fa fa-key"></i>
-                    <span class="link-title">Change Transaction Pin</span>
-                </a>
-            </li>
+            @if (Session::get('role') != 'subadmin')
+                <li class="nav-item {{ active_class(['changepin']) }}">
+                    <a href="{{ url('/changepin') }}" class="nav-link">
+                        <i class="link-icon fa fa-key"></i>
+                        <span class="link-title">Change Transaction Pin</span>
+                    </a>
+                </li>
+            @endif
 
             @if (Session::get('role') == 'Admin' || Session::get('role') == 'subadmin')
                 <li class="nav-item nav-category">Reports</li>

@@ -145,6 +145,7 @@ Route::group(['middleware' => 'CheckAuth'], function () {
     Route::get('transfercredit/{id}', 'AdminController@transfercredit');
     // Route::get('point_request', 'AdminController@point_request');
     // Route::get('point_request/{id}/{points}', 'AdminController@point_request_id');
+
     Route::post('transfercredits/{id}', 'AdminController@transfercredits');
     Route::get('adjustcredit/{id}', 'AdminController@adjustcredit');
     Route::post('adjustcredit/{id}', 'AdminController@adjustcrEdits');
@@ -178,7 +179,7 @@ Route::group(['middleware' => 'CheckAuth'], function () {
     Route::get('/fetch/{id}', [AdminController::class, 'fetchDataById']);
 
     // Route::get('/online-players', [AdminController::class, 'getOnlinePlayers'])->name('getOnlinePlayers');
-
+    Route::get('/getUpdatedCreditPoint/{creditPoint}', 'AdminController@getUpdatedCreditPoint');
     //lockUsers
     Route::get('/lockuser', [AdminController::class, 'lockUserIndex'])->name('lockuser');
     Route::get('updateUserStatus/{id}/{action}', 'AdminController@updateUserStatus')->name('updateUserStatus');

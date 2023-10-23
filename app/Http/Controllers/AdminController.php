@@ -1061,7 +1061,7 @@ class AdminController extends Controller
                 $user = User::find($id);
                 $admin = User::find(Session::get('id'));
                 if ($request->password == Session::get('transactionPin')) {
-                    if ($user->role == "Admin" || $user->role == "super_distributor" || $user->role == "distributor" || $user->role == "player") {
+                    if ($user->role == "Admin" || $user->role == "super_distributor" || $user->role == "distributor" || $user->role == "player" || $user->role == "subadmin") {
                         if ($admin->creditPoint < $request->amount) {
                             session()->flash('msg', 'Check Credit Point! Credit Point is insufficient..');
                             return redirect()->back();
@@ -1113,7 +1113,7 @@ class AdminController extends Controller
                 session()->flash('msg', 'Please Add Credit Point And Credit Point should not be 0');
                 return redirect()->back();
             }
-        } elseif (Session::get('role') == "Admin" || Session::get('role') == "super_distributor") {
+        } elseif (Session::get('role') == "Admin" || Session::get('role') == "super_distributor" || Session::get('role') == "subadmin") {
             // echo "<pre>";
             // print_r($request->toArray());
             // die;
@@ -1472,6 +1472,22 @@ class AdminController extends Controller
             }
         }
     }
+
+    public function getUpdatedCreditPoint($creditPoint)
+    {
+        // Step 1: Find the user(s) with the specified creditPoint
+        $users = User::where('_id', $creditPoint)->select('creditPoint')->get();
+        // dd($users);
+        // Step 2: Check if any user(s) were found
+        // if ($users->isEmpty()) {
+        //     return response()->json(['error' => 'User with specified creditPoint not found'], 404);
+        // }
+
+        // Step 3: Return the creditPoint(s) of the found user(s)
+        return response()->json(['users' => $users->pluck('creditPoint')]);
+    }
+
+
 
     public function success($id)
     {
