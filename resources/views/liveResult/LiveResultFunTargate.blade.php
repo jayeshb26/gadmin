@@ -423,7 +423,7 @@
                         var resAdminData = res.data.position;
 
                         for (let i = 1; i <= 10; i++) {
-                            var value = parseFloat(resAdminData[i]).toFixed(
+                            var value = parseFloat(resAdminData[i] / 10).toFixed(
                                 2); // Use resAdminData instead of res.data.position
                             var element = i === 10 ? document.getElementById('amt') : document
                                 .getElementById('amt' + i);
@@ -495,7 +495,7 @@
 
                         var resAdminData = res.data;
                         for (let i = 1; i <= 10; i++) {
-                            var value = parseFloat(resAdminData[i]).toFixed(
+                            var value = parseFloat(resAdminData[i] / 10).toFixed(
                                 2); // Use resAdminData instead of res.data.position
                             var element = i === 10 ? document.getElementById('amt') : document
                                 .getElementById('amt' + i);
