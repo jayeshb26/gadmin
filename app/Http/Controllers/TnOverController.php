@@ -421,6 +421,7 @@ class TnOverController extends Controller
                         // print_r($retailers);
                         // die;
                         // $groups = [];
+                        // 7day ago date updated
                         if ($type == 1 || $type == 2 || $type == 3 || $type == 4 || $type == 5 || $type == 8) {
                             $td = date('j', strtotime($_GET['to']));
                             $groups[$pre_user['_id']] = Bets::select('bet', 'won',  'playerCommission', 'classicCommission', 'ExecutiveCommission', 'premiumCommission', 'agentCommission')
