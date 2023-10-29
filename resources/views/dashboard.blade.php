@@ -195,7 +195,7 @@
                     </div>
                 </div>
 
-                <div class="col-lg-3 col-md-4 col-sm-4 grid-margin stretch-card">
+                {{--  <div class="col-lg-3 col-md-4 col-sm-4 grid-margin stretch-card">
                     <div class="card bg-danger">
                         <a href="{{ url('/blockedPlayers') }}">
                             <div class="card-body">
@@ -213,7 +213,7 @@
                             </div>
                         </a>
                     </div>
-                </div>
+                </div>  --}}
             @endif
         @endif
         <div class="col-lg-3 col-md-4 col-sm-4 grid-margin stretch-card">
@@ -235,7 +235,7 @@
                 </a>
             </div>
         </div>
-        <div class="col-md-3 grid-margin stretch-card">
+        {{--  <div class="col-md-3 grid-margin stretch-card">
             <div class="card bg-danger">
                 <a href="{{ url('/blockedPlayers') }}">
                     <div class="card-body">
@@ -250,9 +250,9 @@
                     </div>
                 </a>
             </div>
-        </div>
+        </div>  --}}
         @if (Session::get('role') != 'subadmin')
-            <div class="col-md-3 grid-margin stretch-card">
+            {{--  <div class="col-md-3 grid-margin stretch-card">
                 <div class="card bg-secondary">
                     <a href="{{ url('/transfer') }}">
                         <div class="card-body">
@@ -267,7 +267,7 @@
                         </div>
                     </a>
                 </div>
-            </div>
+            </div>  --}}
         @endif
 
         @if (
@@ -275,7 +275,7 @@
                 Session::get('role') == 'super_distributor' ||
                 Session::get('role') == 'subadmin'
             ))
-            <div class="col-md-3 grid-margin stretch-card">
+            {{--  <div class="col-md-3 grid-margin stretch-card">
                 <div class="card bg-warning">
                     <a href="{{ url('/history') }}">
                         <div class="card-body">
@@ -290,7 +290,7 @@
                         </div>
                     </a>
                 </div>
-            </div>
+            </div>  --}}
         @endif
         <div class="col-lg-3 col-md-4 col-sm-4 grid-margin stretch-card">
             <div class="card bg-warning ">
