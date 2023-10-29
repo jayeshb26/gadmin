@@ -10,10 +10,12 @@ use App\Payments;
 use App\pointrequests;
 use App\adminGenratedPoint;
 
+
 use View;
 
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use MongoDB\BSON\UTCDateTime;
 
 class DashboardController extends Controller
 {
@@ -22,7 +24,7 @@ class DashboardController extends Controller
         $this->middleware('CheckAuth');
     }
 
-    public function index()
+    public function index(Request $request)
     {
         $dash = [];
         $chart_f = "";
@@ -53,6 +55,24 @@ class DashboardController extends Controller
                 $dash['blockplayer'] = User::where('userName', '!=', "Admin")->where('role', '!=', "subadmin")->where('role', 'player')->where('isActive', false)->count();
                 $dash['generatedPoint'] = adminGenratedPoint::where('is_f', true)->sum('generateBalance');
                 $dash['online'] = User::where('isLogin', true)->count();
+                $data = session('totalData');
+
+                $distributedPoint =  Session::get('creditPoint')  - $dash['generatedPoint'];
+                $dash['DistributedPoint'] = $distributedPoint;
+                // $today = Carbon::now();
+                // $todayPlayPoint = Bets::select('won')
+                //     ->where('createdAt', '>=', new UTCDateTime($today->subDay()))
+                //     ->get()
+                //     ->count();
+
+                // dd($todayPlayPoint);
+
+                // dd($total['totalPlayPoints']);
+                // dd($total['TotalWinPoints']);
+                // dd($total['EndPoint']);
+                $dash['tPlayPoint'] = $data['totalPlayPoints'] ?? 0;
+                $dash['tWinPoint'] = $data['TotalWinPoints'] ?? 0;
+                $dash['tEndPoint'] = $data['EndPoint'] ?? 0;
 
                 $dash['distributor'] = User::where('role', 'distributor')->count();
                 $dash['SuperDistributor'] = User::where('role', 'super_distributor')->count();

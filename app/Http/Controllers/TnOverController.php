@@ -118,6 +118,7 @@ class TnOverController extends Controller
                             $totalStartPoint += $play['startPoint'];
                             $totalPlayPoints += $play['bet'];
                             $TotalWinPoints += $play['won'];
+                            $EndPoint = $totalPlayPoints - $TotalWinPoints;
                         }
                         $total = [];
                         $total['totalPlayPoints'] = $totalPlayPoints;
@@ -128,7 +129,9 @@ class TnOverController extends Controller
                         $total['SuperDistributedProfit'] = $SuperDistributedProfit;
                         $total['PL'] = count($players);
                         // dd($total);
+                        session(['totalData' => $total]);
                         return view('turnOver', ['data' => $admin, 'total' => $total]);
+                        return redirect()->route('dashboard', ['totalData' => $total]);
                     }
                 }
             }
