@@ -270,7 +270,8 @@
             </div>  --}}
         @endif
 
-        @if (Session::get('role') == 'distributor' ||
+        @if (Session::get('role') == 'Admin' ||
+                Session::get('role') == 'distributor' ||
                 Session::get('role') == 'super_distributor' ||
                 Session::get('role') == 'subadmin')
             {{--  <div class="col-md-3 grid-margin stretch-card">
@@ -308,9 +309,8 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-4 col-sm-4 grid-margin stretch-card">
+            {{--  <div class="col-lg-3 col-md-4 col-sm-4 grid-margin stretch-card">
                 <div class="card bg" style="background-color: #ff2890">
-
                     <div class="card-body">
                         <div class=" row">
                             <div class="col-md-8">
@@ -326,9 +326,8 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
-            </div>
+            </div>  --}}
             <div class="col-lg-3 col-md-4 col-sm-4 grid-margin stretch-card">
                 <div class="card bg-danger">
 
