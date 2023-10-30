@@ -53,64 +53,46 @@
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-4 col-sm-4 grid-margin stretch-card">
-                    <div class="card bg-danger">
-                        <a href="{{ url('/generatePointList') }}">
-                            <div class="card-body">
-                                <div class=" row">
-                                    <div class="col-md-8">
-                                        <h6 class="text-white mb-2">Distributed Points</h6>
-                                        <div>
-                                            <h3 class="text-white">
-                                                {{ number_format($data['generatedPoint'] - Session::get('creditPoint')) }}
-                                            </h3>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4 mt-1">
-                                        <h1 class="text-white text-right mr-3"><i class="fa fa-user"></i></h1>
+                    <div class="card bg-warning ">
+                        <div class="card-body">
+                            <div class=" row">
+                                <div class="col-md-8">
+                                    <h6 class="text-white mb-2">Today PlayPoints</h6>
+                                    <div>
+                                        <h3 class="text-white">
+                                            {{ number_format($data['tPlayPoint']) }}
+                                        </h3>
                                     </div>
                                 </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-4 grid-margin stretch-card">
-                    <div class="card bg-success">
-                        <a href="{{ url('/history') }}">
-                            <div class="card-body">
-                                <div class=" row">
-                                    <div class="col-md-8">
-                                        <h6 class="text-white mb-2">Total Win Point</h6>
-                                        <div>
-                                            <h3 class="text-white">{{ number_format($data['wonPoint']) }}</h3>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4 mt-1">
-                                        <h1 class="text-white text-right mr-3"><i class="fa fa-user"></i></h1>
-                                    </div>
+                                <div class="col-md-4 mt-1">
+                                    <h1 class="text-white text-right mr-3"><i class="fa fa-user"></i></h1>
                                 </div>
                             </div>
-                        </a>
+                        </div>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-4 col-sm-4 grid-margin stretch-card">
                     <div class="card bg-danger">
-                        <a href="{{ url('/history') }}">
-                            <div class="card-body">
-                                <div class=" row">
-                                    <div class="col-md-8">
-                                        <h6 class="text-white mb-2">Total End Point</h6>
-                                        <div>
-                                            <h3 class="text-white">{{ number_format($data['endPoint']) }}</h3>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4 mt-1">
-                                        <h1 class="text-white text-right mr-3"><i class="fa fa-user"></i></h1>
+
+                        <div class="card-body">
+                            <div class=" row">
+                                <div class="col-md-8">
+                                    <h6 class="text-white mb-2">Today End Points</h6>
+                                    <div>
+                                        <h3 class="text-white">
+                                            {{ number_format($data['tEndPoint']) }}
+                                        </h3>
                                     </div>
                                 </div>
+                                <div class="col-md-4 mt-1">
+                                    <h1 class="text-white text-right mr-3"><i class="fa fa-user"></i></h1>
+                                </div>
                             </div>
-                        </a>
+                        </div>
+
                     </div>
                 </div>
+
                 <div class="col-lg-3 col-md-4 col-sm-4 grid-margin stretch-card">
                     <div class="card bg-success">
                         <a href="{{ url('/getdata/distributor') }}">
@@ -270,8 +252,7 @@
             </div>  --}}
         @endif
 
-        @if (Session::get('role') == 'Admin' ||
-                Session::get('role') == 'distributor' ||
+        @if (Session::get('role') == 'distributor' ||
                 Session::get('role') == 'super_distributor' ||
                 Session::get('role') == 'subadmin')
             {{--  <div class="col-md-3 grid-margin stretch-card">
@@ -350,6 +331,8 @@
                 </div>
             </div>
         @endif
+
+
     </div>
 
     <div class="row">
