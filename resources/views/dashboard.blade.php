@@ -354,8 +354,8 @@
                     </a>
                 </div>
             </div>
+        @endif
     </div>
-    @endif
 
     <div class="row">
         @if (Session::get('role') == 'Admin')
