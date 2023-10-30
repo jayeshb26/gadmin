@@ -270,11 +270,9 @@
             </div>  --}}
         @endif
 
-        @if (
-            !(Session::get('role') == 'distributor' ||
+        @if (Session::get('role') == 'distributor' ||
                 Session::get('role') == 'super_distributor' ||
-                Session::get('role') == 'subadmin'
-            ))
+                Session::get('role') == 'subadmin')
             {{--  <div class="col-md-3 grid-margin stretch-card">
                 <div class="card bg-warning">
                     <a href="{{ url('/history') }}">
