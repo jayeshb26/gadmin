@@ -129,6 +129,19 @@ class DashboardController extends Controller
             $dash['SuperDistributor'] = User::where('role', 'super_distributor')->count();
             $dash['player'] = User::where('userName', '!=', "superadminA")->where('role', '!=', "subadmin")->where('role', 'player')->count();
             $dash['blockplayer'] = User::where('userName', '!=', "superadminA")->where('role', '!=', "subadmin")->where('role', 'player')->where('isActive', false)->count();
+            $today = Carbon::today();
+
+            $todayUTCDateTime = new UTCDateTime($today->timestamp * 1000);
+
+            $todayPlayPoint = Bets::where('createdAt', '>=', $todayUTCDateTime)->sum('bet');
+            $todayWinPoint = Bets::where('createdAt', '>=', $todayUTCDateTime)->sum('won');
+
+            // dd($total['totalPlayPoints']);
+            // dd($total['TotalWinPoints']);
+            // dd($total['EndPoint']);
+            $dash['tPlayPoint'] = $todayPlayPoint;
+            $dash['tWinPoint'] = $todayWinPoint;
+            $dash['tEndPoint'] = $todayPlayPoint - $todayWinPoint;
             // $dash['online'] = User::where('isLogin', true)->count();
 
             if (Session::get('role') == 'super_distributor') {
