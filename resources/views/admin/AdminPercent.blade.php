@@ -63,17 +63,17 @@
                                 name="totalAdmin" disabled>
                         </div>  --}}
                     </div>
-                    {{--  <div class="row mb-3">
+                    <div class="row mb-3">
                         <label class="col-sm-1 text-right control-label mt-2"></label>
                         <div class="col-sm-8">
                             <button type="submit" id="btnSave" class="btn btn-primary">Set Admin Balance</button>
                         </div>
-                        <div class="col-sm-6 col-md-3">
+                        {{--  <div class="col-sm-6 col-md-3">
                             <label class="text-right control-label mb-0">Net Profit</label>
                             <input type="number" class="form-control ui-autocomplete-input " id="NetProfit" value=""
                                 name="NetProfit" disabled>
-                        </div>
-                    </div>  --}}
+                        </div>  --}}
+                    </div>
                 </div>
             </div>
         </div>
