@@ -14,7 +14,7 @@
         <div class="col-md-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
-                    <h5 class="col-sm-2 card-title" style="text-transform: none !important;">Lucky Animal</h5>
+                    <h5 class="col-sm-2 card-title" style="text-transform: none !important;">Live Result Animal</h5>
                     <button type='button' id="reset" class="btn btn-primary"><span aria-hidden='true'>Reset
                             Balance</span></button>
                 </div>
