@@ -27,6 +27,12 @@ class GameController extends Controller
         } elseif ($id == 2) {
             $bets = Winresults::where('gameName', "funtarget")->orderBy('createdAt', 'DESC')->paginate(10);
             $game = "FunTarget";
+        } elseif ($id == 3) {
+            $bets = Winresults::where('gameName', "dragontiger")->orderBy('createdAt', 'DESC')->paginate(10);
+            $game = "DragonTiger";
+        } elseif ($id == 4) {
+            $bets = Winresults::where('gameName', "animal")->orderBy('createdAt', 'DESC')->paginate(10);
+            $game = "Animal";
         }
         return view('gameDraw', ['data' => $bets, 'game' => $game]);
     }

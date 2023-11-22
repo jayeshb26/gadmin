@@ -416,7 +416,7 @@
         new Chart($("#chartjsGroupedBar"), {
             type: "bar",
             data: {
-                labels: ["FunRoulette ", "FunTarget"],
+                labels: ["FunRoulette ", "FunTarget", "DragonTiger", "Animal"],
                 datasets: [{
                         label: "Win Points",
                         backgroundColor: "#f77eb9",

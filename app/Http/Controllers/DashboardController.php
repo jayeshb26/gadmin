@@ -117,10 +117,14 @@ class DashboardController extends Controller
             $chart_w = array(
                 Bets::where('game', 'funroulette')->sum('won'),
                 Bets::where('game', 'funtarget')->sum('won'),
+                Bets::where('game', 'dragontiger')->sum('won'),
+                Bets::where('game', 'animal')->sum('won'),
             );
             $chart_p = array(
                 Bets::where('game', 'funtarget')->sum('bet'),
                 Bets::where('game', 'funroulette')->sum('bet'),
+                Bets::where('game', 'dragontiger')->sum('won'),
+                Bets::where('game', 'animal')->sum('won'),
             );
             $chart_w = implode(', ', array_values($chart_w));
             $chart_p = implode(', ', array_values($chart_p));
@@ -192,8 +196,8 @@ class DashboardController extends Controller
                 $wonPoints = [];
 
                 foreach ($betSums as $betSum) {
-                    $betPoints[$betSum['playerId']] = $betSum['bet'];
-                    $wonPoints[$betSum['playerId']] = $betSum['won'];
+                    $betPoints[$betSum['playerId']] >= $betSum['bet'];
+                    $wonPoints[$betSum['playerId']] >= $betSum['won'];
                 }
 
                 $betPointsSum = array_sum($betPoints);

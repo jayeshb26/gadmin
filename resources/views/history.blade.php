@@ -39,6 +39,14 @@
                                             <option value="2"
                                                 {{ isset($_GET['game']) ? ($_GET['game'] == 2 ? 'selected' : '') : '' }}>
                                                 FunTarget</option>
+                                            <option value="3"
+                                                {{ isset($_GET['game']) ? ($_GET['game'] == 1 ? 'selected' : '') : '' }}>
+                                                DragonTiger
+                                            </option>
+                                            <option value="4"
+                                                {{ isset($_GET['game']) ? ($_GET['game'] == 1 ? 'selected' : '') : '' }}>
+                                                Animal
+                                            </option>
                                         </select>
                                     </div>
                                 </div>

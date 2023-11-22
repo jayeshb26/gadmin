@@ -14,7 +14,7 @@
         <div class="col-md-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
-                    <h5 class="col-sm-2 card-title" style="text-transform: none !important;">Lucky Card 12</h5>
+                    <h5 class="col-sm-2 card-title" style="text-transform: none !important;">Lucky Animal</h5>
                     <button type='button' id="reset" class="btn btn-primary"><span aria-hidden='true'>Reset
                             Balance</span></button>
                 </div>
@@ -39,21 +39,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td><img src="{{ asset('img/cards/all_hearts.png') }}"
-                                                            style="width:70px">
-                                                    </td>
-                                                    <td><img src="{{ asset('img/cards/all_spades.png') }}"
-                                                            style="width:70px">
-                                                    </td>
-                                                    <td><img src="{{ asset('img/cards/all_diamonds.png') }}"
-                                                            style="width:70px">
-                                                    </td>
-                                                    <td><img src="{{ asset('img/cards/all_clubs.png') }}"
-                                                            style="width:70px">
-                                                    </td>
-                                                    <td></td>
-                                                </tr>
+
                                                 <tr>
                                                     <td></td>
                                                     <td></td>
@@ -67,7 +53,7 @@
                                                             <input type="radio" class="form-check-input" id="KH"
                                                                 value="l-13" class="cards" name="cards">
                                                             <label for="KH"><img
-                                                                    src="{{ asset('img/cards/l-13.png') }}"
+                                                                    src="{{ asset('img/Sprites/LionBet.png') }}"
                                                                     style="width:50px"></label>
                                                         </div>
                                                     </td>
@@ -76,7 +62,7 @@
                                                             <input type="radio" class="form-check-input" id="KS"
                                                                 value="k-13" class="cards" name="cards">
                                                             <label for="KS"><img
-                                                                    src="{{ asset('img/cards/k-13.png') }}"
+                                                                    src="{{ asset('img/Sprites/SparrowBet.png') }}"
                                                                     style="width:50px"></label>
                                                         </div>
                                                     </td>
@@ -85,7 +71,7 @@
                                                             <input type="radio" class="form-check-input" id="KD"
                                                                 value="c-13" class="cards" name="cards">
                                                             <label for="KD"><img
-                                                                    src="{{ asset('img/cards/c-13.png') }}"
+                                                                    src="{{ asset('img/Sprites/CatBet.png') }}"
                                                                     style="width:50px"></label>
                                                         </div>
                                                     </td>
@@ -94,7 +80,7 @@
                                                             <input type="radio" class="form-check-input" id="KC"
                                                                 value="f-13" class="cards" name="cards">
                                                             <label for="KC"><img
-                                                                    src="{{ asset('img/cards/f-13.png') }}"
+                                                                    src="{{ asset('img/Sprites/KoelBet.png') }}"
                                                                     style="width:50px"></label>
                                                         </div>
                                                     </td>
@@ -120,7 +106,7 @@
                                                             <input type="radio" class="form-check-input" id="QH"
                                                                 value="l-12" class="cards" name="cards">
                                                             <label for="QH"><img
-                                                                    src="{{ asset('img/cards/l-12.png') }}"
+                                                                    src="{{ asset('img/Sprites/CrowBet.png') }}"
                                                                     style="width:50px"></label>
                                                         </div>
                                                     </td>
@@ -129,7 +115,7 @@
                                                             <input type="radio" class="form-check-input" id="QS"
                                                                 value="k-12" class="cards" name="cards">
                                                             <label for="QS"><img
-                                                                    src="{{ asset('img/cards/k-12.png') }}"
+                                                                    src="{{ asset('img/Sprites/GoatBet.png') }}"
                                                                     style="width:50px"></label>
                                                         </div>
                                                     </td>
@@ -138,7 +124,7 @@
                                                             <input type="radio" class="form-check-input" id="QD"
                                                                 value="c-12" class="cards" name="cards">
                                                             <label for="QD"><img
-                                                                    src="{{ asset('img/cards/c-12.png') }}"
+                                                                    src="{{ asset('img/Sprites/RoosterBet.png') }}"
                                                                     style="width:50px"></label>
                                                         </div>
                                                     </td>
@@ -147,7 +133,7 @@
                                                             <input type="radio" class="form-check-input" id="QC"
                                                                 value="f-12" class="cards" name="cards">
                                                             <label for="QC"><img
-                                                                    src="{{ asset('img/cards/f-12.png') }}"
+                                                                    src="{{ asset('img/Sprites/HorseBet.png') }}"
                                                                     style="width:50px"></label>
                                                         </div>
                                                     </td>
@@ -172,7 +158,7 @@
                                                             <input type="radio" class="form-check-input" id="JH"
                                                                 value="l-11" class="cards" name="cards">
                                                             <label for="JH"><img
-                                                                    src="{{ asset('img/cards/l-11.png') }}"
+                                                                    src="{{ asset('img/Sprites/DogBet.png') }}"
                                                                     style="width:50px"></label>
                                                         </div>
                                                     </td>
@@ -181,7 +167,7 @@
                                                             <input type="radio" class="form-check-input" id="JS"
                                                                 value="k-11" class="cards" name="cards">
                                                             <label for="JS"><img
-                                                                    src="{{ asset('img/cards/k-11.png') }}"
+                                                                    src="{{ asset('img/Sprites/CowBet.png') }}"
                                                                     style="width:50px"></label>
                                                         </div>
                                                     </td>
@@ -190,7 +176,7 @@
                                                             <input type="radio" class="form-check-input" id="JD"
                                                                 value="c-11" class="cards" name="cards">
                                                             <label for="JD"><img
-                                                                    src="{{ asset('img/cards/c-11.png') }}"
+                                                                    src="{{ asset('img/Sprites/MonkeyBet.png') }}"
                                                                     style="width:50px"></label>
                                                         </div>
                                                     </td>
@@ -199,7 +185,7 @@
                                                             <input type="radio" class="form-check-input" id="JC"
                                                                 value="f-11" class="cards" name="cards">
                                                             <label for="JC"><img
-                                                                    src="{{ asset('img/cards/f-11.png') }}"
+                                                                    src="{{ asset('img/Sprites/ElephantBet.png') }}"
                                                                     style="width:50px"></label>
                                                         </div>
                                                     </td>
@@ -257,24 +243,24 @@
                                 </div>
                                 <span id="idRes">Daily Collection & Results</span>
                                 <table class="table table-bordered">
-                                    <tr>
+                                    {{--  <tr>
                                         <td>TOTAL Game Balance: </td>
                                         <td align="right"><span id="tDayCollection"></span>
                                         </td>
-                                    </tr>
+                                    </tr>  --}}
                                     <tr>
                                         <td>TOTAL COLLECTION: </td>
-                                        <td align="right">{{ moneyFormatIndia($daily['totalbetamount']) }}
+                                        <td align="right" id="totalCollection">{{ moneyFormatIndia($daily['totalbetamount']) }}
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>TOTAL PAYMENT :</td>
-                                        <td align="right">{{ moneyFormatIndia($daily['totalwonamount']) }}
+                                        <td align="right" id="totalPayPoint">{{ moneyFormatIndia($daily['totalwonamount']) }}
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>BALANCE :</td>
-                                        <td align="right">
+                                        <td align="right" id="Balance">
                                             {{ moneyFormatIndia($daily['totalbetamount'] - $daily['totalwonamount']) }}
                                         </td>
                                     </tr>
@@ -362,206 +348,271 @@
     <script>
         var result = '';
         var gameid = '';
-        var card = ["AH", "AS", "AD", "AC", "KH", "KS", "KD", "KC", "QH", "QS", "QD", "QC", "JH", "JS", "JD", "JC"];
+        var card = ["HJ", "SJ", "DJ", "CJ", "HQ", "SQ", "DQ", "CQ", "HK", "SK", "DK", "CK"];
         var gameres = [{
-            "l-11": 0.0,
-            "l-12": 0.0,
-            "l-13": 0.0,
-            "k-11": 0.0,
-            "k-12": 0.0,
-            "k-13": 0.0,
-            "c-11": 0.0,
-            "c-12": 0.0,
-            "c-13": 0.0,
-            "f-11": 0.0,
-            "f-12": 0.0,
-            "f-13": 0.0,
+            "1": 0.0,
+            "2": 0.0,
+            "3": 0.0,
+            "4": 0.0,
+            "5": 0.0,
+            "6": 0.0,
+            "7": 0.0,
+            "8": 0.0,
+            "9": 0.0,
+            "10": 0.0,
+            "11": 0.0,
+            "12": 0.0,
         }];
         var cardsNum = {
-            "KH": "l-13",
-            "KS": "k-13",
-            "KD": "c-13",
-            "KC": "f-13",
-            "QH": "l-12",
-            "QS": "k-12",
-            "QD": "c-12",
-            "QC": "f-12",
-            "JH": "l-11",
-            "JS": "k-11",
-            "JD": "c-11",
-            "JC": "f-11",
+            "HJ": 1,
+            "SJ": 2,
+            "DJ": 3,
+            "CJ": 4,
+            "HQ": 5,
+            "SQ": 6,
+            "DQ": 7,
+            "CQ": 8,
+            "HK": 9,
+            "SK": 10,
+            "DK": 11,
+            "CK": 12,
         };
 
-        $('#boosterId').on('change', function() {
-            var j = $('#SelectedCardNumber').val();
-            $('#totalPayment').html($('#' + j).val() * 10 * (this.value == 0 ? 1 : this.value));
-        });
+
         $(function() {
-            var URL;
-            URL = "ws://";
+            const socket = io.connect('ws://143.244.140.74:9000');
+            console.log(socket + "Hello Socket Connected");
 
-            // console.log(URL);
-            const socket = io.connect(URL);
-            socket.on("connect", () => {
-                console.log(socket.connected); // true
-            });
-            socket.emit("req", {
-                "en": "ADMIN_LUCKY_CARD_12_GAME_INFO",
-                "data": {}
-            });
-            socket.on('res', function(data) {
-                let response = data;
-                console.log(response);
-                if (response.data.game_state == "game_timer_start") {
-                    $('input[type="radio"]').on('click', function() {
-                        result = this.id;
-                        var key = cardsNum[result];
-                        var boosterIds = $('#boosterId').val();
-                        boosterIds = (boosterIds == 0 ? 1 : boosterIds);
-                        $('#SelectedCard').val(result);
-                        $('#check_' + result).attr("checked", "checked");
-                        $('#SelectedCardNumber').val(this.value);
-                        $('#boosterId').val($('#boosterId').val());
-                        // $('#TCollection').html($('#c' + key).val());
-                        // console.log($('#' + key).val()*14);
-                        // console.log(boosterIds);
-                        $('#totalPayment').html($('#' + key).val() * 10 * boosterIds);
-                    });
-                    if (response.data.timer) {
-                        card.forEach(function(item) {
-                            $('#' + item).removeAttr('disabled');
+            socket.on('connect', function() {
+                const user = {
+                    adminId: "603388bb7d20e50a81217277",
+                    gameName: "animal",
+                };
+
+                socket.emit('joinAdmin', user);
+
+                var cardNumber = 0;
+                var y = 1;
+                var gameName = "animal";
+
+                function removeAlert() {
+                    setTimeout(function() {
+                        $('#alertId').removeClass('show');
+                    }, 5000);
+                }
+
+                $('#btnSave').on('click', function() {
+                    var boosterId = $('#boosterId').val();
+                    var card = $('#SelectedCard').val();
+                    var cardNumber = parseFloat(card); // Use parseFloat to handle NaN
+                    var y = parseFloat(boosterId); // Use parseFloat to handle NaN
+
+                    if (!isNaN(y) && !isNaN(cardNumber) && cardNumber !== "") {
+                        $('#alertId').addClass('show');
+                        $('#alertId').html("Success");
+                        removeAlert();
+                        console.log({
+                            cardNumber,
+                            y,
+                            gameName // Assuming gameName is defined elsewhere
                         });
-                        var time = response.data.timer ? response.data.timer : 90;
-                        console.log(time);
+                        socket.emit('winByAdmin', {
+                            cardNumber,
+                            y,
+                            gameName
+                        });
+                    }
+                });
 
-                        function timerDATA() {
-                            time--;
-                            document.getElementById('countdown').innerHTML = time;
-                            if (time <= 0) {
-                                clearInterval(counter);
-                                document.getElementById('countdown').innerHTML = "00";
-                                gameres.forEach(function(item) {
-                                    Object.keys(item).forEach(function(key, value) {
-                                        $('#' + key).val(0);
-                                        $('#' + key).css("background-color", "transparent");
+                socket.on('resAdmin', function(res) {
+                    console.log(res);
+                    if (res.gameName === "animal") {
+                        if (res.time >= 0) {
+                            var seconds = Math.abs(res.time) - 60;
+                            seconds = Math.abs(seconds);
+
+                            var countdownTimer = setInterval(function() {
+                                if (seconds <= 0) {
+                                    clearInterval(countdownTimer);
+                                    window.location.reload();
+
+                                    gameres.forEach(function(item) {
+                                        Object.keys(item).forEach(function(key) {
+                                            $('#c' + key).val(0);
+                                            $('#c' + key).css(
+                                                "background-color",
+                                                "transparent");
+                                        });
                                     });
-                                });
-                                $('input[type="radio"]').prop("checked", false);
-                                $('#SelectedCard').val('');
-                                $('#SelectedCardNumber').val('');
-                                card.forEach(function(item) {
-                                    $('#' + item).attr('disabled', 'disabled');
-                                });
+
+                                    $('input[type="radio"]').prop("checked", false);
+                                    $('#alertId').removeClass('show');
+                                    $('#SelectedCard').val('');
+                                    $('#SelectedCardNumber').val('');
+                                    $('#TCollection').html(
+                                        ''); // Fix: Clear the HTML content
+                                    $('#totalPayment').html(
+                                        ''); // Fix: Clear the HTML content
+                                    window.location.reload();
+                                }
+                                document.getElementById('countdown').innerHTML = seconds
+                                    .toFixed(0);
+                                seconds -= 1;
+                            }, 1089);
+
+                            function checkTime(i) {
+                                if (i < 10) {
+                                    i = "0" + i;
+                                }
+                                return i;
                             }
                         }
-                        document.getElementById('GameStatus').innerHTML = response.data.game_state;
-                        var counter = setInterval(timerDATA, 1000);
-                    }
-                    $('#tDayCollection').html(response.data.total_bet_amount);
-                    var total = 0;
-                    $.each(response.data.total_bet_on_cards, function(key, value) {
-                        total = total + value;
-                        $('#' + key).val(value);
-                        if ($('#' + key).val() > 0) {
-                            $('#' + key).css("background-color", "#FFA07A");
-                        } else {
-                            $('#' + key).css("background-color", "transparent");
-                        }
-                    });
-                    $('#TCollection').html(total);
-                } else {
-                    document.getElementById('GameStatus').innerHTML = response.data.game_state;
-                    var time = response.data.timer ? response.data.timer : 5;
-                    console.log(time);
+                        $('input[type="radio"]').on('click', function() {
+                            result = this.id;
+                            var key = cardsNum[result];
+                            var boosterIds = $('#boosterId').val();
+                            $('#SelectedCard').val(result);
+                            $('#check_' + result).attr("checked", "checked");
+                            $('#SelectedCardNumber').val(key);
 
-                    function timerDATA() {
-                        time--;
-                        document.getElementById('countdown').innerHTML = time;
-                        if (time <= 0) {
-                            clearInterval(counter);
-                            document.getElementById('countdown').innerHTML = "00";
-                            gameres.forEach(function(item) {
-                                Object.keys(item).forEach(function(key, value) {
-                                    $('#' + key).val(0);
-                                    $('#' + key).css("background-color", "transparent");
-                                });
+                            // Calculate the total payment value for the selected card
+                            var totalPaymentValue = (parseFloat($('#c' + key).val()) * 10 *
+                                parseFloat(boosterIds)).toFixed(2);
+
+                            // Update the TCollection and totalPayment values
+                            $('#TCollection').html($('#c' + key).val());
+                            $('#totalPayment').html(res.dataAdmin[0]
+                                .totalPayment);
+                        });
+                        $('#boosterId').on('change', function() {
+                            var j = $('#SelectedCardNumber').val();
+                            $('#totalPayment').html($('#c' + j).val() * 10 * this
+                                .value);
+                        });
+                        let balance = res.data.adminBalance;
+                        let totalCollection = 0;
+                        let totalPayment = 0;
+
+                        for (let i = 0; i < res.dataAdmin.length; i++) {
+                            totalCollection += res.dataAdmin[i].totalCollection;
+                            totalPayment += res.dataAdmin[i].totalPayment;
+                        }
+
+                        let totalBalance = totalCollection - totalPayment;
+                        console.log(totalBalance);
+
+                        document.getElementById('totalCollection').innerHTML = totalCollection;
+                        document.getElementById('totalPayPoint').innerHTML = totalPayment;
+                        document.getElementById('Balance').innerHTML = totalBalance.toFixed(2);
+
+                        var resAdminData = res.data.position;
+
+                        for (let i = 1; i <= 10; i++) {
+                            var value = parseFloat(resAdminData[i] / 10); // Use resAdminData instead of res.data.position
+                            var element = i === 10 ? document.getElementById('amt') : document
+                                .getElementById('amt' + i);
+
+                            if (element) {
+                                element.value = isNaN(value) ? '00' :
+                                    value; // Check if value is NaN and display '0.00'
+                            }
+                        }
+
+
+
+                        function checkDate() {
+                            return new Date().toLocaleString("en-US", {
+                                timeZone: "Asia/Calcutta"
+                            }).toString().split(",")[0].replace(/\//g, (x) => "-");
+                        }
+
+                        function dataDate($date) {
+                            return new Date($date).toLocaleString("en-US", {
+                                timeZone: "Asia/Calcutta"
+                            }).toString().split(",")[0].replace(/\//g, (x) => "-");
+                        }
+
+                        for (let d = 0; d < res.dataAdmin.length; d++) {
+                            if (dataDate(res.dataAdmin[d]._id) === checkDate()) {
+                                $('#tDayCollection').html(res.dataAdmin[d].totalCollection.toFixed(
+                                    2));
+                                $('#tDayPayment').html(res.dataAdmin[d].totalPayment.toFixed(2));
+                                var bal = res.dataAdmin[d].totalCollection - res.dataAdmin[d]
+                                    .totalPayment;
+                                $('#tDayBalance').html(bal.toFixed(2));
+                            }
+
+                        }
+
+                        for (let i = 0; i < res.numbers.length; i++) {
+                            var url = "/";
+                            $("#img" + i).attr("src", url);
+                            var booster;
+                            let total;
+                            if (res.x[i] !== '1') {
+                                booster = res.x[i] + 'X';
+                            } else {
+                                booster = "N";
+                            }
+                            $('#booster' + i).html(booster);
+                            $.each(res.data, function(key, value) {
+                                $q = value / 10;
+                                total += $q;
+                                $("#c" + key).val($q.toFixed(2));
+                                if ($('#c' + key).val() > 0) {
+                                    $('#c' + key).css("background-color", "#FFA07A");
+                                } else {
+                                    $('#c' + key).css("background-color", "transparent");
+                                }
                             });
-                            $('input[type="radio"]').prop("checked", false);
-                            $('#boosterId').val(0);
+
+
                         }
                     }
-                    var counter = setInterval(timerDATA, 1000);
-                    card.forEach(function(item) {
-                        $('#' + item).attr('disabled', 'disabled');
-                    });
-                }
-                var myarr;
-                for (let i = 0; i < response.data.last_win_cards.length; i++) {
-                    myarr = response.data.last_win_cards[i].split("|");
-                    var url = '{{ URL::asset('/img/cards2/') }}/' + myarr[0] + '.png';
-                    // console.log(url);
-                    $("#img" + i).attr("src", url);
-                    var booster;
-                    if (myarr[1] != '1') {
-                        booster = myarr[1] + 'X';
-                    } else {
-                        booster = "N";
-                    }
-                    $('#booster' + i).html(booster);
-                }
-            });
-        });
+                });
 
-        function removeAlert() {
-            setInterval(function() {
-                $('#alertId').removeClass('show');
-                $('#alertIdR').removeClass('show');
-            }, 5000);
-        }
-        $('#btnSave').on('click', function() {
-            console.log($('#SelectedCardNumber').val());
-            console.log($('#boosterId').val());
-            $.ajax({
-                type: "POST",
-                url: "lucky16config",
-                data: {
-                    card: $('#SelectedCardNumber').val(),
-                    boosterId: $('#boosterId').val(),
-                    gametype: 'lucky_cards_12',
-                    _token: $('input[name="_token"]').val()
-                },
-                success: function(result) {
-                    $('#SelectedCard').val('');
-                    $('#SelectedCardNumber').val('');
-                    $('#alertId').addClass('show');
-                    $('#alertId').html("Success");
-                    removeAlert();
-                    $('#setNo').val('');
-                    $('input[type="radio"]').prop("checked", false);
-                    $('#boosterId').val(0);
-                },
-                error: function(result) {
-                    $('#alertIdR').addClass('show');
-                    $('#alertIdR').html(result.responseJSON.errors.card[0]);
-                    removeAlert();
-                }
-            });
-        });
-        $('#reset').on('click', function() {
-            $.ajax({
-                type: "POST",
-                url: "game_configs",
-                data: {
-                    gamename: "lucky_cards_12",
-                    _token: $('input[name="_token"]').val()
-                },
-                success: function(result) {
-                    // console.log("vijay");
-                    window.location.reload();
-                },
-                error: function(result) {
-                    console.log(result);
-                }
+                socket.on('resAdminBetData', function(res) {
+                    console.log(res.data);
+                    if (res.gameName === "animal") {
+
+
+                        var resAdminData = res.data;
+                        for (let i = 1; i <= 10; i++) {
+                            var value = parseFloat(resAdminData[i] / 10).toFixed(
+                                2); // Use resAdminData instead of res.data.position
+                            var element = i === 10 ? document.getElementById('amt') : document
+                                .getElementById('amt' + i);
+
+                            if (element) {
+                                element.value = isNaN(value) ? '00' :
+                                    value; // Check if value is NaN and display '0.00'
+                            }
+                        }
+
+
+                        $.each(res.data, function(key, value) {
+                            $q = value / 10;
+                            $("#c" + key).val($q.toFixed(2));
+
+                            if ($('#c' + key).val() > 0) {
+                                $('#c' + key).css("background-color", "#FFA07A");
+                            } else {
+                                $('#c' + key).css("background-color", "transparent");
+                            }
+                        });
+
+                        // Update the TCollection and totalPayment values
+                        var totalCollectionValue = (Object.values(res.dataAdmin[0].totalCollection).reduce((acc,current) =>acc + current, 0) / 10).toFixed(2);
+
+                        var totalPaymentValue = (Object.values(res.dataAdmin[0].totalPayment)
+                            .reduce((acc,
+                                    current) =>
+                                acc + current, 0) * 10).toFixed(2);
+
+                        $('#TCollection').html(totalCollectionValue);
+                        $('#totalPayment').html(totalPaymentValue);
+                    }
+                });
             });
         });
     </script>

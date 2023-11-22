@@ -43,6 +43,8 @@
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                     <a class="dropdown-item" href="{{ url('gamedraw/1') }}">FunRoulette</a>
                                     <a class="dropdown-item" href="{{ url('gamedraw/2') }}">FunTarget</a>
+                                    <a class="dropdown-item" href="{{ url('gamedraw/3') }}">DragonTiger</a>
+                                    <a class="dropdown-item" href="{{ url('gamedraw/4') }}">Animal</a>
                                 </div>
                             </div>
                         </div>

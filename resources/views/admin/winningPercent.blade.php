@@ -62,6 +62,36 @@
                                 @enderror
                             </div>
                         </div>
+                        <div class="form-group d-flex">
+                            <label class="col-sm-3 text-right control-label mt-2">DragonTiger Winning
+                                Percentage</label>
+                            <div class="col-sm-6">
+                                <input type="number"
+                                    class="form-control ui-autocomplete-input @error('dragontiger') is-invalid @enderror"
+                                    id="exampleInputUsername1" value="{{ $data['dragontiger'] }}" name="dragontiger"
+                                    autocomplete="off" placeholder="Enter DragonTiger Winning Percentage">
+                                @error('dragontiger')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="form-group d-flex">
+                            <label class="col-sm-3 text-right control-label mt-2">Animal Winning
+                                Percentage</label>
+                            <div class="col-sm-6">
+                                <input type="number"
+                                    class="form-control ui-autocomplete-input @error('animal') is-invalid @enderror"
+                                    id="exampleInputUsername1" value="{{ $data['animal'] }}" name="animal"
+                                    autocomplete="off" placeholder="Enter Animal Winning Percentage">
+                                @error('animal')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
 
                         <div class="form-group d-flex">
                             <label class="col-sm-3 text-right control-label mt-2">Manual</label>
@@ -102,7 +132,8 @@
                                 <div class="col-sm-6">
                                     <input type="number"
                                         class="form-control ui-autocomplete-input @error('RouletteTimer60') is-invalid @enderror"
-                                        id="exampleInputUsername1" value="{{ $data['listArray'][2] }}" name="listArray[]">
+                                        id="exampleInputUsername1" value="{{ $data['listArray'][2] }}"
+                                        name="listArray[]">
                                 </div>
                             </div>
                             <div class="form-group d-flex">
@@ -110,7 +141,8 @@
                                 <div class="col-sm-6">
                                     <input type="number"
                                         class="form-control ui-autocomplete-input @error('RouletteTimer60') is-invalid @enderror"
-                                        id="exampleInputUsername1" value="{{ $data['listArray'][3] }}" name="listArray[]">
+                                        id="exampleInputUsername1" value="{{ $data['listArray'][3] }}"
+                                        name="listArray[]">
                                 </div>
                             </div>
                             <div class="form-group d-flex">
@@ -118,7 +150,8 @@
                                 <div class="col-sm-6">
                                     <input type="number"
                                         class="form-control ui-autocomplete-input @error('RouletteTimer60') is-invalid @enderror"
-                                        id="exampleInputUsername1" value="{{ $data['listArray'][4] }}" name="listArray[]">
+                                        id="exampleInputUsername1" value="{{ $data['listArray'][4] }}"
+                                        name="listArray[]">
                                 </div>
                             </div>
                             <div class="form-group d-flex">

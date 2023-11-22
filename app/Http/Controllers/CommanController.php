@@ -91,8 +91,8 @@ class CommanController extends Controller
                     $users[$key]['totalendPoint'] = $endPoint;
                 }
             }
-            $users[$key]['refer'] = $refer['userName'];
         }
+        $users[$key]['refer'] = $refer['userName'];
         foreach ($users as $value) {
             $totalPlaypoint += $value['totalbetPoint'];
             $totalWinpoint += $value['totalwonPoint'];
@@ -151,6 +151,24 @@ class CommanController extends Controller
                             )->paginate(10);
                     } elseif ($_GET['game'] == 2) {
                         $playPoints = Bets::whereIn('playerId', $pla)->orderBy('createdAt', 'DESC')->where('game', 'funtarget')
+                            ->whereBetween(
+                                'createdAt',
+                                array(
+                                    Carbon::create($fY, $fm, $fd, 00, 00, 00),
+                                    Carbon::create($tY, $tm, $td, 23, 59, 59),
+                                )
+                            )->paginate(10);
+                    } elseif ($_GET['game'] == 3) {
+                        $playPoints = Bets::whereIn('playerId', $pla)->orderBy('createdAt', 'DESC')->where('game', 'dragontiger')
+                            ->whereBetween(
+                                'createdAt',
+                                array(
+                                    Carbon::create($fY, $fm, $fd, 00, 00, 00),
+                                    Carbon::create($tY, $tm, $td, 23, 59, 59),
+                                )
+                            )->paginate(10);
+                    } elseif ($_GET['game'] == 4) {
+                        $playPoints = Bets::whereIn('playerId', $pla)->orderBy('createdAt', 'DESC')->where('game', 'animal')
                             ->whereBetween(
                                 'createdAt',
                                 array(
@@ -230,6 +248,24 @@ class CommanController extends Controller
                                     Carbon::create($tY, $tm, $td, 23, 59, 59),
                                 )
                             )->paginate(10);
+                    } elseif ($_GET['game'] == 3) {
+                        $playPoints = Bets::whereIn('playerId', $pla)->orderBy('createdAt', 'DESC')->where('game', 'dragontiger')
+                            ->whereBetween(
+                                'createdAt',
+                                array(
+                                    Carbon::create($fY, $fm, $fd, 00, 00, 00),
+                                    Carbon::create($tY, $tm, $td, 23, 59, 59),
+                                )
+                            )->paginate(10);
+                    } elseif ($_GET['game'] == 4) {
+                        $playPoints = Bets::whereIn('playerId', $pla)->orderBy('createdAt', 'DESC')->where('game', 'animal')
+                            ->whereBetween(
+                                'createdAt',
+                                array(
+                                    Carbon::create($fY, $fm, $fd, 00, 00, 00),
+                                    Carbon::create($tY, $tm, $td, 23, 59, 59),
+                                )
+                            )->paginate(10);
                     }
                     $playPoints->appends(['game' => $_GET['game']]);
                 } else {
@@ -284,6 +320,24 @@ class CommanController extends Controller
                                     Carbon::create($tY, $tm, $td, 23, 59, 59),
                                 )
                             )->paginate(10);
+                    } elseif ($_GET['game'] == 3) {
+                        $playPoints = Bets::whereIn('playerId', $pla)->orderBy('createdAt', 'DESC')->where('game', 'dragontiger')
+                            ->whereBetween(
+                                'createdAt',
+                                array(
+                                    Carbon::create($fY, $fm, $fd, 00, 00, 00),
+                                    Carbon::create($tY, $tm, $td, 23, 59, 59),
+                                )
+                            )->paginate(10);
+                    } elseif ($_GET['game'] == 4) {
+                        $playPoints = Bets::whereIn('playerId', $pla)->orderBy('createdAt', 'DESC')->where('game', 'animal')
+                            ->whereBetween(
+                                'createdAt',
+                                array(
+                                    Carbon::create($fY, $fm, $fd, 00, 00, 00),
+                                    Carbon::create($tY, $tm, $td, 23, 59, 59),
+                                )
+                            )->paginate(10);
                     }
                     $playPoints->appends(['game' => $_GET['game']]);
                 } else {
@@ -317,6 +371,10 @@ class CommanController extends Controller
                         $playPoints = Bets::whereIn('playerId', $pla)->orderBy('createdAt', 'DESC')->where('game', 'funroulette')->paginate(10);
                     } elseif ($_GET['game'] == 2) {
                         $playPoints = Bets::whereIn('playerId', $pla)->orderBy('createdAt', 'DESC')->where('game', 'funtarget')->paginate(10);
+                    } elseif ($_GET['game'] == 3) {
+                        $playPoints = Bets::whereIn('playerId', $pla)->orderBy('createdAt', 'DESC')->where('game', 'dragontiger')->paginate(10);
+                    } elseif ($_GET['game'] == 4) {
+                        $playPoints = Bets::whereIn('playerId', $pla)->orderBy('createdAt', 'DESC')->where('game', 'animal')->paginate(10);
                     }
                     $playPoints->appends(['game' => $_GET['game']]);
                 } else {
@@ -365,6 +423,10 @@ class CommanController extends Controller
                         $playPoints = Bets::whereIn('playerId', $pla)->orderBy('createdAt', 'DESC')->where('game', 'funroulette')->paginate(10);
                     } elseif ($_GET['game'] == 2) {
                         $playPoints = Bets::whereIn('playerId', $pla)->orderBy('createdAt', 'DESC')->where('game', 'funtarget')->paginate(10);
+                    } elseif ($_GET['game'] == 3) {
+                        $playPoints = Bets::whereIn('playerId', $pla)->orderBy('createdAt', 'DESC')->where('game', 'dragontiger')->paginate(10);
+                    } elseif ($_GET['game'] == 4) {
+                        $playPoints = Bets::whereIn('playerId', $pla)->orderBy('createdAt', 'DESC')->where('game', 'animal')->paginate(10);
                     }
                     $playPoints->appends(['game' => $_GET['game']]);
                 } else {
@@ -397,6 +459,10 @@ class CommanController extends Controller
                         $playPoints = Bets::whereIn('playerId', $pla)->orderBy('createdAt', 'DESC')->where('game', 'funroulette')->paginate(10);
                     } elseif ($_GET['game'] == 2) {
                         $playPoints = Bets::whereIn('playerId', $pla)->orderBy('createdAt', 'DESC')->where('game', 'funtarget')->paginate(10);
+                    } elseif ($_GET['game'] == 3) {
+                        $playPoints = Bets::whereIn('playerId', $pla)->orderBy('createdAt', 'DESC')->where('game', 'dragontiger')->paginate(10);
+                    } elseif ($_GET['game'] == 4) {
+                        $playPoints = Bets::whereIn('playerId', $pla)->orderBy('createdAt', 'DESC')->where('game', 'animal')->paginate(10);
                     }
                     $playPoints->appends(['game' => $_GET['game']]);
                 } else {
