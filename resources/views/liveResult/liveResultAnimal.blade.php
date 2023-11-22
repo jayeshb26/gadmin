@@ -381,7 +381,7 @@
 
         $(function() {
             const socket = io.connect('ws://143.244.140.74:9000');
-            console.log(socket + "Hello Socket Connected");
+            {{--  console.log(socket + "Hello Socket Connected");  --}}
 
             socket.on('connect', function() {
                 const user = {
@@ -499,7 +499,7 @@
                         }
 
                         let totalBalance = totalCollection - totalPayment;
-                        console.log(totalBalance);
+                        {{--  console.log(totalBalance);  --}}
 
                         document.getElementById('totalCollection').innerHTML = totalCollection;
                         document.getElementById('totalPayPoint').innerHTML = totalPayment;
