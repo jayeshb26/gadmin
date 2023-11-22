@@ -387,8 +387,8 @@
                         <span class="link-title">Live Result Animal</span>
                     </a>
                 </li>
-                <li class="nav-item {{ active_class(['liveResult/liveResultFunTarget']) }}">
-                    <a href="{{ url('/liveResult/liveResultFunTarget') }}" class="nav-link">
+                <li class="nav-item {{ active_class(['liveResult/liveResultDragonTiger']) }}">
+                    <a href="{{ url('/liveResult/liveResultDragonTiger') }}" class="nav-link">
                         <i class="link-icon fa fa-list"></i>
                         <span class="link-title">Live Result DragonTiger</span>
                     </a>
