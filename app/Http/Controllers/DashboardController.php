@@ -56,9 +56,7 @@ class DashboardController extends Controller
                 $dash['generatedPoint'] = adminGenratedPoint::where('is_f', true)->sum('generateBalance');
                 $dash['generatedPoint'] = adminGenratedPoint::where('is_f', true)->sum('generateBalance');
                 $dash['online'] = User::where('isLogin', true)->count();
-                $TotalTransferdata =
-
-                    $distributedPoint =  Session::get('creditPoint')  - $dash['generatedPoint'];
+                $distributedPoint =  Session::get('creditPoint')  - $dash['generatedPoint'];
                 $dash['DistributedPoint'] = $distributedPoint;
 
                 $today = Carbon::today();
@@ -74,6 +72,7 @@ class DashboardController extends Controller
                 $dash['tPlayPoint'] = $todayPlayPoint;
                 $dash['tWinPoint'] = $todayWinPoint;
                 $dash['tEndPoint'] = $todayPlayPoint - $todayWinPoint;
+                $dash['online'] = User::where('isLogin', 'true')->count();
 
                 $dash['distributor'] = User::where('role', 'distributor')->count();
                 $dash['SuperDistributor'] = User::where('role', 'super_distributor')->count();
@@ -197,10 +196,10 @@ class DashboardController extends Controller
                 $betPoints = [];
                 $wonPoints = [];
 
-                // foreach ($betSums as $betSum) {
-                //     $betPoints[$betSum['playerId']] >= $betSum['bet'];
-                //     $wonPoints[$betSum['playerId']] >= $betSum['won'];
-                // }
+                foreach ($betSums as $betSum) {
+                    $betPoints[$betSum['playerId']] = $betSum['bet'];
+                    $wonPoints[$betSum['playerId']] = $betSum['won'];
+                }
 
                 $betPointsSum = array_sum($betPoints);
                 $wonPointsSum = array_sum($wonPoints);
@@ -221,120 +220,6 @@ class DashboardController extends Controller
             }
 
             // dd($Betssuper);
-
-
-            //     // if (count($classic) == 0)  {
-            //     //     foreach ($classic as $cal_user) {
-            //     //         $players[] = new \MongoDB\BSON\ObjectID($cal_user['_id']);
-            //     //     }
-            //     //     if (count($players) == 0) {
-            //     //         $total = [];
-            //     //         $total['totalStartPoint'] = $totalStartPoint;
-            //     //         $total['totalPlayPoints'] = $totalPlayPoints;
-            //     //         $total['TotalWinPoints'] = $TotalWinPoints;
-            //     //         $total['EndPoint'] = $EndPoint;
-            //     //         $total['Margin'] = $margin;
-            //     //         $total['NetProfit'] = $netprofit;
-            //     //         $total['SuperDistributedProfit'] = $SuperDistributedProfit;
-            //     //         $total['PL'] = count($players);
-            //     //         $data = [];
-            //     //         return view('turnOver', ['data' => $data, 'total' => $total]);
-            //     //     } else {
-            //     //         // echo "<pre>";
-            //     //         // print_r($players);
-            //     //         // die;
-            //     //         if ($type == 1 || $type == 2 || $type == 3 || $type == 4 || $type == 5 || $type == 8) {
-            //     //             $td = date('j', strtotime($_GET['to']));
-            //     //             $groups[$premium['_id']] = Bets::select('bet', 'won',  'playerCommission', 'classicCommission', 'ExecutiveCommission', 'premiumCommission', 'agentCommission')
-            //     //                 ->whereIn('playerId', $players)
-            //     //                 ->whereBetween(
-            //     //                     'createdAt',
-            //     //                     array(
-            //     //                         Carbon::create($fY, $fm, $fd, 00, 00, 00),
-            //     //                         Carbon::create($tY, $tm, $td, 23, 59, 59),
-            //     //                     )
-            //     //                 )->get()->toArray();
-            //     //         } elseif ($type == 7 || $type == 6) {
-            //     //             $to = date('n-j-Y', strtotime($_GET['to']));
-            //     //             $groups[$premium['_id']] = Bets::select('bet', 'won',  'playerCommission', 'classicCommission', 'ExecutiveCommission', 'premiumCommission', 'agentCommission')
-            //     //                 ->whereIn('playerId', $players)->where('DrDate', $to)->get()->toArray();
-            //     //         }
-
-            //     //         // echo "<Pre>";
-            //     //         // print_r($groups);
-            //     //         // die;
-            //     //         $commission = [];
-            //     //         foreach ($groups as $key => $get) {
-            //     //             $PlayPoints = 0;
-            //     //             $WinPoints = 0;
-            //     //             $EndPoint = 0;
-            //     //             $RetailerCommission = 0;
-            //     //             $DistributerCommission = 0;
-            //     //             $SuperDistributerCommission = 0;
-            //     //             $commission[$key]['_id'] = $premium['_id'];
-            //     //             $commission[$key]['userName'] = $premium['userName'];
-            //     //             $commission[$key]['role'] = $premium['role'];
-            //     //             $commission[$key]['name'] = $premium['name'];
-            //     //             $commission[$key]['commission'] = $premium['commissionPercentage'];
-            //     //             foreach ($get as $player) {
-            //     //                 $PlayPoints += $player['bet'];
-            //     //                 $WinPoints += $player['won'];
-            //     //                 $EndPoint = $PlayPoints - $WinPoints;
-            //     //             }
-            //     //             $commission[$key]['playPoint'] = $PlayPoints;
-            //     //             $commission[$key]['wonPoint'] = $WinPoints;
-            //     //             $commission[$key]['endPoint'] = $EndPoint;
-            //     //             $commission[$key]['SuperDistributedProfit'] = 0;
-            //     //         }
-            //     //         // echo "<pre>";
-            //     //         // print_r($commission);die;
-            //     //         foreach ($commission as $play) {
-            //     //             $totalPlayPoints += $play['playPoint'];
-            //     //             $TotalWinPoints += $play['wonPoint'];
-            //     //             $EndPoint = $totalPlayPoints - $TotalWinPoints;
-            //     //         }
-            //     //         $total = [];
-            //     //         $total['totalPlayPoints'] = $totalPlayPoints;
-            //     //         $total['TotalWinPoints'] = $TotalWinPoints;
-            //     //         $total['EndPoint'] = $EndPoint;
-            //     //         $total['Margin'] = $margin;
-            //     //         $total['NetProfit'] = $netprofit;
-            //     //         $total['SuperDistributedProfit'] = $SuperDistributedProfit;
-            //     //         $total['PL'] = count($players);
-            //     //         // echo "<pre>";
-            //     //         // print_r($total);die();
-            //     //         // return vi}ew('turnOver', ['data' => $commission, 'total' => $total, 'user' => $users]);
-            //     //     }
-            //     // }
-            // }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
             if (Session::get('role') == 'super_distributor') {
                 $dis = User::where('role', 'distributor')->where('referralId', new \MongoDB\BSON\ObjectID(Session::get('id')))->get();
@@ -357,7 +242,6 @@ class DashboardController extends Controller
                     ->where('role', 'player')
                     ->where('isLogin', true)
                     ->count();
-
                 $dash['online'] = $onlinePlayerCount;
             }
         }

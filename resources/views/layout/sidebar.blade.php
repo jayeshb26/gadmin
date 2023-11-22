@@ -12,7 +12,7 @@
     </div>
     <div class="sidebar-body">
         <ul class="nav navbar-non-responsive">
-            <li class="nav-item nav-category"></li>
+            <li class="nav-item nav-category">Main</li>
             <li class="nav-item {{ active_class(['dashboard']) }}">
                 <a href="{{ url('/dashboard') }}" class="nav-link">
                     <i class="link-icon" data-feather="box"></i>
