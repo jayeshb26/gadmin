@@ -221,7 +221,7 @@
                                 <p>
                                     <select name="boosterId" id="boosterId" class="browser-default custom-select"
                                         style="width:100%">
-                                        @for ($i = 1; $i <= 20; $i++)
+                                        @for ($i = 1; $i <= 4; $i++)
                                             @if ($i == 1)
                                                 <option value="0">1</option>
                                             @else
