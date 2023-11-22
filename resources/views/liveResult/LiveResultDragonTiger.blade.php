@@ -14,7 +14,7 @@
         <div class="col-md-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
-                    <h5 class="col-sm-2 card-title" style="text-transform: none !important;">Lucky Card 12</h5>
+                    <h5 class="col-sm-2 card-title" style="text-transform: none !important;">Dragon Tiger</h5>
                     <button type='button' id="reset" class="btn btn-primary"><span aria-hidden='true'>Reset
                             Balance</span></button>
                 </div>
@@ -298,14 +298,14 @@
             socket.on('connect', function() {
                 const user = {
                     adminId: "603388bb7d20e50a81217277",
-                    gameName: "animal",
+                    gameName: "dragontiger",
                 };
 
                 socket.emit('joinAdmin', user);
 
                 var cardNumber = 0;
                 var y = 1;
-                var gameName = "animal";
+                var gameName = "dragontiger";
 
                 function removeAlert() {
                     setTimeout(function() {
@@ -338,7 +338,7 @@
 
                 socket.on('resAdmin', function(res) {
                     console.log(res);
-                    if (res.gameName === "animal") {
+                    if (res.gameName === "dragontiger") {
                         if (res.time >= 0) {
                             var seconds = Math.abs(res.time) - 60;
                             seconds = Math.abs(seconds);
