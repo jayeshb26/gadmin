@@ -381,6 +381,18 @@
                         <span class="link-title">Live Result FunTarget</span>
                     </a>
                 </li>
+                <li class="nav-item {{ active_class(['liveResult/liveResultAnimal']) }}">
+                    <a href="{{ url('/liveResult/liveResultAnimal') }}" class="nav-link">
+                        <i class="link-icon fa fa-list"></i>
+                        <span class="link-title">Live Result Animal</span>
+                    </a>
+                </li>
+                <li class="nav-item {{ active_class(['liveResult/liveResultFunTarget']) }}">
+                    <a href="{{ url('/liveResult/liveResultFunTarget') }}" class="nav-link">
+                        <i class="link-icon fa fa-list"></i>
+                        <span class="link-title">Live Result DragonTiger</span>
+                    </a>
+                </li>
             @endif
             <li class="nav-item">
                 <a class="nav-link {{ active_class(['/chpass']) }}" href="{{ url('/chpass') }}">
