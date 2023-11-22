@@ -172,8 +172,7 @@ Route::group(['middleware' => 'CheckAuth'], function () {
     //    Roulette result route
     Route::get('liveResult/liveResultFunRoulette', 'AdminController@liveResultFunRoulette')->name('liveResultFunRoulette');
     Route::get('liveResult/liveResultFunTarget', 'AdminController@liveResultFunTarget')->name('liveResultFunTarget');
-    Route::get('liveResult/liveResultFunTarget', 'AdminController@liveResultFunTarget')->name('liveResultFunTarget');
-    Route::get('liveResult/liveResultFunTarget', 'AdminController@liveResultFunTarget')->name('liveResultFunTarget');
+    Route::get('liveResult/liveResultDragonTiger', 'AdminController@liveResultDragonTiger')->name('liveResultDragonTiger');
     Route::get('liveResult/liveResultAnimal', 'AdminController@liveResultAnimal')->name('liveResultAnimal');
 
     // Route::get('liveResult/resultFunTarget', 'AdminController@resultFunTarget')->name('resultFunTarget');

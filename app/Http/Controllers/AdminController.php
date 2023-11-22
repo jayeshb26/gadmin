@@ -1703,6 +1703,18 @@ class AdminController extends Controller
         $daily['totalwonamount']  = Bets::where('game', 'animal')->where('createdAt', '>=', Carbon::today())->sum('total_win_amount');
         return view('liveResult.liveResultAnimal', ['daily' => $daily]); //'response' => $response->json(), 'lastCard' => $lastWinCards,
     }
+
+    public function liveResultDragonTiger() // ADMIN_ROULETTE_ZERO_GAME_INFO
+    {
+        // $webUrl = 'http://13.233.70.146:3000';
+        // dd('hello');
+        // $webUrl = 'http://localhost:5000';
+        // $response = Http::get($webUrl . '/chooseServer?det=android');
+        // $lastWinCards = RouletteZeroPlayings::select('last_win_cards')->first();
+        $daily['totalbetamount']  = Bets::where('game', 'animal')->where('createdAt', '>=', Carbon::today())->sum('total_bet_amount');
+        $daily['totalwonamount']  = Bets::where('game', 'animal')->where('createdAt', '>=', Carbon::today())->sum('total_win_amount');
+        return view('liveResult.LiveResultDragonTiger', ['daily' => $daily]); //'response' => $response->json(), 'lastCard' => $lastWinCards,
+    }
     // public function resultFunTarget() // ADMIN_ROULETTE_ZERO_GAME_INFO
     // {
     //     dd('geklloo');

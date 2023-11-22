@@ -15,7 +15,7 @@
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
                     <h5 class="col-sm-2 card-title" style="text-transform: none !important;">Sorat</h5>
-                    
+
                     <button type='button' id="reset" class="btn btn-primary"><span aria-hidden='true'>Reset Balance</span></button>
                 </div>
                 <div class="card-body">
@@ -171,7 +171,7 @@
                                                     </td>
                                                     <td><input type="text" class="form-control" name="9" id="amtRose"
                                                         value="0" readonly />
-                                                    </td>       
+                                                    </td>
                                                     <td><input type="text" class="form-control" name="10" id="amtButterfly"
                                                         value="0" readonly />
                                                     </td>
@@ -193,7 +193,6 @@
                                 <p>Total Expected Collection: <span id="TCollection">0</span>
                                 </p>
                                 <p>Total Expected Payment<span id="if_selected"></span>: <span id="totalPayment"></span></p>
-                                <form action="{{ route('lucky16config') }}"></form>
                                 <p>
                                     <select name="boosterId" id="boosterId" class="browser-default custom-select"
                                         style="width:100%">
@@ -204,7 +203,7 @@
                                                 <option value="{{ $i }}">{{ $i }}</option>
                                             @endif
                                         @endfor
-                                    </select>   
+                                    </select>
                                 </p>
                                 <div class="mt-2 mb-3 d-flex">
                                     <input type="text" class="form-control mr-2" name="SelectedCard" id="SelectedCard"
@@ -247,8 +246,8 @@
                                 </table>
                             </div>
                         </div>
-                        
-                        
+
+
                     </div>
                 </div>
             </div>
@@ -302,7 +301,7 @@
         $(document).keydown(function(event) {
             if (event.keyCode == 123) { // Prevent F12
                 return false;
-            } else if (event.ctrlKey && event.shiftKey && event.keyCode == 73) { // Prevent Ctrl+Shift+I        
+            } else if (event.ctrlKey && event.shiftKey && event.keyCode == 73) { // Prevent Ctrl+Shift+I
                 return false;
             } else if (event.ctrlKey && event.shiftKey && event.keyCode == 67) { // Prevent Ctrl+Shift+C
                 return false;
@@ -319,8 +318,8 @@
     <script>
         var result = '';
         var gameid = '';
-        var card = ["Amrela", 
-        "Ball", 
+        var card = ["Amrela",
+        "Ball",
         "Sun",
         "Lamp",
         "Cow",
@@ -359,7 +358,7 @@
             "DK": 11,
             "CK": 12,
         };
-        
+
         $('#boosterId').on('change', function() {
             var j = $('#SelectedCardNumber').val();
             $('#totalPayment').html($('#amt' + j).val() * 10 * (this.value==0?1:this.value));
@@ -367,9 +366,7 @@
         $(function() {
             var URL;
             URL = "ws://";
-            URL += "{{ $response['SOCKET_URL']['host'] }}";
-            URL += ":";
-            URL += "{{ $response['SOCKET_URL']['port'] }}";
+
             // console.log(URL);
             const socket = io.connect(URL);
             socket.on("connect", () => {
@@ -475,8 +472,8 @@
                         booster = "N";
                     }
                     $("#r"+i).html('<img src="'+url+'" width="50px" height="50px">' + " | " + booster);
-                    
-                    $('#booster' + i).html(booster);    
+
+                    $('#booster' + i).html(booster);
                 }
 
                 function removeAlert() {
@@ -485,7 +482,7 @@
                         $('#alertIdR').removeClass('show');
                     }, 5000);
                 }
-                
+
             });
             $('#btnSave').on('click', function() {
                     console.log($('#SelectedCardNumber').val());

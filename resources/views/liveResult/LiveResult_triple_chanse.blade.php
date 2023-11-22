@@ -16,7 +16,7 @@
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
                     <h5 class="col-sm-2 card-title" style="text-transform: none !important;">Triple Chance</h5>
-                    
+
                     <button type='button' id="reset" class="btn btn-primary"><span aria-hidden='true'>Reset Balance</span></button>
                 </div>
                 <div class="card-body">
@@ -65,7 +65,7 @@
                                                                                         <span style="border:1px solid #fff;padding:1px 5px;color:#000;background-color:#D9DDFF;" id='bet_{{ $no >= 0 && $no <= 99 ? implode('-', str_split(sprintf('%03d', $no), 1)) : implode('-', str_split($no, 1)) }}'>00</span>
                                                                                     </td>
                                                                                     @php
-                                                                                        $no++;  
+                                                                                        $no++;
                                                                                     @endphp
                                                                                 @endfor
                                                                             </tr>
@@ -86,7 +86,6 @@
                                 <p id="GameStatus" style="font-weight: bold; font-size:25px">Game Timer:</p>
                                 <span id="countdown" style="font-size: 32px">00</span>
                                 <p>Total Expected Collection: <span id="TCollection">0</span>
-                                <form action="{{ route('lucky16config') }}"></form>
                                 <p>
                                     <select name="boosterId" id="boosterId" class="browser-default custom-select"
                                         style="width:100%">
@@ -132,11 +131,11 @@
                                     </tr>
                                 </table>
                                 <table class="tlb" id="resTab">
-                                    
+
                                     @for($i = 1; $i <= 5; $i++)
                                     <tr id="lastbet">
                                             <td class="r_color_2" id="lastNo{{ $i }}"></td>
-                                    </tr> 
+                                    </tr>
                                     @endfor
                                 </table>
                             </div>
@@ -153,7 +152,7 @@
 @endpush
 
 @push('custom-scripts')
-    
+
     <script>
         var result = '';
         var gameid = '';
@@ -194,9 +193,7 @@
         $(function() {
             var URL;
             URL = "ws://";
-            URL += "{{ $response['SOCKET_URL']['host'] }}";
-            URL += ":";
-            URL += "{{ $response['SOCKET_URL']['port'] }}";
+
             // console.log(URL);
             const socket = io.connect(URL);
             socket.on("connect", () => {
@@ -207,11 +204,11 @@
                 "data": {}
             });
 
-            function pad(s) 
-            { 
-                while (s.length < 3) 
-                    s = '0' + s; 
-                return s; 
+            function pad(s)
+            {
+                while (s.length < 3)
+                    s = '0' + s;
+                return s;
             };
             socket.on('res', function(data) {
                 let response = data;
@@ -233,7 +230,7 @@
                         $('#check_' + result).attr("checked", "checked");
                         $('#SelectedCardNumber').val(this.value);
                         $('#boosterId').val($('#boosterId').val());
-                        // $('#TCollection').html($('#c' + key).val()); 
+                        // $('#TCollection').html($('#c' + key).val());
                         // $('#totalPayment').html($('#c' + key).val() * 14 * boosterIds);
                     });
                     if (response.data.timer) {
@@ -263,7 +260,7 @@
                         document.getElementById('GameStatus').innerHTML = response.data.game_state;
                         var counter = setInterval(timerDATA, 1000);
                     }
-                    
+
                     $('#tDayCollection').html(response.data.total_bet_amount);
                     var total=0;
                     $.each(response.data.total_bet_on_cards, function(key, value) {
@@ -295,7 +292,7 @@
                             }
                             $('No').prop("checked", false);
                             $('#boosterId').val(0);
-                            
+
                             window.location.reload();
                         }
                     }
@@ -326,7 +323,7 @@
                     }, 5000);
                 }
             });
-            
+
             $('#btnSave').on('click', function() {
                 console.log($('#SelectedCard').val());
                 console.log($('#boosterId').val());

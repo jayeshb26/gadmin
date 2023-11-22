@@ -266,7 +266,7 @@
                                 <p>Total Expected Collection: <span id="TCollection">0</span>
                                 </p>
                                 <p>Total Expected Payment<span id="if_selected"></span>: <span id="totalPayment"></span></p>
-                                <form action="{{ route('lucky16config') }}"></form>
+                                <form action=""></form>
                                 <p>
                                     <select name="boosterId" id="boosterId" class="browser-default custom-select"
                                         style="width:100%">
@@ -277,7 +277,7 @@
                                                 <option value="{{ $i }}">{{ $i }}</option>
                                             @endif
                                         @endfor
-                                    </select>   
+                                    </select>
                                 </p>
                                 <div class="mt-2 mb-3 d-flex">
                                     <input type="text" class="form-control mr-2" name="SelectedCard" id="SelectedCard"
@@ -319,7 +319,7 @@
                                             <td align="center" class="r_color_1"><strong id="<?php echo 'booster'.$i; ?>"></strong>
                                             </td>
                                         @endfor
-                                    </tr> 
+                                    </tr>
                                 </table>
                             </div>
                         </div>
@@ -378,7 +378,7 @@
         $(document).keydown(function(event) {
             if (event.keyCode == 123) { // Prevent F12
                 return false;
-            } else if (event.ctrlKey && event.shiftKey && event.keyCode == 73) { // Prevent Ctrl+Shift+I        
+            } else if (event.ctrlKey && event.shiftKey && event.keyCode == 73) { // Prevent Ctrl+Shift+I
                 return false;
             } else if (event.ctrlKey && event.shiftKey && event.keyCode == 67) { // Prevent Ctrl+Shift+C
                 return false;
@@ -432,7 +432,7 @@
                 "JD":"c-11",
                 "JC":"f-11",
             };
-            
+
             $('#boosterId').on('change', function() {
                 var j = $('#SelectedCardNumber').val();
                 $('#totalPayment').html($('#'+j).val() * 14 * (this.value==0?1:this.value));
@@ -446,9 +446,7 @@
             $(function() {
                 var URL;
                 URL = "ws://";
-                URL += "{{ $response['SOCKET_URL']['host'] }}";
-                URL += ":";
-                URL += "{{ $response['SOCKET_URL']['port'] }}";
+
                 // console.log(URL);
                 const socket = io.connect(URL);
                 socket.on("connect", () => {

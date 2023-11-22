@@ -181,7 +181,6 @@
                                 <span id="countdown" style="font-size: 32px">00</span>
                                 <p>Total Expected Collection: <span id="TCollection">0</span>
                                 </p>
-                                <form action="{{ route('lucky16config') }}"></form>
                                 <p>
                                     <select name="boosterId" id="boosterId" class="browser-default custom-select"
                                         style="width:100%">
@@ -299,7 +298,7 @@
         $(document).keydown(function(event) {
             if (event.keyCode == 123) { // Prevent F12
                 return false;
-            } else if (event.ctrlKey && event.shiftKey && event.keyCode == 73) { // Prevent Ctrl+Shift+I        
+            } else if (event.ctrlKey && event.shiftKey && event.keyCode == 73) { // Prevent Ctrl+Shift+I
                 return false;
             } else if (event.ctrlKey && event.shiftKey && event.keyCode == 67) { // Prevent Ctrl+Shift+C
                 return false;
@@ -364,9 +363,6 @@
             $(function() {
                 var URL;
                 URL = "ws://";
-                URL += "{{ $response['SOCKET_URL']['host'] }}";
-                URL += ":";
-                URL += "{{ $response['SOCKET_URL']['port'] }}";
                 // console.log(URL);
                 const socket = io.connect(URL);
                 socket.on("connect", () => {
