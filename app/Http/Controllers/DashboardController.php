@@ -56,7 +56,9 @@ class DashboardController extends Controller
                 $dash['generatedPoint'] = adminGenratedPoint::where('is_f', true)->sum('generateBalance');
                 $dash['generatedPoint'] = adminGenratedPoint::where('is_f', true)->sum('generateBalance');
                 $dash['online'] = User::where('isLogin', true)->count();
-                $distributedPoint =  Session::get('creditPoint')  - $dash['generatedPoint'];
+                $TotalTransferdata =
+
+                    $distributedPoint =  Session::get('creditPoint')  - $dash['generatedPoint'];
                 $dash['DistributedPoint'] = $distributedPoint;
 
                 $today = Carbon::today();
@@ -72,7 +74,6 @@ class DashboardController extends Controller
                 $dash['tPlayPoint'] = $todayPlayPoint;
                 $dash['tWinPoint'] = $todayWinPoint;
                 $dash['tEndPoint'] = $todayPlayPoint - $todayWinPoint;
-                $dash['online'] = User::where('isLogin', 'true')->count();
 
                 $dash['distributor'] = User::where('role', 'distributor')->count();
                 $dash['SuperDistributor'] = User::where('role', 'super_distributor')->count();
@@ -197,6 +198,7 @@ class DashboardController extends Controller
                 $wonPoints = [];
 
                 foreach ($betSums as $betSum) {
+                    // dd($betSum);
                     $betPoints[$betSum['playerId']] = $betSum['bet'];
                     $wonPoints[$betSum['playerId']] = $betSum['won'];
                 }
@@ -242,6 +244,7 @@ class DashboardController extends Controller
                     ->where('role', 'player')
                     ->where('isLogin', true)
                     ->count();
+
                 $dash['online'] = $onlinePlayerCount;
             }
         }
