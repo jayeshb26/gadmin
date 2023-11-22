@@ -565,8 +565,6 @@
                                     $('#c' + key).css("background-color", "transparent");
                                 }
                             });
-
-
                         }
                     }
                 });
