@@ -119,31 +119,33 @@
                                     $SR_No = 1;
                                 @endphp
                                 @foreach ($data as $value)
-                                    <tr role="row" class="odd">
-                                        <td class=""><?= $SR_No++ ?></td>
-                                        <td>{{ $value['userName'] }}
-                                            @if ($value['isLogin'] == true)
-                                                <span class="online blink">&#9679;</span>
-                                            @elseif($value['isLogin'] == false)
-                                                <span class="offline">&#9679;</span>
-                                            @endif
-                                        </td>
-                                        <td>{{ $value['name'] }}</td>
-                                        <td class="sorting_1">
-                                            {{ $value['role'] }}
-                                        </td>
-                                        <td>{{ number_format($value['creditPoint'], 2) }}</td>
-                                        {{--  <td>{{ number_format($value['totalbetPoint'], 2) }}</td>
+                                    @if ($value['isLogin'] == true)
+                                        <tr role="row" class="odd">
+                                            <td class=""><?= $SR_No++ ?></td>
+                                            <td>{{ $value['userName'] }}
+                                                @if ($value['isLogin'] == true)
+                                                    <span class="online blink">&#9679;</span>
+                                                @elseif($value['isLogin'] == false)
+                                                    <span class="offline">&#9679;</span>
+                                                @endif
+                                            </td>
+                                            <td>{{ $value['name'] }}</td>
+                                            <td class="sorting_1">
+                                                {{ $value['role'] }}
+                                            </td>
+                                            <td>{{ number_format($value['creditPoint'], 2) }}</td>
+                                            {{--  <td>{{ number_format($value['totalbetPoint'], 2) }}</td>
                                         <td>{{ number_format($value['totalwonPoint'], 2) }}</td>
                                         <td>{{ number_format($value['totalendPoint'], 2) }}</td>  --}}
-                                        <td>
-                                            @if ($value['isLogin'] == true)
-                                                Online <span class="online blink">&#9679;</span>
-                                            @elseif($value['isLogin'] == false)
-                                                Offline <span class="offline">&#9679;</span>
-                                            @endif
-                                        </td>
-                                    </tr>
+                                            <td>
+                                                @if ($value['isLogin'] == true)
+                                                    Online <span class="online blink">&#9679;</span>
+                                                @elseif($value['isLogin'] == false)
+                                                    Offline <span class="offline">&#9679;</span>
+                                                @endif
+                                            </td>
+                                        </tr>
+                                    @endif
                                 @endforeach
                             </tbody>
                         </table>
