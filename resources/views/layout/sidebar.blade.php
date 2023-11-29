@@ -152,25 +152,25 @@
                         </div>
                     </div>
                 @endif
-                {{--  @if (in_array(Session::get('role'), ['super_distributor']))
+                @if (in_array(Session::get('role'), ['super_distributor']))
                     <div class="nav-item" id="anotherDropdown">
                         <a href="#" class="nav-link dropdown-toggle">
                             <i class="link-icon fas fa-box"></i>
                             <span class="link-title">Distributor</span>
                         </a>
                         <div class="custom-submenu">
-                            <a href="{{ url('/' . ($isFranchise ? 'admin' : 'users') . '/add_' . 'distributor') }}"
+                            {{--  <a href="{{ url('/' . ($isFranchise ? 'admin' : 'users') . '/add_' . 'distributor') }}"
                                 class="nav-link">
                                 <i class="link-icon fas fa-box"></i>
                                 <span class="link-title">Add Distributor</span>
-                            </a>
+                            </a>  --}}
                             <a href="{{ url('/users/admin') }}" class="nav-link">
                                 <i class="link-icon fas fa-box"></i>
                                 <span class="link-title">View Distributor</span>
                             </a>
                         </div>
                     </div>
-                @endif  --}}
+                @endif
                 @if (in_array(Session::get('role'), ['super_distributor']))
                     <div class="nav-item" id="anotherDropdown">
                         <a href="#" class="nav-link dropdown-toggle">
