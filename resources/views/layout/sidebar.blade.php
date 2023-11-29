@@ -79,7 +79,8 @@
                     </a>
                 </li>  --}}
                 {{--            Dropdown --}}
-                @if (in_array(Session::get('role'), ['Admin']))
+                @if (in_array(Session::get('role'), ['Admin']) &&
+                        (session('role') != 'super_distributor' && session('role') != 'distributor'))
                     <div class="nav-item" id="anotherDropdown">
                         <a href="#" class="nav-link dropdown-toggle" id="superToggle">
                             <i class="link-icon fas fa-users"></i>
@@ -98,7 +99,8 @@
                         </div>
                     </div>
                 @endif
-                @if (in_array(Session::get('role'), ['Admin']))
+                @if (in_array(Session::get('role'), ['Admin']) &&
+                        (session('role') != 'super_distributor' && session('role') != 'distributor'))
                     <div class="nav-item" id="anotherDropdown">
                         <a href="#" class="nav-link dropdown-toggle">
                             <i class="link-icon fas fa-box"></i>
@@ -150,7 +152,7 @@
                         </div>
                     </div>
                 @endif
-                @if (in_array(Session::get('role'), ['super_distributor']))
+                {{--  @if (in_array(Session::get('role'), ['super_distributor']))
                     <div class="nav-item" id="anotherDropdown">
                         <a href="#" class="nav-link dropdown-toggle">
                             <i class="link-icon fas fa-box"></i>
@@ -168,7 +170,7 @@
                             </a>
                         </div>
                     </div>
-                @endif
+                @endif  --}}
                 @if (in_array(Session::get('role'), ['super_distributor']))
                     <div class="nav-item" id="anotherDropdown">
                         <a href="#" class="nav-link dropdown-toggle">

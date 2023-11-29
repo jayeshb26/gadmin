@@ -386,38 +386,28 @@ class AdminController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // echo "<pre>";
-        // print_r($request->toArray());
-        // die();
+        $user = User::find($id);
+
+        if (!$user) {
+            session()->flash('msg', 'User not found.');
+            return redirect()->back();
+        }
+
         $referral = "";
         $role = "";
-        // dd($request);
-        if (Session::get('role') == "Admin") {
-            // dd(Session::get('role') == "Admin");
 
+        if (Session::get('role') == "Admin") {
             if ($request->role == 1) {
                 $referral = Session::get('id');
                 $role = "Admin";
             } elseif ($request->role == 3) {
-                if (isset($request->referralId)) {
-                    $referral = $request->referralId;
-                } else {
-                    $referral = Session::get('id');
-                }
+                $referral = $request->filled('referralId') ? $request->referralId : Session::get('id');
                 $role = "super_distributor";
             } elseif ($request->role == 5) {
-                if (isset($request->referralId)) {
-                    $referral = $request->referralId;
-                } else {
-                    $referral = $request->superDistributerId;
-                }
+                $referral = $request->filled('referralId') ? $request->referralId : $request->superDistributerId;
                 $role = "distributor";
             } elseif ($request->role == 7) {
-                if (isset($request->referralId)) {
-                    $referral = $request->referralId;
-                } else {
-                    $referral = $request->superDistributerId;
-                }
+                $referral = $request->filled('referralId') ? $request->referralId : $request->superDistributerId;
                 $role = "player";
             }
         } else {
@@ -425,77 +415,55 @@ class AdminController extends Controller
                 $referral = Session::get('id');
                 $role = "Admin";
             } elseif ($request->role == "super_distributor") {
-                if (isset($request->referralId)) {
-                    $referral = $request->referralId;
-                } else {
-                    $referral = Session::get('id');
-                }
+                $referral = $request->filled('referralId') ? $request->referralId : Session::get('id');
                 $role = "super_distributor";
             } elseif ($request->role == "distributor") {
-                if (isset($request->referralId)) {
-                    $referral = $request->referralId;
-                } else {
-                    $referral = $request->superDistributerId;
-                }
+                $referral = $request->filled('referralId') ? $request->referralId : $request->superDistributerId;
                 $role = "distributor";
             } elseif ($request->role == "player") {
-                if (isset($request->referralId)) {
-                    $referral = $request->referralId;
-                } else {
-                    $referral = $request->superDistributerId;
-                }
+                $referral = $request->filled('referralId') ? $request->referralId : $request->superDistributerId;
                 $role = "player";
             }
         }
 
-
-        // echo $referral;
-        // echo $role;
-        // dd($referral);
-        // dd(User::where('_id', new \MongoDB\BSON\ObjectID())->first());
         $refer = User::where('_id', new \MongoDB\BSON\ObjectID($referral))->first();
-        // dd($referral);
-        if ($refer['role'] == Session::get('role') || Session::get('role') == "Admin") {
-            $referral = new \MongoDB\BSON\ObjectID($referral);
-            $permissions = [];
-            foreach ($request->permission as $key => $va) {
-                $v = $va;
-                $a = $key;
-                $permissions[$va] = true;
-            }
 
-            $password = $request->password;
-            // $commissionPercentage = floatval(trim($request->commissionPercentage, '"'));
-            $transactionPin = intval(trim($request->transactionPin, '"'));
+        if (!$refer || ($refer['role'] != Session::get('role') && Session::get('role') != "Admin")) {
+            session()->flash('msg', 'You are not Authorized to edit this User.');
+            return redirect()->back();
+        }
 
-            $user = User::find($id);
-            $user = new User();
-            $user->name = $request->name;
-            $user->password = $password;
-            $user->firmName = $request->firmName;
-            $user->role = $role;
-            $user->isActive = true;
-            $user->permissions = $permissions;
-            $user->transactionPin = $transactionPin;
-            // $user->commissionPercentage = $commissionPercentage;
-            $user->isLogin = false;
-            $user->referralId = $referral;
-            // echo "<pre>";
-            // print_r($user->toArray());
-            // die();
-            $user->save();
-            if (Session::get('role') == 'Admin') {
-                if ($role == "super_distributor") {
-                    return redirect('/users/admin');
-                } elseif ($role == "distributor") {
-                    return redirect('/users/admin');
-                } elseif ($role == 'player') {
-                    return redirect('/users/admin');
-                } else {
-                    return redirect('/users/admin');
-                }
-            } elseif (Session::get('role') == 'player') {
-                // return redirect('/users/admin');
+        $referral = new \MongoDB\BSON\ObjectID($referral);
+        $permissions = [];
+
+        foreach ($request->permission as $key => $va) {
+            $v = $va;
+            $a = $key;
+            $permissions[$va] = true;
+        }
+
+        // Update the user attributes
+        $user->name = $request->name;
+        $user->password = $request->password; // You might want to handle password encryption here
+        $user->firmName = $request->firmName;
+        $user->role = $role;
+        $user->isActive = true;
+        $user->permissions = $permissions;
+        $user->transactionPin = intval(trim($request->transactionPin, '"'));
+        $user->isLogin = false;
+        $user->referralId = $referral;
+
+        // Save the updated user
+        $user->save();
+
+        // Redirect based on user role
+        if (Session::get('role') == 'Admin') {
+            if ($role == "super_distributor") {
+                return redirect('getdata/super-distributor');
+            } elseif ($role == "distributor") {
+                return redirect('getdata/distributor');
+            } elseif ($role == 'player') {
+                return redirect('/users/admin');
             } else {
                 return redirect('/users/admin');
             }

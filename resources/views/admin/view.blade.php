@@ -114,46 +114,51 @@
 
                                         <td>{{ number_format($value['creditPoint'], 2) }}</td>
                                         <td>
-                                            <div class="btn-group btn-group-sm">
-                                                <a href="{{ url('superAdmin/' . $value['_id'] . '/edit') }}" type="button"
-                                                    class="btn btn-sm btn-outline-info" title="Edit user"><i
-                                                        class="mdi mdi-pencil-box" style="font-size:20px;"></i></a>
-                                                <a href="{{ url('transfercredit/' . $value['_id']) }}"
-                                                    class="btn btn-sm btn-outline-success" title="Transfer Credit"><i
-                                                        class="mdi mdi-package-up" style="font-size:20px;"></i></a>
-                                                <a href="{{ url('adjustcredit/' . $value['_id']) }}"
-                                                    class="btn btn-sm btn-outline-warning" title="Adjust Credit"><i
-                                                        class="mdi mdi-package-down" style="font-size:20px;"></i></a>
-                                            </div>
-                                            <div></div>
-                                            <div class="btn-group btn-group-sm">
-                                                @if ($value['isActive'] == 1)
-                                                    <a href="{{ url('banuser/' . $value['_id'] . '/' . $value['isActive']) }}"
-                                                        class="btn btn-sm btn-outline-success" title="Block User"><i
-                                                            class="mdi mdi-close-box" style="font-size:20px;"></i></a>
-                                                @elseif($value['isActive'] == 0)
-                                                    <a href="{{ url('banuser/' . $value['_id'] . '/0') }}"
-                                                        class="btn btn-sm btn-outline-danger" title="Unblock User"><i
-                                                            class="mdi mdi-checkbox-marked" style="font-size:20px;"></i></a>
-                                                @endif
-                                                @if ($value['isActive'] == 1)
-                                                    <a href="{{ url('blockUser/' . $value['_id'] . '/' . $value['isActive']) }}"
-                                                        class="btn btn-sm btn-outline-success" title="Deactive User"><i
-                                                            class="mdi mdi-close-octagon" style="font-size:20px;"></i></a>
-                                                @elseif($value['isActive'] == 0)
-                                                    <a href="{{ url('blockUser/' . $value['_id'] . '/0') }}"
-                                                        class="btn btn-sm btn-outline-danger" title="Active User"><i
-                                                            class="mdi mdi mdi-pause-octagon"
+                                            @if (session('role') == 'Admin')
+                                                <div class="btn-group btn-group-sm">
+                                                    <a href="{{ url('superAdmin/' . $value['_id'] . '/edit') }}"
+                                                        type="button" class="btn btn-sm btn-outline-info"
+                                                        title="Edit user"><i class="mdi mdi-pencil-box"
                                                             style="font-size:20px;"></i></a>
-                                                @endif
-                                                @if (Session::get('role') == 'Admin')
-                                                    <a href="{{ url('superAdmin/delete/' . $value['_id']) }}"
-                                                        class="btn btn-sm btn-outline-danger delete-confirm"
-                                                        title="Delete"><i class="mdi mdi-delete"
-                                                            style="font-size:20px;"></i></a>
-                                                @endif
-                                            </div>
-                                            {{-- href="{{ url('users/delete/'.$value['_id'])}}" --}}
+                                                    <a href="{{ url('transfercredit/' . $value['_id']) }}"
+                                                        class="btn btn-sm btn-outline-success" title="Transfer Credit"><i
+                                                            class="mdi mdi-package-up" style="font-size:20px;"></i></a>
+                                                    <a href="{{ url('adjustcredit/' . $value['_id']) }}"
+                                                        class="btn btn-sm btn-outline-warning" title="Adjust Credit"><i
+                                                            class="mdi mdi-package-down" style="font-size:20px;"></i></a>
+                                                </div>
+                                                <div></div>
+                                                <div class="btn-group btn-group-sm">
+                                                    @if ($value['isActive'] == 1)
+                                                        <a href="{{ url('banuser/' . $value['_id'] . '/' . $value['isActive']) }}"
+                                                            class="btn btn-sm btn-outline-success" title="Block User"><i
+                                                                class="mdi mdi-close-box" style="font-size:20px;"></i></a>
+                                                    @elseif($value['isActive'] == 0)
+                                                        <a href="{{ url('banuser/' . $value['_id'] . '/0') }}"
+                                                            class="btn btn-sm btn-outline-danger" title="Unblock User"><i
+                                                                class="mdi mdi-checkbox-marked"
+                                                                style="font-size:20px;"></i></a>
+                                                    @endif
+                                                    @if ($value['isActive'] == 1)
+                                                        <a href="{{ url('blockUser/' . $value['_id'] . '/' . $value['isActive']) }}"
+                                                            class="btn btn-sm btn-outline-success" title="Deactive User"><i
+                                                                class="mdi mdi-close-octagon"
+                                                                style="font-size:20px;"></i></a>
+                                                    @elseif($value['isActive'] == 0)
+                                                        <a href="{{ url('blockUser/' . $value['_id'] . '/0') }}"
+                                                            class="btn btn-sm btn-outline-danger" title="Active User"><i
+                                                                class="mdi mdi mdi-pause-octagon"
+                                                                style="font-size:20px;"></i></a>
+                                                    @endif
+                                                    @if (Session::get('role') == 'Admin')
+                                                        <a href="{{ url('superAdmin/delete/' . $value['_id']) }}"
+                                                            class="btn btn-sm btn-outline-danger delete-confirm"
+                                                            title="Delete"><i class="mdi mdi-delete"
+                                                                style="font-size:20px;"></i></a>
+                                                    @endif
+                                                </div>
+                                                {{-- href="{{ url('users/delete/'.$value['_id'])}}" --}}
+                                            @endif
                                         </td>
                                         <td>{{ date('d-m-Y h:i:s A', strtotime($value['updated_at'])) }}</td>
                                         <td>{{ date('d-m-Y h:i:s A', strtotime($value['created_at'])) }}</td>
