@@ -47,6 +47,7 @@
                             $role = 'superAdmin';
                         }
                     @endphp
+
                     <form method="post" action="{{ url($role . '/' . $edata['_id']) }}">
                         @csrf
                         @method('PUT')
@@ -72,17 +73,30 @@
                         <div class="form-group d-flex">
                             <label class="col-sm-2 offset-lg-1 text-right control-label mt-2">Name</label>
                             <div class="col-sm-6">
-                                <input type="text"
-                                    class="form-control ui-autocomplete-input @error('name') is-invalid @enderror"
-                                    id="exampleInputUsername1" value="{{ $edata['name'] }}" name="name"
-                                    autocomplete="off" placeholder="Enter Name">
-                                @error('name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                                @if (Session::get('role') == 'distributor' || Session::get('role') == 'super_distributor')
+                                    <input type="text"
+                                        class="form-control ui-autocomplete-input @error('name') is-invalid @enderror"
+                                        id="exampleInputUsername1" value="{{ $edata['name'] }}" name="name"
+                                        autocomplete="off" placeholder="Enter Name" readonly>
+                                    @error('name')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                @else
+                                    <input type="text"
+                                        class="form-control ui-autocomplete-input @error('name') is-invalid @enderror"
+                                        id="exampleInputUsername1" value="{{ $edata['name'] }}" name="name"
+                                        autocomplete="off" placeholder="Enter Name">
+                                    @error('name')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                @endif
                             </div>
                         </div>
+
                         @if (Session::get('role') == 'Admin')
                             <div class="form-group d-flex">
                                 <label class="col-sm-2 offset-lg-1 text-right control-label mt-2" id="role">Role
@@ -261,34 +275,48 @@
                         <div class="d-flex" id="referral">
 
                         </div>
-
-                        <div class="form-group d-flex">
-                            <label class="col-sm-2 offset-lg-1 text-right control-label mt-2">Password</label>
-                            <div class="col-sm-6">
-                                <input type="text"
-                                    class="form-control ui-autocomplete-input @error('password') is-invalid @enderror"
-                                    id="exampleInputUsername1" value="{{ $edata['password'] }}" name="password"
-                                    autocomplete="off" placeholder="Enter Password">
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                        @if (session('role') == 'super_distributor' || session('role') == 'distributor' || session('role') == 'Admin')
+                            <div class="form-group d-flex">
+                                <label class="col-sm-2 offset-lg-1 text-right control-label mt-2">Password</label>
+                                <div class="col-sm-6">
+                                    <input type="text"
+                                        class="form-control ui-autocomplete-input @error('password') is-invalid @enderror"
+                                        id="exampleInputUsername1" value="{{ $edata['password'] }}" name="password"
+                                        autocomplete="off" placeholder="Enter Password">
+                                    @error('password')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
                             </div>
-                        </div>
+                        @endif
 
                         <div class="form-group d-flex">
                             <label class="col-sm-2 offset-lg-1 text-right control-label mt-2">Transaction Pin</label>
                             <div class="col-sm-6">
-                                <input type="number"
-                                    class="form-control ui-autocomplete-input @error('transactionPin') is-invalid @enderror"
-                                    id="exampleInputUsername1" value="{{ $edata['transactionPin'] }}"
-                                    name="transactionPin" autocomplete="off" placeholder="Enter Transaction Pin">
-                                @error('transactionPin')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                                @if (Session::get('role') == 'distributor' || Session::get('role') == 'super_distributor')
+                                    <input type="number"
+                                        class="form-control ui-autocomplete-input @error('transactionPin') is-invalid @enderror"
+                                        id="exampleInputUsername1" value="{{ $edata['transactionPin'] }}"
+                                        name="transactionPin" autocomplete="off" placeholder="Enter Transaction Pin"
+                                        readonly>
+                                    @error('transactionPin')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                @else
+                                    <input type="number"
+                                        class="form-control ui-autocomplete-input @error('transactionPin') is-invalid @enderror"
+                                        id="exampleInputUsername1" value="{{ $edata['transactionPin'] }}"
+                                        name="transactionPin" autocomplete="off" placeholder="Enter Transaction Pin">
+                                    @error('transactionPin')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                @endif
                             </div>
                         </div>
                         {{--  <div class="form-group d-flex">
@@ -347,7 +375,6 @@
             </div>
         </div>
     </div>
-
 @endsection
 
 @push('plugin-scripts')

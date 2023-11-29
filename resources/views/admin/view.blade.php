@@ -114,7 +114,7 @@
 
                                         <td>{{ number_format($value['creditPoint'], 2) }}</td>
                                         <td>
-                                            @if (session('role') == 'Admin')
+                                            @if (session('role') == 'super_distributor' || session('role') == 'distributor')
                                                 <div class="btn-group btn-group-sm">
                                                     <a href="{{ url('superAdmin/' . $value['_id'] . '/edit') }}"
                                                         type="button" class="btn btn-sm btn-outline-info"
@@ -128,8 +128,10 @@
                                                             class="mdi mdi-package-down" style="font-size:20px;"></i></a>
                                                 </div>
                                                 <div></div>
+                                            @endif
+                                            @if (Session::get('role') != 'super_distributor' || Session::get('role') != 'distributor')
                                                 <div class="btn-group btn-group-sm">
-                                                    @if ($value['isActive'] == 1)
+                                                    {{--  @if ($value['isActive'] == 1)
                                                         <a href="{{ url('banuser/' . $value['_id'] . '/' . $value['isActive']) }}"
                                                             class="btn btn-sm btn-outline-success" title="Block User"><i
                                                                 class="mdi mdi-close-box" style="font-size:20px;"></i></a>
@@ -149,7 +151,7 @@
                                                             class="btn btn-sm btn-outline-danger" title="Active User"><i
                                                                 class="mdi mdi mdi-pause-octagon"
                                                                 style="font-size:20px;"></i></a>
-                                                    @endif
+                                                    @endif  --}}
                                                     @if (Session::get('role') == 'Admin')
                                                         <a href="{{ url('superAdmin/delete/' . $value['_id']) }}"
                                                             class="btn btn-sm btn-outline-danger delete-confirm"
