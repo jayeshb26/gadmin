@@ -61,7 +61,7 @@
                                                 <tr>
                                                     <td>
                                                         <div class=" form-check-flat form-check-primary">
-                                                            <input type="radio" class="form-check-input" id="D"
+                                                            <input type="radio" class="form-check-input" id="1"
                                                                 value="l-13" class="cards" name="cards">
                                                             <label for="D"><img
                                                                     src="{{ asset('img/dragon/dragon.jpeg') }}"
@@ -70,7 +70,7 @@
                                                     </td>
                                                     <td>
                                                         <div class=" form-check-flat form-check-primary">
-                                                            <input type="radio" class="form-check-input" id="Tie"
+                                                            <input type="radio" class="form-check-input" id="3"
                                                                 value="k-13" class="cards" name="cards">
                                                             <label for="Tie"><img
                                                                     src="{{ asset('img/dragon/tie.jpeg') }}"
@@ -79,7 +79,7 @@
                                                     </td>
                                                     <td>
                                                         <div class=" form-check-flat form-check-primary">
-                                                            <input type="radio" class="form-check-input" id="T"
+                                                            <input type="radio" class="form-check-input" id="2"
                                                                 value="c-13" class="cards" name="cards">
                                                             <label for="T"><img
                                                                     src="{{ asset('img/dragon/tiger.jpeg') }}"
@@ -127,7 +127,7 @@
                                 <p>
                                     <select name="boosterId" id="boosterId" class="browser-default custom-select"
                                         style="width:100%">
-                                        @for ($i = 1; $i <= 20; $i++)
+                                        @for ($i = 1; $i <= 4; $i++)
                                             @if ($i == 1)
                                                 <option value="0">1</option>
                                             @else
@@ -337,7 +337,7 @@
                     console.log(res);
                     if (res.gameName === "dragontiger") {
                         if (res.time >= 0) {
-                            var seconds = Math.abs(res.time) - 60;
+                            var seconds = Math.abs(res.time) - 15;
                             seconds = Math.abs(seconds);
 
                             var countdownTimer = setInterval(function() {
