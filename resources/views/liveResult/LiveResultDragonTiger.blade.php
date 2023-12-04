@@ -40,14 +40,11 @@
                                             </thead>
                                             <tbody>
                                                 <tr>
-                                                    <td><img src="{{ asset('img/dragon/d.jpeg') }}"
-                                                            style="width:70px">
+                                                    <td><img src="{{ asset('img/dragon/d.jpeg') }}" style="width:70px">
                                                     </td>
-                                                    <td><img src="{{ asset('img/dragon/te.jpeg') }}"
-                                                            style="width:70px">
+                                                    <td><img src="{{ asset('img/dragon/te.jpeg') }}" style="width:70px">
                                                     </td>
-                                                    <td><img src="{{ asset('img/dragon/t.jpeg') }}"
-                                                            style="width:70px">
+                                                    <td><img src="{{ asset('img/dragon/t.jpeg') }}" style="width:70px">
                                                     </td>
                                                     {{--  <td><img src="{{ asset('img/cards/all_clubs.png') }}"
                                                             style="width:70px">
@@ -101,13 +98,13 @@
                                                 </tr>
                                                 <tr>
                                                     <td><input type="text" class="form-control" name="l-13"
-                                                            value="0" id="l-13" readonly />
+                                                            id="amt1" value="0" readonly />
                                                     </td>
                                                     <td><input type="text" class="form-control" name="k-13"
-                                                            value="0" id="k-13" readonly />
+                                                            id="amt" value="0" readonly />
                                                     </td>
                                                     <td><input type="text" class="form-control" name="c-13"
-                                                            value="0" id="c-13" readonly />
+                                                            id="amt2" value="0" readonly />
                                                     </td>
                                                     {{--  <td><input type="text" class="form-control" name="f-13"
                                                             value="0" id="f-13" readonly />
@@ -140,8 +137,8 @@
                                     </select>
                                 </p>
                                 <div class="mt-2 mb-3 d-flex">
-                                    <input type="text" class="form-control mr-2" name="SelectedCard"
-                                        id="SelectedCard" style="width:100px" readonly />
+                                    <input type="text" class="form-control mr-2" name="SelectedCard" id="SelectedCard"
+                                        style="width:100px" readonly />
                                     <input type="hidden" class="form-control mr-2" name="SelectedCardNumber"
                                         id="SelectedCardNumber" style="width:100px" readonly />
                                     <a class="btn btn-success" id="btnSave" name="btnSave">SAVE</a>
@@ -159,18 +156,18 @@
                                     </tr>
                                     <tr>
                                         <td>TOTAL COLLECTION: </td>
-                                        <td align="right">{{ moneyFormatIndia($daily['totalbetamount']) }}
+                                        <td align="right" id="totalCollection">
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>TOTAL PAYMENT :</td>
-                                        <td align="right">{{ moneyFormatIndia($daily['totalwonamount']) }}
+                                        <td align="right" id="totalPayPoint">
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>BALANCE :</td>
-                                        <td align="right">
-                                            {{ moneyFormatIndia($daily['totalbetamount'] - $daily['totalwonamount']) }}
+                                        <td align="right" id="Balance">
+
                                         </td>
                                     </tr>
                                 </table>
@@ -291,7 +288,7 @@
             var j = $('#SelectedCardNumber').val();
             $('#totalPayment').html($('#' + j).val() * 10 * (this.value == 0 ? 1 : this.value));
         });
-                $(function() {
+        $(function() {
             const socket = io.connect('ws://143.244.140.74:9000');
             {{--  console.log(socket + "Hello Socket Connected");  --}}
 
@@ -401,34 +398,40 @@
                             $('#totalPayment').html($('#c' + j).val() * 10 * this
                                 .value);
                         });
-                        let balance = res.data.adminBalance;
+                        let balance = res.data && res.data.adminBalance !== undefined ? res.data
+                            .adminBalance : null;
                         let totalCollection = 0;
                         let totalPayment = 0;
 
-                        for (let i = 0; i < res.dataAdmin.length; i++) {
-                            totalCollection += res.dataAdmin[i].totalCollection;
-                            totalPayment += res.dataAdmin[i].totalPayment;
+                        // Check if res.dataAdmin is an array before iterating
+                        if (Array.isArray(res.dataAdmin)) {
+                            for (let i = 0; i < res.dataAdmin.length; i++) {
+                                totalCollection += res.dataAdmin[i].totalCollection || 0;
+                                totalPayment += res.dataAdmin[i].totalPayment || 0;
+                            }
                         }
 
                         let totalBalance = totalCollection - totalPayment;
                         {{--  console.log(totalBalance);  --}}
-
                         document.getElementById('totalCollection').innerHTML = totalCollection;
                         document.getElementById('totalPayPoint').innerHTML = totalPayment;
                         document.getElementById('Balance').innerHTML = totalBalance.toFixed(2);
 
-                        var resAdminData = res.data.position;
 
-                        for (let i = 1; i <= 10; i++) {
-                            var value = parseFloat(resAdminData[i] / 10); // Use resAdminData instead of res.data.position
-                            var element = i === 10 ? document.getElementById('amt') : document
+                        var resAdminData = res.data;
+                        for (let i = 1; i <= 3; i++) {
+                            var value = resAdminData && resAdminData[i] !== undefined ? parseFloat(
+                                resAdminData[i]) : 0;
+                            var element = i === 3 ? document.getElementById('amt') : document
                                 .getElementById('amt' + i);
-
+                            {{--  console.log(element);  --}}
                             if (element) {
-                                element.value = isNaN(value) ? '00' :
-                                    value; // Check if value is NaN and display '0.00'
+                                element.value = isNaN(value) ? '00' : value;
                             }
                         }
+
+
+
 
 
 
@@ -484,20 +487,20 @@
                 socket.on('resAdminBetData', function(res) {
                     console.log(res.data);
                     if (res.gameName === "animal") {
-
-
                         var resAdminData = res.data;
-                        for (let i = 1; i <= 10; i++) {
-                            var value = parseFloat(resAdminData[i] / 10).toFixed(
-                                2); // Use resAdminData instead of res.data.position
-                            var element = i === 10 ? document.getElementById('amt') : document
+                        {{--  console.log(resAdminData);  --}}
+                        for (let i = 1; i <= 3; i++) {
+                            var value = parseFloat(resAdminData[i - 1]); // Adjust the index
+                            var element = i === 3 ? document.getElementById('amt') : document
                                 .getElementById('amt' + i);
 
+                            console.log(element);
+
                             if (element) {
-                                element.value = isNaN(value) ? '00' :
-                                    value; // Check if value is NaN and display '0.00'
+                                element.value = isNaN(value) ? '00' : value;
                             }
                         }
+
 
 
                         $.each(res.data, function(key, value) {
@@ -512,7 +515,8 @@
                         });
 
                         // Update the TCollection and totalPayment values
-                        var totalCollectionValue = (Object.values(res.dataAdmin[0].totalCollection).reduce((acc,current) =>acc + current, 0) / 10).toFixed(2);
+                        var totalCollectionValue = (Object.values(res.dataAdmin[0].totalCollection)
+                            .reduce((acc, current) => acc + current, 0) / 10).toFixed(2);
 
                         var totalPaymentValue = (Object.values(res.dataAdmin[0].totalPayment)
                             .reduce((acc,

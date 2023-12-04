@@ -87,16 +87,16 @@
                                                 </tr>
                                                 <tr>
                                                     <td><input type="text" class="form-control" name="l-13"
-                                                            value="0" id="l-13" readonly />
+                                                            id="amt0" value="0" id="l-13" readonly />
                                                     </td>
                                                     <td><input type="text" class="form-control" name="k-13"
-                                                            value="0" id="k-13" readonly />
+                                                            id="amt1" value="0" id="k-13" readonly />
                                                     </td>
                                                     <td><input type="text" class="form-control" name="c-13"
-                                                            value="0" id="c-13" readonly />
+                                                            id="amt2" value="0" id="c-13" readonly />
                                                     </td>
                                                     <td><input type="text" class="form-control" name="f-13"
-                                                            value="0" id="f-13" readonly />
+                                                            id="amt3" value="0" id="f-13" readonly />
                                                     </td>
                                                 </tr>
 
@@ -140,16 +140,16 @@
                                                 </tr>
                                                 <tr>
                                                     <td><input type="text" class="form-control" name="l-12"
-                                                            id="l-12" value="0" readonly />
+                                                            id="amt4" value="0" readonly />
                                                     </td>
                                                     <td><input type="text" class="form-control" name="k-12"
-                                                            id="k-12" value="0" readonly />
+                                                            id="amt5" value="0" readonly />
                                                     </td>
                                                     <td><input type="text" class="form-control" name="c-12"
-                                                            id="c-12" value="0" readonly />
+                                                            id="amt6" value="0" readonly />
                                                     </td>
                                                     <td><input type="text" class="form-control" name="f-12"
-                                                            id="f-12" value="0" readonly />
+                                                            id="amt7" value="0" readonly />
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -192,16 +192,16 @@
                                                 </tr>
                                                 <tr>
                                                     <td><input type="text" class="form-control" name="l-11"
-                                                            id="l-11" value="0" readonly />
+                                                            id="amt8" value="0" readonly />
                                                     </td>
                                                     <td><input type="text" class="form-control" name="k-11"
-                                                            id="k-11" value="0" readonly />
+                                                            id="amt9" value="0" readonly />
                                                     </td>
                                                     <td><input type="text" class="form-control" name="c-11"
-                                                            id="c-11" value="0" readonly />
+                                                            id="amt10" value="0" readonly />
                                                     </td>
                                                     <td><input type="text" class="form-control" name="f-11"
-                                                            id="f-11" value="0" readonly />
+                                                            id="amt" value="0" readonly />
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -250,12 +250,14 @@
                                     </tr>  --}}
                                     <tr>
                                         <td>TOTAL COLLECTION: </td>
-                                        <td align="right" id="totalCollection">{{ moneyFormatIndia($daily['totalbetamount']) }}
+                                        <td align="right" id="totalCollection">
+                                            {{ moneyFormatIndia($daily['totalbetamount']) }}
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>TOTAL PAYMENT :</td>
-                                        <td align="right" id="totalPayPoint">{{ moneyFormatIndia($daily['totalwonamount']) }}
+                                        <td align="right" id="totalPayPoint">
+                                            {{ moneyFormatIndia($daily['totalwonamount']) }}
                                         </td>
                                     </tr>
                                     <tr>
@@ -346,6 +348,28 @@
         document.addEventListener('contextmenu', event => event.preventDefault());
     </script>
     <script>
+        {{--  var resAdminData = {
+            data: {
+                "1": 2000,
+                "2": 2000,
+                "3": 2000,
+                "4": 2000,
+                "5": 2000,
+                "6": 2000,
+                "7": 2000,
+                "8": 2000,
+                "9": 2000,
+                "10": 2000,
+                "11": 2000,
+                "12": 5000
+            }
+        };  --}}
+
+        {{--  console.log(resAdminData);  --}}
+
+
+
+
         var result = '';
         var gameid = '';
         var card = ["HJ", "SJ", "DJ", "CJ", "HQ", "SQ", "DQ", "CQ", "HK", "SK", "DK", "CK"];
@@ -378,10 +402,10 @@
             "CK": 12,
         };
 
-
         $(function() {
             const socket = io.connect('ws://143.244.140.74:9000');
-            {{--  console.log(socket + "Hello Socket Connected");  --}}
+            {{--  console.log(JSON.stringify(socket));  --}}
+            console.log(socket + "Hello Socket Connected");
 
             socket.on('connect', function() {
                 const user = {
@@ -505,20 +529,19 @@
                         document.getElementById('totalPayPoint').innerHTML = totalPayment;
                         document.getElementById('Balance').innerHTML = totalBalance.toFixed(2);
 
-                        var resAdminData = res.data.position;
+                        var resAdminData = res.data;
+                        {{--  console.log(resAdminData);  --}}
 
-                        for (let i = 1; i <= 10; i++) {
-                            var value = parseFloat(resAdminData[i] / 10); // Use resAdminData instead of res.data.position
-                            var element = i === 10 ? document.getElementById('amt') : document
+                        for (let i = 0; i <= 11; i++) {
+                            var value = parseFloat(resAdminData[i] / 10);
+                            var element = i === 11 ? document.getElementById('amt') : document
                                 .getElementById('amt' + i);
+                            console.log(element);
 
                             if (element) {
-                                element.value = isNaN(value) ? '00' :
-                                    value; // Check if value is NaN and display '0.00'
+                                element.value = isNaN(value) ? '00' : value.toFixed(2);
                             }
                         }
-
-
 
                         function checkDate() {
                             return new Date().toLocaleString("en-US", {
@@ -571,22 +594,20 @@
 
                 socket.on('resAdminBetData', function(res) {
                     console.log(res.data);
+
                     if (res.gameName === "animal") {
 
-
                         var resAdminData = res.data;
-                        for (let i = 1; i <= 10; i++) {
-                            var value = parseFloat(resAdminData[i] / 10).toFixed(
-                                2); // Use resAdminData instead of res.data.position
-                            var element = i === 10 ? document.getElementById('amt') : document
+                        for (let i = 0; i <= 11; i++) {
+                            var value = parseFloat(resAdminData[i] / 10);
+                            var element = i === 11 ? document.getElementById('amt') : document
                                 .getElementById('amt' + i);
+                            console.log(element);
 
                             if (element) {
-                                element.value = isNaN(value) ? '00' :
-                                    value; // Check if value is NaN and display '0.00'
+                                element.value = isNaN(value) ? '00' : value.toFixed(2);
                             }
                         }
-
 
                         $.each(res.data, function(key, value) {
                             $q = value / 10;
@@ -600,7 +621,8 @@
                         });
 
                         // Update the TCollection and totalPayment values
-                        var totalCollectionValue = (Object.values(res.dataAdmin[0].totalCollection).reduce((acc,current) =>acc + current, 0) / 10).toFixed(2);
+                        var totalCollectionValue = (Object.values(res.dataAdmin[0].totalCollection)
+                            .reduce((acc, current) => acc + current, 0) / 10).toFixed(2);
 
                         var totalPaymentValue = (Object.values(res.dataAdmin[0].totalPayment)
                             .reduce((acc,
