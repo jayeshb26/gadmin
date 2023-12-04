@@ -367,7 +367,7 @@
                                 document.getElementById('countdown').innerHTML = seconds
                                     .toFixed(0);
                                 seconds -= 1;
-                            }, 1089);
+                            }, 1024);
 
                             function checkTime(i) {
                                 if (i < 10) {
