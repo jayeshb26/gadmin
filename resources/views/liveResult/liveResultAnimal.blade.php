@@ -50,19 +50,10 @@
                                                 <tr>
                                                     <td>
                                                         <div class=" form-check-flat form-check-primary">
-                                                            <input type="radio" class="form-check-input" id="0"
-                                                                value="0" class="cards" name="cards">
-                                                            <label for="0"><img
-                                                                    src="{{ asset('img/Sprites/LionBet.png') }}"
-                                                                    style="width:50px"></label>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class=" form-check-flat form-check-primary">
                                                             <input type="radio" class="form-check-input" id="1"
                                                                 value="1" class="cards" name="cards">
                                                             <label for="1"><img
-                                                                    src="{{ asset('img/Sprites/SparrowBet.png') }}"
+                                                                    src="{{ asset('img/Sprites/LionBet.png') }}"
                                                                     style="width:50px"></label>
                                                         </div>
                                                     </td>
@@ -71,7 +62,7 @@
                                                             <input type="radio" class="form-check-input" id="2"
                                                                 value="2" class="cards" name="cards">
                                                             <label for="2"><img
-                                                                    src="{{ asset('img/Sprites/CatBet.png') }}"
+                                                                    src="{{ asset('img/Sprites/SparrowBet.png') }}"
                                                                     style="width:50px"></label>
                                                         </div>
                                                     </td>
@@ -80,22 +71,31 @@
                                                             <input type="radio" class="form-check-input" id="3"
                                                                 value="3" class="cards" name="cards">
                                                             <label for="3"><img
+                                                                    src="{{ asset('img/Sprites/CatBet.png') }}"
+                                                                    style="width:50px"></label>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class=" form-check-flat form-check-primary">
+                                                            <input type="radio" class="form-check-input" id="4"
+                                                                value="4" class="cards" name="cards">
+                                                            <label for="4"><img
                                                                     src="{{ asset('img/Sprites/KoelBet.png') }}"
                                                                     style="width:50px"></label>
                                                         </div>
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td><input type="text" class="form-control" name="0"
+                                                    <td><input type="text" class="form-control" name="1"
                                                             id="amt0" value="0" readonly />
                                                     </td>
-                                                    <td><input type="text" class="form-control" name="1"
+                                                    <td><input type="text" class="form-control" name="2"
                                                             id="amt1" value="0" readonly />
                                                     </td>
-                                                    <td><input type="text" class="form-control" name="2"
+                                                    <td><input type="text" class="form-control" name="3"
                                                             id="amt2" value="0" readonly />
                                                     </td>
-                                                    <td><input type="text" class="form-control" name="3"
+                                                    <td><input type="text" class="form-control" name="4"
                                                             id="amt3" value="0" readonly />
                                                     </td>
                                                 </tr>
@@ -103,19 +103,10 @@
                                                 <tr>
                                                     <td>
                                                         <div class=" form-check-flat form-check-primary">
-                                                            <input type="radio" class="form-check-input" id="4"
-                                                                value="4" class="cards" name="cards">
-                                                            <label for="4"><img
-                                                                    src="{{ asset('img/Sprites/CrowBet.png') }}"
-                                                                    style="width:50px"></label>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class=" form-check-flat form-check-primary">
                                                             <input type="radio" class="form-check-input" id="5"
                                                                 value="5" class="cards" name="cards">
                                                             <label for="5"><img
-                                                                    src="{{ asset('img/Sprites/GoatBet.png') }}"
+                                                                    src="{{ asset('img/Sprites/CrowBet.png') }}"
                                                                     style="width:50px"></label>
                                                         </div>
                                                     </td>
@@ -124,7 +115,7 @@
                                                             <input type="radio" class="form-check-input" id="6"
                                                                 value="6" class="cards" name="cards">
                                                             <label for="6"><img
-                                                                    src="{{ asset('img/Sprites/RoosterBet.png') }}"
+                                                                    src="{{ asset('img/Sprites/GoatBet.png') }}"
                                                                     style="width:50px"></label>
                                                         </div>
                                                     </td>
@@ -133,41 +124,41 @@
                                                             <input type="radio" class="form-check-input" id="7"
                                                                 value="7" class="cards" name="cards">
                                                             <label for="7"><img
+                                                                    src="{{ asset('img/Sprites/RoosterBet.png') }}"
+                                                                    style="width:50px"></label>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class=" form-check-flat form-check-primary">
+                                                            <input type="radio" class="form-check-input" id="8"
+                                                                value="8" class="cards" name="cards">
+                                                            <label for="8"><img
                                                                     src="{{ asset('img/Sprites/HorseBet.png') }}"
                                                                     style="width:50px"></label>
                                                         </div>
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td><input type="text" class="form-control" name="4"
+                                                    <td><input type="text" class="form-control" name="5"
                                                             id="amt4" value="0" readonly />
                                                     </td>
-                                                    <td><input type="text" class="form-control" name="5"
+                                                    <td><input type="text" class="form-control" name="6"
                                                             id="amt5" value="0" readonly />
                                                     </td>
-                                                    <td><input type="text" class="form-control" name="6"
+                                                    <td><input type="text" class="form-control" name="7"
                                                             id="amt6" value="0" readonly />
                                                     </td>
-                                                    <td><input type="text" class="form-control" name="7"
+                                                    <td><input type="text" class="form-control" name="8"
                                                             id="amt7" value="0" readonly />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>
                                                         <div class=" form-check-flat form-check-primary">
-                                                            <input type="radio" class="form-check-input" id="8"
-                                                                value="8" class="cards" name="cards">
-                                                            <label for="8"><img
-                                                                    src="{{ asset('img/Sprites/DogBet.png') }}"
-                                                                    style="width:50px"></label>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class=" form-check-flat form-check-primary">
                                                             <input type="radio" class="form-check-input" id="9"
                                                                 value="9" class="cards" name="cards">
                                                             <label for="9"><img
-                                                                    src="{{ asset('img/Sprites/CowBet.png') }}"
+                                                                    src="{{ asset('img/Sprites/DogBet.png') }}"
                                                                     style="width:50px"></label>
                                                         </div>
                                                     </td>
@@ -176,7 +167,7 @@
                                                             <input type="radio" class="form-check-input" id="10"
                                                                 value="10" class="cards" name="cards">
                                                             <label for="10"><img
-                                                                    src="{{ asset('img/Sprites/MonkeyBet.png') }}"
+                                                                    src="{{ asset('img/Sprites/CowBet.png') }}"
                                                                     style="width:50px"></label>
                                                         </div>
                                                     </td>
@@ -185,22 +176,31 @@
                                                             <input type="radio" class="form-check-input" id="11"
                                                                 value="11" class="cards" name="cards">
                                                             <label for="11"><img
+                                                                    src="{{ asset('img/Sprites/MonkeyBet.png') }}"
+                                                                    style="width:50px"></label>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class=" form-check-flat form-check-primary">
+                                                            <input type="radio" class="form-check-input" id="12"
+                                                                value="12" class="cards" name="cards">
+                                                            <label for="12"><img
                                                                     src="{{ asset('img/Sprites/ElephantBet.png') }}"
                                                                     style="width:50px"></label>
                                                         </div>
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td><input type="text" class="form-control" name="8"
+                                                    <td><input type="text" class="form-control" name="9"
                                                             id="amt8" value="0" readonly />
                                                     </td>
-                                                    <td><input type="text" class="form-control" name="9"
+                                                    <td><input type="text" class="form-control" name="10"
                                                             id="amt9" value="0" readonly />
                                                     </td>
-                                                    <td><input type="text" class="form-control" name="10"
+                                                    <td><input type="text" class="form-control" name="11"
                                                             id="amt10" value="0" readonly />
                                                     </td>
-                                                    <td><input type="text" class="form-control" name="11"
+                                                    <td><input type="text" class="form-control" name="12"
                                                             id="amt" value="0" readonly />
                                                     </td>
                                                 </tr>
