@@ -413,11 +413,11 @@
                         $('#alertId').addClass('show');
                         $('#alertId').html("Success");
                         removeAlert();
-                        console.log({
+                        {{--  console.log({
                             cardNumber,
                             y,
                             gameName
-                        });
+                        });  --}}
                         socket.emit('winByAdmin', {
                             cardNumber,
                             y,
