@@ -337,7 +337,7 @@
                     console.log(res);
                     if (res.gameName === "dragontiger") {
                         if (res.time >= 0) {
-                            var seconds = Math.abs(res.time) - 15;
+                            var seconds = Math.abs(res.time) - 30;
                             seconds = Math.abs(seconds);
 
                             var countdownTimer = setInterval(function() {
@@ -426,7 +426,8 @@
                                 .getElementById('amt' + i);
                             {{--  console.log(element);  --}}
                             if (element) {
-                                element.value = isNaN(value) ? '00' : value;
+                                element.value = isNaN(value) ? '00' : (i === 3 ? value / 8 : value /
+                                    2);
                             }
                         }
 
@@ -494,10 +495,11 @@
                             var element = i === 3 ? document.getElementById('amt') : document
                                 .getElementById('amt' + i);
 
-                            console.log(element);
+                            {{--  console.log(element);  --}}
 
                             if (element) {
-                                element.value = isNaN(value) ? '00' : value;
+                                element.value = isNaN(value) ? '00' : (i === 3 ? value / 8 : value /
+                                    2);
                             }
                         }
 
