@@ -87,16 +87,16 @@
                                                 </tr>
                                                 <tr>
                                                     <td><input type="text" class="form-control" name="0"
-                                                            id="amt0" value="0" id="l-13" readonly />
+                                                            id="amt0" value="0" readonly />
                                                     </td>
                                                     <td><input type="text" class="form-control" name="1"
-                                                            id="amt1" value="0" id="k-13" readonly />
+                                                            id="amt1" value="0" readonly />
                                                     </td>
                                                     <td><input type="text" class="form-control" name="2"
-                                                            id="amt2" value="0" id="c-13" readonly />
+                                                            id="amt2" value="0" readonly />
                                                     </td>
                                                     <td><input type="text" class="form-control" name="3"
-                                                            id="amt3" value="0" id="f-13" readonly />
+                                                            id="amt3" value="0" readonly />
                                                     </td>
                                                 </tr>
 
