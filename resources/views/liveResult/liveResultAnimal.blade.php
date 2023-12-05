@@ -320,7 +320,7 @@
             if (vis()) {
                 window.location.reload();
             }
-            console.log(new Date, 'visible ?', vis());
+            {{--  console.log(new Date, 'visible ?', vis());  --}}
         });
         $(document).bind('keydown', function(e) {
             if (e.ctrlKey && (e.which == 83)) {
@@ -348,28 +348,6 @@
         document.addEventListener('contextmenu', event => event.preventDefault());
     </script>
     <script>
-        {{--  var resAdminData = {
-            data: {
-                "1": 2000,
-                "2": 2000,
-                "3": 2000,
-                "4": 2000,
-                "5": 2000,
-                "6": 2000,
-                "7": 2000,
-                "8": 2000,
-                "9": 2000,
-                "10": 2000,
-                "11": 2000,
-                "12": 5000
-            }
-        };  --}}
-
-        {{--  console.log(resAdminData);  --}}
-
-
-
-
         var result = '';
         var gameid = '';
         var card = ["HJ", "SJ", "DJ", "CJ", "HQ", "SQ", "DQ", "CQ", "HK", "SK", "DK", "CK"];
@@ -405,7 +383,7 @@
         $(function() {
             const socket = io.connect('ws://143.244.140.74:9000');
             {{--  console.log(JSON.stringify(socket));  --}}
-            console.log(socket + "Hello Socket Connected");
+            {{--  console.log(socket + "Hello Socket Connected");  --}}
 
             socket.on('connect', function() {
                 const user = {
@@ -435,11 +413,11 @@
                         $('#alertId').addClass('show');
                         $('#alertId').html("Success");
                         removeAlert();
-                        console.log({
+                        {{--  console.log({
                             cardNumber,
                             y,
                             gameName // Assuming gameName is defined elsewhere
-                        });
+                        });  --}}
                         socket.emit('winByAdmin', {
                             cardNumber,
                             y,
@@ -449,7 +427,7 @@
                 });
 
                 socket.on('resAdmin', function(res) {
-                    console.log(res);
+                    {{--  console.log(res);  --}}
                     if (res.gameName === "animal") {
                         if (res.time >= 0) {
                             var seconds = Math.abs(res.time) - 60;
@@ -536,7 +514,7 @@
                             var value = parseFloat(resAdminData[i] / 10);
                             var element = i === 11 ? document.getElementById('amt') : document
                                 .getElementById('amt' + i);
-                            console.log(element);
+                            {{--  console.log(element);  --}}
 
                             if (element) {
                                 element.value = isNaN(value) ? '00' : value.toFixed(2);
@@ -593,7 +571,7 @@
                 });
 
                 socket.on('resAdminBetData', function(res) {
-                    console.log(res.data);
+                    {{--  console.log(res.data);  --}}
 
                     if (res.gameName === "animal") {
 
@@ -602,7 +580,7 @@
                             var value = parseFloat(resAdminData[i] / 10);
                             var element = i === 11 ? document.getElementById('amt') : document
                                 .getElementById('amt' + i);
-                            console.log(element);
+                            {{--  console.log(element);  --}}
 
                             if (element) {
                                 element.value = isNaN(value) ? '00' : value.toFixed(2);
