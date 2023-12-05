@@ -406,18 +406,18 @@
                 $('#btnSave').on('click', function() {
                     var boosterId = $('#boosterId').val();
                     var card = $('#SelectedCard').val();
-                    var cardNumber = parseFloat(card); // Use parseFloat to handle NaN
+                    var cardNumber = parseFloat(card) - 1; // Use parseFloat to handle NaN
                     var y = parseFloat(boosterId); // Use parseFloat to handle NaN
 
                     if (!isNaN(y) && !isNaN(cardNumber) && cardNumber !== "") {
                         $('#alertId').addClass('show');
                         $('#alertId').html("Success");
                         removeAlert();
-                        {{--  console.log({
+                        console.log({
                             cardNumber,
                             y,
-                            gameName // Assuming gameName is defined elsewhere
-                        });  --}}
+                            gameName
+                        });
                         socket.emit('winByAdmin', {
                             cardNumber,
                             y,
