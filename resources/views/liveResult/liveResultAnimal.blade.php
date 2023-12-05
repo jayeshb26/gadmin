@@ -86,16 +86,16 @@
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td><input type="text" class="form-control" name="1"
+                                                    <td><input type="text" class="form-control" name="0"
                                                             id="amt0" value="0" readonly />
                                                     </td>
-                                                    <td><input type="text" class="form-control" name="2"
+                                                    <td><input type="text" class="form-control" name="1"
                                                             id="amt1" value="0" readonly />
                                                     </td>
-                                                    <td><input type="text" class="form-control" name="3"
+                                                    <td><input type="text" class="form-control" name="2"
                                                             id="amt2" value="0" readonly />
                                                     </td>
-                                                    <td><input type="text" class="form-control" name="4"
+                                                    <td><input type="text" class="form-control" name="3"
                                                             id="amt3" value="0" readonly />
                                                     </td>
                                                 </tr>
@@ -139,16 +139,16 @@
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td><input type="text" class="form-control" name="5"
+                                                    <td><input type="text" class="form-control" name="4"
                                                             id="amt4" value="0" readonly />
                                                     </td>
-                                                    <td><input type="text" class="form-control" name="6"
+                                                    <td><input type="text" class="form-control" name="5"
                                                             id="amt5" value="0" readonly />
                                                     </td>
-                                                    <td><input type="text" class="form-control" name="7"
+                                                    <td><input type="text" class="form-control" name="6"
                                                             id="amt6" value="0" readonly />
                                                     </td>
-                                                    <td><input type="text" class="form-control" name="8"
+                                                    <td><input type="text" class="form-control" name="7"
                                                             id="amt7" value="0" readonly />
                                                     </td>
                                                 </tr>
@@ -191,16 +191,16 @@
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td><input type="text" class="form-control" name="9"
+                                                    <td><input type="text" class="form-control" name="8"
                                                             id="amt8" value="0" readonly />
                                                     </td>
-                                                    <td><input type="text" class="form-control" name="10"
+                                                    <td><input type="text" class="form-control" name="9"
                                                             id="amt9" value="0" readonly />
                                                     </td>
-                                                    <td><input type="text" class="form-control" name="11"
+                                                    <td><input type="text" class="form-control" name="10"
                                                             id="amt10" value="0" readonly />
                                                     </td>
-                                                    <td><input type="text" class="form-control" name="12"
+                                                    <td><input type="text" class="form-control" name="11"
                                                             id="amt" value="0" readonly />
                                                     </td>
                                                 </tr>

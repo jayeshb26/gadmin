@@ -97,13 +97,13 @@
                                                     </td>  --}}
                                                 </tr>
                                                 <tr>
-                                                    <td><input type="text" class="form-control" name="l-13"
+                                                    <td><input type="text" class="form-control" name="1"
                                                             id="amt1" value="0" readonly />
                                                     </td>
-                                                    <td><input type="text" class="form-control" name="k-13"
+                                                    <td><input type="text" class="form-control" name="3"
                                                             id="amt" value="0" readonly />
                                                     </td>
-                                                    <td><input type="text" class="form-control" name="c-13"
+                                                    <td><input type="text" class="form-control" name="2"
                                                             id="amt2" value="0" readonly />
                                                     </td>
                                                     {{--  <td><input type="text" class="form-control" name="f-13"
