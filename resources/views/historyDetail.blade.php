@@ -153,10 +153,10 @@
                 </tr>
             </tbody>
         </table>
-        @if ($data['game'] != 'funtarget')
+        @if ($data['game'] != 'funtarget' && $data['game'] != 'dragontiger' && $data['game'] != 'animal')
             <div id="Roulette_Wrap">
                 @foreach ($data['position'] as $key => $pos)
-                    @foreach ($pos as $k => $v)
+                    @foreach ($pos ?? [] as $k => $v)
                         @if ($k != 'amount')
                             @switch($k)
                                 @case('StraightUp')
@@ -327,7 +327,7 @@
             <div id="Roulette_Neighbour_Wrap">
 
             </div>
-        @else
+        @elseif($data['game'] == 'funtarget' && $data['game'] != 'dragontiger' && $data['game'] != 'animal')
             @php
                 $position = $data['position'];
             @endphp
@@ -379,17 +379,47 @@
                             </td>
                         @endfor
                         <td>
+                            {{--  @dd($position)  --}}
                             <input type="text"
-                                class="form-control {{ array_key_exists(10, $position) ? 'panel-primary' : '' }}"
-                                name="0" value="{{ array_key_exists(10, $position) ? $position[10] : 0 }}"
+                                class="form-control {{ array_key_exists(0, $position) ? 'panel-primary' : '' }}"
+                                name="0" value="{{ array_key_exists(0, $position) ? $position[0] : 0 }}"
                                 readonly />
                         </td>
                     </tr>
                 </tbody>
             </table>
-
+        @elseif($data['game'] != 'animal' && $data['game'] == 'dragontiget')
+            @php
+            $position = $data['position'];
+            @endphp
+        <table id="user_role_table" class="table-responsive-md table-striped text-center mb-0 table_td">
+            <tbody>
+                <tr>
+                    @for ($i = 1; $i <= 3; $i++)
+                        <td>
+                            <div class="form-check-flat form-check-primary">
+                                <label for="{{ $i }}"
+                                    style="font-size: 75px;">{{ $i }}</label>
+                            </div>
+                        </td>
+                    @endfor
+                </tr>
+                <tr>
+                    @for ($i = 1; $i <= 3; $i++)
+                        <td>
+                            <input type="text"
+                                class="form-control {{ array_key_exists($i, $position) ? 'panel-primary' : '' }}"
+                                name="{{ $i }}"
+                                value="{{ array_key_exists($i, $position) ? $position[$i] : 0 }}" readonly />
+                        </td>
+                    @endfor
+                </tr>
+            </tbody>
+        </table>
+        @else
 
         @endif
+
     </div>
     <div style="text-align:center;margin-top:450px">
         <button class="btn btn-default" onClick="self.close()">CLOSE</button>
