@@ -40,7 +40,7 @@
                             <input type="number" class="form-control ui-autocomplete-input " id="series3" value=""
                                 name="series3" disabled>
                         </div>
-                        {{--  <div class="col-sm-6 col-md-2">
+                        <div class="col-sm-6 col-md-2">
                             <label class="text-right control-label mb-0">DragonTiger</label>
                             <input type="number" class="form-control ui-autocomplete-input " id="series5" value=""
                                 name="series5" disabled>
@@ -49,7 +49,7 @@
                             <label class="text-right control-label mb-0">Animal</label>
                             <input type="number" class="form-control ui-autocomplete-input " id="series6" value=""
                                 name="series6" disabled>
-                        </div>  --}}
+                        </div>
                         <div class="col-sm-6 col-md-3">
                             <label class="text-right control-label mb-0">Admin Balance Total</label>
                             <input type="number" class="form-control ui-autocomplete-input " id="total" value=""
@@ -66,14 +66,14 @@
                             <input type="number" class="form-control ui-autocomplete-input " id="s3" value="0"
                                 autocomplete="off" placeholder="Enter Balance">
                         </div>
-                        {{--  <div class="col-sm-6 col-md-2">
+                        <div class="col-sm-6 col-md-2">
                             <input type="number" class="form-control ui-autocomplete-input " id="s5" value="0"
                                 autocomplete="off" placeholder="Enter Balance">
                         </div>
                         <div class="col-sm-6 col-md-2">
                             <input type="number" class="form-control ui-autocomplete-input " id="s6" value="0"
                                 autocomplete="off" placeholder="Enter Balance">
-                        </div>  --}}
+                        </div>
                         {{--  <div class="col-sm-6 col-md-3">
                             <label class="text-right control-label mb-0">Admin Wallet Endpoint (Current Week Monday to
                                 Sunday)</label>
