@@ -147,8 +147,8 @@
                     //console.log(res.data.funtarget.adminBalance);
                     //console.log(res.data.funtarget.adminBalance);
                     //console.log(res);
-                    $("#series1").val(res.data.funtarget.adminBalance.toFixed(2));
-                    $("#series3").val(res.data.funroulette.adminBalance.toFixed(2));
+                    $("#series1").val(res.data.funroulette.adminBalance.toFixed(2));
+                    $("#series3").val(res.data.funtarget.adminBalance.toFixed(2));
                     $("#series5").val(res.data.dragontiger.adminBalance.toFixed(2));
                     $("#series6").val(res.data.animal.adminBalance.toFixed(2));
                     $("#total").val((res.data.funtarget.adminBalance + res.data
@@ -166,9 +166,9 @@
                     var s5 = $("#s5").val();
                     var s6 = $("#s6").val();
                     const data = {
-                        funtarget: (s1 == 0) ? Math.round(parseInt($("#series1").val())) :
+                        funroulette: (s1 == 0) ? Math.round(parseInt($("#series1").val())) :
                             parseInt(s1),
-                        funroulette: (s3 == 0) ? Math.round(parseInt($("#series3").val())) :
+                        funtarget: (s3 == 0) ? Math.round(parseInt($("#series3").val())) :
                             parseInt(s3),
                         dragontiger: (s5 == 0) ? Math.round(parseInt($("#series5").val())) :
                             parseInt(s5),
@@ -191,9 +191,9 @@
                         // console.log(res.data.funtarget.adminBalance);
                         // console.log(res.data.funtarget.adminBalance);
                         console.log(res);
-                        $("#series1").val((res.data.funtarget.adminBalance).toFixed(
+                        $("#series1").val((res.data.funroulette.adminBalance).toFixed(
                             2));
-                        $("#series3").val((res.data.funroulette.adminBalance).toFixed(
+                        $("#series3").val((res.data.funtarget.adminBalance).toFixed(
                             2));
                         $("#series5").val(res.data.dragontiger.adminBalance.toFixed(2));
                         $("#series6").val(res.data.animal.adminBalance.toFixed(2));
