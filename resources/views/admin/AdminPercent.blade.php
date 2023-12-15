@@ -135,7 +135,7 @@
     </script>
     <script>
         $(function() {
-            const socket = io.connect("ws://127.0.0.1:5000");
+            const socket = io.connect("ws://143.244.140.74:5000");
             socket.on("connect", function() {
                 console.log(socket.id);
                 const user = {
