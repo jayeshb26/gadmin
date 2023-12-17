@@ -559,18 +559,27 @@ class AdminController extends Controller
             'funtarget' => 'required|not_in:0|numeric|between:0,200',
             'dragontiger' => 'required|not_in:0|numeric|between:0,200',
             'animal' => 'required|not_in:0|numeric|between:0,200',
-
+            'GameMode' => 'required',
         ]);
+
+
+        // Radio button values
+        $gameModeValues = ['High' => '1', 'Medium' => '2', 'Low' => '3', 'Zero' => '4'];
+        $selectedGameMode = $request->input('GameMode');
+        // dd($selectedGameMode);
 
         foreach ($request->listArray as $key => $value) {
             $listArray[$key] = intval(trim($value, '"'));
         }
+
 
         $user = Winnings::find('602e55e9a494988def7acc25');
         $user->funroulette = $request->funroulette;
         $user->funtarget = $request->funtarget;
         $user->dragontiger = $request->dragontiger;
         $user->animal = $request->animal;
+        $user->gameMode = $selectedGameMode;
+
         if ($request->status == "false") {
             $user->isManual = false;
             $user->listArray = $listArray;

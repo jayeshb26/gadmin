@@ -165,6 +165,21 @@
                             </div>
                         </div>
 
+                        <div class="form-group d-flex">
+                            <label class="col-sm-3 text-right control-label mt-2">Game Mode</label>
+                            <div class="col-sm-6">
+                                @foreach(['High' => '1', 'Medium' => '2', 'Low' => '3', 'Zero' => '4'] as $mode => $value)
+                                    <div class="form-check form-check-inline">
+                                        <label class="form-check-label">
+                                            <input type="radio" class="form-check-input" name="GameMode" value="{{ $value }}"
+                                            {{ $data['gameMode'] == $value ? 'checked' : '' }}>
+                                            {{ $mode }}
+                                        </label>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+
 
 
                         <div class="form-group d-flex">
