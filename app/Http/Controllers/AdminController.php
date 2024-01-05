@@ -45,7 +45,7 @@ class AdminController extends Controller
             } elseif (Session::get('role') == "super_distributor") {
                 $user = User::where('referralId', new \MongoDB\BSON\ObjectID(Session::get('id')))->where('role', 'distributor')->where('is_franchise', false)->orderBy('createdAt', 'DESC')->get();
             } elseif (Session::get('role') == "distributor") {
-                $user = User::where('referralId', new \MongoDB\BSON\ObjectID(Session::get('id')))->where('role', 'player')->where('is_franchise', false)->orderBy('createdAt', 'DESC')->get();
+                $user = User::where('referralId', new \MongoDB\BSON\ObjectID(Session::get('id')))->where('role', 'retailer')->where('is_franchise', false)->orderBy('createdAt', 'DESC')->get();
             }
 
             $user_role = User::where('is_franchise', false)->where('role', '!=', "Admin")->pluck('role')->toArray();
@@ -64,7 +64,7 @@ class AdminController extends Controller
             } elseif (Session::get('role') == "super_distributor") {
                 $user = User::where('referralId', new \MongoDB\BSON\ObjectID(Session::get('id')))->where('role', 'distributor')->orderBy('created_at', 'DESC')->get();
             } elseif (Session::get('role') == "distributor") {
-                $user = User::where('referralId', new \MongoDB\BSON\ObjectID(Session::get('id')))->where('role', 'player')->orderBy('created_at', 'DESC')->get();
+                $user = User::where('referralId', new \MongoDB\BSON\ObjectID(Session::get('id')))->where('role', 'retailer')->orderBy('created_at', 'DESC')->get();
             }
 
             $user_role = User::all()->pluck('role')->toArray();
@@ -113,9 +113,9 @@ class AdminController extends Controller
         // echo "<pre>";
         // print_r($request->toArray());
         // die;
-        // if ($request->commissionPercentage >= 0 && $request->commissionPercentage == "") {
-        //     $request->commissionPercentage = 0;
-        // }
+        if ($request->commissionPercentage >= 0 && $request->commissionPercentage == "") {
+            $commissionPercentage = intval(trim($request->commissionPercentage, '"'));
+        }
 
         if ($request->password == $request->transactionPin) {
             session()->flash('msg', 'Password and TransactionPin is not same');
@@ -124,6 +124,7 @@ class AdminController extends Controller
 
         $request->validate([
             'userName' => 'required|unique:users,userName',
+            'name' => 'required',
             'role' => 'required',
             'password' => 'required|min:6',
         ]);
@@ -143,7 +144,7 @@ class AdminController extends Controller
             if (isset($request->superDistributerId)) {
                 $referral = new \MongoDB\BSON\ObjectID($request->superDistributerId);
                 $request->validate([
-                    // 'commissionPercentage' => 'required|numeric|between:0,' . $ref_user->commissionPercentage,
+                    'commissionPercentage' => 'required|numeric|between:0,' . $ref_user->commissionPercentage,
                     'transactionPin' => 'required',
                 ]);
             } else {
@@ -158,12 +159,12 @@ class AdminController extends Controller
             $referral = new \MongoDB\BSON\ObjectID($request->superDistributerId);
             $role = "distributor";
             $request->validate([
-                // 'commissionPercentage' => 'required|numeric|between:0,' . $ref_user->commissionPercentage,
+                'commissionPercentage' => 'required|numeric|between:0,' . $ref_user->commissionPercentage,
                 'transactionPin' => 'required',
             ]);
         } elseif ($request->role == 7) {
             $referral = new \MongoDB\BSON\ObjectID($request->superDistributerId);
-            $role = "player";
+            $role = "retailer";
         }
 
         // $userName = 0;
@@ -197,12 +198,13 @@ class AdminController extends Controller
         // }
         // $userName = $request->username;
         $password = $request->password;
-        // $commissionPercentage = floatval(trim($request->commissionPercentage, '"'));
+        $commissionPercentage = floatval(trim($request->commissionPercentage, '"'));
         $transactionPin = intval(trim($request->transactionPin, '"'));
         // echo "<pre>";
         // print_r($userName);die();
         $user = new User();
         $user->name = $request->name;
+        $user->firmName = $request->firmName;
         $user->userName =  $request->userName;
         $user->password = $password;
         $user->role = $role;
@@ -211,12 +213,13 @@ class AdminController extends Controller
         $user->isMinus = false;
         $user->creditPoint = 0;
         $user->transactionPin = $transactionPin;
-        // $user->commissionPercentage = $commissionPercentage;
-        // $user->commissionPoint = 0;
-        // $user->is_franchise =  true;
+        $user->commissionPercentage = $commissionPercentage;
+        $user->commissionPoint = 0;
+        $user->is_franchise =  true;
         $user->is_franchise = ($request->is_franchise == "true") ? true : false;
         $user->isLogin = false;
         $user->referralId = $referral;
+        $user->waLink = $request->waLink;
         $user->save();
 
         // dd($user->save());
@@ -231,9 +234,9 @@ class AdminController extends Controller
             } elseif ($role == 'distributor') {
                 return redirect('/getdata/distributor');
             } else {
-                return redirect('/getdata/player');
+                return redirect('/getdata/retailer');
             }
-        } elseif (Session::get('role') == "player") {
+        } elseif (Session::get('role') == "retailer") {
             return redirect('/users/admin');
         } else {
             return redirect('/users/admin');
@@ -270,7 +273,7 @@ class AdminController extends Controller
 
         // Replace 'User' with your actual model name and adjust the where clause accordingly
         $suggestions = User::where('userName', 'like', "%$query%")
-            ->where('role', 'player') // Filter for role players
+            ->where('role', 'retailer') // Filter for role players
             ->pluck('userName');
 
         return response()->json($suggestions);
@@ -286,13 +289,13 @@ class AdminController extends Controller
         $transactions = [];
         $bets = [];
 
-        $fieldsToFetch = ['_id', 'userName', 'name', 'role', 'creditPoint', 'referralId', 'startPoint', 'playPoint', 'won', 'endPoint', 'date', 'game', 'lastBetAmount'];
+        $fieldsToFetch = ['_id',  'name', 'role', 'creditPoint', 'referralId', 'startPoint', 'playPoint', 'won', 'endPoint', 'date', 'game', 'lastBetAmount'];
 
         foreach ($collections as $collection) {
             $results = DB::connection('mongodb')
                 ->collection($collection->getName())
                 ->where('userName', $id)
-                ->where('role', 'player')
+                ->where('role', 'retailer')
                 ->get(); // Fetch all matching documents
 
             foreach ($results as $result) {
@@ -313,14 +316,16 @@ class AdminController extends Controller
                 }
             }
         }
-
         // Fetch all bets for the user from the "bet" table
         $bets = DB::table('bets')
             ->where('userName', $id)
             ->get();
+
+        // dd($bets, $id);
         $userID = DB::table('users')
-            ->where('i_id', $id)
+            ->where('_id', $id)
             ->get();
+        // dd($userID);
         // Sort transactions by date in descending order
         usort($transactions, function ($a, $b) {
             return strtotime($b['date']) - strtotime($a['date']);
@@ -408,7 +413,7 @@ class AdminController extends Controller
                 $role = "distributor";
             } elseif ($request->role == 7) {
                 $referral = $request->filled('referralId') ? $request->referralId : $request->superDistributerId;
-                $role = "player";
+                $role = "retailer";
             }
         } else {
             if ($request->role == "Admin") {
@@ -422,16 +427,16 @@ class AdminController extends Controller
                 $role = "distributor";
             } elseif ($request->role == "player") {
                 $referral = $request->filled('referralId') ? $request->referralId : $request->superDistributerId;
-                $role = "player";
+                $role = "retailer";
             }
         }
 
         $refer = User::where('_id', new \MongoDB\BSON\ObjectID($referral))->first();
 
-        if (!$refer || ($refer['role'] != Session::get('role') && Session::get('role') != "Admin")) {
-            session()->flash('msg', 'You are not Authorized to edit this User.');
-            return redirect()->back();
-        }
+        // if (!$refer || ($refer['role'] != Session::get('role') && Session::get('role') != "Admin")) {
+        //     session()->flash('msg', 'You are not Authorized to edit this User.');
+        //     return redirect()->back();
+        // }
 
         $referral = new \MongoDB\BSON\ObjectID($referral);
         $permissions = [];
@@ -473,6 +478,7 @@ class AdminController extends Controller
         }
     }
 
+
     /**
      * Remove the specified resource from storage.
      *
@@ -493,7 +499,7 @@ class AdminController extends Controller
                 session()->flash('msg', 'He have a referal Users so first delete his referal Users');
                 return redirect()->back();
             }
-        } elseif ($user['role'] == "player") {
+        } elseif ($user['role'] == "retailer") {
             $user->delete();
             session()->flash('success', 'Deleted User...');
             return redirect()->back();
@@ -505,6 +511,7 @@ class AdminController extends Controller
 
         return redirect()->back();
     }
+
     // public function winningPercent()
     // {
     //     $this->middleware('superAdmin');
@@ -555,31 +562,21 @@ class AdminController extends Controller
     {
         $this->middleware('admin');
         $request->validate([
-            'funroulette' => 'required|not_in:0|numeric|between:0,200',
-            'funtarget' => 'required|not_in:0|numeric|between:0,200',
-            'dragontiger' => 'required|not_in:0|numeric|between:0,200',
-            'animal' => 'required|not_in:0|numeric|between:0,200',
-            'GameMode' => 'required',
+            // 'funroulette' => 'required|not_in:0|numeric|between:0,200',
+            'percent' => 'required|not_in:0|numeric|between:0,200',
+
         ]);
 
-
-        // Radio button values
-        $gameModeValues = ['High' => '1', 'Medium' => '2', 'Low' => '3', 'Zero' => '4'];
-        $selectedGameMode = $request->input('GameMode');
-        // dd($selectedGameMode);
-
-        foreach ($request->listArray as $key => $value) {
-            $listArray[$key] = intval(trim($value, '"'));
-        }
+        // foreach ($request->listArray as $key => $value) {
+        //     $listArray[$key] = intval(trim($value, '"'));
+        // }
 
 
         $user = Winnings::find('602e55e9a494988def7acc25');
-        $user->funroulette = $request->funroulette;
-        $user->funtarget = $request->funtarget;
-        $user->dragontiger = $request->dragontiger;
-        $user->animal = $request->animal;
-        $user->gameMode = $selectedGameMode;
-
+        // $user->funroulette = $request->funroulette;
+        $user->percent = $request->percent;
+        // dd($user->percent);
+        $user->isManual = true;
         if ($request->status == "false") {
             $user->isManual = false;
             $user->listArray = $listArray;
@@ -595,7 +592,7 @@ class AdminController extends Controller
     public function Winbyadmin()
     {
         $this->middleware('admin');
-        $user = User::where('role', 'retailer')->get();
+        $user = User::where('role', 'distributor')->get();
         $winner = WinnerIds::all();
         // echo "<pre>";print_r($winner->toArray());die();
         return view('admin.WinnerId', ['data' => $user, 'winner' => $winner]);
@@ -622,7 +619,7 @@ class AdminController extends Controller
         $win->retailerId = new \MongoDB\BSON\ObjectID($request->amount);
         $win->percent = $request->percent;
         $win->save();
-        session()->flash('success', 'retailer percentage is added');
+        session()->flash('success', 'distributor percentage is added');
         return redirect('Winbyadmin');
     }
 
@@ -1018,7 +1015,7 @@ class AdminController extends Controller
         } elseif ($user['role'] == "super_distributor") {
             $refer = User::where('referralId', new \MongoDB\BSON\ObjectID($user['_id']))->where('role', 'distributor')->get();
         } elseif ($user['role'] == "distributor") {
-            $refer = User::where('referralId', new \MongoDB\BSON\ObjectID($user['_id']))->where('role', 'player')->get();
+            $refer = User::where('referralId', new \MongoDB\BSON\ObjectID($user['_id']))->where('role', 'retailer')->get();
         }
         $data = array();
         // dd($data);
@@ -1054,7 +1051,7 @@ class AdminController extends Controller
                 $user = User::find($id);
                 $admin = User::find(Session::get('id'));
                 if ($request->password == Session::get('transactionPin')) {
-                    if ($user->role == "Admin" || $user->role == "super_distributor" || $user->role == "distributor" || $user->role == "player" || $user->role == "subadmin") {
+                    if ($user->role == "Admin" || $user->role == "super_distributor" || $user->role == "distributor" || $user->role == "retailer" || $user->role == "subadmin") {
                         if ($admin->creditPoint < $request->amount) {
                             session()->flash('msg', 'Check Credit Point! Credit Point is insufficient..');
                             return redirect()->back();
@@ -1231,7 +1228,7 @@ class AdminController extends Controller
                 $user = User::find($id);
                 $refer = User::find(Session::get('id'));
                 if ($request->password == Session::get('transactionPin')) {
-                    if ($user->role == "player") {
+                    if ($user->role == "retailer") {
                         if ($refer->creditPoint < $request->amount) {
                             session()->flash('msg', 'Check Credit Point! Credit Point is insufficient..');
                             return redirect()->back();
@@ -1390,7 +1387,7 @@ class AdminController extends Controller
                 foreach ($retailer as $key => $c) {
                     $player = User::orderBy('userName', 'ASC')
                         ->where('is_franchise', (Session::get('is_f') == "true") ? true : false)
-                        ->where('referralId', new \MongoDB\BSON\ObjectID($c['_id']))->where('role', 'player')->get()->toArray();
+                        ->where('referralId', new \MongoDB\BSON\ObjectID($c['_id']))->where('role', 'retailer')->get()->toArray();
                     $retailer = array_merge($retailer, $player);
                     $user = array_merge($user, $retailer);
                 }
@@ -1402,13 +1399,13 @@ class AdminController extends Controller
             foreach ($user as $key => $u) {
                 $player = User::orderBy('userName', 'ASC')
                     ->where('is_franchise', (Session::get('is_f') == "true") ? true : false)
-                    ->where('referralId', new \MongoDB\BSON\ObjectID($u['_id']))->where('role', 'player')->get()->toArray();
+                    ->where('referralId', new \MongoDB\BSON\ObjectID($u['_id']))->where('role', 'retailer')->get()->toArray();
                 $user = array_merge($user, $player);
             }
         } elseif (Session::get('role') == "retailer") {
             $user = User::orderBy('userName', 'ASC')
                 ->where('is_franchise', (Session::get('is_f') == "true") ? true : false)
-                ->where('referralId', new \MongoDB\BSON\ObjectID(Session::get('id')))->where('role', 'player')->get();
+                ->where('referralId', new \MongoDB\BSON\ObjectID(Session::get('id')))->where('role', 'retailer')->get();
         }
 
         $pending_accept = Payments::where('toId', Session::get('id'))
@@ -1442,8 +1439,8 @@ class AdminController extends Controller
                                     <td>" . number_format($value['creditPoint'], 2) . "</td>
                                 </tr>
                                 <tr>
-                                    <td><a href='transfercredit/" . $value['_id'] . "' class='btn btn-outline-success title='Transfer Credit'>Add Points</a></td>
-                                    <td><a href='adjustcredit/" . $value['_id'] . "' class='btn btn-outline-warning' title='Adjust Credit'>Minus Points</a></td>
+                                    <td><a href='transfercredit/" . $value['_id'] . "' class='btn btn-outline-success title='Transfer Credit'> (+) Add Points</a></td>
+                                    <td><a href='adjustcredit/" . $value['_id'] . "' class='btn btn-outline-danger' title='Adjust Credit'> (-) Minus Points</a></td>
                                 </tr>
                             </table>";
                 }
@@ -1600,6 +1597,8 @@ class AdminController extends Controller
     }
 
 
+
+
     public function resetDevice($id)
     {
         $device = User::find($id);
@@ -1620,7 +1619,7 @@ class AdminController extends Controller
 
     public function lockUserIndex()
     {
-        $users = User::where('role', 'player')->get();
+        $users = User::where('role', 'retailer')->get();
         return view('lockuser.index', ['users' => $users]);
     }
 
@@ -1669,29 +1668,6 @@ class AdminController extends Controller
         $daily['totalwonamount']  = Bets::where('game', 'funtarget')->where('createdAt', '>=', Carbon::today())->sum('total_win_amount');
         return view('liveResult.LiveResultFunTargate', ['daily' => $daily]); //'response' => $response->json(), 'lastCard' => $lastWinCards,
     }
-    public function liveResultAnimal() // ADMIN_ROULETTE_ZERO_GAME_INFO
-    {
-        // $webUrl = 'http://13.233.70.146:3000';
-        // dd('hello');
-        // $webUrl = 'http://localhost:5000';
-        // $response = Http::get($webUrl . '/chooseServer?det=android');
-        // $lastWinCards = RouletteZeroPlayings::select('last_win_cards')->first();
-        $daily['totalbetamount']  = Bets::where('game', 'animal')->where('createdAt', '>=', Carbon::today())->sum('total_bet_amount');
-        $daily['totalwonamount']  = Bets::where('game', 'animal')->where('createdAt', '>=', Carbon::today())->sum('total_win_amount');
-        return view('liveResult.liveResultAnimal', ['daily' => $daily]); //'response' => $response->json(), 'lastCard' => $lastWinCards,
-    }
-
-    public function liveResultDragonTiger() // ADMIN_ROULETTE_ZERO_GAME_INFO
-    {
-        // $webUrl = 'http://13.233.70.146:3000';
-        // dd('hello');
-        // $webUrl = 'http://localhost:5000';
-        // $response = Http::get($webUrl . '/chooseServer?det=android');
-        // $lastWinCards = RouletteZeroPlayings::select('last_win_cards')->first();
-        $daily['totalbetamount']  = Bets::where('game', 'animal')->where('createdAt', '>=', Carbon::today())->sum('total_bet_amount');
-        $daily['totalwonamount']  = Bets::where('game', 'animal')->where('createdAt', '>=', Carbon::today())->sum('total_win_amount');
-        return view('liveResult.LiveResultDragonTiger', ['daily' => $daily]); //'response' => $response->json(), 'lastCard' => $lastWinCards,
-    }
     // public function resultFunTarget() // ADMIN_ROULETTE_ZERO_GAME_INFO
     // {
     //     dd('geklloo');
@@ -1739,12 +1715,12 @@ class AdminController extends Controller
         $margin = 0;
         $netprofit = 0;
         $SuperDistributedProfit = 0;
-        $player = User::where('role', 'player')->where('is_franchise', (Session::get('is_f') ? true : false))->get();
+        $player = User::where('role', 'retailer')->where('is_franchise', (Session::get('is_f') ? true : false))->get();
         foreach ($player as $player_user) {
             $players[] = new \MongoDB\BSON\ObjectID($player_user['_id']);
         }
-        $playPoints = Bets::select('bet', 'won') //, 'playerCommission', 'retailerCommission', 'distributorCommission', 'super_distributorCommission', 'agentCommission'
-            ->whereIn('playerId', $players)
+        $playPoints = Bets::select('bet', 'won', 'retailerCommission', 'retailerCommission', 'distributorCommission', 'super_distributorCommission', 'agentCommission') //,
+            ->whereIn('retailerId', $players)
             ->whereBetween(
                 'createdAt',
                 array(
@@ -1783,7 +1759,7 @@ class AdminController extends Controller
             $user[$key] = new \MongoDB\BSON\ObjectID($u);
         }
         if (Session::get('role') == "Admin" || Session::get('role') == "subadmin") {
-            $data = pointrequests::orderBy('createdAt', 'DESC')->whereIn('playerId', $user)->where('status', 'Pending')->get();
+            $data = pointrequests::orderBy('createdAt', 'DESC')->whereIn('retailerId', $user)->where('status', 'Pending')->get();
         } elseif (Session::get('role') == "agent" || Session::get('role') == "super_distributor" || Session::get('role') == "distributor" || Session::get('role') == "retailer") {
             $data = pointrequests::orderBy('createdAt', 'DESC')->where('fromId', new \MongoDB\BSON\ObjectID(Session::get('id')))->where('status', 'Pending')->get();
         }
@@ -1920,7 +1896,7 @@ class AdminController extends Controller
             } elseif (Session::get('role') == "super_distributor") {
                 $user = User::where('referralId', new \MongoDB\BSON\ObjectID(Session::get('id')))->where('role', 'distributor')->orderBy('created_at', 'DESC')->get();
             } elseif (Session::get('role') == "distributor") {
-                $user = User::where('referralId', new \MongoDB\BSON\ObjectID(Session::get('id')))->where('role', 'player')->orderBy('created_at', 'DESC')->get();
+                $user = User::where('referralId', new \MongoDB\BSON\ObjectID(Session::get('id')))->where('role', 'retailer')->orderBy('created_at', 'DESC')->get();
             }
 
             $user_role = User::where('is_franchise', false)->where('role', '!=', "Admin")->pluck('role')->toArray();

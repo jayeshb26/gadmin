@@ -4,7 +4,7 @@
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <link href="{{ url('css/history.css') }}" rel="stylesheet" type="text/css" />
     <link rel="shortcut icon" href="assetss/img/favicon.ico" />
-    <title>Gold Star GAME | {{ $data['game'] }}</title>
+    <title>Game King GAME | {{ $data['game'] }}</title>
     <style>
         .panel-primary {
             background-color: #d4d4d4;

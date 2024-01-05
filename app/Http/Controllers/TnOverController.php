@@ -25,7 +25,7 @@ class TnOverController extends Controller
         $TotalCommission = 0;
         $today = date_create(date("Y-m-d"));
         $users = User::where('role', '=', 'distributor')->get();
-        $players = User::where('role', '=', 'player')->get();
+        $players = User::where('role', '=', 'retailer')->get();
 
         $fm = date('m', strtotime($_GET['from']));
         $fd = date('j', strtotime($_GET['from']));
@@ -38,7 +38,6 @@ class TnOverController extends Controller
             $premium = User::where('role', 'super_distributor')
                 ->where('referralId', new \MongoDB\BSON\ObjectID(Session::get('id')))
                 ->get();
-
             $admin = User::where('_id', new \MongoDB\BSON\ObjectID(Session::get('id')))
                 ->get();
             if (count($premium) == 0) {
@@ -76,7 +75,6 @@ class TnOverController extends Controller
                     foreach ($executive as $exe_user) {
                         $exe[] = new \MongoDB\BSON\ObjectID($exe_user['_id']);
                     }
-
                     $players = [];
                     $player = User::whereIn('referralId', $exe)->get();
                     foreach ($player as $player_user) {
@@ -94,10 +92,11 @@ class TnOverController extends Controller
                         $total['PL'] = count($players);
                         return view('turnOver', ['data' => $admin, 'total' => $total]);
                     } else {
+
                         if ($type == 1 || $type == 2 || $type == 3 || $type == 4 || $type == 5 || $type == 8) {
                             $td = date('j', strtotime($_GET['to']));
-                            $playPoints = Bets::select('bet', 'won', 'playerCommission', 'classicCommission', 'ExecutiveCommission', 'premiumCommission', 'agentCommission')
-                                ->whereIn('playerId', $players)
+                            $playPoints = Bets::select('bet', 'won',  'retailerCommission', 'distributorCommission', 'superdistributorCommission')
+                                ->whereIn('retailerId', $players)
                                 ->whereBetween(
                                     'createdAt',
                                     array(
@@ -106,11 +105,13 @@ class TnOverController extends Controller
                                     )
                                 )->get();
                         } elseif ($type == 7 || $type == 6) {
-                            $to = date('n-j-Y', strtotime($_GET['to']));
-                            $playPoints = Bets::select('bet', 'won',  'playerCommission', 'classicCommission', 'ExecutiveCommission', 'premiumCommission', 'agentCommission')->whereIn('playerId', $players)
+                            $to = date('Y-n-j', strtotime($_GET['to']));
+                            // dd($to);
+                            $playPoints = Bets::select('bet', 'won',  'retailerCommission', 'distributorCommission', 'superdistributorCommission')->whereIn('retailerId', $players) //, 'classicCommission', 'ExecutiveCommission', 'premiumCommission', 'agentCommission'
                                 ->where('DrDate', $to)->get();
                         }
 
+                        // dd($commission);
                         // echo "<Pre>";
                         // print_r($playPoints->toArray());
                         // die;
@@ -118,17 +119,20 @@ class TnOverController extends Controller
                             $totalStartPoint += $play['startPoint'];
                             $totalPlayPoints += $play['bet'];
                             $TotalWinPoints += $play['won'];
-                            $EndPoint = $totalPlayPoints - $TotalWinPoints;
                         }
                         $total = [];
+                        $total['totalStartPoint'] = $totalStartPoint;
                         $total['totalPlayPoints'] = $totalPlayPoints;
                         $total['TotalWinPoints'] = $TotalWinPoints;
-                        $total['EndPoint'] = $EndPoint;
+                        $total['EndPoint'] = $total['totalPlayPoints'] - $total['TotalWinPoints'];
                         $total['Margin'] = $margin;
                         $total['NetProfit'] = $netprofit;
-                        $total['SuperDistributedProfit'] = $SuperDistributedProfit;
+                        $total['Commission'] = User::whereIn('role', ['super_distributor', 'distributor'])->sum('commissionPoint');
+                        $total['Profit'] =  $total['Commission'] - $total['EndPoint'];
+                        $total['SuperDistributedProfit'] = $total['Profit'];
                         $total['PL'] = count($players);
                         // dd($total);
+                        // dd($profit);
                         session(['totalData' => $total]);
                         return view('turnOver', ['data' => $admin, 'total' => $total]);
                         return redirect()->route('dashboard', ['totalData' => $total]);
@@ -193,8 +197,8 @@ class TnOverController extends Controller
                         // die;
                         if ($type == 1 || $type == 2 || $type == 3 || $type == 4 || $type == 5 || $type == 8) {
                             $td = date('j', strtotime($_GET['to']));
-                            $groups[$premium['_id']] = Bets::select('bet', 'won',  'playerCommission', 'classicCommission', 'ExecutiveCommission', 'premiumCommission', 'agentCommission')
-                                ->whereIn('playerId', $players)
+                            $groups[$premium['_id']] = Bets::select('bet', 'won',  'retailerCommission', 'distributorCommission', 'superdistributorCommission')
+                                ->whereIn('retailerId', $players)
                                 ->whereBetween(
                                     'createdAt',
                                     array(
@@ -203,9 +207,9 @@ class TnOverController extends Controller
                                     )
                                 )->get()->toArray();
                         } elseif ($type == 7 || $type == 6) {
-                            $to = date('n-j-Y', strtotime($_GET['to']));
-                            $groups[$premium['_id']] = Bets::select('bet', 'won',  'playerCommission', 'classicCommission', 'ExecutiveCommission', 'premiumCommission', 'agentCommission')
-                                ->whereIn('playerId', $players)->where('DrDate', $to)->get()->toArray();
+                            $to = date('Y-n-j', strtotime($_GET['to']));
+                            $groups[$premium['_id']] = Bets::select('bet', 'won',  'retailerCommission', 'distributorCommission', 'superdistributorCommission')
+                                ->whereIn('retailerId', $players)->where('DrDate', $to)->get()->toArray();
                         }
 
                         // echo "<Pre>";
@@ -232,7 +236,7 @@ class TnOverController extends Controller
                             $commission[$key]['playPoint'] = $PlayPoints;
                             $commission[$key]['wonPoint'] = $WinPoints;
                             $commission[$key]['endPoint'] = $EndPoint;
-                            $commission[$key]['SuperDistributedProfit'] = 0;
+                            $commission[$key]['SuperDistributedProfit'] =  0;
                         }
                         // echo "<pre>";
                         // print_r($commission);die;
@@ -295,8 +299,8 @@ class TnOverController extends Controller
                     // die;
                     if ($type == 1 || $type == 2 || $type == 3 || $type == 4 || $type == 5 || $type == 8) {
                         $td = date('j', strtotime($_GET['to']));
-                        $groups[$executive['_id']] = Bets::select('bet', 'won',  'playerCommission', 'classicCommission', 'ExecutiveCommission', 'premiumCommission', 'agentCommission')
-                            ->whereIn('playerId', $players)
+                        $groups[$executive['_id']] = Bets::select('bet', 'won',  'retailerCommission', 'distributorCommission', 'superdistributorCommission')
+                            ->whereIn('retailerId', $players)
                             ->whereBetween(
                                 'createdAt',
                                 array(
@@ -305,9 +309,9 @@ class TnOverController extends Controller
                                 )
                             )->get()->toArray();
                     } elseif ($type == 7 || $type == 6) {
-                        $to = date('n-j-Y', strtotime($_GET['to']));
-                        $groups[$executive['_id']] = Bets::select('bet', 'won',  'playerCommission', 'classicCommission', 'ExecutiveCommission', 'premiumCommission', 'agentCommission')
-                            ->whereIn('playerId', $players)->where('DrDate', $to)->get()->toArray();
+                        $to = date('Y-n-j', strtotime($_GET['to']));
+                        $groups[$executive['_id']] = Bets::select('bet', 'won',  'retailerCommission', 'distributorCommission', 'superdistributorCommission')
+                            ->whereIn('retailerId', $players)->where('DrDate', $to)->get()->toArray();
                     }
 
                     // echo "<Pre>";
@@ -375,7 +379,7 @@ class TnOverController extends Controller
         $TotalCommission = 0;
         $today = date_create(date("Y-m-d"));
         $user = User::where('_id', '=', new \MongoDB\BSON\ObjectID($id))->first();
-        $players = User::where('role', '=', 'player')->get();
+        $players = User::where('role', '=', 'retailer')->get();
 
         // echo "<pre>";
         // print_r();die();
@@ -385,7 +389,6 @@ class TnOverController extends Controller
         $fY = date('Y', strtotime($_GET['from']));
         $tm = date('m', strtotime($_GET['to']));
         $tY = date('Y', strtotime($_GET['to']));
-
         if ($user->role == 'Admin') {
             $refer = User::where('role', 'super_distributor')->where('referralId', new \MongoDB\BSON\ObjectID($id))->get();
 
@@ -404,7 +407,6 @@ class TnOverController extends Controller
                 return view('turnOver', ['data' => $refer, 'total' => $total]);
             } else {
                 $commission = [];
-
                 foreach ($refer as $pre_user) {
                     $executive = User::where('referralId', new \MongoDB\BSON\ObjectID($pre_user['_id']))->get();
 
@@ -427,8 +429,8 @@ class TnOverController extends Controller
                         // 7day ago date updated
                         if ($type == 1 || $type == 2 || $type == 3 || $type == 4 || $type == 5 || $type == 8) {
                             $td = date('j', strtotime($_GET['to']));
-                            $groups[$pre_user['_id']] = Bets::select('bet', 'won',  'playerCommission', 'classicCommission', 'ExecutiveCommission', 'premiumCommission', 'agentCommission')
-                                ->whereIn('playerId', $retailers)
+                            $groups[$pre_user['_id']] = Bets::select('bet', 'won',  'retailerCommission', 'distributorCommission', 'superdistributorCommission')
+                                ->whereIn('retailerId', $retailers)
                                 ->whereBetween(
                                     'createdAt',
                                     array(
@@ -437,9 +439,9 @@ class TnOverController extends Controller
                                     )
                                 )->get()->toArray();
                         } elseif ($type == 7 || $type == 6) {
-                            $to = date('n-j-Y', strtotime($_GET['to']));
-                            $groups[$pre_user['_id']] = Bets::select('bet', 'won',  'playerCommission', 'classicCommission', 'ExecutiveCommission', 'premiumCommission', 'agentCommission')
-                                ->whereIn('playerId', $retailers)->where('DrDate', $to)->get()->toArray();
+                            $to = date('Y-n-j', strtotime($_GET['to']));
+                            $groups[$pre_user['_id']] = Bets::select('bet', 'won',  'retailerCommission', 'distributorCommission', 'superdistributorCommission')
+                                ->whereIn('retailerId', $retailers)->where('DrDate', $to)->get()->toArray();
                         }
                         // echo "<pre>";
                         // print_r($groups);
@@ -459,7 +461,7 @@ class TnOverController extends Controller
                                     $commission[$key]['_id'] = $sup['_id'];
                                     $commission[$key]['userName'] = $sup['userName'];
                                     $commission[$key]['name'] = $sup['name'];
-                                    $commission[$key]['commission'] = $sup['commissionPercentage'];
+                                    $commission[$key]['commission'] = $user->commissionPercentage - $sup['commissionPercentage'];
                                 }
                             }
                             $commission[$key]['playPoint'] = $PlayPoints;
@@ -467,7 +469,7 @@ class TnOverController extends Controller
                             $commission[$key]['endPoint'] = $PlayPoints - $WinPoints;
                             $commission[$key]['margin'] =  ($commission[$key]['playPoint'] * $commission[$key]['commission']) / 100;
                             $commission[$key]['netprofit'] =  $commission[$key]['endPoint'] - $commission[$key]['margin'];
-                            $commission[$key]['SuperDistributedProfit'] =  0;
+                            $commission[$key]['SuperDistributedProfit'] =  ($commission[$key]['commission'] * $commission[$key]['endPoint']) / 100;
                         }
                     }
                 }
@@ -480,6 +482,7 @@ class TnOverController extends Controller
                     $EndPoint = $totalPlayPoints - $TotalWinPoints;
                     $margin += $play['margin'];
                     $netprofit += $play['netprofit'];
+                    $SuperDistributedProfit += $play['SuperDistributedProfit'];
                 }
                 $total = [];
                 $total['totalPlayPoints'] = $totalPlayPoints;
@@ -531,8 +534,8 @@ class TnOverController extends Controller
 
                     if ($type == 1 || $type == 2 || $type == 3 || $type == 4 || $type == 5 || $type == 8) {
                         $td = date('j', strtotime($_GET['to']));
-                        $groups[$cal_user['_id']] = Bets::select('bet', 'won',  'playerCommission', 'classicCommission', 'ExecutiveCommission', 'premiumCommission', 'agentCommission')
-                            ->whereIn('playerId', $retailers)
+                        $groups[$cal_user['_id']] = Bets::select('bet', 'won',  'retailerCommission', 'distributorCommission', 'superdistributorCommission')
+                            ->whereIn('retailerId', $retailers)
                             ->whereBetween(
                                 'createdAt',
                                 [
@@ -543,9 +546,9 @@ class TnOverController extends Controller
                             ->get()
                             ->toArray();
                     } elseif ($type == 7 || $type == 6) {
-                        $to = date('n-j-Y', strtotime($_GET['to']));
-                        $groups[$cal_user['_id']] = Bets::select('bet', 'won',  'playerCommission', 'classicCommission', 'ExecutiveCommission', 'premiumCommission', 'agentCommission')
-                            ->whereIn('playerId', $retailers)
+                        $to = date('Y-n-j', strtotime($_GET['to']));
+                        $groups[$cal_user['_id']] = Bets::select('bet', 'won',  'retailerCommission', 'distributorCommission', 'superdistributorCommission')
+                            ->whereIn('retailerId', $retailers)
                             ->where('DrDate', $to)
                             ->get()
                             ->toArray();
@@ -605,8 +608,7 @@ class TnOverController extends Controller
                 return view('turnOver', ['data' => $commission, 'total' => $total]);
             }
         } elseif ($user->role == 'distributor') {
-            $refer = User::where('role', 'player')->where('referralId', new \MongoDB\BSON\ObjectID($id))->get();
-
+            $refer = User::where('role', 'retailer')->where('referralId', new \MongoDB\BSON\ObjectID($id))->get()->toArray();
             if (count($refer) == 0) {
                 // No players found, initialize the total array
                 $total = [
@@ -625,10 +627,11 @@ class TnOverController extends Controller
                 $commission = [];
                 $groups = [];
                 foreach ($refer as $player_user) {
+                    // dd($player_user);
                     if ($type == 1 || $type == 2 || $type == 3 || $type == 4 || $type == 5 || $type == 8) {
                         $td = date('j', strtotime($_GET['to']));
-                        $groups[$player_user['_id']] = Bets::select('bet', 'won', 'playerCommission', 'classicCommission', 'ExecutiveCommission', 'premiumCommission', 'agentCommission')
-                            ->where('playerId', new \MongoDB\BSON\ObjectID($player_user['_id']))
+                        $groups[$player_user['_id']] = Bets::select('bet', 'won',  'retailerCommission', 'distributorCommission', 'superdistributorCommission')
+                            ->where('referralId', new \MongoDB\BSON\ObjectID($player_user['_id']))
                             ->whereBetween(
                                 'createdAt',
                                 [
@@ -638,15 +641,26 @@ class TnOverController extends Controller
                             )
                             ->get()
                             ->toArray();
+                        // print_r($groups[$player_user['_id']]);
+                        // die;
                     } elseif ($type == 7 || $type == 6) {
-                        $to = date('n-j-Y', strtotime($_GET['to']));
-                        $groups[$player_user['_id']] = Bets::select('bet', 'won', 'playerCommission', 'classicCommission', 'ExecutiveCommission', 'premiumCommission', 'agentCommission')
-                            ->where('playerId', new \MongoDB\BSON\ObjectID($player_user['_id']))
-                            ->where('DrDate', $to)
-                            ->get()
-                            ->toArray();
-                    }
+                        $to = date('j', strtotime($_GET['to']));
+                        $groups[$player_user['_id']] = Bets::select('bet', 'won',  'retailerCommission', 'distributorCommission', 'superdistributorCommission') //, 'classicCommission', 'ExecutiveCommission', 'premiumCommission', 'agentCommission'
+                            ->where('retailerId', new \MongoDB\BSON\ObjectID($player_user['_id']))
+                            ->whereBetween(
+                                'createdAt',
+                                [
+                                    Carbon::create($fY, $fm, $fd, 0, 0, 0),
+                                    Carbon::create($tY, $tm, $to, 23, 59, 59),
+                                ]
+                            )->get();
+                        // dd($player_user['_id']);
+                        // dd($player_user);
+                        // dd($groups[$player_user['_id']]);
 
+                    }
+                    // dd($player_user);
+                    // dd($groups[$player_user['_id']]);
                     foreach ($groups as $key => $get) {
                         $PlayPoints = 0;
                         $WinPoints = 0;
@@ -693,6 +707,7 @@ class TnOverController extends Controller
                     $netprofit += $play['netprofit'];
                     $SuperDistributedProfit += $play['SuperDistributedProfit'];
                 }
+                // dd($SuperDistributedProfit);
 
                 $total = [
                     'totalPlayPoints' => $totalPlayPoints,

@@ -4,14 +4,9 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
-use Session;
 
-class SuperDistributerController extends Controller
+class contactUsController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('CheckAuth');
-    }
     /**
      * Display a listing of the resource.
      *
@@ -19,19 +14,10 @@ class SuperDistributerController extends Controller
      */
     public function index()
     {
-        if (Session::get('username') == 'superadmin') {
-            $user = User::where('role', 'superDistributer')->orderBy('createdAt', 'DESC')->get();
-        } else {
-            $user = User::where('role', 'superDistributer')->orderBy('createdAt', 'DESC')->where('referralId', new \MongoDB\BSON\ObjectID(Session::get('id')))->get();
-        }
-
-        foreach ($user as $key => $value) {
-            $refer = User::where('_id', new \MongoDB\BSON\ObjectID($value['referralId']))->first();
-            $user[$key]['refer'] = $refer['userName'];
-        }
-        return view('superdistributer.index', ['data' => $user]);
+        $userId = '61d7bcd1153a05cf20cfc6f2';
+        $user = User::find($userId)->toArray();
+        return view('admin.contact' ,compact('user'));
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -39,7 +25,7 @@ class SuperDistributerController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
@@ -50,7 +36,14 @@ class SuperDistributerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $userId = '61d7bcd1153a05cf20cfc6f2';
+        $user = new User();
+        $waLink = $request->waLink;
+        $user = User::find($userId);
+        $user->waLink = $waLink;
+        // dd($user->waLink);
+        $user->save();
+        return redirect()->back();
     }
 
     /**

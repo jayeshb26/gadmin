@@ -35,7 +35,7 @@ class RoleController extends Controller
     public function getPlayerData()
     {
         // Retrieve retailer data using the User model.
-        $retailerData = User::where('role', 'player')->get();
+        $retailerData = User::where('role', 'retailer')->get();
         // Pass the data to the retailer view and display it.
         return view('playerUserView', ['data' => $retailerData]);
     }

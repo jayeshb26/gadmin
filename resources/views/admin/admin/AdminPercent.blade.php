@@ -30,25 +30,15 @@
                     @endif
                     <div class="row mb-3">
                         <label class="col-md-1 text-right control-label mt-2"></label>
-                        <div class="col-sm-6 col-md-2">
+                        {{--  <div class="col-sm-6 col-md-2">
                             <label class="text-right control-label mb-0">FunRoulette</label>
                             <input type="number" class="form-control ui-autocomplete-input " id="series1" value=""
                                 name="series1" disabled>
-                        </div>
+                        </div>  --}}
                         <div class="col-sm-6 col-md-2">
                             <label class="text-right control-label mb-0">FunTarget</label>
                             <input type="number" class="form-control ui-autocomplete-input " id="series3" value=""
                                 name="series3" disabled>
-                        </div>
-                        <div class="col-sm-6 col-md-2">
-                            <label class="text-right control-label mb-0">DragonTiger</label>
-                            <input type="number" class="form-control ui-autocomplete-input " id="series5" value=""
-                                name="series5" disabled>
-                        </div>
-                        <div class="col-sm-6 col-md-2">
-                            <label class="text-right control-label mb-0">Animal</label>
-                            <input type="number" class="form-control ui-autocomplete-input " id="series6" value=""
-                                name="series6" disabled>
                         </div>
                         <div class="col-sm-6 col-md-3">
                             <label class="text-right control-label mb-0">Admin Balance Total</label>
@@ -58,20 +48,12 @@
                     </div>
                     <div class="row mb-3">
                         <label class="col-sm-1 text-right control-label mt-2">Admin Balance</label>
-                        <div class="col-sm-6 col-md-2">
+                        {{--  <div class="col-sm-6 col-md-2">
                             <input type="number" class="form-control ui-autocomplete-input " id="s1" value="0"
                                 autocomplete="off" placeholder="Enter Balance">
-                        </div>
+                        </div>  --}}
                         <div class="col-sm-6 col-md-2">
                             <input type="number" class="form-control ui-autocomplete-input " id="s3" value="0"
-                                autocomplete="off" placeholder="Enter Balance">
-                        </div>
-                        <div class="col-sm-6 col-md-2">
-                            <input type="number" class="form-control ui-autocomplete-input " id="s5" value="0"
-                                autocomplete="off" placeholder="Enter Balance">
-                        </div>
-                        <div class="col-sm-6 col-md-2">
-                            <input type="number" class="form-control ui-autocomplete-input " id="s6" value="0"
                                 autocomplete="off" placeholder="Enter Balance">
                         </div>
                         {{--  <div class="col-sm-6 col-md-3">
@@ -135,25 +117,22 @@
     </script>
     <script>
         $(function() {
-            const socket = io.connect("ws://159.65.144.5:5007");
+            const socket = io.connect("ws://159.65.144.5:5000");
             socket.on("connect", function() {
-                console.log(socket.id);
+                console.log("hello");
+                {{--  console.log(socket.id);  --}}
                 const user = {
                     adminId: "61d7bcd1153a05cf20cfc6f2",
+                    gameName : "playToWin", //game name static server
                 };
                 socket.emit("joinAdmin1", user);
                 socket.on("resAdmin", (res) => {
-                    //console.log(res.data.funtarget.adminBalance);
-                    //console.log(res.data.funtarget.adminBalance);
-                    //console.log(res.data.funtarget.adminBalance);
-                    //console.log(res);
-                    $("#series1").val(res.data.funroulette.adminBalance.toFixed(2));
-                    $("#series3").val(res.data.funtarget.adminBalance.toFixed(2));
-                    $("#series5").val(res.data.dragontiger.adminBalance.toFixed(2));
-                    $("#series6").val(res.data.animal.adminBalance.toFixed(2));
-                    $("#total").val((res.data.funtarget.adminBalance + res.data
-                        .funroulette.adminBalance + res.data.dragontiger.adminBalance + res
-                        .data.animal.adminBalance));
+                    console.log(res.data.playToWin.adminBalance);
+                    // console.log(res.data.rouletteTimer60.adminBalance);
+                    console.log(res);
+                    {{--  $("#series1").val((res.data.funtarget.adminBalance).toFixed(2));  --}}
+                    $("#series3").val((res.data.playToWin.adminBalance).toFixed(2));
+                    $("#total").val((res.data.playToWin.adminBalance).toFixed(2));
 
                     var totalAdmin = '{{ $total['EndPoint'] }}';
                     console.log(totalAdmin);
@@ -166,21 +145,17 @@
                     var s5 = $("#s5").val();
                     var s6 = $("#s6").val();
                     const data = {
-                        funroulette: (s1 == 0) ? Math.round(parseInt($("#series1").val())) :
+                        playToWin: (s1 == 0) ? Math.round(parseInt($("#series1").val())) :
                             parseInt(s1),
-                        funtarget: (s3 == 0) ? Math.round(parseInt($("#series3").val())) :
+                        playToWin: (s3 == 0) ? Math.round(parseInt($("#series3").val())) :
                             parseInt(s3),
-                        dragontiger: (s5 == 0) ? Math.round(parseInt($("#series5").val())) :
-                            parseInt(s5),
-                        animal: (s6 == 0) ? Math.round(parseInt($("#series6").val())) :
-                            parseInt(s6),
                     };
                     // console.log(data)
                     const changeAdmin = {
                         adminId: "61d7bcd1153a05cf20cfc6f2",
                         data,
                     };
-                    //console.log(changeAdmin);
+                    // console.log(changeAdmin);
                     socket.emit("changeAdminBalance", changeAdmin);
                     $("#s1").val(0);
                     $("#s3").val(0);
@@ -188,18 +163,14 @@
                     $("#s6").val(0);
                     socket.emit("joinAdmin1", user);
                     socket.on("resAdmin", (res) => {
-                        // console.log(res.data.funtarget.adminBalance);
-                        // console.log(res.data.funtarget.adminBalance);
+                         console.log(res.data.playToWin.adminBalance);
+                        // console.log(res.data.rouletteTimer60.adminBalance);
                         console.log(res);
-                        $("#series1").val((res.data.funroulette.adminBalance).toFixed(
+                        $("#series1").val((res.data.playToWin.adminBalance).toFixed(
                             2));
-                        $("#series3").val((res.data.funtarget.adminBalance).toFixed(
-                            2));
-                        $("#series5").val(res.data.dragontiger.adminBalance.toFixed(2));
-                        $("#series6").val(res.data.animal.adminBalance.toFixed(2));
-                        $("#total").val((res.data.funtarget.adminBalance + res.data
-                                .funroulette.adminBalance + res.data.dragontiger
-                                .adminBalance + res.data.animal.adminBalance)
+                        $("#series3").val((res.data.playToWin.adminBalance).toFixed(
+                            2));;
+                        $("#total").val((res.data.playToWin.adminBalance)
                             .toFixed(2));
                         var totalAdmin = '{{ $total['EndPoint'] }}';
                         $('#totalAdmin').val(totalAdmin);

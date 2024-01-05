@@ -1103,7 +1103,7 @@
 
     <script>
         $(function() {
-            const socket = io.connect('ws://143.244.140.74:9000');
+            const socket = io.connect('ws://159.65.144.5:5007');
             console.log(socket + "Hello Socket Connected");
 
             socket.on('connect', function() {

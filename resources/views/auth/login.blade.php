@@ -22,7 +22,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="auth-form-wrapper px-5 py-5">
-                                    <a href="#" class="noble-ui-logo d-block mb-2 text-center">Gold Star</a>
+                                    <a href="#" class="noble-ui-logo d-block mb-2 text-center">Game King</a>
                                     <h5 class="font-weight-normal mb-4 text-center text-white">Welcome back! Log in to your
                                         account.</h5>
                                     @if (Session::has('msg'))

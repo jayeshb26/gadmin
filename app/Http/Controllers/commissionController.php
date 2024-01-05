@@ -2,16 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Commission;
 use App\User;
 use Illuminate\Http\Request;
-use Session;
 
-class SuperDistributerController extends Controller
+class commissionController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('CheckAuth');
-    }
     /**
      * Display a listing of the resource.
      *
@@ -19,17 +15,10 @@ class SuperDistributerController extends Controller
      */
     public function index()
     {
-        if (Session::get('username') == 'superadmin') {
-            $user = User::where('role', 'superDistributer')->orderBy('createdAt', 'DESC')->get();
-        } else {
-            $user = User::where('role', 'superDistributer')->orderBy('createdAt', 'DESC')->where('referralId', new \MongoDB\BSON\ObjectID(Session::get('id')))->get();
-        }
-
-        foreach ($user as $key => $value) {
-            $refer = User::where('_id', new \MongoDB\BSON\ObjectID($value['referralId']))->first();
-            $user[$key]['refer'] = $refer['userName'];
-        }
-        return view('superdistributer.index', ['data' => $user]);
+        $roles = ['super_distributor', 'distributor'];
+        $user = User::whereIn('role', $roles)->get()->toArray();
+        // dd($user);
+        return view('admin.commission', compact('user'));
     }
 
     /**
@@ -56,10 +45,10 @@ class SuperDistributerController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Commission  $commission
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Commission $commission)
     {
         //
     }
@@ -67,10 +56,10 @@ class SuperDistributerController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Commission  $commission
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Commission $commission)
     {
         //
     }
@@ -79,10 +68,10 @@ class SuperDistributerController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Commission  $commission
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Commission $commission)
     {
         //
     }
@@ -90,10 +79,10 @@ class SuperDistributerController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Commission  $commission
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Commission $commission)
     {
         //
     }

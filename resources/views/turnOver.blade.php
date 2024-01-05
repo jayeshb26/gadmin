@@ -108,10 +108,17 @@
                                         <td>Total Play Points</td>
                                         <td>Total Win Points</td>
                                         <td>Total End Point </td>
+
+                                        @if (Session::get('role') != 'classic')
+                                        @if (Session::get('role') == 'Admin' && Request::segment(2) != 'detail')
+                                        <td>Commission Point</td>
+                                            <td>Total Profit</td>
+                                        @elseif (Request::segment(2) == 'detail')
                                         <td>Total Margin Point</td>
                                         <td>Total Net Point</td>
-                                        @if (Session::get('role') != 'classic')
-                                            {{--  <td>Total SuperDistributedProfit</td>  --}}
+                                        <td>Total Profit</td>
+                                        @endif
+
                                         @endif
                                         @if (isset($total['F']))
                                             <td>F</td>
@@ -124,8 +131,14 @@
                                         <td>{{ moneyFormatIndia($total['totalPlayPoints']) }}</td>
                                         <td>{{ moneyFormatIndia($total['TotalWinPoints']) }}</td>
                                         <td>{{ moneyFormatIndia($total['EndPoint']) }}</td>
-                                        <td>{{ moneyFormatIndia($total['Margin']) }}</td>
-                                        <td>{{ moneyFormatIndia($total['NetProfit']) }}</td>
+                                         @if (Session::get('role') == 'Admin' && Request::segment(2) != 'detail')
+                                         {{--  <td>{{ moneyFormatIndia($total['Commission']) }}</td>  --}}
+                                         {{--  <td>{{ moneyFormatIndia($total['Commission']) }}</td>  --}}
+                                         <td></td>
+                                         @else
+                                         <td>{{ moneyFormatIndia($total['Margin']) }}</td>
+                                         <td>{{ moneyFormatIndia($total['NetProfit']) }}</td>
+                                        @endif
 
                                         @if (Session::get('role') != 'classic')
                                             <td>{{ moneyFormatIndia($total['SuperDistributedProfit']) }}</td>
@@ -194,12 +207,16 @@
                                     <th>Play Points</th>
                                     <th>Win Points</th>
                                     <th>End Point</th>
-                                    @if (Session::get('role') != 'player')
-                                        <th>Margin</th>
-                                        <th>Net point</th>
-                                        {{--  @if (Session::get('role') != 'classic')
-                                            <th>SuperDistributedProfit</th>
-                                        @endif  --}}
+                                    @if (Session::get('role') != 'retailer')
+                                    @if (Session::get('role') == 'Admin' && Request::segment(2) != 'detail')
+                                    <th>Commission</th>
+                                    @elseif (Request::segment(2) == 'detail')
+                                    <th>Margin</th>
+                                    <th>Net point</th>
+                                    @endif
+                                        @if (Session::get('role') != 'classic')
+                                            <th>Profit</th>
+                                        @endif
                                     @endif
                                 </tr>
                             </thead>
@@ -211,6 +228,7 @@
                                     $end = 0;
                                     $marginp = 0;
                                     $netp = 0;
+                                    $yourMargin=0;
                                     setlocale(LC_MONETARY, 'en_IN');
                                 @endphp
                                 @if (isset($data) && !empty($data))
@@ -224,6 +242,7 @@
                                                     $end += $total['EndPoint'];
                                                     $marginp += 0;
                                                     $netp += 0;
+                                                    $yourMargin += 0;
                                                 @endphp
                                                 <td>
                                                     <a
@@ -236,18 +255,25 @@
                                                 <td>{{ moneyFormatIndia($total['totalPlayPoints']) }}</td>
                                                 <td>{{ moneyFormatIndia($total['TotalWinPoints']) }}</td>
                                                 <td>{{ moneyFormatIndia($total['EndPoint']) }}</td>
-                                                <td>{{ moneyFormatIndia($total['NetProfit']) }}</td>
-                                                {{--  <td>{{ moneyFormatIndia(0) }}</td>  --}}
-
+                                                {{--  <td>{{ moneyFormatIndia($total['NetProfit']) }}</td>  --}}
+                                                @if (Session::get('role') == 'Admin' && Request::segment(2) != 'detail')
+                                                <td>{{ moneyFormatIndia($total['Commission']) }}</td>
+                                                {{--  <td></td>  --}}
+                                                <td>{{ moneyFormatIndia($total['Profit']) }}</td>
+                                                {{--  <td></td>  --}}
+                                                @elseif (Request::segment(2) == 'detail')
                                                 @if (Session::get('role') != 'classic')
-                                                    <td>{{ moneyFormatIndia(0) }}</td>
+                                                <td>{{ moneyFormatIndia(0) }}</td>
+                                                <td>{{ moneyFormatIndia(0) }}</td>
+                                                {{--  <td>{{ moneyFormatIndia($total['SuperDistributedProfit']) }}</td>  --}}
+                                                @endif
                                                 @endif
                                             @elseif(
                                                 $play['role'] == 'super_distributor' ||
                                                     $play['role'] == 'super_distributor' ||
                                                     $play['role'] == 'distributor' ||
-                                                    $play['role'] == 'player')
-                                                @if ($play['role'] == 'player')
+                                                    $play['role'] == 'retailer')
+                                                @if ($play['role'] == 'retailer')
                                                     <td><a href="{{ url('player/detail/' . $play['_id']) }}">{{ $play['userName'] }}
                                                             <span class="badge badge-secondary rounded-pill"><i
                                                                     class="fa fa-eye"></i></span></a></td>
@@ -276,7 +302,7 @@
                                                 <td>{{ moneyFormatIndia($net) }}</td>
 
                                                 @if (Session::get('role') != 'classic')
-                                                    {{--  <td>{{ moneyFormatIndia($play['SuperDistributedProfit']) }}</td>  --}}
+                                                    <td>{{ moneyFormatIndia($play['SuperDistributedProfit']) }}</td>
                                                 @endif
                                                 @php
                                                     $playP += $play['playPoint'];
@@ -284,6 +310,7 @@
                                                     $end += $endPoint;
                                                     $marginp += $margin;
                                                     $netp += $net;
+                                                    $yourMargin += $play['SuperDistributedProfit'];
                                                 @endphp
                                             @endif
                                         </tr>
@@ -297,12 +324,19 @@
                                     <td>{{ moneyFormatIndia($playP) }}</td>
                                     <td>{{ moneyFormatIndia($win) }}</td>
                                     <td>{{ moneyFormatIndia($end) }}</td>
+                                    @if (Session::get('role') == 'Admin' && Request::segment(2) != 'detail')
+                                    <td>{{ moneyFormatIndia($total['Commission']) }}</td>
+                                    {{--  <td></td>  --}}
+                                    <td>{{ moneyFormatIndia($total['Profit']) }}</td>
+                                    {{--  <td></td>  --}}
+                                    @elseif (Request::segment(2) == 'detail')
                                     <td>{{ moneyFormatIndia($marginp) }}</td>
                                     <td>{{ moneyFormatIndia($netp) }}</td>
-
                                     @if (Session::get('role') != 'classic')
-                                        {{--  <td>{{ moneyFormatIndia($yourMargin) }}</td>  --}}
+                                        <td>{{ moneyFormatIndia($yourMargin) }}</td>
                                     @endif
+                                    @endif
+
                                 </tr>
                             </tfoot>
                         </table>

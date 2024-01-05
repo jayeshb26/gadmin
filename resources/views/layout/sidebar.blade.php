@@ -2,7 +2,7 @@
 
     <div class="sidebar-header">
         <a href="{{ url('/dashboard') }}" class="sidebar-brand" style="font-size:20px">
-            Gold<span>Star</span>
+            Game<span>King</span>
         </a>
         <div class="text-black sidebar-toggler not-active" style="color: #000000">
             <span></span>

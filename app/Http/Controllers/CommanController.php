@@ -30,7 +30,7 @@ class CommanController extends Controller
                 Session::get('role') == 'Admin'
             ) {
 
-                $users = User::where('role', 'player')->get();
+                $users = User::where('role', 'retailer')->get();
             } else {
                 $superdistributer = User::where('role', 'super_distributor')->where('referralId', new \MongoDB\BSON\ObjectID(Session::get('id')))->get();
                 foreach ($superdistributer as $super) {
@@ -52,12 +52,12 @@ class CommanController extends Controller
                 }
             }
 
-            $users = User::where('role', 'player')->whereIn('referralId', $dis_id)->get();
+            $users = User::where('role', 'retailer')->whereIn('referralId', $dis_id)->get();
             // dd($users);
             // echo "<pre>";
             // print_r($users->toArray());die;
         } elseif (Session::get('role') == "distributor") {
-            $users = User::where('role', 'player')->where('referralId', new \MongoDB\BSON\ObjectID(Session::get('id')))->get();
+            $users = User::where('role', 'retailer')->where('referralId', new \MongoDB\BSON\ObjectID(Session::get('id')))->get();
         }
 
         // echo "<pre>";
@@ -69,7 +69,7 @@ class CommanController extends Controller
         $point = array();
         foreach ($users as $key => $value) {
             $to = date('Y-n-j');
-            $playPoint = Bets::where('playerId', new \MongoDB\BSON\ObjectID($value['_id']))->where('DrDate', $to)->where('isCancel', false)->get();
+            $playPoint = Bets::where('retailerId', new \MongoDB\BSON\ObjectID($value['_id']))->where('DrDate', $to)->where('isCancel', false)->get();
             $refer = User::where('_id', new \MongoDB\BSON\ObjectID($value['referralId']))->first();
             // $playPointss = Bets::where('isCancel', true)->sum('betPoint');
             // echo "<pre>";
@@ -119,6 +119,7 @@ class CommanController extends Controller
         // $users = User::where('role', 'distributor')->select('userName')->where('is_franchise', (Session::get('is_f') == "true") ? true : false)->get();
 
         if (isset($_GET['from']) && isset($_GET['from']) && $_GET['from'] != '' && $_GET['to'] != '') {
+
             $from = $_GET['from'];
             $to = $_GET['to'];
 
@@ -139,9 +140,9 @@ class CommanController extends Controller
                 foreach ($player as $player_user) {
                     $pla[] = new \MongoDB\BSON\ObjectID($player_user['_id']);
                 }
-                if (isset($_GET['game'])) {
-                    if ($_GET['game'] == 1) {
-                        $playPoints = Bets::whereIn('playerId', $pla)->orderBy('createdAt', 'DESC')->where('game', 'funroulette')
+                if (isset($_GET['gameName'])) {
+                    if ($_GET['gameName'] == 1) {
+                        $playPoints = Bets::whereIn('retailerId', $pla)->orderBy('createdAt', 'DESC')->where('gameName', 'playToWin')
                             ->whereBetween(
                                 'createdAt',
                                 array(
@@ -149,26 +150,8 @@ class CommanController extends Controller
                                     Carbon::create($tY, $tm, $td, 23, 59, 59),
                                 )
                             )->paginate(10);
-                    } elseif ($_GET['game'] == 2) {
-                        $playPoints = Bets::whereIn('playerId', $pla)->orderBy('createdAt', 'DESC')->where('game', 'funtarget')
-                            ->whereBetween(
-                                'createdAt',
-                                array(
-                                    Carbon::create($fY, $fm, $fd, 00, 00, 00),
-                                    Carbon::create($tY, $tm, $td, 23, 59, 59),
-                                )
-                            )->paginate(10);
-                    } elseif ($_GET['game'] == 3) {
-                        $playPoints = Bets::whereIn('playerId', $pla)->orderBy('createdAt', 'DESC')->where('game', 'dragontiger')
-                            ->whereBetween(
-                                'createdAt',
-                                array(
-                                    Carbon::create($fY, $fm, $fd, 00, 00, 00),
-                                    Carbon::create($tY, $tm, $td, 23, 59, 59),
-                                )
-                            )->paginate(10);
-                    } elseif ($_GET['game'] == 4) {
-                        $playPoints = Bets::whereIn('playerId', $pla)->orderBy('createdAt', 'DESC')->where('game', 'animal')
+                    } elseif ($_GET['gameName'] == 2) {
+                        $playPoints = Bets::whereIn('retailerId', $pla)->orderBy('createdAt', 'DESC')->where('gameName', 'playToWin')
                             ->whereBetween(
                                 'createdAt',
                                 array(
@@ -177,9 +160,10 @@ class CommanController extends Controller
                                 )
                             )->paginate(10);
                     }
-                    $playPoints->appends(['game' => $_GET['game'], 'from' => $_GET['from'], 'to' => $_GET['to']]);
+
+                    $playPoints->appends(['gameName' => $_GET['gameName'], 'from' => $_GET['from'], 'to' => $_GET['to']]);
                 } else {
-                    $playPoints = Bets::whereIn('playerId', $pla)->orderBy('createdAt', 'DESC')
+                    $playPoints = Bets::whereIn('retailerId', $pla)->orderBy('createdAt', 'DESC')
                         ->whereBetween(
                             'createdAt',
                             array(
@@ -193,20 +177,21 @@ class CommanController extends Controller
                 }
                 // if (isset($_GET['game'])) {
                 //     if ($_GET['game'] == 1) {
-                //         $playPoints = Bets::orderBy('createdAt', 'DESC')->where('game', 'rouletteTimer60')->paginate(10);
+                //         $playPoints = Bets::orderBy('createdAt', 'DESC')->where('game', 'playToWin')->paginate(10);
                 //     } elseif ($_GET['game'] == 2) {
-                //         $playPoints = Bets::orderBy('createdAt', 'DESC')->where('game', 'rouletteTimer40')->paginate(10);
+                //         $playPoints = Bets::orderBy('createdAt', 'DESC')->where('game', 'playToWin')->paginate(10);
                 //     } elseif ($_GET['game'] == 3) {
-                //         $playPoints = Bets::orderBy('createdAt', 'DESC')->where('game', 'roulette')->paginate(10);
+                //         $playPoints = Bets::orderBy('createdAt', 'DESC')->where('game', 'playToWin')->paginate(10);
                 //     }
                 //     $playPoints->appends(['game' => $_GET['game']]);
                 // } else {
-                //     $playPoints = Bets::orderBy('createdAt', 'DESC')->where('game', 'rouletteTimer60')->paginate(10);
+                //     $playPoints = Bets::orderBy('createdAt', 'DESC')->where('game', 'playToWin')->paginate(10);
                 // }
                 $totalStartPoint = $playPoints->sum('startPoint');
                 $total = $playPoints->sum('bet');
                 $totalWin = $playPoints->sum('won');
                 $totalEnd = $totalStartPoint - $total + $totalWin;
+
                 return view('history', ['data' => $playPoints, 'users' => $users, 'total' => $total, 'totalWin' => $totalWin, 'totalStartPoint' => $totalStartPoint, 'totalEnd' => $totalEnd]);
             } elseif (Session::get('role') == "super_distributor") {
                 $super_distributor = User::where('referralId', new \MongoDB\BSON\ObjectID(Session::get('id')))->where('is_franchise', (Session::get('is_f') == "true") ? true : false)->get();
@@ -229,9 +214,9 @@ class CommanController extends Controller
                 foreach ($player as $player_user) {
                     $pla[] = new \MongoDB\BSON\ObjectID($player_user['_id']);
                 }
-                if (isset($_GET['game'])) {
-                    if ($_GET['game'] == 1) {
-                        $playPoints = Bets::whereIn('playerId', $pla)->orderBy('createdAt', 'DESC')->where('game', 'funroulette')
+                if (isset($_GET['gameName'])) {
+                    if ($_GET['gameName'] == 1) {
+                        $playPoints = Bets::whereIn('retailerId', $pla)->orderBy('createdAt', 'DESC')->where('gameName', 'playToWin')
                             ->whereBetween(
                                 'createdAt',
                                 array(
@@ -239,26 +224,8 @@ class CommanController extends Controller
                                     Carbon::create($tY, $tm, $td, 23, 59, 59),
                                 )
                             )->paginate(10);
-                    } elseif ($_GET['game'] == 2) {
-                        $playPoints = Bets::whereIn('playerId', $pla)->orderBy('createdAt', 'DESC')->where('game', 'funtarget')
-                            ->whereBetween(
-                                'createdAt',
-                                array(
-                                    Carbon::create($fY, $fm, $fd, 00, 00, 00),
-                                    Carbon::create($tY, $tm, $td, 23, 59, 59),
-                                )
-                            )->paginate(10);
-                    } elseif ($_GET['game'] == 3) {
-                        $playPoints = Bets::whereIn('playerId', $pla)->orderBy('createdAt', 'DESC')->where('game', 'dragontiger')
-                            ->whereBetween(
-                                'createdAt',
-                                array(
-                                    Carbon::create($fY, $fm, $fd, 00, 00, 00),
-                                    Carbon::create($tY, $tm, $td, 23, 59, 59),
-                                )
-                            )->paginate(10);
-                    } elseif ($_GET['game'] == 4) {
-                        $playPoints = Bets::whereIn('playerId', $pla)->orderBy('createdAt', 'DESC')->where('game', 'animal')
+                    } elseif ($_GET['gameName'] == 2) {
+                        $playPoints = Bets::whereIn('retailerId', $pla)->orderBy('createdAt', 'DESC')->where('gameName', 'playToWin')
                             ->whereBetween(
                                 'createdAt',
                                 array(
@@ -267,9 +234,9 @@ class CommanController extends Controller
                                 )
                             )->paginate(10);
                     }
-                    $playPoints->appends(['game' => $_GET['game']]);
+                    $playPoints->appends(['gameName' => $_GET['gameName']]);
                 } else {
-                    $playPoints = Bets::whereIn('playerId', $pla)->orderBy('createdAt', 'DESC')
+                    $playPoints = Bets::whereIn('retailerId', $pla)->orderBy('createdAt', 'DESC')
                         ->whereBetween(
                             'createdAt',
                             array(
@@ -303,7 +270,7 @@ class CommanController extends Controller
                 }
                 if (isset($_GET['game'])) {
                     if ($_GET['game'] == 1) {
-                        $playPoints = Bets::whereIn('playerId', $pla)->orderBy('createdAt', 'DESC')->where('game', 'funroulette')
+                        $playPoints = Bets::whereIn('retailerId', $pla)->orderBy('createdAt', 'DESC')->where('game', 'playToWin')
                             ->whereBetween(
                                 'createdAt',
                                 array(
@@ -312,25 +279,7 @@ class CommanController extends Controller
                                 )
                             )->paginate(10);
                     } elseif ($_GET['game'] == 2) {
-                        $playPoints = Bets::whereIn('playerId', $pla)->orderBy('createdAt', 'DESC')->where('game', 'funtarget')
-                            ->whereBetween(
-                                'createdAt',
-                                array(
-                                    Carbon::create($fY, $fm, $fd, 00, 00, 00),
-                                    Carbon::create($tY, $tm, $td, 23, 59, 59),
-                                )
-                            )->paginate(10);
-                    } elseif ($_GET['game'] == 3) {
-                        $playPoints = Bets::whereIn('playerId', $pla)->orderBy('createdAt', 'DESC')->where('game', 'dragontiger')
-                            ->whereBetween(
-                                'createdAt',
-                                array(
-                                    Carbon::create($fY, $fm, $fd, 00, 00, 00),
-                                    Carbon::create($tY, $tm, $td, 23, 59, 59),
-                                )
-                            )->paginate(10);
-                    } elseif ($_GET['game'] == 4) {
-                        $playPoints = Bets::whereIn('playerId', $pla)->orderBy('createdAt', 'DESC')->where('game', 'animal')
+                        $playPoints = Bets::whereIn('retailerId', $pla)->orderBy('createdAt', 'DESC')->where('game', 'playToWin')
                             ->whereBetween(
                                 'createdAt',
                                 array(
@@ -341,7 +290,54 @@ class CommanController extends Controller
                     }
                     $playPoints->appends(['game' => $_GET['game']]);
                 } else {
-                    $playPoints = Bets::whereIn('playerId', $pla)->orderBy('createdAt', 'DESC')
+                    $playPoints = Bets::whereIn('retailerId', $pla)->orderBy('createdAt', 'DESC')
+                        ->whereBetween(
+                            'createdAt',
+                            array(
+                                Carbon::create($fY, $fm, $fd, 00, 00, 00),
+                                Carbon::create($tY, $tm, $td, 23, 59, 59),
+                            )
+                        )->paginate(10);
+
+                    $playPoints->appends(['from' => $_GET['from'], 'to' => $_GET['to']]);
+                }
+                $totalStartPoint = $playPoints->sum('startPoint');
+                $total = $playPoints->sum('bet');
+                $totalWin = $playPoints->sum('won');
+                $totalEnd = $totalStartPoint - $total + $totalWin;
+
+                return view('history', ['data' => $playPoints, 'total' => $total, 'totalWin' => $totalWin, 'totalStartPoint' => $totalStartPoint, 'totalEnd' => $totalEnd]);
+            } elseif (Session::get('role') == "retailer") {
+
+                $player = User::where('_id', new \MongoDB\BSON\ObjectID(Session::get('id')))->where('is_franchise', (Session::get('is_f') == "true") ? true : false)->get();
+                $pla = [];
+                // dd($player);
+                foreach ($player as $player_user) {
+                    $pla[] = new \MongoDB\BSON\ObjectID($player_user['_id']);
+                }
+                if (isset($_GET['game'])) {
+                    if ($_GET['game'] == 1) {
+                        $playPoints = Bets::whereIn('retailerId', $pla)->orderBy('createdAt', 'DESC')->where('game', 'playToWin')
+                            ->whereBetween(
+                                'createdAt',
+                                array(
+                                    Carbon::create($fY, $fm, $fd, 00, 00, 00),
+                                    Carbon::create($tY, $tm, $td, 23, 59, 59),
+                                )
+                            )->paginate(10);
+                    } elseif ($_GET['game'] == 2) {
+                        $playPoints = Bets::whereIn('retailerId', $pla)->orderBy('createdAt', 'DESC')->where('game', 'playToWin')
+                            ->whereBetween(
+                                'createdAt',
+                                array(
+                                    Carbon::create($fY, $fm, $fd, 00, 00, 00),
+                                    Carbon::create($tY, $tm, $td, 23, 59, 59),
+                                )
+                            )->paginate(10);
+                    }
+                    $playPoints->appends(['game' => $_GET['game']]);
+                } else {
+                    $playPoints = Bets::whereIn('retailerId', $pla)->orderBy('createdAt', 'DESC')
                         ->whereBetween(
                             'createdAt',
                             array(
@@ -360,6 +356,8 @@ class CommanController extends Controller
                 return view('history', ['data' => $playPoints, 'total' => $total, 'totalWin' => $totalWin, 'totalStartPoint' => $totalStartPoint, 'totalEnd' => $totalEnd]);
             }
         } else {
+            //Player history for Retailer is working in here
+
             if (Session::get('role') == "Admin" || Session::get('role') == "subadmin") {
                 $player = User::where('is_franchise', (Session::get('is_f') == "true") ? true : false)->get();
                 $pla = [];
@@ -367,18 +365,14 @@ class CommanController extends Controller
                     $pla[] = new \MongoDB\BSON\ObjectID($player_user['_id']);
                 }
                 if (isset($_GET['game'])) {
-                    if ($_GET['game'] == 1) {
-                        $playPoints = Bets::whereIn('playerId', $pla)->orderBy('createdAt', 'DESC')->where('game', 'funroulette')->paginate(10);
+                    if ($_GET['game'] == 2) {
+                        $playPoints = Bets::whereIn('retailerId', $pla)->orderBy('createdAt', 'DESC')->where('game', 'playToWin')->paginate(10);
                     } elseif ($_GET['game'] == 2) {
-                        $playPoints = Bets::whereIn('playerId', $pla)->orderBy('createdAt', 'DESC')->where('game', 'funtarget')->paginate(10);
-                    } elseif ($_GET['game'] == 3) {
-                        $playPoints = Bets::whereIn('playerId', $pla)->orderBy('createdAt', 'DESC')->where('game', 'dragontiger')->paginate(10);
-                    } elseif ($_GET['game'] == 4) {
-                        $playPoints = Bets::whereIn('playerId', $pla)->orderBy('createdAt', 'DESC')->where('game', 'animal')->paginate(10);
+                        $playPoints = Bets::whereIn('retailerId', $pla)->orderBy('createdAt', 'DESC')->where('game', 'playToWin')->paginate(10);
                     }
                     $playPoints->appends(['game' => $_GET['game']]);
                 } else {
-                    $playPoints = Bets::whereIn('playerId', $pla)->orderBy('createdAt', 'DESC')->paginate(10);
+                    $playPoints = Bets::whereIn('retailerId', $pla)->orderBy('createdAt', 'DESC')->paginate(10);
                 }
                 // if (isset($_GET['game'])) {
                 //     if ($_GET['game'] == 1) {
@@ -420,17 +414,13 @@ class CommanController extends Controller
                 }
                 if (isset($_GET['game'])) {
                     if ($_GET['game'] == 1) {
-                        $playPoints = Bets::whereIn('playerId', $pla)->orderBy('createdAt', 'DESC')->where('game', 'funroulette')->paginate(10);
+                        $playPoints = Bets::whereIn('retailerId', $pla)->orderBy('createdAt', 'DESC')->where('game', 'playToWin')->paginate(10);
                     } elseif ($_GET['game'] == 2) {
-                        $playPoints = Bets::whereIn('playerId', $pla)->orderBy('createdAt', 'DESC')->where('game', 'funtarget')->paginate(10);
-                    } elseif ($_GET['game'] == 3) {
-                        $playPoints = Bets::whereIn('playerId', $pla)->orderBy('createdAt', 'DESC')->where('game', 'dragontiger')->paginate(10);
-                    } elseif ($_GET['game'] == 4) {
-                        $playPoints = Bets::whereIn('playerId', $pla)->orderBy('createdAt', 'DESC')->where('game', 'animal')->paginate(10);
+                        $playPoints = Bets::whereIn('retailerId', $pla)->orderBy('createdAt', 'DESC')->where('game', 'playToWin')->paginate(10);
                     }
                     $playPoints->appends(['game' => $_GET['game']]);
                 } else {
-                    $playPoints = Bets::whereIn('playerId', $pla)->orderBy('createdAt', 'DESC')->paginate(10);
+                    $playPoints = Bets::whereIn('retailerId', $pla)->orderBy('createdAt', 'DESC')->paginate(10);
                 }
 
                 $totalStartPoint = $playPoints->sum('startPoint');
@@ -456,17 +446,35 @@ class CommanController extends Controller
                 }
                 if (isset($_GET['game'])) {
                     if ($_GET['game'] == 1) {
-                        $playPoints = Bets::whereIn('playerId', $pla)->orderBy('createdAt', 'DESC')->where('game', 'funroulette')->paginate(10);
+                        $playPoints = Bets::whereIn('retailerId', $pla)->orderBy('createdAt', 'DESC')->where('game', 'playToWin')->paginate(10);
                     } elseif ($_GET['game'] == 2) {
-                        $playPoints = Bets::whereIn('playerId', $pla)->orderBy('createdAt', 'DESC')->where('game', 'funtarget')->paginate(10);
-                    } elseif ($_GET['game'] == 3) {
-                        $playPoints = Bets::whereIn('playerId', $pla)->orderBy('createdAt', 'DESC')->where('game', 'dragontiger')->paginate(10);
-                    } elseif ($_GET['game'] == 4) {
-                        $playPoints = Bets::whereIn('playerId', $pla)->orderBy('createdAt', 'DESC')->where('game', 'animal')->paginate(10);
+                        $playPoints = Bets::whereIn('retailerId', $pla)->orderBy('createdAt', 'DESC')->where('game', 'playToWin')->paginate(10);
                     }
                     $playPoints->appends(['game' => $_GET['game']]);
                 } else {
-                    $playPoints = Bets::whereIn('playerId', $pla)->orderBy('createdAt', 'DESC')->paginate(10);
+                    $playPoints = Bets::whereIn('retailerId', $pla)->orderBy('createdAt', 'DESC')->paginate(10);
+                }
+                $totalStartPoint = $playPoints->sum('startPoint');
+                $total = $playPoints->sum('bet');
+                $totalWin = $playPoints->sum('won');
+                $totalEnd = $totalStartPoint - $total + $totalWin;
+                return view('history', ['data' => $playPoints, 'total' => $total, 'totalWin' => $totalWin, 'totalStartPoint' => $totalStartPoint, 'totalEnd' => $totalEnd]);
+            } elseif (Session::get('role') == "retailer") {
+                $player = User::where('_id', new \MongoDB\BSON\ObjectID(Session::get('id')))->where('is_franchise', (Session::get('is_f') == "true") ? true : false)->get();
+                // dd($player);
+                $pla = [];
+                foreach ($player as $player_user) {
+                    $pla[] = new \MongoDB\BSON\ObjectID($player_user['_id']);
+                }
+                if (isset($_GET['game'])) {
+                    if ($_GET['game'] == 1) {
+                        $playPoints = Bets::whereIn('retailerId', $pla)->orderBy('createdAt', 'DESC')->where('game', 'playToWin')->paginate(10);
+                    } elseif ($_GET['game'] == 2) {
+                        $playPoints = Bets::whereIn('retailerId', $pla)->orderBy('createdAt', 'DESC')->where('game', 'playToWin')->paginate(10);
+                    }
+                    $playPoints->appends(['game' => $_GET['game']]);
+                } else {
+                    $playPoints = Bets::whereIn('retailerId', $pla)->orderBy('createdAt', 'DESC')->paginate(10);
                 }
                 $totalStartPoint = $playPoints->sum('startPoint');
                 $total = $playPoints->sum('bet');
@@ -479,7 +487,8 @@ class CommanController extends Controller
 
     public function historyDetail($id)
     {
-        $playPoints = Bets::where('_id', new \MongoDB\BSON\ObjectID($id))->first();
+        $playPoints = Bets::where('_id', new \MongoDB\BSON\ObjectID($id))->first()->toArray();
+        // $platData = $playPoints->toArray();
         return view('historyDetail', ['data' => $playPoints]);
     }
 
@@ -487,7 +496,7 @@ class CommanController extends Controller
     public function playerHistory($id)
     {
         $users = User::where('role', 'retailer')->select('userName')->get();
-        $playPoint = Bets::where('playerId', new \MongoDB\BSON\ObjectID($id))->orderBy('createdAt', 'DESC')->paginate(10);
+        $playPoint = Bets::where('retailerId', new \MongoDB\BSON\ObjectID($id))->orderBy('createdAt', 'DESC')->paginate(10);
         $totalStartPoint = $playPoint->sum('startPoint');
         $total = $playPoint->sum('bet');
         $totalWin = $playPoint->sum('won');
@@ -572,7 +581,7 @@ class CommanController extends Controller
             }
         } elseif (empty($_GET['from']) && empty($_GET['to']) && isset($_GET['username'])) {
             $payment = pointrequests::orderBy('createdAt', 'DESC')
-                ->where('playerId', new \MongoDB\BSON\ObjectID($_GET['username']))
+                ->where('retailerId', new \MongoDB\BSON\ObjectID($_GET['username']))
                 ->where('is_f', (Session::get('is_f') == "true") ? true : false)
                 ->where('status', 'Success')->get();
         } elseif (isset($_GET['from']) && isset($_GET['to']) && isset($_GET['username'])) {
@@ -650,8 +659,10 @@ class CommanController extends Controller
         $TotalCommission = 0;
         $commission = [];
 
-        $users = User::where('role', '=', 'player')->get();
+        $rolesToFetch = ['super_distributor', 'distributor'];
 
+        $users = User::whereIn('role', $rolesToFetch)->get()->toArray();
+        // dd($users);
         if (isset($_GET['from']) && isset($_GET['to'])) {
             $fm = date('m', strtotime($_GET['from']));
             $fd = date('d', strtotime($_GET['from']));
@@ -661,10 +672,11 @@ class CommanController extends Controller
             $tY = date('Y', strtotime($_GET['to']));
             if (Session::get('role') == "Admin") {
                 $admin = User::where('_id', new \MongoDB\BSON\ObjectID(Session::get('id')))->where('is_franchise', (Session::get('is_f') == "true") ? true : false)->first();
-                $retailer = User::where('role', 'player')->where('is_franchise', (Session::get('is_f') == "true") ? true : false)->get();
+                $retailer = User::where('role', 'distributor')->get()->toArray();
                 $playPoints = [];
+                // dd($retailer);
                 foreach ($retailer as $re_user) {
-                    $playPoints = Bets::where('playerId', new \MongoDB\BSON\ObjectID($re_user['_id']))
+                    $playPoints = Bets::where('retailerId', new \MongoDB\BSON\ObjectID($re_user['_id']))
                         ->whereBetween(
                             'createdAt',
                             array(
@@ -676,6 +688,7 @@ class CommanController extends Controller
                         ->get()->groupBy(function ($val) {
                             return Carbon::parse($val->createDate)->format('n/j/Y');
                         });
+                    // dd($playPoints);
 
                     // echo "<pre>";
                     // print_r($playPoints->toArray());
@@ -692,13 +705,13 @@ class CommanController extends Controller
                             $commission[$day]['userName'] = $player['userName'];
                             $commission[$day]['role'] = $re_user['role'];
                             $commission[$day]['name'] = $re_user['name'];
-                            $playerCommission += $player['playerCommission'];
+                            $playerCommission += $player['retailerCommission'];
                             $retailerCommission += $player['retailerCommission'];
                             $distributorCommission += $player['distributorCommission'];
                             $super_distributorCommission += $player['super_distributorCommission'];
                             $agentCommission += $player['agentCommission'];
                         }
-                        $commission[$day]['playerCommission'] = $playerCommission;
+                        $commission[$day]['retailerCommission'] = $playerCommission;
                         $commission[$day]['retailerCommission'] = $retailerCommission;
                         $commission[$day]['distributorCommission'] = $distributorCommission;
                         $commission[$day]['super_distributorCommission'] = $super_distributorCommission;
@@ -733,7 +746,7 @@ class CommanController extends Controller
                 foreach ($retailer as $re_user) {
 
 
-                    $playPoints = Bets::where('playerId', new \MongoDB\BSON\ObjectID($re_user['_id']))
+                    $playPoints = Bets::where('retailerId', new \MongoDB\BSON\ObjectID($re_user['_id']))
                         ->whereBetween(
                             'createdAt',
                             array(
@@ -758,13 +771,13 @@ class CommanController extends Controller
                             $commission[$day]['userName'] = $re_user['userName'];
                             $commission[$day]['role'] = $re_user['role'];
                             $commission[$day]['name'] = $re_user['name'];
-                            $playerCommission += $player['playerCommission'];
+                            $playerCommission += $player['retailerCommission'];
                             $retailerCommission += $player['retailerCommission'];
                             $distributorCommission += $player['distributorCommission'];
                             $super_distributorCommission += $player['super_distributorCommission'];
                             $agentCommission += $player['agentCommission'];
                         }
-                        $commission[$day]['playerCommission'] = $playerCommission;
+                        $commission[$day]['retailerCommission'] = $playerCommission;
                         $commission[$day]['retailerCommission'] = $retailerCommission;
                         $commission[$day]['distributorCommission'] = $distributorCommission;
                         $commission[$day]['super_distributorCommission'] = $super_distributorCommission;
@@ -792,7 +805,7 @@ class CommanController extends Controller
                 $retailers = [];
                 $retailer = User::whereIn('referralId', $cal)->where('is_franchise', (Session::get('is_f') == "true") ? true : false)->get();
                 foreach ($retailer as $re_user) {
-                    $playPoints = Bets::where('playerId', new \MongoDB\BSON\ObjectID($re_user['_id']))
+                    $playPoints = Bets::where('retailerId', new \MongoDB\BSON\ObjectID($re_user['_id']))
                         ->whereBetween(
                             'createdAt',
                             array(
@@ -819,13 +832,13 @@ class CommanController extends Controller
                             $commission[$day]['userName'] = $player['userName'];
                             $commission[$day]['role'] = $re_user['role'];
                             $commission[$day]['name'] = $re_user['name'];
-                            $playerCommission += $player['playerCommission'];
+                            $playerCommission += $player['retailerCommission'];
                             $retailerCommission += $player['retailerCommission'];
                             $distributorCommission += $player['distributorCommission'];
                             $super_distributorCommission += $player['super_distributorCommission'];
                             $agentCommission += $player['agentCommission'];
                         }
-                        $commission[$day]['playerCommission'] = $playerCommission;
+                        $commission[$day]['retailerCommission'] = $playerCommission;
                         $commission[$day]['retailerCommission'] = $retailerCommission;
                         $commission[$day]['distributorCommission'] = $distributorCommission;
                         $commission[$day]['super_distributorCommission'] = $super_distributorCommission;
@@ -842,7 +855,7 @@ class CommanController extends Controller
                 $retailers = [];
                 $retailer = User::whereIn('referralId', $cal)->where('is_franchise', (Session::get('is_f') == "true") ? true : false)->get();
                 foreach ($retailer as $re_user) {
-                    $playPoints = Bets::where('playerId', new \MongoDB\BSON\ObjectID($re_user['_id']))
+                    $playPoints = Bets::where('retailerId', new \MongoDB\BSON\ObjectID($re_user['_id']))
                         ->whereBetween(
                             'createdAt',
                             array(
@@ -869,13 +882,13 @@ class CommanController extends Controller
                             $commission[$day]['userName'] = $player['userName'];
                             $commission[$day]['role'] = $re_user['role'];
                             $commission[$day]['name'] = $re_user['name'];
-                            $playerCommission += $player['playerCommission'];
+                            $playerCommission += $player['retailerCommission'];
                             $retailerCommission += $player['retailerCommission'];
                             $distributorCommission += $player['distributorCommission'];
                             $super_distributorCommission += $player['super_distributorCommission'];
                             $agentCommission += $player['agentCommission'];
                         }
-                        $commission[$day]['playerCommission'] = $playerCommission;
+                        $commission[$day]['retailerCommission'] = $playerCommission;
                         $commission[$day]['retailerCommission'] = $retailerCommission;
                         $commission[$day]['distributorCommission'] = $distributorCommission;
                         $commission[$day]['super_distributorCommission'] = $super_distributorCommission;
@@ -886,8 +899,10 @@ class CommanController extends Controller
             }
         } else {
             if (Session::get('role') == "Admin") {
-                $superdistributer = User::where('role', 'agent')->where('referralId', new \MongoDB\BSON\ObjectID(Session::get('id')))->where('is_franchise', (Session::get('is_f') == "true") ? true : false)->get();
+                $superdistributer = User::where('role', 'super_distributor')->where('referralId', new \MongoDB\BSON\ObjectID(Session::get('id')))->where('is_franchise', (Session::get('is_f') == "true") ? true : false)->get()->toArray();
                 $admin = User::where('_id', new \MongoDB\BSON\ObjectID(Session::get('id')))->where('is_franchise', (Session::get('is_f') == "true") ? true : false)->first();
+                // dd($superdistributer);
+
                 // echo "<pre>";
                 // print_r($superdistributer->toArray());
                 // die();
@@ -897,7 +912,7 @@ class CommanController extends Controller
                     foreach ($superdistributer as $super) {
                         $supers[] = new \MongoDB\BSON\ObjectID($super['_id']);
                     }
-                    $distributer = User::whereIn('referralId', $supers)->where('is_franchise', (Session::get('is_f') == "true") ? true : false)->get();
+                    $distributer = User::Where('role', 'distributor')->get()->toArray();
                     if (count($distributer) == 0) {
                         return view('commissionPayout', ['data' => $commission, 'user' => $users]);
                     } else {
@@ -909,8 +924,8 @@ class CommanController extends Controller
                         foreach ($retailer as $re_user) {
                             $retailers[] = new \MongoDB\BSON\ObjectID($re_user['_id']);
                         }
-
-                        $playPoints = Bets::whereIn('playerId', $retailers)
+                        // dd($retailers);
+                        $playPoints = Bets::whereIn('retailerId', $retailers)
                             ->orderBy('createDate', 'DESC')
                             ->get()
                             ->groupBy(function ($val) {
@@ -938,7 +953,7 @@ class CommanController extends Controller
                                 $commission[$day]['super'] = $super['userName'];
                                 $commission[$day]['dis'] = $dis_user['userName'];
                                 foreach ($retailer as $re_user) {
-                                    if ($re_user['_id'] == $player['playerId']) {
+                                    if ($re_user['_id'] == $player['retailerId']) {
                                         $commission[$day]['retailer'] = $re_user['userName'];
                                     }
                                 }
@@ -986,7 +1001,7 @@ class CommanController extends Controller
                 foreach ($retailer as $re_user) {
                     $retailers[] = new \MongoDB\BSON\ObjectID($re_user['_id']);
                 }
-                $playPoints = Bets::whereIn('playerId', $retailers)
+                $playPoints = Bets::whereIn('retailerId', $retailers)
                     ->orderBy('createDate', 'DESC')
                     ->get()
                     ->groupBy(function ($val) {
@@ -1007,13 +1022,13 @@ class CommanController extends Controller
                         $commission[$day]['userName'] = $player['userName'];
                         $commission[$day]['role'] = $re_user['role'];
                         $commission[$day]['name'] = $re_user['name'];
-                        $playerCommission += $player['playerCommission'];
+                        $playerCommission += $player['retailerCommission'];
                         $retailerCommission += $player['retailerCommission'];
                         $distributorCommission += $player['distributorCommission'];
                         $super_distributorCommission += $player['super_distributorCommission'];
                         $agentCommission += $player['agentCommission'];
                     }
-                    $commission[$day]['playerCommission'] = $playerCommission;
+                    $commission[$day]['retailerCommission'] = $playerCommission;
                     $commission[$day]['retailerCommission'] = $retailerCommission;
                     $commission[$day]['distributorCommission'] = $distributorCommission;
                     $commission[$day]['super_distributorCommission'] = $super_distributorCommission;
@@ -1037,7 +1052,7 @@ class CommanController extends Controller
                 foreach ($retailer as $re_user) {
                     $retailers[] = new \MongoDB\BSON\ObjectID($re_user['_id']);
                 }
-                $playPoints = Bets::whereIn('playerId', $retailers)
+                $playPoints = Bets::whereIn('retailerId', $retailers)
                     ->orderBy('createDate', 'DESC')
                     ->get()
                     ->groupBy(function ($val) {
@@ -1058,13 +1073,13 @@ class CommanController extends Controller
                     $commission[$day]['name'] = $re_user['name'];
                     foreach ($players as $player) {
                         $commission[$day]['userName'] = $player['userName'];
-                        $playerCommission += $player['playerCommission'];
+                        $playerCommission += $player['retailerCommission'];
                         $retailerCommission += $player['retailerCommission'];
                         $distributorCommission += $player['distributorCommission'];
                         $super_distributorCommission += $player['super_distributorCommission'];
                         $agentCommission += $player['agentCommission'];
                     }
-                    $commission[$day]['playerCommission'] = $playerCommission;
+                    $commission[$day]['retailerCommission'] = $playerCommission;
                     $commission[$day]['retailerCommission'] = $retailerCommission;
                     $commission[$day]['distributorCommission'] = $distributorCommission;
                     $commission[$day]['super_distributorCommission'] = $super_distributorCommission;
@@ -1082,7 +1097,7 @@ class CommanController extends Controller
                 foreach ($retailer as $re_user) {
                     $retailers[] = new \MongoDB\BSON\ObjectID($re_user['_id']);
                 }
-                $playPoints = Bets::whereIn('playerId', $retailers)
+                $playPoints = Bets::whereIn('retailerId', $retailers)
                     ->orderBy('createDate', 'DESC')
                     ->get()
                     ->groupBy(function ($val) {
@@ -1103,13 +1118,13 @@ class CommanController extends Controller
                     $commission[$day]['name'] = $re_user['name'];
                     foreach ($players as $player) {
                         $commission[$day]['userName'] = $player['userName'];
-                        $playerCommission += $player['playerCommission'];
+                        $playerCommission += $player['retailerCommission'];
                         $retailerCommission += $player['retailerCommission'];
                         $distributorCommission += $player['distributorCommission'];
                         $super_distributorCommission += $player['super_distributorCommission'];
                         $agentCommission += $player['agentCommission'];
                     }
-                    $commission[$day]['playerCommission'] = $playerCommission;
+                    $commission[$day]['retailerCommission'] = $playerCommission;
                     $commission[$day]['retailerCommission'] = $retailerCommission;
                     $commission[$day]['distributorCommission'] = $distributorCommission;
                     $commission[$day]['super_distributorCommission'] = $super_distributorCommission;
@@ -1121,7 +1136,7 @@ class CommanController extends Controller
                 foreach ($retailer as $re_user) {
                     $retailers[] = new \MongoDB\BSON\ObjectID($re_user['_id']);
                 }
-                $playPoints = Bets::whereIn('playerId', $retailers)
+                $playPoints = Bets::whereIn('retailerId', $retailers)
                     ->orderBy('createDate', 'DESC')
                     ->get()
                     ->groupBy(function ($val) {
@@ -1142,13 +1157,13 @@ class CommanController extends Controller
                     $commission[$day]['name'] = $re_user['name'];
                     foreach ($players as $player) {
                         $commission[$day]['userName'] = $player['userName'];
-                        $playerCommission += $player['playerCommission'];
+                        $playerCommission += $player['retailerCommission'];
                         $retailerCommission += $player['retailerCommission'];
                         $distributorCommission += $player['distributorCommission'];
                         $super_distributorCommission += $player['super_distributorCommission'];
                         $agentCommission += $player['agentCommission'];
                     }
-                    $commission[$day]['playerCommission'] = $playerCommission;
+                    $commission[$day]['retailerCommission'] = $playerCommission;
                     $commission[$day]['retailerCommission'] = $retailerCommission;
                     $commission[$day]['distributorCommission'] = $distributorCommission;
                     $commission[$day]['super_distributorCommission'] = $super_distributorCommission;

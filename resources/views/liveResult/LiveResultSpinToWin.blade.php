@@ -15,7 +15,7 @@
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
                     <h5 class="col-sm-2 card-title" style="text-transform: none !important;">Spin To Win</h5>
-                    
+
                     <button type='button' id="reset" class="btn btn-primary"><span aria-hidden='true'>Reset Balance</span></button>
                 </div>
                 <div class="card-body">
@@ -161,7 +161,7 @@
                                                 <option value="{{ $i }}">{{ $i }}</option>
                                             @endif
                                         @endfor
-                                    </select>   
+                                    </select>
                                 </p>
                                 <div class="mt-2 mb-3 d-flex">
                                     <input type="text" class="form-control mr-2" name="SelectedCard" id="SelectedCard"
@@ -248,7 +248,7 @@
             "DK": 11,
             "CK": 12,
         };
-        
+
         $('#boosterId').on('change', function() {
             var j = $('#SelectedCardNumber').val();
             $('#totalPayment').html($('#amt' + j).val() * 9 *(this.value==0?1:this.value));
@@ -357,7 +357,7 @@
                     } else {
                         booster = "N";
                     }
-                    $("#r" + i).html(myarr[0] + ' | ' + booster);   
+                    $("#r" + i).html(myarr[0] + ' | ' + booster);
                 }
 
                 function removeAlert() {
@@ -366,7 +366,7 @@
                         $('#alertIdR').removeClass('show');
                     }, 5000);
                 }
-                
+
             });
             $('#btnSave').on('click', function() {
                     console.log($('#SelectedCardNumber').val());
