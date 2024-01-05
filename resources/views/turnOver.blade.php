@@ -1,0 +1,393 @@
+@extends('layout.master')
+
+@push('plugin-styles')
+    <link href="{{ asset('assets/plugins/datatables-net/dataTables.bootstrap4.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/plugins/select2/select2.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/plugins/bootstrap-datepicker/bootstrap-datepicker.min.css') }}" rel="stylesheet" />
+@endpush
+
+@section('content')
+    {{-- <nav class="page-breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="#">Forms</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Basic Elements</li>
+  </ol>
+  //updated data
+</nav> --}}
+
+    <div class="row">
+        <div class="col-md-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <div class="col-md-8 col-sm-12 col-xs-12 mt-2">
+                        <div class="btn-group flex-wrap">
+                            @php
+                                $mon = strtotime('last monday');
+                                $monday = date('W', $mon) == date('W') ? $mon - 7 * 86400 : $mon;
+                                $sunday = strtotime(date('Y-m-d', $monday) . ' +6 days');
+                                $week_sd = date('Y-m-d', $monday);
+                                $week_ed = date('Y-m-d', $sunday);
+                                $checkmonday = date('l') == 'Monday' ? date('Y-m-d') : date('Y-m-d', strtotime('last monday'));
+                                // die();
+                            @endphp
+                            @if (Request::segment(2) == 'detail')
+                                <a href="{{ url('Tnover/' . Request::segment(2) . '/' . Request::segment(3) . '?role=' . $_GET['role'] . '&type=1&from=' . date('Y-m-d', strtotime('-6 month')) . '&to=' . date('Y-m-d')) }}"
+                                    class="btn btn-outline-info {{ $_GET['type'] == 1 ? 'active' : '' }}">Last 6
+                                    Months</a>
+                                <a href="{{ url('Tnover/' . Request::segment(2) . '/' . Request::segment(3) . '?role=' . $_GET['role'] . '&type=2&from=' . date('Y-m-01') . '&to=' . date('Y-m-t')) }}"
+                                    class="btn btn-outline-info {{ $_GET['type'] == '2' ? 'active' : '' }}">Current
+                                    Month</a>
+                                <a href="{{ url('Tnover/' . Request::segment(2) . '/' . Request::segment(3) . '?role=' . $_GET['role'] . '&type=3&from=' . date('Y-m-d', strtotime('first day of last month')) . '&to=' . date('Y-m-d', strtotime('last day of last month'))) }}"
+                                    class="btn btn-outline-info {{ $_GET['type'] == '3' ? 'active' : '' }}">Last
+                                    Month</a>
+                                <a href="{{ url('Tnover/' . Request::segment(2) . '/' . Request::segment(3) . '?role=' . $_GET['role'] . '&type=4&from=' . $week_sd . '&to=' . $week_ed) }}"
+                                    class="btn btn-outline-info {{ $_GET['type'] == '4' ? 'active' : '' }}">Last
+                                    Week</a>
+                                <a href="{{ url('Tnover/' . Request::segment(2) . '/' . Request::segment(3) . '?role=' . $_GET['role'] . '&type=5&from=' . $checkmonday . '&to=' . date('Y-m-d', strtotime('+' . (7 - date('w')) . ' days'))) }}"
+                                    class="btn btn-outline-info {{ $_GET['type'] == '5' ? 'active' : '' }}">Current
+                                    Week</a>
+                                <a href="{{ url('Tnover/' . Request::segment(2) . '/' . Request::segment(3) . '?role=' . $_GET['role'] . '&type=6&from=' . date('Y-m-d', strtotime('-1 day')) . '&to=' . date('Y-m-d', strtotime('-1 day'))) }}"
+                                    class="btn btn-outline-info {{ $_GET['type'] == '6' ? 'active' : '' }}">Yesterday</a>
+                                <a href="{{ url('Tnover/' . Request::segment(2) . '/' . Request::segment(3) . '?role=' . $_GET['role'] . '&type=7&from=' . date('Y-m-d') . '&to=' . date('Y-m-d')) }}"
+                                    class="btn btn-outline-info {{ $_GET['type'] == '7' ? 'active' : '' }}">Today</a>
+                                <button type="button"
+                                    class="btn btn-outline-info {{ $_GET['type'] == '8' ? 'active' : '' }}"
+                                    data-toggle="modal" data-target="#myModal">Date Range</button>
+                            @else
+                                <a href="{{ url('Tnover?role=' . $_GET['role'] . '&type=1&from=' . date('Y-m-d', strtotime('-6 month')) . '&to=' . date('Y-m-d')) }}"
+                                    class="btn btn-outline-info {{ $_GET['type'] == 1 ? 'active' : '' }}">Last 6
+                                    Months</a>
+                                <a href="{{ url('Tnover?role=' . $_GET['role'] . '&type=2&from=' . date('Y-m-01') . '&to=' . date('Y-m-t')) }}"
+                                    class="btn btn-outline-info {{ $_GET['type'] == '2' ? 'active' : '' }}">Current
+                                    Month</a>
+                                <a href="{{ url('Tnover?role=' . $_GET['role'] . '&type=3&from=' . date('Y-m-d', strtotime('first day of last month')) . '&to=' . date('Y-m-d', strtotime('last day of last month'))) }}"
+                                    class="btn btn-outline-info {{ $_GET['type'] == '3' ? 'active' : '' }}">Last
+                                    Month</a>
+                                <a href="{{ url('Tnover?role=' . $_GET['role'] . '&type=4&from=' . $week_sd . '&to=' . $week_ed) }}"
+                                    class="btn btn-outline-info {{ $_GET['type'] == '4' ? 'active' : '' }}">Last
+                                    Week</a>
+                                <a href="{{ url('Tnover?role=' . $_GET['role'] . '&type=5&from=' . $checkmonday . '&to=' . date('Y-m-d', strtotime('+' . (7 - date('w')) . ' days'))) }}"
+                                    class="btn btn-outline-info {{ $_GET['type'] == '5' ? 'active' : '' }}">Current
+                                    Week</a>
+                                <a href="{{ url('Tnover?role=' . $_GET['role'] . '&type=6&from=' . date('Y-m-d', strtotime('-1 day')) . '&to=' . date('Y-m-d', strtotime('-1 day'))) }}"
+                                    class="btn btn-outline-info {{ $_GET['type'] == '6' ? 'active' : '' }}">Yesterday</a>
+                                <a href="{{ url('Tnover?role=' . $_GET['role'] . '&type=7&from=' . date('Y-m-d') . '&to=' . date('Y-m-d')) }}"
+                                    class="btn btn-outline-info {{ $_GET['type'] == '7' ? 'active' : '' }}">Today</a>
+                                <button type="button"
+                                    class="btn btn-outline-info {{ $_GET['type'] == '8' ? 'active' : '' }}"
+                                    data-toggle="modal" data-target="#myModal">Date Range</button>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-12 col-xs-12 mt-2">
+                        <?php $type = $_GET['type']; ?>
+                        <?php if ($type == 1 || $type == 2 || $type == 3 || $type == 4 || $type == 5 || $type == 8) { ?>
+                        <span
+                            class="bg-success text-white p-1 px-2 rounded"><?php echo date('d-m-Y', strtotime($_GET['from'])); ?></span>&nbsp;&nbsp;to&nbsp;&nbsp;<span
+                            class="bg-success text-white p-1 px-2 rounded"><?php echo date('d-m-Y', strtotime($_GET['to'])); ?></span>
+                        <?php } elseif ($type == 7 || $type == 6) { ?>
+                        <span class="bg-success text-white p-1 px-2 rounded"><?php echo date('d-m-Y', strtotime($_GET['to'])); ?></span>
+                        <?php } ?>
+                    </div>
+                    <div class="col-md-4 col-sm-12 col-xs-12 mt-2">
+                        <a href="javascript:history.back()" class="btn btn-success"><i
+                                class="fa fa-arrow-left mr-2"></i>Back</a>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="bg-light">
+                        <div class="col-sm-12">
+                            <table class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            <h5>Self</h5>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <td>Total Play Points</td>
+                                        <td>Total Win Points</td>
+                                        <td>Total End Point </td>
+
+                                        @if (Session::get('role') != 'classic')
+                                        @if (Session::get('role') == 'Admin' && Request::segment(2) != 'detail')
+                                        <td>Commission Point</td>
+                                            <td>Total Profit</td>
+                                        @elseif (Request::segment(2) == 'detail')
+                                        <td>Total Margin Point</td>
+                                        <td>Total Net Point</td>
+                                        <td>Total Profit</td>
+                                        @endif
+
+                                        @endif
+                                        @if (isset($total['F']))
+                                            <td>F</td>
+                                        @endif
+                                        <td>PL</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>{{ moneyFormatIndia($total['totalPlayPoints']) }}</td>
+                                        <td>{{ moneyFormatIndia($total['TotalWinPoints']) }}</td>
+                                        <td>{{ moneyFormatIndia($total['EndPoint']) }}</td>
+                                         @if (Session::get('role') == 'Admin' && Request::segment(2) != 'detail')
+                                         {{--  <td>{{ moneyFormatIndia($total['Commission']) }}</td>  --}}
+                                         {{--  <td>{{ moneyFormatIndia($total['Commission']) }}</td>  --}}
+                                         <td></td>
+                                         @else
+                                         <td>{{ moneyFormatIndia($total['Margin']) }}</td>
+                                         <td>{{ moneyFormatIndia($total['NetProfit']) }}</td>
+                                        @endif
+
+                                        @if (Session::get('role') != 'classic')
+                                            <td>{{ moneyFormatIndia($total['SuperDistributedProfit']) }}</td>
+                                        @endif
+                                        @if (isset($total['F']))
+                                            <td>{{ $total['F'] ?? '--' }}</td>
+                                        @endif
+                                        <td>{{ $total['PL'] }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-sm">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Game Summary</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">×</span></button>
+                </div>
+                @if (Request::segment(2) == 'detail')
+                    <form action="{{ url('Tnover') }}" method="get">
+                    @else
+                        <form action="{{ url('Tnover') }}" method="get">
+                @endif
+                <div class="modal-body">
+                    <input type="hidden" name="type" value="8" />
+                    <input type="hidden" name="role" value="{{ $_GET['role'] }}" />
+                    From
+                    <div class="input-group date datepicker" id="datePickerExample1">
+                        <input type="text" class="form-control" name="from" placeholder="From"><span
+                            class="input-group-addon"><i data-feather="calendar"></i></span>
+                    </div>
+                    To
+                    <div class="input-group date datepicker" id="datePickerExample">
+                        <input type="text" class="form-control" name="to" placeholder="To"><span
+                            class="input-group-addon"><i data-feather="calendar"></i></span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Get Summary</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h6 class="card-title">TurnOver Player</h6>
+                    <div class="table-responsive">
+                        <table id="dataTableExample" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Sl.No</th>
+                                    <th>Username</th>
+                                    <th>Name</th>
+                                    <th>Play Points</th>
+                                    <th>Win Points</th>
+                                    <th>End Point</th>
+                                    @if (Session::get('role') != 'retailer')
+                                    @if (Session::get('role') == 'Admin' && Request::segment(2) != 'detail')
+                                    <th>Commission</th>
+                                    @elseif (Request::segment(2) == 'detail')
+                                    <th>Margin</th>
+                                    <th>Net point</th>
+                                    @endif
+                                        @if (Session::get('role') != 'classic')
+                                            <th>Profit</th>
+                                        @endif
+                                    @endif
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @php
+                                    $no = 1;
+                                    $playP = 0;
+                                    $win = 0;
+                                    $end = 0;
+                                    $marginp = 0;
+                                    $netp = 0;
+                                    $yourMargin=0;
+                                    setlocale(LC_MONETARY, 'en_IN');
+                                @endphp
+                                @if (isset($data) && !empty($data))
+                                    @foreach ($data as $play)
+                                        <tr>
+                                            <td>{{ $no++ }}</td>
+                                            @if ($play['role'] == 'Admin')
+                                                @php
+                                                    $playP += $total['totalPlayPoints'];
+                                                    $win += $total['TotalWinPoints'];
+                                                    $end += $total['EndPoint'];
+                                                    $marginp += 0;
+                                                    $netp += 0;
+                                                    $yourMargin += 0;
+                                                @endphp
+                                                <td>
+                                                    <a
+                                                        href="{{ url('Tnover/detail/' . $play['_id'] . '?role=' . $_GET['role'] . '&type=' . $_GET['type'] . '&from=' . $_GET['from'] . '&to=' . $_GET['to']) }}">
+                                                        {{ $play['userName'] }}
+                                                        <span class="badge badge-secondary rounded-pill"><i
+                                                                class="fa fa-eye"></i></span></a>
+                                                </td>
+                                                <td>{{ $play['name'] }}</td>
+                                                <td>{{ moneyFormatIndia($total['totalPlayPoints']) }}</td>
+                                                <td>{{ moneyFormatIndia($total['TotalWinPoints']) }}</td>
+                                                <td>{{ moneyFormatIndia($total['EndPoint']) }}</td>
+                                                {{--  <td>{{ moneyFormatIndia($total['NetProfit']) }}</td>  --}}
+                                                @if (Session::get('role') == 'Admin' && Request::segment(2) != 'detail')
+                                                <td>{{ moneyFormatIndia($total['Commission']) }}</td>
+                                                {{--  <td></td>  --}}
+                                                <td>{{ moneyFormatIndia($total['Profit']) }}</td>
+                                                {{--  <td></td>  --}}
+                                                @elseif (Request::segment(2) == 'detail')
+                                                @if (Session::get('role') != 'classic')
+                                                <td>{{ moneyFormatIndia(0) }}</td>
+                                                <td>{{ moneyFormatIndia(0) }}</td>
+                                                {{--  <td>{{ moneyFormatIndia($total['SuperDistributedProfit']) }}</td>  --}}
+                                                @endif
+                                                @endif
+                                            @elseif(
+                                                $play['role'] == 'super_distributor' ||
+                                                    $play['role'] == 'super_distributor' ||
+                                                    $play['role'] == 'distributor' ||
+                                                    $play['role'] == 'retailer')
+                                                @if ($play['role'] == 'retailer')
+                                                    <td><a href="{{ url('player/detail/' . $play['_id']) }}">{{ $play['userName'] }}
+                                                            <span class="badge badge-secondary rounded-pill"><i
+                                                                    class="fa fa-eye"></i></span></a></td>
+                                                @else
+                                                    <td><a
+                                                            href="{{ url('Tnover/detail/' . $play['_id'] . '?role=' . $_GET['role'] . '&type=' . $_GET['type'] . '&from=' . $_GET['from'] . '&to=' . $_GET['to']) }}">{{ $play['userName'] }}
+                                                            <span class="badge badge-secondary rounded-pill"><i
+                                                                    class="fa fa-eye"></i></span></a></td>
+                                                @endif
+                                                <td>{{ $play['name'] }}</td>
+                                                <td>{{ moneyFormatIndia($play['playPoint']) }}</td>
+                                                <td>{{ moneyFormatIndia($play['wonPoint']) }}</td>
+                                                @if ($_GET['role'] == 'agent')
+                                                    <?php $endPoint = $play['playPoint'] - $play['wonPoint'];
+                                                    $margin = ($endPoint * $play['commission']) / 100;
+                                                    $net = $endPoint - $margin;
+                                                    ?>
+                                                @else
+                                                    <?php $endPoint = $play['playPoint'] - $play['wonPoint'];
+                                                    $margin = ($play['playPoint'] * $play['commission']) / 100;
+                                                    $net = $endPoint - $margin;
+                                                    ?>
+                                                @endif
+                                                <td>{{ moneyFormatIndia($endPoint) }}</td>
+                                                <td>{{ moneyFormatIndia($margin) }}</td>
+                                                <td>{{ moneyFormatIndia($net) }}</td>
+
+                                                @if (Session::get('role') != 'classic')
+                                                    <td>{{ moneyFormatIndia($play['SuperDistributedProfit']) }}</td>
+                                                @endif
+                                                @php
+                                                    $playP += $play['playPoint'];
+                                                    $win += $play['wonPoint'];
+                                                    $end += $endPoint;
+                                                    $marginp += $margin;
+                                                    $netp += $net;
+                                                    $yourMargin += $play['SuperDistributedProfit'];
+                                                @endphp
+                                            @endif
+                                        </tr>
+                                    @endforeach
+                                @endif
+                            </tbody>
+                            <tfoot>
+                                <tr style="background-color:rgb(61, 94, 84);color:#fff">
+                                    <td></td>
+                                    <td colspan="2">Total Amount :</td>
+                                    <td>{{ moneyFormatIndia($playP) }}</td>
+                                    <td>{{ moneyFormatIndia($win) }}</td>
+                                    <td>{{ moneyFormatIndia($end) }}</td>
+                                    @if (Session::get('role') == 'Admin' && Request::segment(2) != 'detail')
+                                    <td>{{ moneyFormatIndia($total['Commission']) }}</td>
+                                    {{--  <td></td>  --}}
+                                    <td>{{ moneyFormatIndia($total['Profit']) }}</td>
+                                    {{--  <td></td>  --}}
+                                    @elseif (Request::segment(2) == 'detail')
+                                    <td>{{ moneyFormatIndia($marginp) }}</td>
+                                    <td>{{ moneyFormatIndia($netp) }}</td>
+                                    @if (Session::get('role') != 'classic')
+                                        <td>{{ moneyFormatIndia($yourMargin) }}</td>
+                                    @endif
+                                    @endif
+
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+@endsection
+
+@push('plugin-scripts')
+    <script src="{{ asset('assets/plugins/promise-polyfill/polyfill.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/datatables-net/jquery.dataTables.js') }}"></script>
+    <script src="{{ asset('assets/plugins/datatables-net-bs4/dataTables.bootstrap4.js') }}"></script>
+    <script src="{{ asset('assets/plugins/bootstrap-datepicker/bootstrap-datepicker.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/tempusdominus-bootstrap-4/tempusdominus-bootstrap-4.js') }}"></script>
+@endpush
+
+@push('custom-scripts')
+    <script src="{{ asset('assets/js/select2.js') }}"></script>
+    <script src="{{ asset('assets/js/datepicker.js') }}"></script>
+    <script src="{{ asset('assets/js/data-table.js') }}"></script>
+    <script type="text/javascript">
+        $("#datePickerExample").datepicker({
+            format: 'dd-mm-yyyy'
+        });
+        $("#datePickerExample1").datepicker({
+            format: 'dd-mm-yyyy'
+        });
+        $(document).ready(function() {
+            startTime();
+
+            function startTime() {
+                var today = new Date();
+                var h = today.getHours();
+                var m = today.getMinutes();
+                var s = today.getSeconds();
+                m = checkTime(m);
+                s = checkTime(s);
+                $('#clock').html(h + ":" + m + ":" + s);
+                setTimeout(startTime, 1000);
+            }
+
+            function checkTime(i) {
+                if (i < 10) {
+                    i = "0" + i
+                }; // add zero in front of numbers < 10
+                return i;
+            }
+        });
+    </script>
+@endpush
