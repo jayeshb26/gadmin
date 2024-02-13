@@ -159,11 +159,11 @@
                             <span class="link-title">Distributor</span>
                         </a>
                         <div class="custom-submenu">
-                            {{--  <a href="{{ url('/' . ($isFranchise ? 'admin' : 'users') . '/add_' . 'distributor') }}"
+                            <a href="{{ url('/' . ($isFranchise ? 'admin' : 'users') . '/add_' . 'distributor') }}"
                                 class="nav-link">
                                 <i class="link-icon fas fa-box"></i>
                                 <span class="link-title">Add Distributor</span>
-                            </a>  --}}
+                            </a>
                             <a href="{{ url('/users/admin') }}" class="nav-link">
                                 <i class="link-icon fas fa-box"></i>
                                 <span class="link-title">View Distributor</span>
@@ -197,11 +197,11 @@
                             <span class="link-title">Player</span>
                         </a>
                         <div class="custom-submenu">
-                            {{--  <a href="{{ url('/' . ($isFranchise ? 'admin' : 'users') . '/add_' . ($isFranchise ? 'player' : 'player')) }}"
+                            <a href="{{ url('/' . ($isFranchise ? 'admin' : 'users') . '/add_' . ($isFranchise ? 'player' : 'player')) }}"
                                 class="nav-link">
                                 <i class="link-icon fas fa-user"></i>
                                 <span class="link-title">Add Player</span>
-                            </a>  --}}
+                            </a>
                             <a href="{{ url('/users/admin') }}" class="nav-link">
                                 <i class="link-icon fas fa-user"></i>
                                 <span class="link-title">View Player</span>
